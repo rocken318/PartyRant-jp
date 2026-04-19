@@ -20,6 +20,7 @@ const SCENE_META: Record<string, { icon: string; color: string }> = {
   'サークル':       { icon: '🎓', color: '#F97316' },
   '居酒屋':         { icon: '🍺', color: '#EF4444' },
   '勉強':           { icon: '📚', color: '#10B981' },
+  '雑学クイズ':     { icon: '🎓', color: '#6366F1' },
 };
 
 const TYPE_META: Record<string, { label: string; icon: string; color: string }> = {
