@@ -6,7 +6,7 @@ import OpenAI from 'openai';
 import { store } from '@/lib/store';
 
 const schema = z.object({
-  theme: z.string().min(1).max(50),
+  theme: z.string().min(1).max(50).transform(s => s.replace(/[`"\\]/g, '').trim()),
   mode: z.enum(['trivia', 'polling', 'opinion']),
   count: z.number().int().min(3).max(15),
   loseRule: z.enum(['minority', 'majority']).optional(),
@@ -82,9 +82,17 @@ function validateQuestions(raw: unknown): Array<{
     if (typeof q.text !== 'string' || !q.text.trim()) throw new Error(`Question ${i}: missing text`);
     if (!Array.isArray(q.options) || q.options.length < 2) throw new Error(`Question ${i}: invalid options`);
     const options = q.options.map((o: unknown) => String(o));
-    const correctIndex = typeof q.correctIndex === 'number' ? q.correctIndex : undefined;
-    const timeLimitSec = typeof q.timeLimitSec === 'number' ? q.timeLimitSec : 15;
-    return { text: q.text.trim(), options, correctIndex, timeLimitSec };
+    const rawCorrectIndex = q.correctIndex === null || q.correctIndex === undefined
+      ? null
+      : typeof q.correctIndex === 'number' ? q.correctIndex : null;
+    // Validate range if not null
+    const correctIndex = rawCorrectIndex !== null && rawCorrectIndex >= 0 && rawCorrectIndex < options.length
+      ? rawCorrectIndex
+      : rawCorrectIndex === null ? null : 0; // clamp to 0 if out of range
+    const timeLimitSec = typeof q.timeLimitSec === 'number'
+      ? Math.max(10, Math.min(25, q.timeLimitSec))
+      : 15;
+    return { text: q.text.trim(), options, ...(correctIndex !== null ? { correctIndex } : {}), timeLimitSec };
   });
 }
 
@@ -109,8 +117,18 @@ export async function POST(req: NextRequest) {
     const content = completion.choices[0]?.message?.content;
     if (!content) throw new Error('Empty response from OpenAI');
 
-    const raw = JSON.parse(content);
+    let raw: unknown;
+    try {
+      raw = JSON.parse(content);
+    } catch {
+      console.error('OpenAI returned invalid JSON:', content.slice(0, 200));
+      throw new Error('Invalid JSON from OpenAI');
+    }
     const questions = validateQuestions(raw).slice(0, count);
+
+    if (questions.length < count) {
+      console.warn(`Requested ${count} questions but got ${questions.length}`);
+    }
 
     if (questions.length === 0) throw new Error('No questions generated');
 
