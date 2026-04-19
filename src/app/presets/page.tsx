@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { Game } from '@/types/domain';
+import PresetPreviewDrawer from '@/components/PresetPreviewDrawer';
 
 const SCENE_META: Record<string, { icon: string; color: string }> = {
   'みんなで':       { icon: '🎉', color: '#8B5CF6' },
@@ -18,6 +19,7 @@ const SCENE_META: Record<string, { icon: string; color: string }> = {
   'ホームパーティー': { icon: '🏠', color: '#8B5CF6' },
   'サークル':       { icon: '🎓', color: '#F97316' },
   '居酒屋':         { icon: '🍺', color: '#EF4444' },
+  '勉強':           { icon: '📚', color: '#10B981' },
 };
 
 const TYPE_META: Record<string, { label: string; icon: string; color: string }> = {
@@ -35,6 +37,7 @@ export default function PresetsPage() {
   const [randomStarting, setRandomStarting] = useState<'minority' | 'majority' | null>(null);
   const [selectedScene, setSelectedScene] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [previewPreset, setPreviewPreset] = useState<Game | null>(null);
 
   useEffect(() => {
     fetch('/api/presets')
@@ -245,13 +248,21 @@ export default function PresetsPage() {
                         </p>
                       )}
 
-                      {/* スタートボタン */}
-                      <div className="px-4 py-3">
+                      {/* アクションボタン */}
+                      <div className="px-4 py-3 flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setPreviewPreset(preset)}
+                          disabled={isStarting || starting !== null}
+                          className="flex-shrink-0 h-12 px-4 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
+                          style={{ fontFamily: 'var(--font-dm)' }}>
+                          {t('previewButton')}
+                        </button>
                         <button
                           type="button"
                           onClick={() => handleStart(preset.id)}
                           disabled={isStarting || starting !== null}
-                          className="w-full h-12 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
+                          className="flex-1 h-12 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
                           style={{ fontFamily: 'var(--font-dm)' }}>
                           {isStarting ? t('starting') : t('startButton')}
                         </button>
@@ -264,6 +275,10 @@ export default function PresetsPage() {
           </>
         )}
       </div>
+      <PresetPreviewDrawer
+        preset={previewPreset}
+        onClose={() => setPreviewPreset(null)}
+      />
     </main>
   );
 }
