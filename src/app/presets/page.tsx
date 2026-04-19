@@ -29,6 +29,12 @@ const TYPE_META: Record<string, { label: string; icon: string; color: string }> 
   opinion: { label: '多数派/少数派', icon: '⚔️', color: '#8B5CF6' },
 };
 
+const COUNT_OPTIONS = [5, 10, 15] as const;
+
+type SettingsMode =
+  | { type: 'opinion'; loseRule: 'minority' | 'majority'; count: number }
+  | { type: 'trivia'; count: number; scene: string | null };
+
 export default function PresetsPage() {
   const t = useTranslations('presets');
   const router = useRouter();
@@ -36,6 +42,7 @@ export default function PresetsPage() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState<string | null>(null);
   const [randomStarting, setRandomStarting] = useState<'minority' | 'majority' | null>(null);
+  const [settings, setSettings] = useState<SettingsMode | null>(null);
   const [selectedScene, setSelectedScene] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [previewPreset, setPreviewPreset] = useState<Game | null>(null);
@@ -48,6 +55,10 @@ export default function PresetsPage() {
   }, []);
 
   const scenes = Array.from(new Set(presets.map(p => p.scene).filter(Boolean))) as string[];
+
+  const triviaScenes = Array.from(
+    new Set(presets.filter(p => p.mode === 'trivia').map(p => p.scene).filter(Boolean))
+  ) as string[];
 
   const filtered = presets.filter(p => {
     if (selectedScene && p.scene !== selectedScene) return false;
@@ -68,12 +79,30 @@ export default function PresetsPage() {
   }
 
   async function handleRandom(loseRule: 'minority' | 'majority') {
+    const count = (settings?.type === 'opinion' ? settings.count : null) ?? 10;
     setRandomStarting(loseRule);
     try {
       const res = await fetch('/api/opinion/random', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ loseRule, count: 10 }),
+        body: JSON.stringify({ loseRule, count }),
+      });
+      if (!res.ok) throw new Error();
+      const game = await res.json() as Game;
+      router.push(`/play/${game.id}`);
+    } catch {
+      setRandomStarting(null);
+    }
+  }
+
+  async function handleRandomTrivia() {
+    if (!settings || settings.type !== 'trivia') return;
+    setRandomStarting('majority');
+    try {
+      const res = await fetch('/api/trivia/random', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ count: settings.count, scene: settings.scene }),
       });
       if (!res.ok) throw new Error();
       const game = await res.json() as Game;
@@ -111,38 +140,172 @@ export default function PresetsPage() {
           </div>
         ) : (
           <>
-            {/* ── ランダムアンケート ── */}
+            {/* ── 意見バトルカード ── */}
             <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
               <div className="px-4 py-3 flex items-center gap-3">
-                <span className="text-2xl">🎲</span>
+                <span className="text-2xl">⚔️</span>
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-bold text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                    {t('randomTitle')}
+                    {t('randomOpinionTitle')}
                   </p>
-                  <p className="text-gray-400 text-xs mt-0.5">{t('randomSubtitle')}</p>
+                  <p className="text-gray-400 text-xs mt-0.5">{t('randomOpinionSubtitle')}</p>
                 </div>
               </div>
+
+              {/* モード選択ボタン */}
               <div className="grid grid-cols-2 gap-0 border-t-[2px] border-white/10">
                 {(['minority', 'majority'] as const).map(rule => (
                   <button
                     key={rule}
                     type="button"
-                    onClick={() => handleRandom(rule)}
+                    onClick={() => {
+                      if (settings?.type === 'opinion' && settings.loseRule === rule) {
+                        setSettings(null);
+                      } else {
+                        setSettings({ type: 'opinion', loseRule: rule, count: 10 });
+                      }
+                    }}
                     disabled={randomStarting !== null || starting !== null}
                     className={[
                       'h-12 font-bold text-sm touch-manipulation transition-colors disabled:opacity-50',
                       rule === 'minority'
                         ? 'bg-pr-pink text-white border-r-[1px] border-white/10 hover:bg-pr-pink/90'
                         : 'bg-white/10 text-white hover:bg-white/20',
+                      settings?.type === 'opinion' && settings.loseRule === rule
+                        ? 'ring-2 ring-inset ring-white/40'
+                        : '',
                     ].join(' ')}
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >
-                    {randomStarting === rule
-                      ? t('randomStarting')
-                      : rule === 'minority' ? t('randomMinority') : t('randomMajority')}
+                    {rule === 'minority' ? t('randomMinority') : t('randomMajority')}
                   </button>
                 ))}
               </div>
+
+              {/* 設定パネル（展開） */}
+              {settings?.type === 'opinion' && (
+                <div className="border-t-[2px] border-white/10 px-4 py-3 flex flex-col gap-3">
+                  <div className="flex flex-col gap-1.5">
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('settingsCountLabel')}</p>
+                    <div className="flex gap-2">
+                      {COUNT_OPTIONS.map(n => (
+                        <button
+                          key={n}
+                          type="button"
+                          onClick={() => setSettings({ ...settings, count: n })}
+                          className={[
+                            'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
+                            settings.count === n
+                              ? 'bg-pr-pink text-white border-pr-pink'
+                              : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
+                          ].join(' ')}
+                          style={{ fontFamily: 'var(--font-dm)' }}
+                        >
+                          {n}問
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleRandom(settings.loseRule)}
+                    disabled={randomStarting !== null || starting !== null}
+                    className="w-full h-11 bg-pr-pink text-white font-bold text-sm rounded-[6px] border-[2px] border-white/20 disabled:opacity-50 touch-manipulation hover:bg-pr-pink/90 transition-colors"
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >
+                    {randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* ── 雑学クイズカード ── */}
+            <div className="bg-white rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
+              <div className="px-4 py-3 flex items-center gap-3 border-b-[2px] border-pr-dark">
+                <span className="text-2xl">🧠</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-pr-dark font-bold text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                    {t('randomTriviaTitle')}
+                  </p>
+                  <p className="text-gray-400 text-xs mt-0.5">{t('randomTriviaSubtitle')}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSettings(s => s?.type === 'trivia' ? null : { type: 'trivia', count: 10, scene: null })}
+                  disabled={randomStarting !== null || starting !== null}
+                  className="flex-shrink-0 h-10 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark disabled:opacity-50 touch-manipulation hover:bg-pr-dark/90 transition-colors"
+                  style={{ fontFamily: 'var(--font-dm)' }}
+                >
+                  {t('randomTriviaStart')}
+                </button>
+              </div>
+
+              {settings?.type === 'trivia' && (
+                <div className="px-4 py-3 flex flex-col gap-3">
+                  <div className="flex flex-col gap-1.5">
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('settingsCountLabel')}</p>
+                    <div className="flex gap-2">
+                      {COUNT_OPTIONS.map(n => (
+                        <button
+                          key={n}
+                          type="button"
+                          onClick={() => setSettings({ ...settings, count: n })}
+                          className={[
+                            'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
+                            settings.count === n
+                              ? 'bg-pr-dark text-white border-pr-dark'
+                              : 'bg-white text-pr-dark border-pr-dark hover:bg-gray-50',
+                          ].join(' ')}
+                          style={{ fontFamily: 'var(--font-dm)' }}
+                        >
+                          {n}問
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {triviaScenes.length > 0 && (
+                    <div className="flex flex-col gap-1.5">
+                      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('settingsSceneLabel')}</p>
+                      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none">
+                        <button
+                          type="button"
+                          onClick={() => setSettings({ ...settings, scene: null })}
+                          className={`flex-shrink-0 h-8 px-3 rounded-full text-xs font-bold border-[2px] touch-manipulation transition-colors ${settings.scene === null ? 'bg-pr-dark text-white border-pr-dark' : 'bg-white text-pr-dark border-pr-dark hover:bg-gray-50'}`}
+                          style={{ fontFamily: 'var(--font-dm)' }}
+                        >
+                          {t('settingsSceneAll')}
+                        </button>
+                        {triviaScenes.map(scene => {
+                          const active = settings.scene === scene;
+                          const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#FF0080' };
+                          return (
+                            <button
+                              key={scene}
+                              type="button"
+                              onClick={() => setSettings({ ...settings, scene: active ? null : scene })}
+                              className={`flex-shrink-0 h-8 px-3 rounded-full text-xs font-bold border-[2px] touch-manipulation transition-colors ${active ? 'text-white' : 'bg-white text-pr-dark border-pr-dark hover:bg-gray-50'}`}
+                              style={active ? { backgroundColor: meta.color, borderColor: meta.color } : {}}
+                            >
+                              {meta.icon} {scene}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={handleRandomTrivia}
+                    disabled={randomStarting !== null || starting !== null}
+                    className="w-full h-11 bg-pr-pink text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] disabled:opacity-50 touch-manipulation hover:bg-pr-pink/90 transition-colors"
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >
+                    {randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* ── シーンフィルター ── */}
