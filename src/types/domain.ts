@@ -36,6 +36,9 @@ export interface Game {
   mode: GameType;
   gameMode: PlayMode;
   title: string;
+  description?: string;
+  scene?: string;
+  isPreset?: boolean;
   questions: Question[];
   status: GameStatus;
   currentQuestionIndex: number;

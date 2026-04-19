@@ -170,4 +170,8 @@ export class MemoryStore implements GameStore {
     }
     return list;
   }
+
+  async listPresets(): Promise<Game[]> {
+    return Array.from(this.games.values()).filter((g) => g.isPreset);
+  }
 }

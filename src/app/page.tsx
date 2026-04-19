@@ -32,16 +32,28 @@ export default async function LandingPage() {
 
       {/* CTAs */}
       <div className="flex flex-col gap-4 px-6 pb-12 mt-auto">
+        {/* すぐ遊ぶ（プリセット） */}
+        <Link
+          href="/presets"
+          className="w-full h-16 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+          style={{ fontFamily: 'var(--font-dm)' }}
+        >
+          {t('playNow')}
+        </Link>
+
+        {/* 自分で作る */}
         <Link
           href="/auth/login"
-          className="w-full h-16 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+          className="w-full h-16 bg-white text-pr-dark flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
           style={{ fontFamily: 'var(--font-dm)' }}
         >
           {t('hostGame')}
         </Link>
+
+        {/* 参加する */}
         <Link
           href="/join"
-          className="w-full h-16 bg-white text-pr-dark flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+          className="w-full h-14 bg-pr-dark text-white flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
           style={{ fontFamily: 'var(--font-dm)' }}
         >
           {t('joinGame')}

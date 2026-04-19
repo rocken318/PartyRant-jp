@@ -3,8 +3,9 @@
     "tagline": "ライブクイズ & 投票",
     "headline": "みんなで遊ぼう。\nみんなで笑おう。",
     "subtitle": "パーティー・イベント・授業に最適なリアルタイムクイズ＆投票",
-    "hostGame": "🎮 ゲームをホストする",
-    "joinGame": "ゲームに参加 →"
+    "playNow": "🎉 すぐ遊ぶ（プリセット）",
+    "hostGame": "✏️ 自分で作る",
+    "joinGame": "🎮 ゲームに参加"
   },
   "join": {
     "title": "ゲームコードを入力",
@@ -95,22 +96,6 @@
     "publish": "🚀 ゲームを公開",
     "failedToCreate": "ゲームの作成に失敗しました。"
   },
-  "hostGame": {
-    "startGame": "🚀 ゲーム開始（{count} 人）",
-    "questionCounter": "Q {current}/{total}",
-    "skipToResults": "結果をスキップ →",
-    "top5": "トップ5",
-    "nextQuestion": "次の問題 →",
-    "showFinalResults": "🏆 最終結果を表示",
-    "gameOver": "ゲーム終了！",
-    "finalLeaderboard": "最終ランキング",
-    "results": "結果",
-    "createAnotherGame": "別のゲームを作成 →",
-    "openingLobby": "ロビーを開いています...",
-    "openLobby": "ロビーを開く",
-    "notFound": "ゲームが見つかりません",
-    "createNew": "新しいゲームを作成"
-  },
   "auth": {
     "loginTitle": "ホストログイン",
     "email": "メールアドレス",
@@ -124,6 +109,32 @@
     "signupButton": "登録する →",
     "hasAccount": "すでにアカウントをお持ちの方は",
     "login": "ログイン"
+  },
+  "presets": {
+    "title": "プリセット",
+    "subtitle": "ログイン不要・すぐ遊べる",
+    "filterAll": "すべて",
+    "questionCount": "問",
+    "startButton": "🚀 このゲームで遊ぶ",
+    "starting": "準備中...",
+    "empty": "プリセットがまだありません"
+  },
+  "hostGame": {
+    "startGame": "🚀 ゲーム開始（{count} 人）",
+    "questionCounter": "Q {current}/{total}",
+    "skipToResults": "結果をスキップ →",
+    "top5": "トップ5",
+    "nextQuestion": "次の問題 →",
+    "showFinalResults": "🏆 最終結果を表示",
+    "gameOver": "ゲーム終了！",
+    "finalLeaderboard": "最終ランキング",
+    "results": "結果",
+    "createAnotherGame": "別のゲームを作成 →",
+    "backToPresets": "← プリセット一覧に戻る",
+    "openingLobby": "ロビーを開いています...",
+    "openLobby": "ロビーを開く",
+    "notFound": "ゲームが見つかりません",
+    "createNew": "新しいゲームを作成"
   },
   "metadata": {
     "title": "PartyRant",

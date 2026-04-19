@@ -21,6 +21,9 @@ function toGame(row: Record<string, unknown>): Game {
     mode: row.mode as Game['mode'],
     gameMode: (row.game_mode as Game['gameMode']) ?? 'live',
     title: row.title as string,
+    description: row.description as string | undefined,
+    scene: row.scene as string | undefined,
+    isPreset: row.is_preset as boolean | undefined,
     questions: row.questions as Game['questions'],
     status: row.status as GameStatus,
     currentQuestionIndex: row.current_question_index as number,
@@ -99,12 +102,14 @@ export class SupabaseGameStore implements GameStore {
       .from('games')
       .insert({
         id: generateId(),
-        event_id: input.eventId,
-        host_id: input.hostId,
+        event_id: input.eventId ?? null,
+        host_id: input.hostId ?? null,
         join_code: joinCode,
         mode: input.mode,
         game_mode: input.gameMode,
         title: input.title,
+        description: input.description ?? null,
+        scene: input.scene ?? null,
         questions,
         status: 'draft',
         current_question_index: -1,
@@ -125,6 +130,16 @@ export class SupabaseGameStore implements GameStore {
     const { data } = await this.db
       .from('games').select().eq('join_code', code.toUpperCase()).maybeSingle();
     return data ? toGame(data) : null;
+  }
+
+  async listPresets(): Promise<Game[]> {
+    const { data } = await this.db
+      .from('games')
+      .select()
+      .eq('is_preset', true)
+      .order('scene', { ascending: true })
+      .order('title', { ascending: true });
+    return (data ?? []).map(toGame);
   }
 
   async updateGameStatus(gameId: string, status: GameStatus, extra?: Partial<Game>): Promise<Game> {

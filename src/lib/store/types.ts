@@ -6,11 +6,13 @@ export interface CreateEventInput {
 }
 
 export interface CreateGameInput {
-  eventId: string;
-  hostId: string;
+  eventId?: string;
+  hostId?: string;
   mode: GameType;
   gameMode: PlayMode;
   title: string;
+  description?: string;
+  scene?: string;
   questions: Omit<Question, 'id' | 'order'>[];
 }
 
@@ -34,6 +36,7 @@ export interface GameStore {
   getGameByCode(code: string): Promise<Game | null>;
   updateGameStatus(gameId: string, status: GameStatus, extra?: Partial<Game>): Promise<Game>;
   advanceQuestion(gameId: string): Promise<Game>;
+  listPresets(): Promise<Game[]>;
 
   // Players
   addPlayer(gameId: string, displayName: string): Promise<Player>;
