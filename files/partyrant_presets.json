@@ -1758,5 +1758,81 @@
         "timeLimitSec": 15
       }
     ]
+  },
+  {
+    "scene": "勉強",
+    "title": "英単語チャレンジ（準備中）",
+    "mode": "trivia",
+    "description": "英単語の意味を当てよう！問題は随時追加予定。",
+    "questions": [
+      {
+        "text": "「apple」の意味は？",
+        "options": ["りんご", "みかん", "ぶどう", "もも"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "「book」の意味は？",
+        "options": ["本", "鞄", "机", "椅子"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "「water」の意味は？",
+        "options": ["水", "火", "土", "風"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "「friend」の意味は？",
+        "options": ["友達", "家族", "先生", "敵"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "「music」の意味は？",
+        "options": ["音楽", "映画", "絵画", "料理"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "勉強",
+    "title": "一般常識クイズ（準備中）",
+    "mode": "trivia",
+    "description": "知ってて当たり前？意外と知らない一般常識を出題！問題は随時追加予定。",
+    "questions": [
+      {
+        "text": "日本の首都は？",
+        "options": ["東京", "大阪", "名古屋", "福岡"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "1年は何日？",
+        "options": ["365日", "360日", "364日", "366日"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "水の沸点は？",
+        "options": ["100℃", "90℃", "80℃", "120℃"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "富士山の高さは？",
+        "options": ["3776m", "3726m", "3800m", "3650m"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "太陽系で一番大きい惑星は？",
+        "options": ["木星", "土星", "天王星", "海王星"],
+        "correctIndex": 0,
+        "timeLimitSec": 15
+      }
+    ]
   }
 ]
