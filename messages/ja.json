@@ -144,7 +144,6 @@
     "settingsSceneLabel": "シーン（任意）",
     "settingsSceneAll": "全ジャンル",
     "settingsConfirm": "🚀 はじめる",
-    "settingsCancel": "← 戻る",
     "previewButton": "中身を見る",
     "previewClose": "閉じる",
     "previewQuestionCount": "全{count}問",
@@ -183,17 +182,14 @@
   "guide": {
     "heroTitle": "完全ガイド",
     "heroTagline": "PartyRantを100倍楽しむ方法",
-
     "aboutTitle": "サービス紹介",
     "aboutBody": "PartyRantは、アプリのインストール不要で遊べるリアルタイムパーティークイズ＆投票ゲームです。ホストが6文字のコードを共有するだけで、参加者はスマホのブラウザからすぐに参加できます。結婚式・合コン・飲み会・授業など、あらゆるシーンで盛り上がれます。",
-
     "modeTriviaName": "🧠 クイズ",
     "modeTriviaDesc": "問題に答えてポイントを稼ぐ。最後にランキング発表！",
     "modePollingName": "📊 実態調査",
     "modePollingDesc": "みんなの回答を可視化。勝ち負けなしで本音を探ろう。",
     "modeOpinionName": "⚔️ 多数派/少数派",
     "modeOpinionDesc": "多数派に入れば生き残り、少数派は脱落。空気読みゲーム！",
-
     "howTitle": "使い方（4ステップ）",
     "step1Title": "ゲームを選ぶ",
     "step1Desc": "ホストが /presets でプリセットを選ぶ。ログイン不要で即スタート。",
@@ -203,7 +199,6 @@
     "step3Desc": "スマホのブラウザで partyrant.jp/join を開いてコードを入れるだけ。",
     "step4Title": "ゲームスタート！",
     "step4Desc": "ホストが進行を管理。全員のスマホに問題が表示され、リアルタイムで盛り上がる。",
-
     "scenesTitle": "シーン別おすすめ",
     "sceneWeddingName": "結婚式・二次会",
     "sceneWeddingTip": "新郎新婦クイズで知識を試そう。多数派モードで会場を一体化。",
@@ -215,14 +210,12 @@
     "sceneHomepartyTip": "友達クイズやトリビアで笑いが絶えない夜に。",
     "sceneSchoolName": "学校・サークル",
     "sceneSchoolTip": "メンバーの意外な一面が発覚。仲良くなれるお題満載。",
-
     "tipsTitle": "盛り上がる方法 TOP5",
     "tip1Text": "ホストが声に出して問題を読み上げる",
     "tip2Text": "制限時間を短めに設定する（10〜15秒）",
     "tip3Text": "多数派モードは「お題に答えず感想を言い合う」と盛り上がる",
     "tip4Text": "飲み会なら「負けた人が一杯飲む」ルールで",
     "tip5Text": "結果画面をスクショしてSNSシェア",
-
     "customTitle": "自作質問集の作り方",
     "customBody": "プリセットだけじゃ物足りない？自分だけのオリジナルゲームを無料で作れます。",
     "custom1Text": "アカウント登録（無料）",
@@ -230,7 +223,6 @@
     "custom3Text": "ゲームを追加・質問を入力",
     "custom4Text": "コードをシェアして遊ぶ",
     "customCta": "自分でゲームを作る →",
-
     "bottomCtaTitle": "さあ、始めよう！",
     "bottomCtaButton": "🎉 プリセットで遊ぶ"
   }
