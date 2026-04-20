@@ -115,6 +115,26 @@ export default function GuestGameClient({ code }: Props) {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [guestState, game]);
 
+  // Fetch answers when entering reveal without having answered
+  useEffect(() => {
+    if (guestState !== 'reveal' || !game || !gameId || revealInfo !== null) return;
+    const q = game.questions[game.currentQuestionIndex];
+    if (!q) return;
+    fetch(`/api/games/${gameId}/answers`)
+      .then(r => r.ok ? r.json() : [])
+      .then((allAnswers: Answer[]) => {
+        setRevealInfo({
+          myChoiceIndex: -1,
+          correctIndex: q.correctIndex,
+          pointsEarned: 0,
+          totalPoints,
+          allAnswers,
+        });
+      })
+      .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guestState]);
+
   const handleEvent = useCallback(
     (event: GameEvent) => {
       switch (event.type) {
@@ -140,7 +160,7 @@ export default function GuestGameClient({ code }: Props) {
           setTimePercent(100);
           break;
         case 'question_ended':
-          if (guestState !== 'answered') setGuestState('reveal');
+          setGuestState('reveal');
           break;
         case 'game_ended':
           setGame(event.game);
@@ -456,8 +476,18 @@ export default function GuestGameClient({ code }: Props) {
     if (!q) return null;
 
     if (game.mode === 'trivia') {
+      if (revealInfo === null) {
+        return (
+          <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+            <div className="flex flex-col flex-1 items-center justify-center gap-4">
+              <div className="w-12 h-12 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+            </div>
+          </main>
+        );
+      }
+      const didAnswer = revealInfo.myChoiceIndex !== -1;
       const isCorrect =
-        revealInfo !== null &&
+        didAnswer &&
         revealInfo.correctIndex !== undefined &&
         revealInfo.myChoiceIndex === revealInfo.correctIndex;
       const correctOption = q.correctIndex !== undefined ? q.options[q.correctIndex] : '—';
@@ -480,18 +510,27 @@ export default function GuestGameClient({ code }: Props) {
               {correctOption}
             </p>
 
-            {revealInfo !== null && (
-              <div className="w-full bg-white border-[3px] border-pr-dark shadow-[5px_5px_0_#111] rounded-[8px] px-6 py-5 flex flex-col gap-2">
-                <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{t('pointsThisRound')}</p>
+            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[5px_5px_0_#111] rounded-[8px] px-6 py-5 flex flex-col gap-2">
+              <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{t('pointsThisRound')}</p>
+              {didAnswer ? (
+                <>
+                  <p
+                    className="text-pr-pink"
+                    style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.5rem', lineHeight: 1 }}
+                  >
+                    +{revealInfo.pointsEarned}
+                  </p>
+                  <p className="text-gray-400 text-sm font-bold">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
+                </>
+              ) : (
                 <p
-                  className="text-pr-pink"
-                  style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.5rem', lineHeight: 1 }}
+                  className="text-gray-400"
+                  style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1 }}
                 >
-                  +{revealInfo.pointsEarned}
+                  未回答
                 </p>
-                <p className="text-gray-400 text-sm font-bold">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
-              </div>
-            )}
+              )}
+            </div>
 
             <p className="text-gray-400 font-bold animate-pulse text-sm">
               {t('waitingForNext')}
@@ -502,7 +541,16 @@ export default function GuestGameClient({ code }: Props) {
     }
 
     // Polling reveal
-    const totalVotes = revealInfo?.allAnswers.filter((a) => a.questionId === q.id).length ?? 0;
+    if (revealInfo === null) {
+      return (
+        <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+          <div className="flex flex-col flex-1 items-center justify-center gap-4">
+            <div className="w-12 h-12 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+          </div>
+        </main>
+      );
+    }
+    const totalVotes = revealInfo.allAnswers.filter((a) => a.questionId === q.id).length;
     const BG = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
     const FG = ['#fff', '#111', '#fff', '#fff'];
 
@@ -517,9 +565,9 @@ export default function GuestGameClient({ code }: Props) {
           </h2>
           <div className="flex flex-col gap-3">
             {q.options.map((option, i) => {
-              const votes = revealInfo?.allAnswers.filter((a) => a.questionId === q.id && a.choiceIndex === i).length ?? 0;
+              const votes = revealInfo.allAnswers.filter((a) => a.questionId === q.id && a.choiceIndex === i).length;
               const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
-              const isMyVote = revealInfo?.myChoiceIndex === i;
+              const isMyVote = revealInfo.myChoiceIndex !== -1 && revealInfo.myChoiceIndex === i;
               return (
                 <div
                   key={i}
