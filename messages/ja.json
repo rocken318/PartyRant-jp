@@ -43,6 +43,7 @@
     "correct": "正解！",
     "wrong": "不正解...",
     "correctAnswer": "正解",
+    "yourAnswer": "あなたの回答",
     "pointsThisRound": "今回の獲得ポイント",
     "totalPoints": "合計: {total} pt",
     "waitingForNext": "次の問題を待っています...",
