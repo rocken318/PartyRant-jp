@@ -25,17 +25,22 @@ const createGameSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    const isApp = req.headers.get('authorization')?.startsWith('Bearer ');
+
     const user = await getUserFromRequest(req);
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    const profile = await getOrCreateProfile(user.id);
-    if (profile.plan === 'free') {
-      const gameCount = await countUserGames(user.id);
-      if (gameCount >= 2) {
-        return NextResponse.json(
-          { error: 'game_limit_reached', message: '無料プランはゲームを2本まで作成できます。Proにアップグレードしてください。' },
-          { status: 403 }
-        );
+    // Free plan game limit — app only. Web remains unrestricted.
+    if (isApp) {
+      const profile = await getOrCreateProfile(user.id);
+      if (profile.plan === 'free') {
+        const gameCount = await countUserGames(user.id);
+        if (gameCount >= 2) {
+          return NextResponse.json(
+            { error: 'game_limit_reached', message: '無料プランはゲームを2本まで作成できます。Proにアップグレードしてください。' },
+            { status: 403 }
+          );
+        }
       }
     }
 

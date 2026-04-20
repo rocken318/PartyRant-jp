@@ -98,12 +98,23 @@ function validateQuestions(raw: unknown): Array<{
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await getUserFromRequest(req);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const isApp = req.headers.get('authorization')?.startsWith('Bearer ');
 
-    const profile = await getOrCreateProfile(user.id);
+    // Auth + AI limit — app only. Web remains unrestricted.
+    if (isApp) {
+      const user = await getUserFromRequest(req);
+      if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      }
+      const profile = await getOrCreateProfile(user.id);
+      const allowed = await checkAndIncrementAiGen(user.id, profile);
+      if (!allowed) {
+        return NextResponse.json(
+          { error: 'ai_limit_reached', message: '無料プランのAI生成は月3回までです。Proにアップグレードしてください。' },
+          { status: 403 }
+        );
+      }
+    }
 
     const body = await req.json();
     const parsed = schema.safeParse(body);
@@ -111,14 +122,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: parsed.error.message }, { status: 400 });
     }
     const { theme, mode, count, loseRule } = parsed.data;
-
-    const allowed = await checkAndIncrementAiGen(user.id, profile);
-    if (!allowed) {
-      return NextResponse.json(
-        { error: 'ai_limit_reached', message: '無料プランのAI生成は月3回までです。Proにアップグレードしてください。' },
-        { status: 403 }
-      );
-    }
 
     const prompt = buildPrompt(theme, mode, count);
 
