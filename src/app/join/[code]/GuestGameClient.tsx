@@ -894,9 +894,17 @@ export default function GuestGameClient({ code }: Props) {
                 {isCorrect ? '🎉' : '😅'}
               </div>
               {correctOption && (
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('correctAnswer')}</p>
-                  <p className="text-3xl text-pr-dark" style={{ fontFamily: 'var(--font-bebas)' }}>{correctOption}</p>
+                <div className="flex flex-col gap-2 items-center">
+                  {!isCorrect && revealInfo && revealInfo.myChoiceIndex >= 0 && q.options[revealInfo.myChoiceIndex] && (
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-gray-400">あなたの回答</p>
+                      <p className="text-2xl text-red-500" style={{ fontFamily: 'var(--font-bebas)' }}>{q.options[revealInfo.myChoiceIndex]}</p>
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('correctAnswer')}</p>
+                    <p className="text-3xl text-pr-dark" style={{ fontFamily: 'var(--font-bebas)' }}>{correctOption}</p>
+                  </div>
                 </div>
               )}
               {revealInfo && (
