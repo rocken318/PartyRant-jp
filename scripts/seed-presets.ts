@@ -10,7 +10,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { config } from 'dotenv';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -57,20 +57,49 @@ function generateJoinCode(): string {
   return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
 
+// ── helpers ─ directory loader ────────────────────────────────────────────────
+
+function loadPresetsFromDir(dirPath: string): PresetGame[] {
+  const result: PresetGame[] = [];
+  const files = readdirSync(dirPath).filter(f => f.endsWith('.json'));
+  for (const f of files) {
+    const data = JSON.parse(readFileSync(join(dirPath, f), 'utf-8'));
+    // Each file is an array of PresetGame objects (filter out any stray non-object entries)
+    const arr: PresetGame[] = (Array.isArray(data) ? data : [data])
+      .filter((item: unknown) => item !== null && typeof item === 'object' && !Array.isArray(item) && (item as PresetGame).questions !== undefined);
+    result.push(...arr);
+  }
+  return result;
+}
+
 // ── main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-  const files = [
+  const presets: PresetGame[] = [];
+
+  // ── 既存プリセット（JSON files）
+  const jsonFiles = [
     '../files/partyrant_presets.json',
     '../files/partyrant_majority_quiz_pack.json',
   ];
-
-  const presets: PresetGame[] = [];
-  for (const f of files) {
+  for (const f of jsonFiles) {
     const filePath = join(__dirname, f);
     const data: PresetGame[] = JSON.parse(readFileSync(filePath, 'utf-8'));
     presets.push(...data);
     console.log(`  Loaded ${data.length} presets from ${f}`);
+  }
+
+  // ── 0420 追加コンテンツ（3,570問 / 372プリセット）
+  const dirs0420 = [
+    '../files/0420/partyrant_quizzes',
+    '../files/0420/partyrant_quizzes_vol2',
+    '../files/0420/partyrant_trivia_quizzes',
+  ];
+  for (const d of dirs0420) {
+    const dirPath = join(__dirname, d);
+    const batch = loadPresetsFromDir(dirPath);
+    presets.push(...batch);
+    console.log(`  Loaded ${batch.length} presets from ${d}`);
   }
 
   console.log(`Total: ${presets.length} presets to insert.`);
@@ -83,49 +112,48 @@ async function main() {
     console.log('Cleared existing presets.');
   }
 
-  let inserted = 0;
-  let failed = 0;
-
-  for (const preset of presets) {
-    const gameId = generateId();
-    const now = Date.now();
-
-    const questions = preset.questions.map((q, i) => ({
+  const now = Date.now();
+  const rows = presets.map(preset => ({
+    id: generateId(),
+    event_id: null,
+    host_id: null,
+    join_code: generateJoinCode(),
+    mode: preset.mode,
+    lose_rule: preset.loseRule ?? null,
+    game_mode: 'live',
+    title: preset.title,
+    description: preset.description,
+    scene: preset.scene,
+    is_preset: true,
+    questions: preset.questions.map((q, i) => ({
       id: generateId(),
       text: q.text,
       options: q.options,
       correctIndex: q.correctIndex,
       timeLimitSec: q.timeLimitSec,
       orderIndex: i,
-    }));
+    })),
+    status: 'draft',
+    current_question_index: 0,
+    current_question_started_at: null,
+    created_at: now,
+    ended_at: null,
+  }));
 
-    const row = {
-      id: gameId,
-      event_id: null,
-      host_id: null,
-      join_code: generateJoinCode(),
-      mode: preset.mode,
-      lose_rule: preset.loseRule ?? null,
-      game_mode: 'live',
-      title: preset.title,
-      description: preset.description,
-      scene: preset.scene,
-      is_preset: true,
-      questions,
-      status: 'draft',
-      current_question_index: 0,
-      current_question_started_at: null,
-      created_at: now,
-      ended_at: null,
-    };
+  // バッチinsert（50件ずつ）
+  const BATCH = 50;
+  let inserted = 0;
+  let failed = 0;
 
-    const { error } = await supabase.from('games').insert(row);
+  for (let i = 0; i < rows.length; i += BATCH) {
+    const batch = rows.slice(i, i + BATCH);
+    const { error } = await supabase.from('games').insert(batch);
     if (error) {
-      console.error(`  ✗ Failed: "${preset.title}" — ${error.message}`);
-      failed++;
+      console.error(`  ✗ Batch ${i}–${i + batch.length - 1} failed: ${error.message}`);
+      failed += batch.length;
     } else {
-      console.log(`  ✓ Inserted: [${preset.scene}] ${preset.title}`);
-      inserted++;
+      inserted += batch.length;
+      console.log(`  ✓ Inserted batch ${i}–${i + batch.length - 1} (${inserted}/${rows.length})`);
     }
   }
 

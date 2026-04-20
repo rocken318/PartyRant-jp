@@ -3,6 +3,11 @@ export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from 'next/server';
 import { store } from '@/lib/store';
 import { broadcastGameEvent } from '@/lib/events/broadcast';
+import { createServerClient } from '@/lib/supabase/server';
+
+function isPlayerPlaceholder(opt: string): boolean {
+  return /^[A-Z]さん$/.test(opt);
+}
 
 export async function POST(
   _req: NextRequest,
@@ -17,6 +22,27 @@ export async function POST(
 
     const prevStatus = game.status;
     const prevIndex = game.currentQuestionIndex;
+
+    // lobby → question 時にプレイヤー名でプレースホルダーを置換
+    if (prevStatus === 'lobby') {
+      const players = await store.listPlayers(gameId);
+      if (players.length > 0) {
+        const hasPlaceholders = game.questions.some(q =>
+          q.options.some((opt: string) => /^[A-Z]さん$/.test(opt))
+        );
+        if (hasPlaceholders) {
+          const playerNames = players.map(p => p.displayName);
+          // プレースホルダーがある問題はoptions全体をプレイヤー全員で置き換え
+          // → 何人参加しても自動対応
+          const resolved = game.questions.map(q => {
+            if (!q.options.some((opt: string) => isPlayerPlaceholder(opt))) return q;
+            return { ...q, options: playerNames };
+          });
+          const supabase = createServerClient();
+          await supabase.from('games').update({ questions: resolved }).eq('id', gameId);
+        }
+      }
+    }
 
     const updated = await store.advanceQuestion(gameId);
 
