@@ -5,15 +5,14 @@ import { QRCodeSVG } from 'qrcode.react';
 
 export function GameQRCode({ joinCode }: { joinCode: string }) {
   const [url, setUrl] = useState('');
-  const [isLocalhost, setIsLocalhost] = useState(false);
 
   useEffect(() => {
     const origin = window.location.origin;
     const localhost = origin.includes('localhost') || origin.includes('127.0.0.1');
-    setIsLocalhost(localhost);
 
     if (!localhost) {
-      setUrl(`${origin}/join/${joinCode}`);
+      // Non-localhost: resolve immediately via promise for consistency
+      Promise.resolve(`${origin}/join/${joinCode}`).then(setUrl);
       return;
     }
 
@@ -22,10 +21,14 @@ export function GameQRCode({ joinCode }: { joinCode: string }) {
       .then(r => r.ok ? r.json() as Promise<{ networkUrl: string | null }> : Promise.resolve({ networkUrl: null }))
       .then(({ networkUrl }) => {
         const base = networkUrl ?? origin;
-        setUrl(`${base}/join/${joinCode}`);
+        return `${base}/join/${joinCode}`;
       })
+      .then(setUrl)
       .catch(() => setUrl(`${origin}/join/${joinCode}`));
   }, [joinCode]);
+
+  // Derive isLocalhost from the resolved URL — only relevant after url is set
+  const isLocalhost = url.includes('localhost') || url.includes('127.0.0.1');
 
   if (!url) {
     return (
