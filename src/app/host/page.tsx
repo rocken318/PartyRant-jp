@@ -23,6 +23,13 @@ export default function DashboardPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [userEmail, setUserEmail] = useState('');
 
+  const loadEvents = async () => {
+    setLoading(true);
+    const res = await fetch('/api/events');
+    if (res.ok) setEvents(await res.json() as Event[]);
+    setLoading(false);
+  };
+
   useEffect(() => {
     const init = async () => {
       const supabase = getSupabase();
@@ -30,15 +37,9 @@ export default function DashboardPage() {
       if (user?.email) setUserEmail(user.email);
     };
     init();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadEvents();
   }, []);
-
-  const loadEvents = async () => {
-    setLoading(true);
-    const res = await fetch('/api/events');
-    if (res.ok) setEvents(await res.json() as Event[]);
-    setLoading(false);
-  };
 
   const handleLogout = async () => {
     const supabase = getSupabase();

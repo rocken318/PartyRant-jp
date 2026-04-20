@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 interface CountdownTimerProps {
   startedAt: number;
@@ -13,7 +13,9 @@ export function CountdownTimer({ startedAt, timeLimitSec, onExpired }: Countdown
   const [secsLeft, setSecsLeft] = useState(timeLimitSec);
   const expiredRef = useRef(false);
   const onExpiredRef = useRef(onExpired);
-  onExpiredRef.current = onExpired;
+  useLayoutEffect(() => {
+    onExpiredRef.current = onExpired;
+  });
 
   useEffect(() => {
     expiredRef.current = false;
