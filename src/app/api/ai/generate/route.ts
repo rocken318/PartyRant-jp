@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
       baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
     });
     const completion = await client.chat.completions.create({
-      model: 'gemini-2.5-flash-preview-05-20',
+      model: 'gemini-2.5-flash',
       messages: [{ role: 'user', content: prompt }],
       response_format: { type: 'json_object' },
       temperature: 0.9,
