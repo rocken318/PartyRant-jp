@@ -12,8 +12,6 @@ const schema = z.object({
   loseRule: z.enum(['minority', 'majority']).optional(),
 });
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
 function buildPrompt(theme: string, mode: string, count: number): string {
   if (mode === 'trivia') {
     return `あなたはパーティーゲームの問題作成AIです。
@@ -107,6 +105,7 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(theme, mode, count);
 
+    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const completion = await client.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [{ role: 'user', content: prompt }],
