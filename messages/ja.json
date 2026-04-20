@@ -60,6 +60,8 @@
     "done": "完了！",
     "points": "ポイント",
     "noAnswer": "未回答",
+    "retry": "再試行",
+    "loadError": "結果の読み込みに失敗しました",
     "opinionReveal": "💀 判定！",
     "opinionMinorityRule": "少数派が負けゲーム",
     "opinionMajorityRule": "多数派が負けゲーム",

@@ -53,6 +53,7 @@ export default function GuestGameClient({ code }: Props) {
   const [leaderboard, setLeaderboard] = useState<import('@/types/domain').Score[]>([]);
   const [endAnswers, setEndAnswers] = useState<Answer[]>([]);
   const [endPlayers, setEndPlayers] = useState<import('@/types/domain').Player[]>([]);
+  const [endResultsStatus, setEndResultsStatus] = useState<'idle' | 'loading' | 'loaded' | 'error'>('idle');
 
   const [timedOut, setTimedOut] = useState(false);
   const { savePlayer, clearPlayer } = useLocalPlayer(gameId ?? '');
@@ -97,22 +98,7 @@ export default function GuestGameClient({ code }: Props) {
           } else if (data.status === 'reveal') setGuestState('reveal');
           else if (data.status === 'ended') {
             setGuestState('ended');
-            Promise.all([
-              fetch(`/api/games/${data.id}/scores`),
-              fetch(`/api/games/${data.id}/answers`),
-              fetch(`/api/games/${data.id}/players`),
-            ])
-              .then(([scoresRes, answersRes, playersRes]) => Promise.all([
-                scoresRes.ok ? scoresRes.json() : [],
-                answersRes.ok ? answersRes.json() : [],
-                playersRes.ok ? playersRes.json() : [],
-              ]))
-              .then(([scores, answers, players]) => {
-                setLeaderboard(scores as import('@/types/domain').Score[]);
-                setEndAnswers(answers as Answer[]);
-                setEndPlayers(players as import('@/types/domain').Player[]);
-              })
-              .catch(() => {});
+            fetchEndResults(data.id);
           }
           else setGuestState('lobby');
         } else {
@@ -221,31 +207,31 @@ export default function GuestGameClient({ code }: Props) {
         case 'game_ended':
           setGame(event.game);
           setGuestState('ended');
-          if (gameId) {
-            Promise.all([
-              fetch(`/api/games/${gameId}/scores`),
-              fetch(`/api/games/${gameId}/answers`),
-              fetch(`/api/games/${gameId}/players`),
-            ])
-              .then(([scoresRes, answersRes, playersRes]) => Promise.all([
-                scoresRes.ok ? scoresRes.json() : [],
-                answersRes.ok ? answersRes.json() : [],
-                playersRes.ok ? playersRes.json() : [],
-              ]))
-              .then(([scores, answers, players]) => {
-                setLeaderboard(scores as import('@/types/domain').Score[]);
-                setEndAnswers(answers as Answer[]);
-                setEndPlayers(players as import('@/types/domain').Player[]);
-              })
-              .catch(() => {});
-          }
+          fetchEndResults(event.game.id);
           break;
         default:
           break;
       }
     },
-    [guestState]
+    [gameId]
   );
+
+  async function fetchEndResults(id: string) {
+    setEndResultsStatus('loading');
+    try {
+      const [scoresRes, answersRes, playersRes] = await Promise.all([
+        fetch(`/api/games/${id}/scores`),
+        fetch(`/api/games/${id}/answers`),
+        fetch(`/api/games/${id}/players`),
+      ]);
+      setLeaderboard(scoresRes.ok ? await scoresRes.json() as import('@/types/domain').Score[] : []);
+      setEndAnswers(answersRes.ok ? await answersRes.json() as Answer[] : []);
+      setEndPlayers(playersRes.ok ? await playersRes.json() as import('@/types/domain').Player[] : []);
+      setEndResultsStatus('loaded');
+    } catch {
+      setEndResultsStatus('error');
+    }
+  }
 
   useGameStream(gameId, handleEvent);
 
@@ -730,7 +716,24 @@ export default function GuestGameClient({ code }: Props) {
             </div>
           )}
 
-          {game.mode === 'polling' && (
+          {game.mode === 'polling' && endResultsStatus === 'loading' && (
+            <div className="flex justify-center py-8">
+              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
+
+          {game.mode === 'polling' && endResultsStatus === 'error' && (
+            <div className="flex flex-col items-center gap-3 py-6 text-center">
+              <p className="text-red-500 font-bold text-sm">{t('loadError')}</p>
+              <button type="button" onClick={() => gameId && fetchEndResults(gameId)}
+                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                {t('retry')}
+              </button>
+            </div>
+          )}
+
+          {game.mode === 'polling' && endResultsStatus === 'loaded' && (
             <div className="flex flex-col gap-4">
               <h2 className="text-pr-dark text-2xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('results')}</h2>
               {game.questions.map((q, qi) => {
@@ -764,7 +767,24 @@ export default function GuestGameClient({ code }: Props) {
             </div>
           )}
 
-          {game.mode === 'opinion' && (() => {
+          {game.mode === 'opinion' && endResultsStatus === 'loading' && (
+            <div className="flex justify-center py-8">
+              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+            </div>
+          )}
+
+          {game.mode === 'opinion' && endResultsStatus === 'error' && (
+            <div className="flex flex-col items-center gap-3 py-6 text-center">
+              <p className="text-red-500 font-bold text-sm">{t('loadError')}</p>
+              <button type="button" onClick={() => gameId && fetchEndResults(gameId)}
+                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                {t('retry')}
+              </button>
+            </div>
+          )}
+
+          {game.mode === 'opinion' && endResultsStatus === 'loaded' && (() => {
             const loseRule = game.loseRule ?? 'minority';
             interface OpinionResult { playerId: string; displayName: string; lossCount: number; }
             const results: OpinionResult[] = endPlayers.map(p => ({ playerId: p.id, displayName: p.displayName, lossCount: 0 }));
@@ -797,7 +817,7 @@ export default function GuestGameClient({ code }: Props) {
                 {results.map(r => {
                   const isMe = r.playerId === playerId;
                   const isLoser = r.lossCount === maxLoss && maxLoss > 0 && results.length > 1;
-                  const isWinner = r.lossCount === minLoss && results.length > 1;
+                  const isWinner = !isLoser && maxLoss !== minLoss && r.lossCount === minLoss && results.length > 1;
                   return (
                     <div key={r.playerId}
                       className="flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111]"
