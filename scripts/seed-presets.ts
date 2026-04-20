@@ -94,6 +94,7 @@ async function main() {
     '../files/0420/partyrant_quizzes',
     '../files/0420/partyrant_quizzes_vol2',
     '../files/0420/partyrant_trivia_quizzes',
+    '../files/0420b/partyrant_ultimate_choices',
   ];
   for (const d of dirs0420) {
     const dirPath = join(__dirname, d);
