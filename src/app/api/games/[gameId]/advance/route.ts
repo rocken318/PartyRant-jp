@@ -4,13 +4,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { store } from '@/lib/store';
 import { broadcastGameEvent } from '@/lib/events/broadcast';
 import { createServerClient } from '@/lib/supabase/server';
+import { getUserFromRequest } from '@/lib/supabase/auth-server';
 
 function isPlayerPlaceholder(opt: string): boolean {
   return /^[A-Z]さん$/.test(opt);
 }
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ gameId: string }> }
 ) {
   try {
@@ -18,6 +19,13 @@ export async function POST(
     const game = await store.getGame(gameId);
     if (!game) {
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    }
+
+    if (game.hostId) {
+      const user = await getUserFromRequest(req);
+      if (!user || user.id !== game.hostId) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      }
     }
 
     const prevStatus = game.status;

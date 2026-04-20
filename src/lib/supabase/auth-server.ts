@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
+import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import type { NextRequest, NextResponse } from 'next/server';
 
@@ -50,4 +51,22 @@ export async function getSessionUser() {
   const supabase = await createAuthClient();
   const { data: { user } } = await supabase.auth.getUser();
   return user;
+}
+
+/**
+ * Accepts both Bearer JWT (Expo app) and cookie session (web).
+ * Use this in API routes that need to support both clients.
+ */
+export async function getUserFromRequest(req: NextRequest) {
+  const auth = req.headers.get('authorization');
+  if (auth?.startsWith('Bearer ')) {
+    const token = auth.slice(7);
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+    const { data: { user } } = await supabase.auth.getUser(token);
+    return user ?? null;
+  }
+  return getSessionUser();
 }

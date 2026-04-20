@@ -2,14 +2,25 @@ export const runtime = 'nodejs';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { getUserFromRequest } from '@/lib/supabase/auth-server';
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ gameId: string }> }
 ) {
   try {
     const { gameId } = await context.params;
     const db = createServerClient();
+    const game = await db.from('games').select('host_id').eq('id', gameId).maybeSingle();
+    if (!game.data) {
+      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
+    }
+    if (game.data.host_id) {
+      const user = await getUserFromRequest(req);
+      if (!user || user.id !== game.data.host_id) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+      }
+    }
 
     // Delete answers and players, then reset game to lobby
     await db.from('answers').delete().eq('game_id', gameId);

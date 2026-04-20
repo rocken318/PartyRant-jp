@@ -3,7 +3,8 @@ export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { store } from '@/lib/store';
-import { getSessionUser } from '@/lib/supabase/auth-server';
+import { getUserFromRequest } from '@/lib/supabase/auth-server';
+import { getOrCreateProfile, countUserGames } from '@/lib/supabase/profiles';
 
 const questionSchema = z.object({
   text: z.string().min(1),
@@ -24,8 +25,19 @@ const createGameSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await getSessionUser();
+    const user = await getUserFromRequest(req);
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const profile = await getOrCreateProfile(user.id);
+    if (profile.plan === 'free') {
+      const gameCount = await countUserGames(user.id);
+      if (gameCount >= 2) {
+        return NextResponse.json(
+          { error: 'game_limit_reached', message: '無料プランはゲームを2本まで作成できます。Proにアップグレードしてください。' },
+          { status: 403 }
+        );
+      }
+    }
 
     const body = await req.json();
     const parsed = createGameSchema.safeParse(body);

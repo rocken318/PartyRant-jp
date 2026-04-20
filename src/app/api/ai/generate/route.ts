@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import OpenAI from 'openai';
 import { store } from '@/lib/store';
+import { getUserFromRequest } from '@/lib/supabase/auth-server';
+import { getOrCreateProfile, checkAndIncrementAiGen } from '@/lib/supabase/profiles';
 
 const schema = z.object({
   theme: z.string().min(1).max(50).transform(s => s.replace(/[`"\\]/g, '').trim()),
@@ -96,12 +98,27 @@ function validateQuestions(raw: unknown): Array<{
 
 export async function POST(req: NextRequest) {
   try {
+    const user = await getUserFromRequest(req);
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const profile = await getOrCreateProfile(user.id);
+
     const body = await req.json();
     const parsed = schema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json({ error: parsed.error.message }, { status: 400 });
     }
     const { theme, mode, count, loseRule } = parsed.data;
+
+    const allowed = await checkAndIncrementAiGen(user.id, profile);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'ai_limit_reached', message: '無料プランのAI生成は月3回までです。Proにアップグレードしてください。' },
+        { status: 403 }
+      );
+    }
 
     const prompt = buildPrompt(theme, mode, count);
 
