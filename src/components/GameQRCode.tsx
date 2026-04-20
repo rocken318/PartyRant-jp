@@ -11,8 +11,8 @@ export function GameQRCode({ joinCode }: { joinCode: string }) {
     const localhost = origin.includes('localhost') || origin.includes('127.0.0.1');
 
     if (!localhost) {
-      // Non-localhost: resolve immediately via promise for consistency
-      Promise.resolve(`${origin}/join/${joinCode}`).then(setUrl);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setUrl(`${origin}/join/${joinCode}`);
       return;
     }
 
