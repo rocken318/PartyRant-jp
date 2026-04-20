@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import type { GameEvent } from '@/lib/events/types';
 
 export function useGameStream(
@@ -8,7 +8,9 @@ export function useGameStream(
   onEvent: (event: GameEvent) => void
 ): void {
   const onEventRef = useRef(onEvent);
-  onEventRef.current = onEvent;
+  useLayoutEffect(() => {
+    onEventRef.current = onEvent;
+  });
 
   useEffect(() => {
     if (!gameId) return;
