@@ -11,6 +11,19 @@ const answerSchema = z.object({
   choiceIndex: z.number().int().min(0),
 });
 
+export async function GET(
+  _req: NextRequest,
+  context: { params: Promise<{ gameId: string }> }
+) {
+  try {
+    const { gameId } = await context.params;
+    const answers = await store.listAnswers(gameId);
+    return NextResponse.json(answers);
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
 export async function POST(
   req: NextRequest,
   context: { params: Promise<{ gameId: string }> }

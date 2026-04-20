@@ -26,7 +26,8 @@ interface State {
 }
 
 type Action =
-  | { type: 'LOADED'; game: Game; players: Player[] }
+  | { type: 'LOADED'; game: Game; players: Player[]; answers: Answer[] }
+  | { type: 'SYNCED'; game: Game; players: Player[]; answers: Answer[] }
   | { type: 'ERROR'; message: string }
   | { type: 'GAME_UPDATED'; game: Game }
   | { type: 'PLAYER_JOINED'; player: Player }
@@ -39,7 +40,9 @@ type Action =
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'LOADED':
-      return { ...state, loading: false, game: action.game, players: action.players };
+      return { ...state, loading: false, game: action.game, players: action.players, answers: action.answers };
+    case 'SYNCED':
+      return { ...state, game: action.game, players: action.players, answers: action.answers };
     case 'ERROR':
       return { ...state, loading: false, error: action.message };
     case 'GAME_UPDATED':
@@ -179,20 +182,40 @@ export function HostGameClient({ gameId }: { gameId: string }) {
   useEffect(() => {
     const load = async () => {
       try {
-        const [gameRes, playersRes] = await Promise.all([
+        const [gameRes, playersRes, answersRes] = await Promise.all([
           fetch(`/api/games/${gameId}`),
           fetch(`/api/games/${gameId}/players`),
+          fetch(`/api/games/${gameId}/answers`),
         ]);
         if (!gameRes.ok) throw new Error(t('notFound'));
         const gameData = await gameRes.json() as Game;
         const playersData = playersRes.ok ? await playersRes.json() as Player[] : [];
-        dispatch({ type: 'LOADED', game: gameData, players: playersData });
+        const answersData = answersRes.ok ? await answersRes.json() as Answer[] : [];
+        dispatch({ type: 'LOADED', game: gameData, players: playersData, answers: answersData });
       } catch (e) {
         dispatch({ type: 'ERROR', message: e instanceof Error ? e.message : t('notFound') });
       }
     };
     load();
   }, [gameId]);
+
+  // Poll players while in the lobby as a fallback for local networks where
+  // Supabase Realtime broadcasts are delayed or blocked.
+  useEffect(() => {
+    if (!game || game.status !== 'lobby') return;
+    const interval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/games/${gameId}/players`);
+        if (!res.ok) return;
+        const latest = await res.json() as Player[];
+        latest.forEach((player) => dispatch({ type: 'PLAYER_JOINED', player }));
+      } catch {
+        // Keep the lobby usable if a single poll fails.
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [gameId, game?.status]);
 
   useEffect(() => {
     if (!game) return;
@@ -207,6 +230,16 @@ export function HostGameClient({ gameId }: { gameId: string }) {
 
   const handleEvent = useCallback((event: GameEvent) => {
     switch (event.type) {
+      case 'connected': {
+        Promise.all([
+          fetch(`/api/games/${gameId}`).then(r => r.ok ? r.json() as Promise<Game> : Promise.reject()),
+          fetch(`/api/games/${gameId}/players`).then(r => r.ok ? r.json() as Promise<Player[]> : Promise.resolve([])),
+          fetch(`/api/games/${gameId}/answers`).then(r => r.ok ? r.json() as Promise<Answer[]> : Promise.resolve([])),
+        ]).then(([game, players, answers]) => {
+          dispatch({ type: 'SYNCED', game, players, answers });
+        }).catch(() => {});
+        break;
+      }
       case 'player_joined': dispatch({ type: 'PLAYER_JOINED', player: event.player }); break;
       case 'game_started':
       case 'game_ended': dispatch({ type: 'GAME_UPDATED', game: event.game }); break;
@@ -214,7 +247,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
       case 'question_ended': dispatch({ type: 'QUESTION_ENDED' }); break;
       case 'answer_submitted': dispatch({ type: 'ANSWER_SUBMITTED', answer: event.answer }); break;
     }
-  }, []);
+  }, [gameId]);
 
   useGameStream(gameId, handleEvent);
 
