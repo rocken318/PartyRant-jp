@@ -277,7 +277,7 @@ export default function GuestGameClient({ code }: Props) {
       });
       let pointsEarned = 0;
       if (game.mode === 'trivia' && q.correctIndex !== undefined && choiceIndex === q.correctIndex) {
-        pointsEarned = 500;
+        pointsEarned = 1;
       }
       setTotalPoints(prev => prev + pointsEarned);
       setRevealInfo({
@@ -329,7 +329,7 @@ export default function GuestGameClient({ code }: Props) {
       if (answerTokenRef.current !== token) return;
       let pointsEarned = 0;
       if (gameMode === 'trivia' && correctIndex !== undefined && choiceIndex === correctIndex) {
-        pointsEarned = 500 + Math.max(0, Math.floor(500 * (1 - responseTimeMs / (timeLimitSec * 1000))));
+        pointsEarned = 1;
       }
       const newTotal = totalPoints + pointsEarned;
       setTotalPoints(newTotal);

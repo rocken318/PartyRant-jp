@@ -96,13 +96,10 @@ function computeScores(game: Game, players: Player[], answers: Answer[]): Score[
     if (question.correctIndex === undefined) continue;
     const qAnswers = answers.filter((a) => a.questionId === question.id);
     const correct = qAnswers.filter((a) => a.choiceIndex === question.correctIndex);
-    const timeLimitMs = (question.timeLimitSec + (game.mode === 'trivia' ? 10 : 0)) * 1000;
     for (const ans of correct) {
       const existing = scoreMap.get(ans.playerId);
       if (!existing) continue;
-      const speedFraction = Math.max(0, 1 - ans.responseTimeMs / timeLimitMs);
-      const points = 500 + Math.round(speedFraction * 500);
-      scoreMap.set(ans.playerId, { ...existing, totalPoints: existing.totalPoints + points, correctCount: existing.correctCount + 1 });
+      scoreMap.set(ans.playerId, { ...existing, totalPoints: existing.totalPoints + 1, correctCount: existing.correctCount + 1 });
     }
   }
   return Array.from(scoreMap.values()).sort((a, b) => b.totalPoints - a.totalPoints);

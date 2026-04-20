@@ -4,11 +4,7 @@ export function calculatePoints(answer: Answer, question: Question): number {
   if (question.correctIndex === undefined) return 0;
   if (answer.choiceIndex !== question.correctIndex) return 0;
 
-  const speedBonus = Math.max(
-    0,
-    Math.floor(500 * (1 - answer.responseTimeMs / (question.timeLimitSec * 1000)))
-  );
-  return 500 + speedBonus;
+  return 1;
 }
 
 export function computeLeaderboard(game: Game, answers: Answer[], players: Player[]): Score[] {
