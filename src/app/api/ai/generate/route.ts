@@ -106,8 +106,8 @@ export async function POST(req: NextRequest) {
     const prompt = buildPrompt(theme, mode, count);
 
     const client = new OpenAI({
-      apiKey: process.env.GOOGLE_API_KEY,
-      baseURL: 'https://generativelanguage.googleapis.com/openai',
+      apiKey: process.env.GOOGLE_AI_API_KEY,
+      baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
     });
     const completion = await client.chat.completions.create({
       model: 'gemini-2.5-flash-preview-05-20',
