@@ -58,7 +58,14 @@
     "nextQuestion": "次の問題 →",
     "seeResults": "🏆 結果を見る",
     "done": "完了！",
-    "points": "ポイント"
+    "points": "ポイント",
+    "noAnswer": "未回答",
+    "opinionReveal": "💀 判定！",
+    "opinionMinorityRule": "少数派が負けゲーム",
+    "opinionMajorityRule": "多数派が負けゲーム",
+    "opinionLossCount": "{count}回 負け側",
+    "opinionLoser": "最多 負け",
+    "opinionWinner": "最少 負け"
   },
   "hostDashboard": {
     "myEvents": "マイイベント",

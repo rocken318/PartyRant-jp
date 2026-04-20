@@ -24,7 +24,7 @@ interface State {
 }
 
 type Action =
-  | { type: 'LOADED'; game: Game; players: Player[] }
+  | { type: 'LOADED'; game: Game; players: Player[]; answers: Answer[] }
   | { type: 'ERROR'; message: string }
   | { type: 'GAME_UPDATED'; game: Game }
   | { type: 'PLAYER_JOINED'; player: Player }
@@ -36,7 +36,7 @@ type Action =
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'LOADED':
-      return { ...state, loading: false, game: action.game, players: action.players };
+      return { ...state, loading: false, game: action.game, players: action.players, answers: action.answers };
     case 'ERROR':
       return { ...state, loading: false, error: action.message };
     case 'GAME_UPDATED':
@@ -143,14 +143,16 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
   useEffect(() => {
     const load = async () => {
       try {
-        const [gameRes, playersRes] = await Promise.all([
+        const [gameRes, playersRes, answersRes] = await Promise.all([
           fetch(`/api/games/${gameId}`),
           fetch(`/api/games/${gameId}/players`),
+          fetch(`/api/games/${gameId}/answers`),
         ]);
         if (!gameRes.ok) throw new Error('Game not found');
         const gameData = await gameRes.json() as Game;
         const playersData = playersRes.ok ? await playersRes.json() as Player[] : [];
-        dispatch({ type: 'LOADED', game: gameData, players: playersData });
+        const answersData = answersRes.ok ? await answersRes.json() as Answer[] : [];
+        dispatch({ type: 'LOADED', game: gameData, players: playersData, answers: answersData });
       } catch (e) {
         dispatch({ type: 'ERROR', message: e instanceof Error ? e.message : 'Failed to load game' });
       }
@@ -201,7 +203,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
   const handleReset = async () => {
     if (!confirm('Reset this game? All players and answers will be deleted.')) return;
     const updated = await resetGame(gameId);
-    if (updated) dispatch({ type: 'LOADED', game: updated, players: [] });
+    if (updated) dispatch({ type: 'LOADED', game: updated, players: [], answers: [] });
   };
 
   if (loading) {

@@ -51,6 +51,8 @@ export default function GuestGameClient({ code }: Props) {
   const [loadError, setLoadError] = useState('');
   const [localQuestionIndex, setLocalQuestionIndex] = useState(0);
   const [leaderboard, setLeaderboard] = useState<import('@/types/domain').Score[]>([]);
+  const [endAnswers, setEndAnswers] = useState<Answer[]>([]);
+  const [endPlayers, setEndPlayers] = useState<import('@/types/domain').Player[]>([]);
 
   const [timedOut, setTimedOut] = useState(false);
   const { savePlayer, clearPlayer } = useLocalPlayer(gameId ?? '');
@@ -93,7 +95,25 @@ export default function GuestGameClient({ code }: Props) {
             expectedQuestionIndexRef.current = data.currentQuestionIndex;
             setGuestState('question');
           } else if (data.status === 'reveal') setGuestState('reveal');
-          else if (data.status === 'ended') setGuestState('ended');
+          else if (data.status === 'ended') {
+            setGuestState('ended');
+            Promise.all([
+              fetch(`/api/games/${data.id}/scores`),
+              fetch(`/api/games/${data.id}/answers`),
+              fetch(`/api/games/${data.id}/players`),
+            ])
+              .then(([scoresRes, answersRes, playersRes]) => Promise.all([
+                scoresRes.ok ? scoresRes.json() : [],
+                answersRes.ok ? answersRes.json() : [],
+                playersRes.ok ? playersRes.json() : [],
+              ]))
+              .then(([scores, answers, players]) => {
+                setLeaderboard(scores as import('@/types/domain').Score[]);
+                setEndAnswers(answers as Answer[]);
+                setEndPlayers(players as import('@/types/domain').Player[]);
+              })
+              .catch(() => {});
+          }
           else setGuestState('lobby');
         } else {
           setGuestState('name_input');
@@ -202,9 +222,21 @@ export default function GuestGameClient({ code }: Props) {
           setGame(event.game);
           setGuestState('ended');
           if (gameId) {
-            fetch(`/api/games/${gameId}/scores`)
-              .then(r => r.ok ? r.json() : [])
-              .then((scores: import('@/types/domain').Score[]) => setLeaderboard(scores))
+            Promise.all([
+              fetch(`/api/games/${gameId}/scores`),
+              fetch(`/api/games/${gameId}/answers`),
+              fetch(`/api/games/${gameId}/players`),
+            ])
+              .then(([scoresRes, answersRes, playersRes]) => Promise.all([
+                scoresRes.ok ? scoresRes.json() : [],
+                answersRes.ok ? answersRes.json() : [],
+                playersRes.ok ? playersRes.json() : [],
+              ]))
+              .then(([scores, answers, players]) => {
+                setLeaderboard(scores as import('@/types/domain').Score[]);
+                setEndAnswers(answers as Answer[]);
+                setEndPlayers(players as import('@/types/domain').Player[]);
+              })
               .catch(() => {});
           }
           break;
@@ -587,7 +619,7 @@ export default function GuestGameClient({ code }: Props) {
                   className="text-gray-400"
                   style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1 }}
                 >
-                  未回答
+                  {t('noAnswer')}
                 </p>
               )}
             </div>
@@ -697,6 +729,96 @@ export default function GuestGameClient({ code }: Props) {
               })}
             </div>
           )}
+
+          {game.mode === 'polling' && (
+            <div className="flex flex-col gap-4">
+              <h2 className="text-pr-dark text-2xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('results')}</h2>
+              {game.questions.map((q, qi) => {
+                const qAnswers = endAnswers.filter(a => a.questionId === q.id);
+                const totalVotes = qAnswers.length;
+                const BG = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
+                const FG = ['#fff', '#111', '#fff', '#fff'];
+                return (
+                  <div key={q.id} className="flex flex-col gap-2 p-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111]">
+                    <p className="font-bold text-sm text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>{qi + 1}. {q.text}</p>
+                    <div className="flex flex-col gap-1.5">
+                      {q.options.map((option, j) => {
+                        const votes = qAnswers.filter(a => a.choiceIndex === j).length;
+                        const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
+                        return (
+                          <div key={j} className="rounded-[4px] border-[2px] border-pr-dark px-3 py-2" style={{ backgroundColor: BG[j % 4] }}>
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="font-bold text-xs" style={{ color: FG[j % 4] }}>{option}</span>
+                              <span className="text-xs font-bold" style={{ color: FG[j % 4], opacity: 0.8 }}>{votes} ({pct}%)</span>
+                            </div>
+                            <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                              <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: 'rgba(255,255,255,0.5)' }} />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {game.mode === 'opinion' && (() => {
+            const loseRule = game.loseRule ?? 'minority';
+            interface OpinionResult { playerId: string; displayName: string; lossCount: number; }
+            const results: OpinionResult[] = endPlayers.map(p => ({ playerId: p.id, displayName: p.displayName, lossCount: 0 }));
+            for (const q of game.questions) {
+              const qAnswers = endAnswers.filter(a => a.questionId === q.id);
+              const counts = q.options.map((_, i) => qAnswers.filter(a => a.choiceIndex === i).length);
+              const nonZero = counts.filter(c => c > 0);
+              if (nonZero.length <= 1) continue;
+              const threshold = loseRule === 'minority' ? Math.min(...nonZero) : Math.max(...nonZero);
+              const losingIndices = counts.map((c, i) => (c === threshold ? i : -1)).filter(i => i >= 0);
+              for (const ans of qAnswers) {
+                if (losingIndices.includes(ans.choiceIndex)) {
+                  const r = results.find(r => r.playerId === ans.playerId);
+                  if (r) r.lossCount++;
+                }
+              }
+            }
+            results.sort((a, b) => b.lossCount - a.lossCount);
+            if (results.length === 0) return null;
+            const maxLoss = results[0].lossCount;
+            const minLoss = results[results.length - 1].lossCount;
+            return (
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col items-center gap-1 py-3">
+                  <h2 className="text-pr-dark text-3xl text-center" style={{ fontFamily: 'var(--font-bebas)' }}>{t('opinionReveal')}</h2>
+                  <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">
+                    {loseRule === 'majority' ? t('opinionMajorityRule') : t('opinionMinorityRule')}
+                  </p>
+                </div>
+                {results.map(r => {
+                  const isMe = r.playerId === playerId;
+                  const isLoser = r.lossCount === maxLoss && maxLoss > 0 && results.length > 1;
+                  const isWinner = r.lossCount === minLoss && results.length > 1;
+                  return (
+                    <div key={r.playerId}
+                      className="flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111]"
+                      style={{ backgroundColor: isLoser ? '#FEE2E2' : isWinner ? '#FEF9C3' : '#fff' }}>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl">{isLoser ? '💀' : isWinner ? '👑' : '😐'}</span>
+                        <span className="font-bold text-sm text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>
+                          {r.displayName}{isMe ? t('you') : ''}
+                        </span>
+                      </div>
+                      <div className="flex flex-col items-end gap-0.5">
+                        <span className="text-xs font-bold text-gray-500">{t('opinionLossCount', { count: r.lossCount })}</span>
+                        {isLoser && <span className="text-xs font-bold text-red-500">{t('opinionLoser')}</span>}
+                        {isWinner && <span className="text-xs font-bold text-yellow-600">{t('opinionWinner')}</span>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
 
           <button type="button" onClick={() => router.push('/join')}
             className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation mt-auto"
