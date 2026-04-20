@@ -25,6 +25,7 @@ interface State {
 
 type Action =
   | { type: 'LOADED'; game: Game; players: Player[]; answers: Answer[] }
+  | { type: 'SYNCED'; game: Game; players: Player[]; answers: Answer[] }
   | { type: 'ERROR'; message: string }
   | { type: 'GAME_UPDATED'; game: Game }
   | { type: 'PLAYER_JOINED'; player: Player }
@@ -37,6 +38,8 @@ function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'LOADED':
       return { ...state, loading: false, game: action.game, players: action.players, answers: action.answers };
+    case 'SYNCED':
+      return { ...state, game: action.game, players: action.players, answers: action.answers };
     case 'ERROR':
       return { ...state, loading: false, error: action.message };
     case 'GAME_UPDATED':
@@ -44,9 +47,21 @@ function reducer(state: State, action: Action): State {
     case 'PLAYER_JOINED':
       if (state.players.some((p) => p.id === action.player.id)) return state;
       return { ...state, players: [...state.players, action.player] };
-    case 'ANSWER_SUBMITTED':
-      if (state.answers.some((a) => a.id === action.answer.id)) return state;
-      return { ...state, answers: [...state.answers, action.answer] };
+    case 'ANSWER_SUBMITTED': {
+      const exists = state.answers.some(
+        (a) => a.playerId === action.answer.playerId && a.questionId === action.answer.questionId
+      );
+      return {
+        ...state,
+        answers: exists
+          ? state.answers.map((a) =>
+              a.playerId === action.answer.playerId && a.questionId === action.answer.questionId
+                ? action.answer
+                : a
+            )
+          : [...state.answers, action.answer],
+      };
+    }
     case 'SCORES_LOADED':
       return { ...state, scores: action.scores };
     case 'QUESTION_STARTED':
@@ -81,7 +96,7 @@ function computeScores(game: Game, players: Player[], answers: Answer[]): Score[
     if (question.correctIndex === undefined) continue;
     const qAnswers = answers.filter((a) => a.questionId === question.id);
     const correct = qAnswers.filter((a) => a.choiceIndex === question.correctIndex);
-    const timeLimitMs = question.timeLimitSec * 1000;
+    const timeLimitMs = (question.timeLimitSec + (game.mode === 'trivia' ? 10 : 0)) * 1000;
     for (const ans of correct) {
       const existing = scoreMap.get(ans.playerId);
       if (!existing) continue;
@@ -184,6 +199,15 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
 
   const handleEvent = useCallback((event: GameEvent) => {
     switch (event.type) {
+      case 'connected':
+        Promise.all([
+          fetch(`/api/games/${gameId}`).then(r => r.ok ? r.json() as Promise<Game> : Promise.reject()),
+          fetch(`/api/games/${gameId}/players`).then(r => r.ok ? r.json() as Promise<Player[]> : Promise.resolve([])),
+          fetch(`/api/games/${gameId}/answers`).then(r => r.ok ? r.json() as Promise<Answer[]> : Promise.resolve([])),
+        ]).then(([game, players, answers]) => {
+          dispatch({ type: 'SYNCED', game, players, answers });
+        }).catch(() => {});
+        break;
       case 'player_joined': dispatch({ type: 'PLAYER_JOINED', player: event.player }); break;
       case 'game_started':
       case 'game_ended': dispatch({ type: 'GAME_UPDATED', game: event.game }); break;
@@ -191,7 +215,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
       case 'question_ended': dispatch({ type: 'QUESTION_ENDED' }); break;
       case 'answer_submitted': dispatch({ type: 'ANSWER_SUBMITTED', answer: event.answer }); break;
     }
-  }, []);
+  }, [gameId]);
 
   useGameStream(gameId, handleEvent);
 
@@ -283,7 +307,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
                 <div className="w-48">
                   <CountdownTimer
                     startedAt={game.currentQuestionStartedAt}
-                    timeLimitSec={currentQuestion.timeLimitSec}
+                    timeLimitSec={currentQuestion.timeLimitSec + (game.mode === 'trivia' ? 10 : 0)}
                     onExpired={handleAdvance}
                   />
                 </div>
