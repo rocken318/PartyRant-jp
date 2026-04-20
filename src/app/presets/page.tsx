@@ -52,6 +52,8 @@ export default function PresetsPage() {
   const [aiCount, setAiCount] = useState<5 | 10 | 15>(10);
   const [aiGenerating, setAiGenerating] = useState(false);
   const [aiError, setAiError] = useState(false);
+  const [nameInputPreset, setNameInputPreset] = useState<Game | null>(null);
+  const [customNames, setCustomNames] = useState<Record<string, string>>({});
 
   useEffect(() => {
     fetch('/api/presets')
@@ -72,10 +74,38 @@ export default function PresetsPage() {
     return true;
   });
 
+  function detectPlaceholders(preset: Game): string[] {
+    const seen = new Set<string>();
+    for (const q of preset.questions) {
+      for (const opt of q.options) {
+        if (/^[A-Z]さん$/.test(opt)) seen.add(opt);
+      }
+    }
+    return Array.from(seen).sort();
+  }
+
   async function handleStart(presetId: string) {
+    const preset = presets.find(p => p.id === presetId);
+    if (preset && detectPlaceholders(preset).length > 0) {
+      // Initialize customNames with empty strings for each placeholder
+      const placeholders = detectPlaceholders(preset);
+      const initial: Record<string, string> = {};
+      placeholders.forEach(p => { initial[p] = ''; });
+      setCustomNames(initial);
+      setNameInputPreset(preset);
+      return;
+    }
+    await doStart(presetId, {});
+  }
+
+  async function doStart(presetId: string, nameMap: Record<string, string>) {
     setStarting(presetId);
     try {
-      const res = await fetch(`/api/presets/${presetId}/start`, { method: 'POST' });
+      const res = await fetch(`/api/presets/${presetId}/start`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nameMap }),
+      });
       if (!res.ok) throw new Error();
       const game = await res.json() as Game;
       router.push(`/play/${game.id}`);
@@ -606,6 +636,61 @@ export default function PresetsPage() {
         preset={previewPreset}
         onClose={() => setPreviewPreset(null)}
       />
+
+      {/* 名前入力モーダル */}
+      {nameInputPreset && (() => {
+        const placeholders = detectPlaceholders(nameInputPreset);
+        return (
+          <div className="fixed inset-0 bg-black/60 z-50 flex items-end justify-center" onClick={() => setNameInputPreset(null)}>
+            <div
+              className="bg-white w-full max-w-[480px] rounded-t-[16px] border-t-[3px] border-x-[3px] border-pr-dark p-6 flex flex-col gap-5"
+              onClick={e => e.stopPropagation()}
+            >
+              <h2 className="text-pr-dark text-2xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+                参加者の名前を入力
+              </h2>
+              <p className="text-gray-500 text-sm -mt-3">「自分」はそのまま使われます</p>
+              <div className="flex flex-col gap-3">
+                {placeholders.map(p => (
+                  <div key={p} className="flex items-center gap-3">
+                    <span className="w-10 text-center font-bold text-pr-dark text-sm border-[2px] border-pr-dark rounded-[4px] py-1">{p}</span>
+                    <input
+                      type="text"
+                      maxLength={10}
+                      placeholder={`${p}の名前`}
+                      value={customNames[p] ?? ''}
+                      onChange={e => setCustomNames(prev => ({ ...prev, [p]: e.target.value }))}
+                      className="flex-1 bg-white rounded-[6px] border-[2px] border-pr-dark px-3 py-2 text-pr-dark text-sm focus:outline-none focus:shadow-[3px_3px_0_#111] transition-shadow"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={async () => {
+                  const nameMap: Record<string, string> = {};
+                  placeholders.forEach(p => {
+                    if (customNames[p]?.trim()) nameMap[p] = customNames[p].trim();
+                  });
+                  setNameInputPreset(null);
+                  await doStart(nameInputPreset.id, nameMap);
+                }}
+                className="w-full h-14 bg-pr-pink text-white text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              >
+                🚀 ゲームスタート
+              </button>
+              <button
+                type="button"
+                onClick={() => setNameInputPreset(null)}
+                className="text-gray-400 text-sm text-center underline"
+              >
+                キャンセル
+              </button>
+            </div>
+          </div>
+        );
+      })()}
     </main>
   );
 }

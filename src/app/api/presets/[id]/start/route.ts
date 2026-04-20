@@ -4,7 +4,7 @@ import { store } from '@/lib/store';
 export const runtime = 'nodejs';
 
 export async function POST(
-  _req: NextRequest,
+  req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
   const { id } = await context.params;
@@ -15,19 +15,25 @@ export async function POST(
       return NextResponse.json({ error: 'Preset not found' }, { status: 404 });
     }
 
-    // プリセットを複製して新しいゲームインスタンスを作成
+    // Optional nameMap: { "Aさん": "田中", "Bさん": "佐藤", ... }
+    const body = await req.json().catch(() => ({})) as { nameMap?: Record<string, string> };
+    const nameMap = body.nameMap ?? {};
+
+    const processedQuestions = preset.questions.map(({ id: _id, order: _order, ...q }) => ({
+      ...q,
+      options: q.options.map((opt: string) => nameMap[opt] ?? opt),
+    }));
+
     const game = await store.createGame({
       mode: preset.mode,
       gameMode: preset.gameMode,
       title: preset.title,
       description: preset.description,
       scene: preset.scene,
-      questions: preset.questions.map(({ id: _id, order: _order, ...q }) => q),
+      questions: processedQuestions,
     });
 
-    // すぐにロビー状態にする（ドラフトをスキップ）
     const lobbyGame = await store.updateGameStatus(game.id, 'lobby');
-
     return NextResponse.json(lobbyGame);
   } catch (e) {
     console.error(e);
