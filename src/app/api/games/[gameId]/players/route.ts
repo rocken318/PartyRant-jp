@@ -9,6 +9,19 @@ const joinSchema = z.object({
   displayName: z.string().min(1).max(20),
 });
 
+export async function GET(
+  _req: NextRequest,
+  context: { params: Promise<{ gameId: string }> }
+) {
+  try {
+    const { gameId } = await context.params;
+    const players = await store.listPlayers(gameId);
+    return NextResponse.json(players);
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
 export async function POST(
   req: NextRequest,
   context: { params: Promise<{ gameId: string }> }
