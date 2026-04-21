@@ -17,14 +17,21 @@ const schema = z.object({
 function buildPrompt(theme: string, mode: string, count: number): string {
   if (mode === 'trivia') {
     return `あなたはパーティーゲームの問題作成AIです。
-テーマ「${theme}」について、日本語の4択クイズを${count}問作ってください。
+テーマ「${theme}」について、正確で楽しい日本語4択クイズを${count}問作ってください。
 
 以下のJSON形式で返してください：
 {"questions": [{"text": "問題文", "options": ["選択肢A", "選択肢B", "選択肢C", "選択肢D"], "correctIndex": 0, "timeLimitSec": 15}]}
 
-条件：
+【品質ルール（最重要）】
+- 正解は100%確実に正しい事実のみ。自信がない問題は作らない
+- 選択肢4つは必ず同じカテゴリ・種類で揃える
+  （例：ポケモンの種族名を問うなら選択肢はすべてポケモンの種族名。トレーナー名・技名・アイテム名を混ぜない）
+  （例：国名を問うなら選択肢はすべて国名。都市名や地域名を混ぜない）
+- 問題文は「〜の中で」「〜といえば」など対象範囲を明確に限定する
+- 正解と不正解の選択肢の区別が明確であること
+
+その他のルール：
 - 盛り上がる・驚き・笑えるパーティー向けの内容
-- 正解は options[correctIndex] に対応（0〜3）
 - correctIndex は 0〜3 をバランスよく分散させる（全問同じ番号にしない）
 - timeLimitSec は難易度に応じて 10〜20 の整数
 - 日本語で出力`;
@@ -39,7 +46,7 @@ function buildPrompt(theme: string, mode: string, count: number): string {
 
 条件：
 - 正解がなく、みんなの意見・好み・習慣を投票する問題
-- 選択肢は2〜4個
+- 選択肢は2〜4個（同じカテゴリ・粒度で揃える）
 - correctIndex は必ず null
 - 参加者同士の会話が弾む内容
 - 日本語で出力`;
@@ -54,7 +61,7 @@ function buildPrompt(theme: string, mode: string, count: number): string {
 条件：
 - どちらが多数派かわからないくらい意見が割れる問題
 - 盛り上がる・笑える・本音が出る内容
-- 選択肢は2〜3個
+- 選択肢は2〜3個（同じ粒度・立場で揃える）
 - correctIndex は必ず null
 - 日本語で出力`;
 }
@@ -133,7 +140,7 @@ export async function POST(req: NextRequest) {
       model: 'gemini-2.5-flash',
       messages: [{ role: 'user', content: prompt }],
       response_format: { type: 'json_object' },
-      temperature: 0.9,
+      temperature: 0.7,
     });
 
     const content = completion.choices[0]?.message?.content;
