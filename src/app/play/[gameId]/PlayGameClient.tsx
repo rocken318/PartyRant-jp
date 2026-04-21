@@ -238,6 +238,8 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
   const [hostAnsweredIds, setHostAnsweredIds] = useState<Set<string>>(new Set());
   const [hostSelectedChoice, setHostSelectedChoice] = useState<number | null>(null);
   const [hostSubmitting, setHostSubmitting] = useState(false);
+  const [castInput, setCastInput] = useState('');
+  const [castAdding, setCastAdding] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -310,6 +312,26 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
     if (res.ok) {
       const newGame = await res.json() as import('@/types/domain').Game;
       router.push(`/play/${newGame.id}`);
+    }
+  }
+
+  async function handleAddCast() {
+    const name = castInput.trim();
+    if (!name) return;
+    setCastAdding(true);
+    try {
+      const res = await fetch(`/api/games/${gameId}/players`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ displayName: name }),
+      });
+      if (res.ok) {
+        const player = await res.json() as import('@/types/domain').Player;
+        dispatch({ type: 'PLAYER_JOINED', player });
+        setCastInput('');
+      }
+    } finally {
+      setCastAdding(false);
     }
   }
 
@@ -455,6 +477,28 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             ) : (
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
             )}
+            {/* キャスト・参加者を名前で追加 */}
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={castInput}
+                onChange={e => setCastInput(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') handleAddCast(); }}
+                placeholder="キャスト名を入力して追加"
+                maxLength={20}
+                className="flex-1 h-11 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              />
+              <button
+                type="button"
+                onClick={handleAddCast}
+                disabled={!castInput.trim() || castAdding}
+                className="h-11 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] disabled:opacity-50 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              >
+                {castAdding ? '…' : '＋追加'}
+              </button>
+            </div>
             {players.length === 0 && (
               <p className="text-xs text-center text-gray-400">ホストも参加するか、ゲストの参加を待ってください</p>
             )}

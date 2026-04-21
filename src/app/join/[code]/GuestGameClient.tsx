@@ -113,7 +113,7 @@ export default function GuestGameClient({ code }: Props) {
   const [endResultsStatus, setEndResultsStatus] = useState<'idle' | 'loading' | 'loaded' | 'error'>('idle');
 
   const [timedOut, setTimedOut] = useState(false);
-  const [waitingForNext, setWaitingForNext] = useState(false);
+  const autoJoinNameRef = useRef<string | null>(null);
   const { savePlayer, clearPlayer } = useLocalPlayer(gameId ?? '');
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   // Incremented on each new question to invalidate in-flight answer submissions
@@ -160,6 +160,10 @@ export default function GuestGameClient({ code }: Props) {
           }
           else setGuestState('lobby');
         } else {
+          const urlName = typeof window !== 'undefined'
+            ? new URLSearchParams(window.location.search).get('name')?.trim()
+            : null;
+          if (urlName) autoJoinNameRef.current = urlName;
           setGuestState('name_input');
         }
       } catch {
@@ -227,20 +231,15 @@ export default function GuestGameClient({ code }: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestState]);
 
+  // Auto-join with name passed via URL param (next_game redirect flow)
   useEffect(() => {
-    if (!waitingForNext || !game?.hostId) return;
-    const poll = async () => {
-      try {
-        const res = await fetch(`/api/games/next-lobby?hostId=${game.hostId}&exceptGameId=${game.id}`);
-        if (!res.ok) return;
-        const { game: next } = await res.json() as { game: { id: string; joinCode: string } | null };
-        if (next) router.push(`/join/${next.joinCode}`);
-      } catch { /* ignore */ }
-    };
-    poll();
-    const id = setInterval(poll, 3000);
-    return () => clearInterval(id);
-  }, [waitingForNext, game?.hostId, game?.id, router]);
+    if (guestState === 'name_input' && gameId && autoJoinNameRef.current) {
+      const name = autoJoinNameRef.current;
+      autoJoinNameRef.current = null;
+      handleJoinGame(name);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [guestState, gameId]);
 
   const handleEvent = useCallback(
     (event: GameEvent) => {
@@ -287,7 +286,7 @@ export default function GuestGameClient({ code }: Props) {
           fetchEndResults(event.game.id);
           break;
         case 'next_game':
-          router.push(`/join/${event.joinCode}`);
+          router.push(`/join/${event.joinCode}${displayName ? `?name=${encodeURIComponent(displayName)}` : ''}`);
           break;
         default:
           break;
@@ -315,8 +314,8 @@ export default function GuestGameClient({ code }: Props) {
 
   useGameStream(gameId, handleEvent);
 
-  async function handleJoinGame() {
-    const name = nameInput.trim();
+  async function handleJoinGame(forceName?: string) {
+    const name = (forceName ?? nameInput).trim();
     if (!name) { setNameError(t('errorNameEmpty')); return; }
     if (name.length > 20) { setNameError(t('errorNameLength')); return; }
     setNameError('');
@@ -488,7 +487,7 @@ export default function GuestGameClient({ code }: Props) {
           )}
           <button
             type="button"
-            onClick={handleJoinGame}
+            onClick={() => handleJoinGame()}
             className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
@@ -987,33 +986,13 @@ export default function GuestGameClient({ code }: Props) {
             <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
           </a>
 
-          {waitingForNext ? (
-            <div className="flex flex-col items-center gap-4 py-4 mt-auto">
-              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
-              <p className="text-gray-500 font-bold text-sm text-center">ホストが次のゲームを準備しています...</p>
-              <button type="button" onClick={() => setWaitingForNext(false)}
-                className="px-6 py-2 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
-                キャンセル
-              </button>
-            </div>
-          ) : game?.hostId ? (
-            <div className="flex flex-col gap-3 mt-auto">
-              <button type="button" onClick={() => setWaitingForNext(true)}
-                className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
-                ⏳ 次のゲームを待つ
-              </button>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-3 mt-auto">
-              <button type="button" onClick={() => router.push('/join')}
-                className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
-                📷 QRを読んで参加
-              </button>
-            </div>
-          )}
+          <div className="flex flex-col gap-3 mt-auto">
+            <button type="button" onClick={() => router.push('/join')}
+              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)' }}>
+              🚪 抜ける
+            </button>
+          </div>
         </div>
       </main>
     );
@@ -1126,33 +1105,13 @@ export default function GuestGameClient({ code }: Props) {
             <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
           </a>
 
-          {waitingForNext ? (
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
-              <p className="text-gray-500 font-bold text-sm text-center">ホストが次のゲームを準備しています...</p>
-              <button type="button" onClick={() => setWaitingForNext(false)}
-                className="px-6 py-2 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
-                キャンセル
-              </button>
-            </div>
-          ) : game?.hostId ? (
-            <div className="flex flex-col gap-3 w-full">
-              <button type="button" onClick={() => setWaitingForNext(true)}
-                className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
-                ⏳ 次のゲームを待つ
-              </button>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-3 w-full">
-              <button type="button" onClick={() => router.push('/join')}
-                className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
-                📷 QRを読んで参加
-              </button>
-            </div>
-          )}
+          <div className="flex flex-col gap-3 w-full">
+            <button type="button" onClick={() => router.push('/join')}
+              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)' }}>
+              🚪 抜ける
+            </button>
+          </div>
         </div>
       </main>
     );
