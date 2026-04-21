@@ -166,6 +166,63 @@ function PinkBtn({
   );
 }
 
+function computePollingResults(
+  questions: Question[],
+  answers: Answer[],
+  players: Player[]
+): { playerId: string; displayName: string; majorityCount: number; minorityCount: number }[] {
+  const map = new Map<string, { playerId: string; displayName: string; majorityCount: number; minorityCount: number }>();
+  for (const p of players) {
+    map.set(p.id, { playerId: p.id, displayName: p.displayName, majorityCount: 0, minorityCount: 0 });
+  }
+  for (const q of questions) {
+    const qAnswers = answers.filter(a => a.questionId === q.id);
+    if (qAnswers.length < 2) continue;
+    const voteCounts = q.options.map((_, i) => qAnswers.filter(a => a.choiceIndex === i).length);
+    const maxVotes = Math.max(...voteCounts);
+    for (const ans of qAnswers) {
+      const entry = map.get(ans.playerId);
+      if (!entry) continue;
+      if (voteCounts[ans.choiceIndex] === maxVotes) {
+        entry.majorityCount++;
+      } else {
+        entry.minorityCount++;
+      }
+    }
+  }
+  return Array.from(map.values()).sort((a, b) => b.majorityCount - a.majorityCount);
+}
+
+function isPersonVoteQuestion(options: string[], playerNames: Set<string>): boolean {
+  return options.length > 0 && options.every(opt => playerNames.has(opt));
+}
+
+function computePersonVoteResults(
+  questions: Question[],
+  answers: Answer[],
+  players: Player[]
+): { displayName: string; voteCount: number }[] | null {
+  const playerNames = new Set(players.map(p => p.displayName));
+  const personQuestions = questions.filter(q => isPersonVoteQuestion(q.options, playerNames));
+  if (personQuestions.length === 0) return null;
+
+  const voteMap = new Map<string, number>();
+  for (const p of players) voteMap.set(p.displayName, 0);
+
+  for (const q of personQuestions) {
+    for (const ans of answers.filter(a => a.questionId === q.id)) {
+      const chosen = q.options[ans.choiceIndex];
+      if (chosen !== undefined && voteMap.has(chosen)) {
+        voteMap.set(chosen, (voteMap.get(chosen) ?? 0) + 1);
+      }
+    }
+  }
+
+  return Array.from(voteMap.entries())
+    .map(([displayName, voteCount]) => ({ displayName, voteCount }))
+    .sort((a, b) => b.voteCount - a.voteCount);
+}
+
 export function PlayGameClient({ gameId }: { gameId: string }) {
   const t = useTranslations('hostGame');
   const router = useRouter();
@@ -540,6 +597,47 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     </div>
                   );
                 })}
+                {players.length > 0 && (() => {
+                  const personResults = computePersonVoteResults(game.questions, answers, players);
+                  if (!personResults) return null;
+                  const maxVotes = Math.max(...personResults.map(r => r.voteCount), 1);
+                  return (
+                    <div className="flex flex-col gap-2 mt-2">
+                      <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">選ばれた回数</p>
+                      {personResults.map((r, i) => (
+                        <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                          <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
+                          <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
+                          <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div className="h-full bg-pr-pink rounded-full" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                          </div>
+                          <span className="text-sm font-bold text-pr-dark w-10 text-right">{r.voteCount}票</span>
+                          {i === 0 && r.voteCount > 0 && <span className="text-lg">👑</span>}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
+                {players.length > 0 && (() => {
+                  const results = computePollingResults(game.questions, answers, players);
+                  if (results.length === 0) return null;
+                  const topMajority = results[0];
+                  const topMinority = [...results].sort((a, b) => b.minorityCount - a.minorityCount)[0];
+                  return (
+                    <div className="flex flex-col gap-2 mt-4">
+                      <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">みんなの実態まとめ</p>
+                      {results.map((r, i) => (
+                        <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                          <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
+                          <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
+                          {r.playerId === topMajority.playerId && <span className="text-xs font-bold bg-pr-pink text-white px-2 py-0.5 rounded-full">多数派王</span>}
+                          {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">少数派</span>}
+                          <span className="text-xs text-gray-500 font-bold">{r.majorityCount}勝 / {r.minorityCount}負</span>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
               </div>
             )}
 
