@@ -257,9 +257,6 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
   const [hostAnsweredIds, setHostAnsweredIds] = useState<Set<string>>(new Set());
   const [hostSelectedChoice, setHostSelectedChoice] = useState<number | null>(null);
   const [hostSubmitting, setHostSubmitting] = useState(false);
-  const [castNames, setCastNames] = useState<string[]>(['']);
-  const [castSaved, setCastSaved] = useState(false);
-  const [castSaving, setCastSaving] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -332,27 +329,6 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
     if (res.ok) {
       const newGame = await res.json() as import('@/types/domain').Game;
       router.push(`/play/${newGame.id}`);
-    }
-  }
-
-  async function handleSaveCast() {
-    const names = castNames.map(n => n.trim()).filter(Boolean);
-    if (names.length === 0) return;
-    setCastSaving(true);
-    try {
-      const res = await fetch(`/api/games/${gameId}/cast`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ castNames: names }),
-      });
-      if (res.ok) {
-        const data = await res.json() as { questions: import('@/types/domain').Question[] };
-        if (game) dispatch({ type: 'GAME_UPDATED', game: { ...game, questions: data.questions } });
-        setCastSaved(true);
-        setCastNames(names);
-      }
-    } finally {
-      setCastSaving(false);
     }
   }
 
@@ -432,8 +408,6 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
 
   const showVoteBar = !hostParticipating || game.status !== 'question' || hostAnswered;
 
-  const isCastGame = game.scene === 'この中で●●なのは誰だ' &&
-    game.questions.some(q => q.options.some((opt: string) => /^[A-Z]さん$/.test(opt) || /^プレイヤー[A-Z]$/.test(opt)));
 
   return (
     <main className="flex flex-col min-h-screen bg-white">
@@ -501,61 +475,13 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             ) : (
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
             )}
-            {/* キャスト指名ゲーム用: プレースホルダーがある場合のみ表示 */}
-            {isCastGame && (
-              <div className="flex flex-col gap-2 p-3 bg-gray-50 border-[2px] border-dashed border-pr-dark rounded-[8px]">
-                <p className="text-xs font-bold text-pr-dark uppercase tracking-widest">👤 キャストを設定</p>
-                {castSaved ? (
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-bold text-pr-dark">{castNames.join(' / ')}</p>
-                    <button type="button" onClick={() => setCastSaved(false)}
-                      className="text-xs text-gray-400 underline touch-manipulation"
-                      style={{ fontFamily: 'var(--font-dm)' }}>変更</button>
-                  </div>
-                ) : (
-                  <>
-                    {castNames.map((name, i) => (
-                      <div key={i} className="flex gap-2">
-                        <input
-                          type="text"
-                          value={name}
-                          onChange={e => {
-                            const next = [...castNames];
-                            next[i] = e.target.value;
-                            if (i === castNames.length - 1 && e.target.value) next.push('');
-                            setCastNames(next);
-                          }}
-                          placeholder={`キャスト ${i + 1}`}
-                          maxLength={20}
-                          className="flex-1 h-10 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
-                          style={{ fontFamily: 'var(--font-dm)' }}
-                        />
-                        {castNames.length > 1 && (
-                          <button type="button"
-                            onClick={() => setCastNames(castNames.filter((_, j) => j !== i))}
-                            className="w-10 h-10 text-gray-400 font-bold text-lg touch-manipulation">×</button>
-                        )}
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={handleSaveCast}
-                      disabled={castNames.every(n => !n.trim()) || castSaving}
-                      className="h-10 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark disabled:opacity-50 touch-manipulation"
-                      style={{ fontFamily: 'var(--font-dm)' }}
-                    >
-                      {castSaving ? '保存中...' : '✓ キャストを確定'}
-                    </button>
-                  </>
-                )}
-              </div>
-            )}
+
             {players.length === 0 && (
               <p className="text-xs text-center text-gray-400">ホストも参加するか、ゲストの参加を待ってください</p>
             )}
             <PinkBtn
               onClick={handleAdvance}
-              disabled={players.length === 0 || (isCastGame && !castSaved)}
+              disabled={players.length === 0}
             >
               {t('startGame', { count: players.length })}
             </PinkBtn>
