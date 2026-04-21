@@ -607,6 +607,14 @@ export default function GuestGameClient({ code }: Props) {
                 onClick={() => handleAnswer(i)}
               />
             ))}
+            <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-pr-dark rounded-[8px] px-3 py-2 mt-1">
+              <span className="text-lg">🥂</span>
+              <p className="flex-1 text-white font-bold text-xs leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
+              </p>
+              <span className="text-[10px] font-bold bg-pr-pink text-white px-2 py-0.5 rounded-full">DL</span>
+            </a>
           </div>
         </div>
       </main>
@@ -637,6 +645,17 @@ export default function GuestGameClient({ code }: Props) {
           >
             {t('changeAnswer')}
           </button>
+          <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 w-full">
+            <span className="text-2xl">🥂</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
+              </p>
+              <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
+            </div>
+            <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
+          </a>
         </div>
       </main>
     );
@@ -714,6 +733,17 @@ export default function GuestGameClient({ code }: Props) {
               )}
             </div>
 
+            <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 w-full">
+              <span className="text-2xl">🥂</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                  キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
+                </p>
+                <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
+              </div>
+              <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
+            </a>
             <p className="text-gray-400 font-bold animate-pulse text-sm">
               {t('waitingForNext')}
             </p>
@@ -774,6 +804,17 @@ export default function GuestGameClient({ code }: Props) {
               );
             })}
           </div>
+          <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3">
+            <span className="text-2xl">🥂</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
+              </p>
+              <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
+            </div>
+            <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
+          </a>
           <p className="text-gray-400 font-bold animate-pulse text-sm text-center mt-4">
             {t('waitingForNext')}
           </p>
