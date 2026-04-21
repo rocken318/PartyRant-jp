@@ -3,6 +3,7 @@ export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { getUserFromRequest } from '@/lib/supabase/auth-server';
+import { store } from '@/lib/store';
 
 export async function POST(
   req: NextRequest,
@@ -25,7 +26,7 @@ export async function POST(
     // Delete answers and players, then reset game to lobby
     await db.from('answers').delete().eq('game_id', gameId);
     await db.from('players').delete().eq('game_id', gameId);
-    const { data, error } = await db
+    const { error } = await db
       .from('games')
       .update({
         status: 'lobby',
@@ -34,14 +35,19 @@ export async function POST(
         ended_at: null,
       })
       .eq('id', gameId)
-      .select()
+      .select('id')
       .single();
 
-    if (error || !data) {
+    if (error) {
       return NextResponse.json({ error: error?.message ?? 'Reset failed' }, { status: 500 });
     }
 
-    return NextResponse.json(data);
+    const updated = await store.getGame(gameId);
+    if (!updated) {
+      return NextResponse.json({ error: 'Game not found after reset' }, { status: 404 });
+    }
+
+    return NextResponse.json(updated);
   } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }

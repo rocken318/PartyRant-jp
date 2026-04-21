@@ -1,0 +1,20 @@
+Install the SDK
+It's time to implement the SDK to get everything running.
+
+Framework
+
+react-native
+
+Install with
+npm
+
+npm
+
+How to install
+
+npm install --save react-native-purchases react-native-purchases-ui
+API key
+
+test_ZFQoFxXPSyArLdeCKQABRbyJpBf
+Using AI to integrate RevenueCat?
+
