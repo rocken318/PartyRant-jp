@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { buttonVariants } from '@/components/ui/button';
@@ -233,6 +233,16 @@ export function HostGameClient({ gameId }: { gameId: string }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { game, players, answers, scores, opinionResults, loading, error } = state;
 
+  // Host participation mode
+  const [hostParticipating, setHostParticipating] = useState(false);
+  const [hostNameInput, setHostNameInput] = useState('');
+  const [hostShowInput, setHostShowInput] = useState(false);
+  const [hostJoining, setHostJoining] = useState(false);
+  const [hostPlayerId, setHostPlayerId] = useState<string | null>(null);
+  const [hostAnsweredIds, setHostAnsweredIds] = useState<Set<string>>(new Set());
+  const [hostSelectedChoice, setHostSelectedChoice] = useState<number | null>(null);
+  const [hostSubmitting, setHostSubmitting] = useState(false);
+
   useEffect(() => {
     const load = async () => {
       try {
@@ -282,6 +292,10 @@ export function HostGameClient({ gameId }: { gameId: string }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game?.status, answers.length, players.length]);
 
+  useEffect(() => {
+    setHostSelectedChoice(null);
+  }, [game?.currentQuestionIndex]);
+
   const handleEvent = useCallback((event: GameEvent) => {
     switch (event.type) {
       case 'connected': {
@@ -310,6 +324,48 @@ export function HostGameClient({ gameId }: { gameId: string }) {
     if (updated) dispatch({ type: 'GAME_UPDATED', game: updated });
   };
 
+  async function handleHostJoin() {
+    const name = hostNameInput.trim();
+    if (!name) return;
+    setHostJoining(true);
+    try {
+      const res = await fetch(`/api/games/${gameId}/players`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ displayName: name }),
+      });
+      if (res.ok) {
+        const player = await res.json() as import('@/types/domain').Player;
+        setHostPlayerId(player.id);
+        setHostParticipating(true);
+        setHostShowInput(false);
+        dispatch({ type: 'PLAYER_JOINED', player });
+      }
+    } finally {
+      setHostJoining(false);
+    }
+  }
+
+  async function handleHostAnswer(choiceIndex: number) {
+    if (!hostPlayerId || !currentQuestion || hostAnswered || hostSubmitting) return;
+    setHostSelectedChoice(choiceIndex);
+    setHostSubmitting(true);
+    try {
+      const res = await fetch(`/api/games/${gameId}/answers`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerId: hostPlayerId, questionId: currentQuestion.id, choiceIndex }),
+      });
+      if (res.ok) {
+        const answer = await res.json() as import('@/types/domain').Answer;
+        dispatch({ type: 'ANSWER_SUBMITTED', answer });
+        setHostAnsweredIds(prev => new Set([...prev, currentQuestion.id]));
+      }
+    } finally {
+      setHostSubmitting(false);
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex flex-1 items-center justify-center min-h-screen bg-white">
@@ -337,6 +393,13 @@ export function HostGameClient({ gameId }: { gameId: string }) {
       qAnswers.filter((a: Answer) => a.choiceIndex === i).length
     );
   })();
+
+  const hostAnswered = hostParticipating && !!hostPlayerId && !!currentQuestion
+    ? hostAnsweredIds.has(currentQuestion.id)
+    : false;
+
+  // Show VoteBar when: not participating, OR not in question state, OR host already answered
+  const showVoteBar = !hostParticipating || game.status !== 'question' || hostAnswered;
 
   return (
     <main className="flex flex-col min-h-screen bg-white">
@@ -372,6 +435,48 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               <GameQRCode joinCode={game.joinCode} />
             </div>
             <PlayerList players={players} />
+            {/* Host participation opt-in */}
+            {!hostParticipating ? (
+              <div className="flex flex-col gap-2">
+                {!hostShowInput ? (
+                  <button
+                    type="button"
+                    onClick={() => setHostShowInput(true)}
+                    className="w-full h-11 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >
+                    ＋ ホストも参加する
+                  </button>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={hostNameInput}
+                      onChange={e => setHostNameInput(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') handleHostJoin(); }}
+                      placeholder="あなたの名前"
+                      maxLength={20}
+                      autoFocus
+                      className="flex-1 h-11 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
+                      style={{ fontFamily: 'var(--font-dm)' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleHostJoin}
+                      disabled={!hostNameInput.trim() || hostJoining}
+                      className="h-11 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] disabled:opacity-50 touch-manipulation"
+                      style={{ fontFamily: 'var(--font-dm)' }}
+                    >
+                      {hostJoining ? '…' : '参加'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-xs font-bold text-center text-gray-500">
+                ✓ ホストとして参加中
+              </p>
+            )}
             <PinkBtn onClick={handleAdvance} disabled={players.length === 0}>
               {t('startGame', { count: players.length })}
             </PinkBtn>
@@ -413,7 +518,31 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               )}
             </div>
 
-            <VoteBar options={currentQuestion.options} votes={currentVotes} />
+            {showVoteBar && (
+              <VoteBar options={currentQuestion.options} votes={currentVotes} />
+            )}
+            {hostParticipating && !hostAnswered && (
+              <div className="flex flex-col gap-2 mt-2">
+                <p className="text-xs font-bold text-gray-400 text-center">あなたの回答</p>
+                {currentQuestion.options.map((opt: string, i: number) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleHostAnswer(i)}
+                    disabled={hostSubmitting}
+                    className={[
+                      'w-full h-12 rounded-[6px] font-bold text-sm border-[3px] touch-manipulation transition-[transform,box-shadow] duration-75',
+                      hostSelectedChoice === i
+                        ? 'bg-pr-pink text-white border-pr-dark shadow-[1px_1px_0_#111]'
+                        : 'bg-white text-pr-dark border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px]',
+                    ].join(' ')}
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            )}
 
             <PinkBtn onClick={handleAdvance} outline>
               {t('skipToResults')}
