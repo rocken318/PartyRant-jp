@@ -606,6 +606,25 @@ export default function PresetsPage() {
             )}
           </>
         )}
+
+        {/* センキャバ バナー */}
+        <a
+          href="https://www.sencaba.com/download"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 mt-2"
+        >
+          <span className="text-2xl">🥂</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+              キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
+            </p>
+            <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
+          </div>
+          <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">
+            DL
+          </span>
+        </a>
       </div>
       <PresetPreviewDrawer
         preset={previewPreset}
