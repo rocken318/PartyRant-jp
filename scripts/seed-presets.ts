@@ -59,7 +59,7 @@ function generateJoinCode(): string {
 
 // ── helpers ─ directory loader ────────────────────────────────────────────────
 
-function loadPresetsFromDir(dirPath: string): PresetGame[] {
+function loadPresetsFromDir(dirPath: string, sceneOverride?: string): PresetGame[] {
   const result: PresetGame[] = [];
   const files = readdirSync(dirPath).filter(f => f.endsWith('.json'));
   for (const f of files) {
@@ -67,6 +67,7 @@ function loadPresetsFromDir(dirPath: string): PresetGame[] {
     // Each file is an array of PresetGame objects (filter out any stray non-object entries)
     const arr: PresetGame[] = (Array.isArray(data) ? data : [data])
       .filter((item: unknown) => item !== null && typeof item === 'object' && !Array.isArray(item) && (item as PresetGame).questions !== undefined);
+    if (sceneOverride) arr.forEach(p => { p.scene = sceneOverride; });
     result.push(...arr);
   }
   return result;
@@ -102,6 +103,12 @@ async function main() {
     presets.push(...batch);
     console.log(`  Loaded ${batch.length} presets from ${d}`);
   }
+
+  // ── 0421 この中で●●なのは誰だ
+  const dirWhoIs = join(__dirname, '../files/0421/partyrant_who_is');
+  const batchWhoIs = loadPresetsFromDir(dirWhoIs, 'この中で●●なのは誰だ');
+  presets.push(...batchWhoIs);
+  console.log(`  Loaded ${batchWhoIs.length} presets from 0421/partyrant_who_is (scene → この中で●●なのは誰だ)`);
 
   console.log(`Total: ${presets.length} presets to insert.`);
 

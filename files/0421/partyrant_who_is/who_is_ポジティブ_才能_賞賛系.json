@@ -1,0 +1,1182 @@
+[
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート8",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート8",
+    "questions": [
+      {
+        "text": "この中で、一番初めて会う人ともすぐに打ち解けられそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番記念日や誕生日を盛大に祝ってくれそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番どんなピンチも笑いに変えてくれそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番悩みを真剣に聞いて、的確なアドバイスをくれそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番初対面で「この人すごい！」と思わせるオーラがあるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番隠れて努力しているイメージがあるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番周りの人を笑顔にする天才だと思うのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番急な無茶振りにもスマートに対応できそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番一度決めたら目標達成まで諦めなさそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番どんなお店でも「顔パス」できそうな雰囲気があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート4",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート4",
+    "questions": [
+      {
+        "text": "この中で、一番初対面の人を「この人と友達になりたい！」と思わせる魅力があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番会社の社長になったら社員から慕われそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番宝くじを当てたら全額寄付しそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番異性から「なんか放っておけない…」と思われていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「実は裏でめちゃくちゃ努力してるな…」と感じさせるオーラがあるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番インスタグラムのストーリーズがおしゃれで見てて飽きないのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番どんな困難も笑い飛ばして乗り越えそうなポジティブさがあるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番無人島に持っていくなら「この人！」と選ばれそうなサバイバル能力が高そうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番将来「え、あの人有名人になったの！？」と驚きそうな大物感があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「実は料理の腕がプロ級」というギャップがありそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート5",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート5",
+    "questions": [
+      {
+        "text": "この中で、一番「実は裏でめちゃくちゃ努力してる」のは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「初対面の人を一瞬で魅了できる」のは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「突拍子もないアイデアで大成功しそう」なのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「人生の酸いも甘いも知っている」ベテラン感があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「どんな修羅場でも笑顔で乗り切りそう」なのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「実はめちゃくちゃ器用で何でもこなせる」のは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「人の心を掴むのが上手い」のは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「人生の楽しみ方を知っている」のは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「誰もが認めるリーダーシップを発揮しそう」なのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「周りの人を巻き込んで夢を叶えそう」なのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート2",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート2",
+    "questions": [
+      {
+        "text": "この中で、一番最初に起業して大成功しそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番サプライズを仕掛けるのが上手そうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番どんな悩みを打ち明けても真剣に聞いてくれそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「実はかなりのモテ期を経験しているだろうな」と感じさせるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番初対面の人とでも、すぐに打ち解けて仲良くなれそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番どんな分野でも器用にこなすオールラウンダーそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番高級ホテルのスイートルームが似合いそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番「実は陰で努力を惜しまないタイプだな」と感じさせるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番周りを巻き込んで面白いことを企画し、成功させそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番困っている人がいたら、何も言わずにスマートに助けそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート1",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート1",
+    "questions": [
+      {
+        "text": "この中で、実は裏でとんでもない努力をしてそう、と一番思われているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、合コンで一番最初に連絡先を聞かれそう、とみんなが思っているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、どんなトラブルもスマートに解決してくれそう、と頼られているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、将来、会社を立ち上げて大成功しそう、と一番期待されているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、困っている人を放っておけず、つい助けてしまいそう、と一番心優しいと思われているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、初対面なのに、なぜか心を許してしまうオーラがある、と一番魅力的だと思われているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、実は、密かにみんなに慕われている「隠れたカリスマ」なのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、誰もが認める『愛されキャラ』代表、として一番しっくりくるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、周りの人を巻き込んで、新しいムーブメントを起こしそう、と一番発信力があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、異性にモテるのはもちろん、同性からも憧れられてそう、と一番「格好良い」と思われているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート6",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート6",
+    "questions": [
+      {
+        "text": "この中で、一番どんなピンチも笑いに変えて乗り越えられそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番『実はとんでもない特技を隠し持っていそう』なのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番センスの良いプレゼントを選べそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番初対面の人とでもすぐに打ち解けられそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番周りの人を幸せにするのが上手そうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番困っている人がいたら、そっと手を差し伸べそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番逆境をチャンスに変えられそうな、タフな心を持っていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番『人生何とかなるさ！』と明るく生きていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番一緒にいると自分も前向きになれる、ポジティブオーラが出ているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番『人生相談に乗ってほしい！』と思う、頼りになるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート10",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート10",
+    "questions": [
+      {
+        "text": "この中で、一番出世しそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番モテて、常に異性の影がちらついてそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番周りの人に気配りができて、優しいのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番ユニークで、天才的な発想をしそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番真剣に話を聞いてくれて、良き相談相手になりそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番サプライズが好きで、ロマンチックな演出をしそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番人生を謳歌していて、毎日が楽しそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番周りを笑顔にできるムードメーカーなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番ピンチに強く、どんな困難も乗り越えられそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番将来、素敵な豪邸に住んでセレブな生活を送っていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番〇〇なのは？ パート3",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート3",
+    "questions": [
+      {
+        "text": "この中で、一番人生を楽しんでそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、ここぞという時に一番頼りになるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番話の引き出しが多くて、一緒にいて飽きないのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番褒められて伸びるタイプなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番センスが良くて、参考にしたいのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番サプライズや記念日を大切にしそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番どんな人ともすぐに打ち解けそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番自分の夢や目標を熱く語るのが似合うのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番秘密を打ち明けたくなるくらい信頼できるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番日頃から感謝の気持ちを表現してそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート7",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート7",
+    "questions": [
+      {
+        "text": "この中で、実はとんでもない才能を隠し持っていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、どんなピンチも笑って乗り越えられそうなメンタルの持ち主は？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、誰よりも早く出世しそうなオーラがあるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、人たらしで、気づいたら周りを味方につけていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、モテるのに、なぜか自分では気づいてなさそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、どんな無茶な頼み事も引き受けてくれそうな、人の良いお人好しは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、普段はおちゃらけてるけど、いざという時にめちゃくちゃ頼りになりそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、人生の修羅場をいくつも乗り越えてきた貫禄があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、老若男女問わず、誰からも愛されそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、実はインフルエンサーとしてバズりそうなポテンシャルを秘めているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "この中で一番○○なのは？ パート9",
+    "mode": "polling",
+    "description": "みんなからどう思われているかがバレる！恐怖の他己評価ゲーム！パート9",
+    "questions": [
+      {
+        "text": "この中で、一番「〇〇さんのおかげで、人生変わりました！」と言われる可能性を秘めているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、突然海外に移住しても、数週間で現地の人気者になりそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、どんな緊急事態でも「え、何でこんなに冷静なの！？」と驚かれるほど神対応しそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、初めて会う人でも「この人、すごい！」と一瞬で魅了してしまいそうな、天性のカリスマ性があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、普段は飄々としているけど、実は誰よりも情熱を秘めていそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、どんな無茶な挑戦でも「面白そう！」と笑顔で飛び込んで、成功させそうなのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、使う言葉一つ一つに品があって、「生まれが良いんだろうな」と思わせる雰囲気があるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、会うたびに「また面白いこと始めたな！」と感心させられる、常に進化しているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、遊びも仕事も一切手を抜かず、常に全力で楽しんでいるように見えるのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番、誰かのピンチを察知して、何も言わずにそっと手を差し伸べそうな、究極の優しさを持っているのは？",
+        "options": [
+          "プレイヤーA",
+          "プレイヤーB",
+          "プレイヤーC",
+          "自分"
+        ],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  }
+]

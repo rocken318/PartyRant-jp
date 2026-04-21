@@ -8,19 +8,21 @@ import type { Game } from '@/types/domain';
 import PresetPreviewDrawer from '@/components/PresetPreviewDrawer';
 
 const SCENE_META: Record<string, { icon: string; color: string }> = {
-  'みんなで':       { icon: '🎉', color: '#8B5CF6' },
-  '多数派クイズ':   { icon: '⚔️', color: '#F97316' },
-  '結婚式':         { icon: '💍', color: '#FF0080' },
-  '合コン':         { icon: '💕', color: '#FF6B9D' },
-  'カップル':       { icon: '🫶', color: '#FF4D6D' },
-  'ファミリー':     { icon: '👨‍👩‍👧‍👦', color: '#00C472' },
-  '会社飲み会':     { icon: '🏢', color: '#3B82F6' },
-  'キャバクラ':     { icon: '🥂', color: '#FFD600' },
-  'ホームパーティー': { icon: '🏠', color: '#8B5CF6' },
-  'サークル':       { icon: '🎓', color: '#F97316' },
-  '居酒屋':         { icon: '🍺', color: '#EF4444' },
-  '勉強':           { icon: '📚', color: '#10B981' },
-  '雑学クイズ':     { icon: '🎓', color: '#6366F1' },
+  'みんなで':             { icon: '🎉', color: '#8B5CF6' },
+  '多数派クイズ':         { icon: '⚔️', color: '#F97316' },
+  '究極の二択':           { icon: '⚡', color: '#FF0080' },
+  'この中で●●なのは誰だ': { icon: '👆', color: '#FF6B9D' },
+  '結婚式':               { icon: '💍', color: '#FF0080' },
+  '合コン':               { icon: '💕', color: '#FF6B9D' },
+  'カップル':             { icon: '🫶', color: '#FF4D6D' },
+  'ファミリー':           { icon: '👨‍👩‍👧‍👦', color: '#00C472' },
+  '会社飲み会':           { icon: '🏢', color: '#3B82F6' },
+  'キャバクラ':           { icon: '🥂', color: '#FFD600' },
+  'ホームパーティー':     { icon: '🏠', color: '#8B5CF6' },
+  'サークル':             { icon: '🎓', color: '#F97316' },
+  '居酒屋':               { icon: '🍺', color: '#EF4444' },
+  '勉強':                 { icon: '📚', color: '#10B981' },
+  '雑学クイズ':           { icon: '🎓', color: '#6366F1' },
 };
 
 const TYPE_META: Record<string, { label: string; icon: string; color: string }> = {
