@@ -224,6 +224,25 @@ function computePersonVoteResults(
     .sort((a, b) => b.voteCount - a.voteCount);
 }
 
+// キャスト指名ゲーム用: オプション名ベースで集計（参加プレイヤーと無関係）
+function computeOptionVoteResults(
+  questions: Question[],
+  answers: Answer[]
+): { optionName: string; voteCount: number }[] | null {
+  const voteMap = new Map<string, number>();
+  for (const q of questions) {
+    for (const opt of q.options) if (!voteMap.has(opt)) voteMap.set(opt, 0);
+    for (const ans of answers.filter(a => a.questionId === q.id)) {
+      const opt = q.options[ans.choiceIndex];
+      if (opt !== undefined) voteMap.set(opt, (voteMap.get(opt) ?? 0) + 1);
+    }
+  }
+  if (voteMap.size === 0) return null;
+  return Array.from(voteMap.entries())
+    .map(([optionName, voteCount]) => ({ optionName, voteCount }))
+    .sort((a, b) => b.voteCount - a.voteCount);
+}
+
 export function PlayGameClient({ gameId }: { gameId: string }) {
   const t = useTranslations('hostGame');
   const router = useRouter();
@@ -238,8 +257,9 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
   const [hostAnsweredIds, setHostAnsweredIds] = useState<Set<string>>(new Set());
   const [hostSelectedChoice, setHostSelectedChoice] = useState<number | null>(null);
   const [hostSubmitting, setHostSubmitting] = useState(false);
-  const [castInput, setCastInput] = useState('');
-  const [castAdding, setCastAdding] = useState(false);
+  const [castNames, setCastNames] = useState<string[]>(['']);
+  const [castSaved, setCastSaved] = useState(false);
+  const [castSaving, setCastSaving] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -315,23 +335,24 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
     }
   }
 
-  async function handleAddCast() {
-    const name = castInput.trim();
-    if (!name) return;
-    setCastAdding(true);
+  async function handleSaveCast() {
+    const names = castNames.map(n => n.trim()).filter(Boolean);
+    if (names.length === 0) return;
+    setCastSaving(true);
     try {
-      const res = await fetch(`/api/games/${gameId}/players`, {
-        method: 'POST',
+      const res = await fetch(`/api/games/${gameId}/cast`, {
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ displayName: name }),
+        body: JSON.stringify({ castNames: names }),
       });
       if (res.ok) {
-        const player = await res.json() as import('@/types/domain').Player;
-        dispatch({ type: 'PLAYER_JOINED', player });
-        setCastInput('');
+        const data = await res.json() as { questions: import('@/types/domain').Question[] };
+        if (game) dispatch({ type: 'GAME_UPDATED', game: { ...game, questions: data.questions } });
+        setCastSaved(true);
+        setCastNames(names);
       }
     } finally {
-      setCastAdding(false);
+      setCastSaving(false);
     }
   }
 
@@ -477,32 +498,62 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             ) : (
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
             )}
-            {/* キャスト・参加者を名前で追加 */}
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={castInput}
-                onChange={e => setCastInput(e.target.value)}
-                onKeyDown={e => { if (e.key === 'Enter') handleAddCast(); }}
-                placeholder="キャスト名を入力して追加"
-                maxLength={20}
-                className="flex-1 h-11 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
-                style={{ fontFamily: 'var(--font-dm)' }}
-              />
-              <button
-                type="button"
-                onClick={handleAddCast}
-                disabled={!castInput.trim() || castAdding}
-                className="h-11 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] disabled:opacity-50 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}
-              >
-                {castAdding ? '…' : '＋追加'}
-              </button>
-            </div>
+            {/* キャスト指名ゲーム用: scene が「この中で●●なのは誰だ」のときキャスト名を設定 */}
+            {game.scene === 'この中で●●なのは誰だ' && (
+              <div className="flex flex-col gap-2 p-3 bg-gray-50 border-[2px] border-dashed border-pr-dark rounded-[8px]">
+                <p className="text-xs font-bold text-pr-dark uppercase tracking-widest">👤 キャストを設定</p>
+                {castSaved ? (
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-bold text-pr-dark">{castNames.join(' / ')}</p>
+                    <button type="button" onClick={() => setCastSaved(false)}
+                      className="text-xs text-gray-400 underline touch-manipulation"
+                      style={{ fontFamily: 'var(--font-dm)' }}>変更</button>
+                  </div>
+                ) : (
+                  <>
+                    {castNames.map((name, i) => (
+                      <div key={i} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={name}
+                          onChange={e => {
+                            const next = [...castNames];
+                            next[i] = e.target.value;
+                            if (i === castNames.length - 1 && e.target.value) next.push('');
+                            setCastNames(next);
+                          }}
+                          placeholder={`キャスト ${i + 1}`}
+                          maxLength={20}
+                          className="flex-1 h-10 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
+                          style={{ fontFamily: 'var(--font-dm)' }}
+                        />
+                        {castNames.length > 1 && (
+                          <button type="button"
+                            onClick={() => setCastNames(castNames.filter((_, j) => j !== i))}
+                            className="w-10 h-10 text-gray-400 font-bold text-lg touch-manipulation">×</button>
+                        )}
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={handleSaveCast}
+                      disabled={castNames.every(n => !n.trim()) || castSaving}
+                      className="h-10 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark disabled:opacity-50 touch-manipulation"
+                      style={{ fontFamily: 'var(--font-dm)' }}
+                    >
+                      {castSaving ? '保存中...' : '✓ キャストを確定'}
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
             {players.length === 0 && (
               <p className="text-xs text-center text-gray-400">ホストも参加するか、ゲストの参加を待ってください</p>
             )}
-            <PinkBtn onClick={handleAdvance} disabled={players.length === 0}>
+            <PinkBtn
+              onClick={handleAdvance}
+              disabled={players.length === 0 || (game.scene === 'この中で●●なのは誰だ' && !castSaved)}
+            >
               {t('startGame', { count: players.length })}
             </PinkBtn>
           </>
@@ -641,7 +692,31 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     </div>
                   );
                 })}
-                {players.length > 0 && (() => {
+                {(() => {
+                  // キャスト指名ゲーム: オプション名ベース集計
+                  if (game.scene === 'この中で●●なのは誰だ') {
+                    const optResults = computeOptionVoteResults(game.questions, answers);
+                    if (!optResults) return null;
+                    const maxVotes = Math.max(...optResults.map(r => r.voteCount), 1);
+                    return (
+                      <div className="flex flex-col gap-2 mt-2">
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">選ばれた回数</p>
+                        {optResults.map((r, i) => (
+                          <div key={r.optionName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                            <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
+                            <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.optionName}</span>
+                            <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div className="h-full bg-pr-pink rounded-full" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                            </div>
+                            <span className="text-sm font-bold text-pr-dark w-10 text-right">{r.voteCount}票</span>
+                            {i === 0 && r.voteCount > 0 && <span className="text-lg">👑</span>}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }
+                  // その他の polling: プレイヤー名ベース集計
+                  if (players.length === 0) return null;
                   const personResults = computePersonVoteResults(game.questions, answers, players);
                   if (!personResults) return null;
                   const maxVotes = Math.max(...personResults.map(r => r.voteCount), 1);
@@ -662,7 +737,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     </div>
                   );
                 })()}
-                {players.length > 0 && (() => {
+                {game.scene !== 'この中で●●なのは誰だ' && players.length > 0 && (() => {
                   const results = computePollingResults(game.questions, answers, players);
                   if (results.length === 0) return null;
                   const topMajority = results[0];
