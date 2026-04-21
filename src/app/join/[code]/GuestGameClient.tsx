@@ -10,6 +10,33 @@ import { useLocalPlayer } from '@/lib/hooks/useLocalPlayer';
 import { AnswerButton } from '@/components/AnswerButton';
 import { CountdownTimer } from '@/components/CountdownTimer';
 
+function computePollingResults(
+  questions: import('@/types/domain').Question[],
+  answers: import('@/types/domain').Answer[],
+  players: import('@/types/domain').Player[]
+): { playerId: string; displayName: string; majorityCount: number; minorityCount: number }[] {
+  const map = new Map<string, { playerId: string; displayName: string; majorityCount: number; minorityCount: number }>();
+  for (const p of players) {
+    map.set(p.id, { playerId: p.id, displayName: p.displayName, majorityCount: 0, minorityCount: 0 });
+  }
+  for (const q of questions) {
+    const qAnswers = answers.filter(a => a.questionId === q.id);
+    if (qAnswers.length < 2) continue;
+    const voteCounts = q.options.map((_, i) => qAnswers.filter(a => a.choiceIndex === i).length);
+    const maxVotes = Math.max(...voteCounts);
+    for (const ans of qAnswers) {
+      const entry = map.get(ans.playerId);
+      if (!entry) continue;
+      if (voteCounts[ans.choiceIndex] === maxVotes) {
+        entry.majorityCount++;
+      } else {
+        entry.minorityCount++;
+      }
+    }
+  }
+  return Array.from(map.values()).sort((a, b) => b.majorityCount - a.majorityCount);
+}
+
 type GuestState =
   | 'loading'
   | 'name_input'
@@ -794,6 +821,27 @@ export default function GuestGameClient({ code }: Props) {
             </div>
           )}
 
+          {game.mode === 'polling' && endResultsStatus === 'loaded' && endPlayers.length > 0 && (() => {
+            const results = computePollingResults(game.questions, endAnswers, endPlayers);
+            if (results.length === 0) return null;
+            const topMajority = results[0];
+            const topMinority = [...results].sort((a, b) => b.minorityCount - a.minorityCount)[0];
+            return (
+              <div className="flex flex-col gap-2 mt-4">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">みんなの実態まとめ</p>
+                {results.map((r, i) => (
+                  <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                    <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
+                    <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
+                    {r.playerId === topMajority.playerId && <span className="text-xs font-bold bg-yellow-300 text-pr-dark px-2 py-0.5 rounded-full">多数派王</span>}
+                    {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">少数派</span>}
+                    <span className="text-xs text-gray-500 font-bold">{r.majorityCount}勝 / {r.minorityCount}負</span>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
           {game.mode === 'opinion' && endResultsStatus === 'loading' && (
             <div className="flex justify-center py-8">
               <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
@@ -877,15 +925,16 @@ export default function GuestGameClient({ code }: Props) {
                 キャンセル
               </button>
             </div>
+          ) : game?.hostId ? (
+            <div className="flex flex-col gap-3 mt-auto">
+              <button type="button" onClick={() => setWaitingForNext(true)}
+                className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                ⏳ 次のゲームを待つ
+              </button>
+            </div>
           ) : (
             <div className="flex flex-col gap-3 mt-auto">
-              {game?.hostId && (
-                <button type="button" onClick={() => setWaitingForNext(true)}
-                  className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                  style={{ fontFamily: 'var(--font-dm)' }}>
-                  ⏳ 次のゲームを待つ
-                </button>
-              )}
               <button type="button" onClick={() => router.push('/join')}
                 className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}>
@@ -998,15 +1047,16 @@ export default function GuestGameClient({ code }: Props) {
                 キャンセル
               </button>
             </div>
+          ) : game?.hostId ? (
+            <div className="flex flex-col gap-3 w-full">
+              <button type="button" onClick={() => setWaitingForNext(true)}
+                className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                ⏳ 次のゲームを待つ
+              </button>
+            </div>
           ) : (
             <div className="flex flex-col gap-3 w-full">
-              {game?.hostId && (
-                <button type="button" onClick={() => setWaitingForNext(true)}
-                  className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                  style={{ fontFamily: 'var(--font-dm)' }}>
-                  ⏳ 次のゲームを待つ
-                </button>
-              )}
               <button type="button" onClick={() => router.push('/join')}
                 className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}>
