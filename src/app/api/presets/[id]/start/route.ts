@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { store } from '@/lib/store';
+import { getUserFromRequest } from '@/lib/supabase/auth-server';
 
 export const runtime = 'nodejs';
 
@@ -15,6 +16,8 @@ export async function POST(
       return NextResponse.json({ error: 'Preset not found' }, { status: 404 });
     }
 
+    const user = await getUserFromRequest(req).catch(() => null);
+
     const game = await store.createGame({
       mode: preset.mode,
       gameMode: preset.gameMode,
@@ -22,6 +25,7 @@ export async function POST(
       description: preset.description,
       scene: preset.scene,
       questions: preset.questions.map(({ id: _id, order: _order, ...q }) => q),
+      hostId: user?.id,
     });
 
     const lobbyGame = await store.updateGameStatus(game.id, 'lobby');

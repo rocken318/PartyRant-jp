@@ -285,14 +285,22 @@ export function HostGameClient({ gameId }: { gameId: string }) {
     <main className="flex flex-col min-h-screen bg-white">
       {/* Sticky dark header */}
       <header className="sticky top-0 z-10 bg-pr-dark px-4 py-3 flex items-center justify-between gap-3 border-b-[3px] border-pr-dark">
-        <div className="flex flex-col">
-          <h1
-            className="text-pr-pink truncate max-w-[200px] sm:max-w-none"
-            style={{ fontFamily: 'var(--font-bebas)', fontSize: '1.6rem', lineHeight: 1 }}
+        <div className="flex items-center gap-3 min-w-0">
+          <Link
+            href="/presets"
+            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full border-[2px] border-white/30 text-white text-lg hover:border-white transition-colors touch-manipulation"
           >
-            {game.title}
-          </h1>
-          <p className="text-gray-400 text-xs font-bold uppercase tracking-widest capitalize">{game.mode}</p>
+            ←
+          </Link>
+          <div className="flex flex-col min-w-0">
+            <h1
+              className="text-pr-pink truncate max-w-[160px] sm:max-w-none"
+              style={{ fontFamily: 'var(--font-bebas)', fontSize: '1.6rem', lineHeight: 1 }}
+            >
+              {game.title}
+            </h1>
+            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest capitalize">{game.mode}</p>
+          </div>
         </div>
         <GameStatusBadge status={game.status} />
       </header>
@@ -480,13 +488,22 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               );
             })()}
 
-            <Link
-              href="/host/new"
-              className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-              style={{ fontFamily: 'var(--font-dm)' }}
-            >
-              {t('createAnotherGame')}
-            </Link>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/presets"
+                className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              >
+                🎮 プリセット一覧へ
+              </Link>
+              <Link
+                href="/host/new"
+                className="w-full h-11 bg-white text-pr-dark flex items-center justify-center text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              >
+                ＋ 新しく作る
+              </Link>
+            </div>
           </>
         )}
 

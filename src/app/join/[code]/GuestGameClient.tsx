@@ -56,6 +56,7 @@ export default function GuestGameClient({ code }: Props) {
   const [endResultsStatus, setEndResultsStatus] = useState<'idle' | 'loading' | 'loaded' | 'error'>('idle');
 
   const [timedOut, setTimedOut] = useState(false);
+  const [waitingForNext, setWaitingForNext] = useState(false);
   const { savePlayer, clearPlayer } = useLocalPlayer(gameId ?? '');
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   // Incremented on each new question to invalidate in-flight answer submissions
@@ -168,6 +169,21 @@ export default function GuestGameClient({ code }: Props) {
       .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [guestState]);
+
+  useEffect(() => {
+    if (!waitingForNext || !game?.hostId) return;
+    const poll = async () => {
+      try {
+        const res = await fetch(`/api/games/next-lobby?hostId=${game.hostId}&exceptGameId=${game.id}`);
+        if (!res.ok) return;
+        const { game: next } = await res.json() as { game: { id: string; joinCode: string } | null };
+        if (next) router.push(`/join/${next.joinCode}`);
+      } catch { /* ignore */ }
+    };
+    poll();
+    const id = setInterval(poll, 3000);
+    return () => clearInterval(id);
+  }, [waitingForNext, game?.hostId, game?.id, router]);
 
   const handleEvent = useCallback(
     (event: GameEvent) => {
@@ -422,6 +438,13 @@ export default function GuestGameClient({ code }: Props) {
   if (guestState === 'lobby') {
     return (
       <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+        <div className="px-4 pt-3 flex justify-end">
+          <button type="button" onClick={() => router.push('/join')}
+            className="text-xs font-bold text-gray-400 px-3 py-1.5 rounded-full border-[2px] border-gray-200 touch-manipulation hover:border-gray-400 transition-colors"
+            style={{ fontFamily: 'var(--font-dm)' }}>
+            退出
+          </button>
+        </div>
         <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
           <div className="w-24 h-24 bg-pr-pink rounded-full border-[4px] border-pr-dark shadow-[5px_5px_0_#111] flex items-center justify-center text-4xl animate-bounce">
             🎮
@@ -840,11 +863,32 @@ export default function GuestGameClient({ code }: Props) {
             );
           })()}
 
-          <button type="button" onClick={() => router.push('/join')}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation mt-auto"
-            style={{ fontFamily: 'var(--font-dm)' }}>
-            {t('playAgain')}
-          </button>
+          {waitingForNext ? (
+            <div className="flex flex-col items-center gap-4 py-4 mt-auto">
+              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+              <p className="text-gray-500 font-bold text-sm text-center">ホストが次のゲームを準備しています...</p>
+              <button type="button" onClick={() => setWaitingForNext(false)}
+                className="px-6 py-2 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                キャンセル
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3 mt-auto">
+              {game?.hostId && (
+                <button type="button" onClick={() => setWaitingForNext(true)}
+                  className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                  style={{ fontFamily: 'var(--font-dm)' }}>
+                  ⏳ 次のゲームを待つ
+                </button>
+              )}
+              <button type="button" onClick={() => router.push('/join')}
+                className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                📷 QRを読んで参加
+              </button>
+            </div>
+          )}
         </div>
       </main>
     );
@@ -940,11 +984,32 @@ export default function GuestGameClient({ code }: Props) {
             <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '4rem', lineHeight: 1 }}>{totalPoints}</p>
             <p className="text-gray-400 text-sm">{t('points')}</p>
           </div>
-          <button type="button" onClick={() => router.push('/join')}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}>
-            {t('playAgain')}
-          </button>
+          {waitingForNext ? (
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+              <p className="text-gray-500 font-bold text-sm text-center">ホストが次のゲームを準備しています...</p>
+              <button type="button" onClick={() => setWaitingForNext(false)}
+                className="px-6 py-2 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                キャンセル
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3 w-full">
+              {game?.hostId && (
+                <button type="button" onClick={() => setWaitingForNext(true)}
+                  className="w-full h-14 bg-pr-pink text-white text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                  style={{ fontFamily: 'var(--font-dm)' }}>
+                  ⏳ 次のゲームを待つ
+                </button>
+              )}
+              <button type="button" onClick={() => router.push('/join')}
+                className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)' }}>
+                📷 QRを読んで参加
+              </button>
+            </div>
+          )}
         </div>
       </main>
     );
