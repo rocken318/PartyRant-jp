@@ -289,7 +289,10 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
       case 'player_joined': dispatch({ type: 'PLAYER_JOINED', player: event.player }); break;
       case 'game_started':
       case 'game_ended': dispatch({ type: 'GAME_UPDATED', game: event.game }); break;
-      case 'question_started': dispatch({ type: 'QUESTION_STARTED', questionIndex: event.questionIndex, startedAt: event.startedAt }); break;
+      case 'question_started':
+        if (event.game) dispatch({ type: 'GAME_UPDATED', game: event.game });
+        dispatch({ type: 'QUESTION_STARTED', questionIndex: event.questionIndex, startedAt: event.startedAt });
+        break;
       case 'question_ended': dispatch({ type: 'QUESTION_ENDED' }); break;
       case 'answer_submitted': dispatch({ type: 'ANSWER_SUBMITTED', answer: event.answer }); break;
     }
@@ -451,6 +454,9 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               </div>
             ) : (
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
+            )}
+            {players.length === 0 && (
+              <p className="text-xs text-center text-gray-400">ホストも参加するか、ゲストの参加を待ってください</p>
             )}
             <PinkBtn onClick={handleAdvance} disabled={players.length === 0}>
               {t('startGame', { count: players.length })}

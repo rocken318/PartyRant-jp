@@ -27,6 +27,7 @@ export async function POST(
     const newGame = await store.createGame({
       mode: game.mode,
       gameMode: game.gameMode,
+      loseRule: game.loseRule,
       title: game.title,
       description: game.description,
       scene: game.scene,

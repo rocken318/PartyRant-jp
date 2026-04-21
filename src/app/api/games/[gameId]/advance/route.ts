@@ -7,7 +7,7 @@ import { createServerClient } from '@/lib/supabase/server';
 import { getUserFromRequest } from '@/lib/supabase/auth-server';
 
 function isPlayerPlaceholder(opt: string): boolean {
-  return /^[A-Z]さん$/.test(opt);
+  return /^[A-Z]さん$/.test(opt) || /^プレイヤー[A-Z]$/.test(opt);
 }
 
 export async function POST(
@@ -36,7 +36,7 @@ export async function POST(
       const players = await store.listPlayers(gameId);
       if (players.length > 0) {
         const hasPlaceholders = game.questions.some(q =>
-          q.options.some((opt: string) => /^[A-Z]さん$/.test(opt))
+          q.options.some((opt: string) => isPlayerPlaceholder(opt))
         );
         if (hasPlaceholders) {
           const playerNames = players.map(p => p.displayName);
