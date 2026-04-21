@@ -55,10 +55,12 @@ export async function POST(
     const updated = await store.advanceQuestion(gameId);
 
     if (prevStatus === 'lobby') {
+      const finalGame = await store.getGame(gameId) ?? updated;
       await broadcastGameEvent(gameId, {
         type: 'question_started',
         questionIndex: updated.currentQuestionIndex,
         startedAt: updated.currentQuestionStartedAt!,
+        game: finalGame,
       });
     } else if (prevStatus === 'question') {
       await broadcastGameEvent(gameId, {

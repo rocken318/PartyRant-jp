@@ -202,11 +202,15 @@ export default function GuestGameClient({ code }: Props) {
           answerTokenRef.current++;
           expectedQuestionIndexRef.current = event.questionIndex;
           selectedChoiceRef.current = null;
-          setGame((prev) =>
-            prev
-              ? { ...prev, currentQuestionIndex: event.questionIndex, currentQuestionStartedAt: event.startedAt, status: 'question' }
-              : prev
-          );
+          if (event.game) {
+            setGame(event.game);
+          } else {
+            setGame((prev) =>
+              prev
+                ? { ...prev, currentQuestionIndex: event.questionIndex, currentQuestionStartedAt: event.startedAt, status: 'question' }
+                : prev
+            );
+          }
           setGuestState('question');
           setSelectedChoice(null);
           setTimedOut(false);
