@@ -37,6 +37,36 @@ function computePollingResults(
   return Array.from(map.values()).sort((a, b) => b.majorityCount - a.majorityCount);
 }
 
+function computePersonVoteResults(
+  questions: import('@/types/domain').Question[],
+  answers: import('@/types/domain').Answer[],
+  players: import('@/types/domain').Player[]
+): { displayName: string; voteCount: number }[] | null {
+  const playerNames = new Set(players.map(p => p.displayName));
+  const personQuestions = questions.filter(q => isPersonVoteQuestion(q.options, playerNames));
+  if (personQuestions.length === 0) return null;
+
+  const voteMap = new Map<string, number>();
+  for (const p of players) voteMap.set(p.displayName, 0);
+
+  for (const q of personQuestions) {
+    for (const ans of answers.filter(a => a.questionId === q.id)) {
+      const chosen = q.options[ans.choiceIndex];
+      if (chosen !== undefined && voteMap.has(chosen)) {
+        voteMap.set(chosen, (voteMap.get(chosen) ?? 0) + 1);
+      }
+    }
+  }
+
+  return Array.from(voteMap.entries())
+    .map(([displayName, voteCount]) => ({ displayName, voteCount }))
+    .sort((a, b) => b.voteCount - a.voteCount);
+}
+
+function isPersonVoteQuestion(options: string[], playerNames: Set<string>): boolean {
+  return options.length > 0 && options.every(opt => playerNames.has(opt));
+}
+
 type GuestState =
   | 'loading'
   | 'name_input'
@@ -820,6 +850,28 @@ export default function GuestGameClient({ code }: Props) {
               })}
             </div>
           )}
+
+          {game.mode === 'polling' && endResultsStatus === 'loaded' && endPlayers.length > 0 && (() => {
+            const personResults = computePersonVoteResults(game.questions, endAnswers, endPlayers);
+            if (!personResults) return null;
+            const maxVotes = Math.max(...personResults.map(r => r.voteCount), 1);
+            return (
+              <div className="flex flex-col gap-2 mt-2">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
+                {personResults.map((r, i) => (
+                  <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                    <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
+                    <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
+                    <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="h-full bg-pr-pink rounded-full" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                    </div>
+                    <span className="text-sm font-bold text-pr-dark w-10 text-right">{r.voteCount}票</span>
+                    {i === 0 && r.voteCount > 0 && <span className="text-lg">👑</span>}
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
 
           {game.mode === 'polling' && endResultsStatus === 'loaded' && endPlayers.length > 0 && (() => {
             const results = computePollingResults(game.questions, endAnswers, endPlayers);
