@@ -579,7 +579,7 @@ export default function GuestGameClient({ code }: Props) {
             {q.text}
           </p>
 
-          <div className="grid grid-cols-2 gap-3 mt-auto">
+          <div className="flex flex-col gap-3 mt-auto">
             {q.options.map((option, i) => (
               <AnswerButton
                 key={i}
@@ -1038,7 +1038,7 @@ export default function GuestGameClient({ code }: Props) {
           <p className="text-pr-dark text-center font-bold" style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1.2 }}>
             {q.text}
           </p>
-          <div className="grid grid-cols-2 gap-3 mt-auto">
+          <div className="flex flex-col gap-3 mt-auto">
             {q.options.map((option, i) => (
               <AnswerButton key={i} label={option} index={i} disabled={false} selected={false} onClick={() => handleSelfPacedAnswer(i)} />
             ))}

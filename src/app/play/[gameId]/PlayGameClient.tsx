@@ -10,6 +10,7 @@ import { GameQRCode } from '@/components/GameQRCode';
 import { PlayerList } from '@/components/PlayerList';
 import { CountdownTimer } from '@/components/CountdownTimer';
 import { VoteBar } from '@/components/VoteBar';
+import { AnswerButton } from '@/components/AnswerButton';
 import { Leaderboard } from '@/components/Leaderboard';
 import { GameStatusBadge } from '@/components/GameStatusBadge';
 import { useGameStream } from '@/lib/hooks/useGameStream';
@@ -499,21 +500,14 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               <div className="flex flex-col gap-2 mt-2">
                 <p className="text-xs font-bold text-gray-400 text-center">あなたの回答</p>
                 {currentQuestion.options.map((opt: string, i: number) => (
-                  <button
+                  <AnswerButton
                     key={i}
-                    type="button"
-                    onClick={() => handleHostAnswer(i)}
+                    label={opt}
+                    index={i}
+                    selected={hostSelectedChoice === i}
                     disabled={hostSubmitting}
-                    className={[
-                      'w-full h-12 rounded-[6px] font-bold text-sm border-[3px] touch-manipulation transition-[transform,box-shadow] duration-75',
-                      hostSelectedChoice === i
-                        ? 'bg-pr-pink text-white border-pr-dark shadow-[1px_1px_0_#111]'
-                        : 'bg-white text-pr-dark border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px]',
-                    ].join(' ')}
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  >
-                    {opt}
-                  </button>
+                    onClick={() => handleHostAnswer(i)}
+                  />
                 ))}
               </div>
             )}

@@ -31,7 +31,7 @@ export function VoteBar({ options, votes, correctIndex, showCorrect = false }: V
             style={{ backgroundColor: bg }}
           >
             <div className="flex items-center gap-2 justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-w-0">
                 <span
                   className="shrink-0 w-7 h-7 rounded-full border-[2px] flex items-center justify-center text-sm font-bold"
                   style={{
@@ -43,7 +43,7 @@ export function VoteBar({ options, votes, correctIndex, showCorrect = false }: V
                 >
                   {letter}
                 </span>
-                <span className="font-bold text-sm truncate" style={{ color: fg, fontFamily: 'var(--font-dm)' }}>
+                <span className="font-bold text-sm break-words min-w-0" style={{ color: fg, fontFamily: 'var(--font-dm)' }}>
                   {option}
                 </span>
               </div>
