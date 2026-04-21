@@ -432,6 +432,9 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
 
   const showVoteBar = !hostParticipating || game.status !== 'question' || hostAnswered;
 
+  const isCastGame = game.scene === 'この中で●●なのは誰だ' &&
+    game.questions.some(q => q.options.some((opt: string) => /^[A-Z]さん$/.test(opt) || /^プレイヤー[A-Z]$/.test(opt)));
+
   return (
     <main className="flex flex-col min-h-screen bg-white">
       {/* Sticky dark header */}
@@ -498,8 +501,8 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             ) : (
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
             )}
-            {/* キャスト指名ゲーム用: scene が「この中で●●なのは誰だ」のときキャスト名を設定 */}
-            {game.scene === 'この中で●●なのは誰だ' && (
+            {/* キャスト指名ゲーム用: プレースホルダーがある場合のみ表示 */}
+            {isCastGame && (
               <div className="flex flex-col gap-2 p-3 bg-gray-50 border-[2px] border-dashed border-pr-dark rounded-[8px]">
                 <p className="text-xs font-bold text-pr-dark uppercase tracking-widest">👤 キャストを設定</p>
                 {castSaved ? (
@@ -552,7 +555,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             )}
             <PinkBtn
               onClick={handleAdvance}
-              disabled={players.length === 0 || (game.scene === 'この中で●●なのは誰だ' && !castSaved)}
+              disabled={players.length === 0 || (isCastGame && !castSaved)}
             >
               {t('startGame', { count: players.length })}
             </PinkBtn>
