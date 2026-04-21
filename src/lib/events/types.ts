@@ -7,4 +7,5 @@ export type GameEvent =
   | { type: 'question_started'; questionIndex: number; startedAt: number; game?: Game }
   | { type: 'answer_submitted'; answer: Answer }
   | { type: 'question_ended'; questionIndex: number }
-  | { type: 'game_ended'; game: Game };
+  | { type: 'game_ended'; game: Game }
+  | { type: 'next_game'; joinCode: string };

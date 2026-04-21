@@ -286,6 +286,9 @@ export default function GuestGameClient({ code }: Props) {
           setGuestState('ended');
           fetchEndResults(event.game.id);
           break;
+        case 'next_game':
+          router.push(`/join/${event.joinCode}`);
+          break;
         default:
           break;
       }

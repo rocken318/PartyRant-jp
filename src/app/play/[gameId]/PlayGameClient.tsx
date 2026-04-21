@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { buttonVariants } from '@/components/ui/button';
@@ -167,6 +168,7 @@ function PinkBtn({
 
 export function PlayGameClient({ gameId }: { gameId: string }) {
   const t = useTranslations('hostGame');
+  const router = useRouter();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { game, players, answers, scores, opinionResults, loading, error } = state;
 
@@ -241,6 +243,14 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
     const updated = await advanceGame(gameId);
     if (updated) dispatch({ type: 'GAME_UPDATED', game: updated });
   };
+
+  async function handleNextGame() {
+    const res = await fetch(`/api/games/${gameId}/next`, { method: 'POST' });
+    if (res.ok) {
+      const newGame = await res.json() as import('@/types/domain').Game;
+      router.push(`/play/${newGame.id}`);
+    }
+  }
 
   async function handleHostJoin() {
     const name = hostNameInput.trim();
@@ -598,9 +608,17 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
             </a>
 
+            <button
+              type="button"
+              onClick={handleNextGame}
+              className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)' }}
+            >
+              🔄 もう一度
+            </button>
             <Link
               href="/presets"
-              className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              className="w-full h-12 bg-white text-pr-dark flex items-center justify-center font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
               style={{ fontFamily: 'var(--font-dm)' }}
             >
               {t('backToPresets')}
