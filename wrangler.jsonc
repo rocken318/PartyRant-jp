@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "partyrant-jp",
-  "main": ".open-next/worker.js",
+  "main": "worker.ts",
   "compatibility_date": "2025-03-25",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
@@ -13,6 +13,20 @@
       "binding": "DB",
       "database_name": "partyrant-jp",
       "database_id": "495a6315-6dd2-4bbe-aaaa-852ff6b98851"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GAME_ROOM",
+        "class_name": "GameRoom"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["GameRoom"]
     }
   ]
 }

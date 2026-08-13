@@ -1,43 +1,27 @@
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 import type { GameEvent } from './types';
 
 export function getGameBroadcastTopic(gameId: string): string {
   return `game-${gameId}`;
 }
 
-// Supabase Realtime REST broadcast works across Vercel serverless instances.
+/**
+ * サーバー発火イベントを GameRoom Durable Object へ中継する。
+ * DO が接続中の全 SSE クライアントへ push する（1 ゲーム = 1 DO）。
+ */
 export async function broadcastGameEvent(gameId: string, event: GameEvent): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/realtime/v1/api/broadcast`;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-  const topic = getGameBroadcastTopic(gameId);
-
   try {
-    const res = await fetch(url, {
+    const { env } = getCloudflareContext();
+    const stub = env.GAME_ROOM.get(env.GAME_ROOM.idFromName(gameId));
+    const res = await stub.fetch('https://game-room/broadcast', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${key}`,
-        'apikey': key,
-      },
-      body: JSON.stringify({
-        messages: [{
-          topic,
-          event: 'game_event',
-          payload: event,
-          private: false,
-        }],
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(event),
     });
-
     if (!res.ok) {
-      const message = await res.text().catch(() => '');
-      console.error('Supabase realtime broadcast failed', {
-        gameId,
-        topic,
-        status: res.status,
-        message,
-      });
+      console.error('GameRoom broadcast failed', { gameId, status: res.status });
     }
   } catch (error) {
-    console.error('Supabase realtime broadcast error', { gameId, topic, error });
+    console.error('GameRoom broadcast error', { gameId, error });
   }
 }

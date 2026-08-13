@@ -26,7 +26,41 @@ interface D1Database {
   exec(query: string): Promise<{ count: number; duration: number }>;
 }
 
+// ── Durable Objects (最小サブセット) ─────────────────────────────────────────
+// 同じく workers-types 全体をグローバルに引き込むと DOM Response を壊すため、
+// GameRoom DO と GAME_ROOM バインディングに必要な型だけを ambient 宣言する。
+
+interface DurableObjectId {
+  toString(): string;
+  readonly name?: string;
+}
+
+interface DurableObjectState {
+  waitUntil(promise: Promise<unknown>): void;
+  blockConcurrencyWhile<T>(callback: () => Promise<T>): Promise<T>;
+  readonly id: DurableObjectId;
+}
+
+interface DurableObjectStub {
+  fetch(input: Request | string, init?: RequestInit): Promise<Response>;
+}
+
+interface DurableObjectNamespace {
+  idFromName(name: string): DurableObjectId;
+  idFromString(hex: string): DurableObjectId;
+  get(id: DurableObjectId): DurableObjectStub;
+}
+
+declare module 'cloudflare:workers' {
+  export class DurableObject<Env = unknown> {
+    constructor(ctx: DurableObjectState, env: Env);
+    protected ctx: DurableObjectState;
+    protected env: Env;
+  }
+}
+
 // OpenNext の getCloudflareContext().env が参照する CloudflareEnv を拡張。
 interface CloudflareEnv {
   DB: D1Database;
+  GAME_ROOM: DurableObjectNamespace;
 }
