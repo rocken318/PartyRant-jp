@@ -1,0 +1,57 @@
+name: Weekly D1 Preset Backup
+
+# 移行の本来目的（データ消失の再発防止）の多重保険。
+# D1 のプリセット(is_preset=1)を毎週 JSON でエクスポートし、リポジトリへコミットする。
+#
+# 必要な GitHub Secrets（Settings → Secrets and variables → Actions で追加）:
+#   CLOUDFLARE_API_TOKEN  — D1 Read 権限を持つ API トークン
+#   CLOUDFLARE_ACCOUNT_ID — Cloudflare アカウント ID
+
+on:
+  schedule:
+    - cron: '17 3 * * 1' # 毎週月曜 03:17 UTC
+  workflow_dispatch: {}
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Export presets from D1
+        run: |
+          mkdir -p backups
+          npx --yes wrangler@4 d1 execute partyrant-jp \
+            --remote \
+            --command "select id, join_code, mode, game_mode, title, description, scene, lose_rule, questions, is_preset, current_question_index, created_at from games where is_preset = 1 order by scene, title" \
+            --json > backups/presets-latest.json
+          # サニティチェック: 件数が 0 ならバックアップを中止（誤って空を上書きしない）
+          COUNT=$(node -e "const d=require('./backups/presets-latest.json');const r=Array.isArray(d)?d[0].results:d.results;console.log(r.length)")
+          echo "Exported $COUNT presets"
+          if [ "$COUNT" -lt 1 ]; then
+            echo "::error::Export returned 0 presets — aborting to avoid overwriting backup with empty data."
+            exit 1
+          fi
+
+      - name: Commit backup if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- backups/presets-latest.json; then
+            echo "No changes in preset backup."
+          else
+            git add backups/presets-latest.json
+            git commit -m "chore: weekly D1 preset backup ($(date -u +%Y-%m-%d))"
+            git push
+          fi
