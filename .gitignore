@@ -5,3 +5,6 @@ node_modules/
 tsconfig.tsbuildinfo
 .superpowers/
 openai-api.txt
+.open-next/
+migrations/seed_presets.sql
+.wrangler/
