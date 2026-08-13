@@ -1,5 +1,5 @@
 import type { GameStore, CreateEventInput, CreateGameInput, SubmitAnswerInput } from './types';
-import type { Game, GameStatus, Player, Answer, Event } from '@/types/domain';
+import type { Game, GameStatus, Player, Answer, Event, Question } from '@/types/domain';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateId, generateJoinCode } from '@/lib/utils';
 
@@ -220,5 +220,32 @@ export class SupabaseGameStore implements GameStore {
     if (questionId) query = query.eq('question_id', questionId);
     const { data } = await query;
     return (data ?? []).map(toAnswer);
+  }
+
+  async updateGameQuestions(gameId: string, questions: Question[]): Promise<Game> {
+    const { data, error } = await this.db
+      .from('games').update({ questions }).eq('id', gameId).select().single();
+    if (error || !data) throw new Error(error?.message ?? 'Failed to update questions');
+    return toGame(data);
+  }
+
+  async resetGame(gameId: string): Promise<Game> {
+    await this.db.from('answers').delete().eq('game_id', gameId);
+    await this.db.from('players').delete().eq('game_id', gameId);
+    const { data, error } = await this.db
+      .from('games')
+      .update({ status: 'lobby', current_question_index: -1, current_question_started_at: null, ended_at: null })
+      .eq('id', gameId).select().single();
+    if (error || !data) throw new Error(error?.message ?? 'Failed to reset game');
+    return toGame(data);
+  }
+
+  async findLatestLobbyGame(hostId: string, exceptGameId?: string): Promise<{ id: string; joinCode: string } | null> {
+    let query = this.db
+      .from('games').select('id, join_code').eq('host_id', hostId).eq('status', 'lobby')
+      .order('created_at', { ascending: false }).limit(1);
+    if (exceptGameId) query = query.neq('id', exceptGameId);
+    const { data } = await query.maybeSingle();
+    return data ? { id: data.id as string, joinCode: data.join_code as string } : null;
   }
 }

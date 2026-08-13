@@ -38,6 +38,12 @@ export interface GameStore {
   updateGameStatus(gameId: string, status: GameStatus, extra?: Partial<Game>): Promise<Game>;
   advanceQuestion(gameId: string): Promise<Game>;
   listPresets(): Promise<Game[]>;
+  /** ゲームの questions 配列を丸ごと置き換える（プレースホルダー置換・キャスト名反映用） */
+  updateGameQuestions(gameId: string, questions: Question[]): Promise<Game>;
+  /** answers/players を削除しゲームを lobby へ戻す */
+  resetGame(gameId: string): Promise<Game>;
+  /** ホストの最新 lobby ゲームを 1 件返す（exceptGameId は除外） */
+  findLatestLobbyGame(hostId: string, exceptGameId?: string): Promise<{ id: string; joinCode: string } | null>;
 
   // Players
   addPlayer(gameId: string, displayName: string): Promise<Player>;

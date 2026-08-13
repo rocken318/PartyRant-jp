@@ -1,4 +1,4 @@
-import type { Game, GameStatus, Player, Answer, Event } from '@/types/domain';
+import type { Game, GameStatus, Player, Answer, Event, Question } from '@/types/domain';
 import type { GameStore, CreateEventInput, CreateGameInput, SubmitAnswerInput } from './types';
 import { generateId, generateJoinCode } from '@/lib/utils';
 
@@ -174,5 +174,31 @@ export class MemoryStore implements GameStore {
 
   async listPresets(): Promise<Game[]> {
     return Array.from(this.games.values()).filter((g) => g.isPreset);
+  }
+
+  async updateGameQuestions(gameId: string, questions: Question[]): Promise<Game> {
+    const game = this.games.get(gameId);
+    if (!game) throw new Error(`Game not found: ${gameId}`);
+    const updated: Game = { ...game, questions };
+    this.games.set(gameId, updated);
+    return updated;
+  }
+
+  async resetGame(gameId: string): Promise<Game> {
+    const game = this.games.get(gameId);
+    if (!game) throw new Error(`Game not found: ${gameId}`);
+    this.answers.set(gameId, []);
+    this.players.set(gameId, []);
+    const updated: Game = { ...game, status: 'lobby', currentQuestionIndex: -1, currentQuestionStartedAt: undefined, endedAt: undefined };
+    this.games.set(gameId, updated);
+    return updated;
+  }
+
+  async findLatestLobbyGame(hostId: string, exceptGameId?: string): Promise<{ id: string; joinCode: string } | null> {
+    const candidates = [...this.games.values()]
+      .filter(g => g.hostId === hostId && g.status === 'lobby' && g.id !== exceptGameId)
+      .sort((a, b) => b.createdAt - a.createdAt);
+    const g = candidates[0];
+    return g ? { id: g.id, joinCode: g.joinCode } : null;
   }
 }

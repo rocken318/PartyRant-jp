@@ -3,7 +3,6 @@ export const runtime = 'nodejs';
 import { NextRequest, NextResponse } from 'next/server';
 import { store } from '@/lib/store';
 import { broadcastGameEvent } from '@/lib/events/broadcast';
-import { createServerClient } from '@/lib/supabase/server';
 import { getUserFromRequest } from '@/lib/supabase/auth-server';
 
 function isPlayerPlaceholder(opt: string): boolean {
@@ -32,7 +31,8 @@ export async function POST(
     const prevIndex = game.currentQuestionIndex;
 
     // lobby → question 時にプレイヤー名でプレースホルダーを置換
-    if (prevStatus === 'lobby') {
+    // キャスト指名sceneはキャスト名が既にDB上にセット済みなので置換しない
+    if (prevStatus === 'lobby' && game.scene !== 'キャスト指名') {
       const players = await store.listPlayers(gameId);
       if (players.length > 0) {
         const hasPlaceholders = game.questions.some(q =>
@@ -46,8 +46,7 @@ export async function POST(
             if (!q.options.some((opt: string) => isPlayerPlaceholder(opt))) return q;
             return { ...q, options: playerNames };
           });
-          const supabase = createServerClient();
-          await supabase.from('games').update({ questions: resolved }).eq('id', gameId);
+          await store.updateGameQuestions(gameId, resolved);
         }
       }
     }

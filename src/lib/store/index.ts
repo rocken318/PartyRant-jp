@@ -1,4 +1,4 @@
-import { SupabaseGameStore } from './supabase-store';
+import { D1GameStore } from './d1-store';
 import type { GameStore } from './types';
 
-export const store: GameStore = new SupabaseGameStore();
+export const store: GameStore = new D1GameStore();
