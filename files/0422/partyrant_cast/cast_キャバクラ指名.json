@@ -1,0 +1,40 @@
+[
+  {
+    "scene": "キャスト指名",
+    "title": "キャスト指名ゲーム vol.1",
+    "mode": "polling",
+    "description": "キャストの中から選んで投票！誰が一番選ばれるか？",
+    "questions": [
+      {
+        "text": "この中で、一番お酒の飲み方が豪快そうなのは？",
+        "options": ["プレイヤーA", "プレイヤーB", "プレイヤーC", "プレイヤーD"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番本名が気になるのは？",
+        "options": ["プレイヤーA", "プレイヤーB", "プレイヤーC", "プレイヤーD"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番彼女にしたいのは？",
+        "options": ["プレイヤーA", "プレイヤーB", "プレイヤーC", "プレイヤーD"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番歌がうまそうなのは？",
+        "options": ["プレイヤーA", "プレイヤーB", "プレイヤーC", "プレイヤーD"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "この中で、一番仕事ができそうなのは？",
+        "options": ["プレイヤーA", "プレイヤーB", "プレイヤーC", "プレイヤーD"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "scene": "雑学クイズ",
+    "title": "📅 月と曜日の英単語",
+    "mode": "trivia",
+    "description": "絶対知ってるはず！でも急に聞かれると焦る、月と曜日の問題。",
+    "questions": [
+      { "text": "「水曜日」を英語で言うと？", "options": ["Tuesday", "Wednesday", "Thursday", "Friday"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「木曜日」を英語で言うと？", "options": ["Tuesday", "Wednesday", "Thursday", "Saturday"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「8月」を英語で言うと？", "options": ["August", "April", "Autumn", "October"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「4月」を英語で言うと？", "options": ["March", "April", "May", "June"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「October」は何月？", "options": ["8月", "9月", "10月", "11月"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「February」は何月？", "options": ["1月", "2月", "3月", "4月"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「November」は何月？", "options": ["9月", "10月", "11月", "12月"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「土曜日」の正しいスペルは？", "options": ["Saterday", "Saturdy", "Saturday", "Saturaday"], "correctIndex": 2, "timeLimitSec": 12 },
+      { "text": "「12月」の正しいスペルは？", "options": ["Decenber", "December", "Disember", "Desember"], "correctIndex": 1, "timeLimitSec": 12 },
+      { "text": "「春」を英語で言うと？", "options": ["Spring", "Summer", "Autumn", "Winter"], "correctIndex": 0, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "🔢 数字と順番の英単語",
+    "mode": "trivia",
+    "description": "1, 2, 3...だけじゃない。意外とつまずく数字の英語。",
+    "questions": [
+      { "text": "「12」を英語で言うと？", "options": ["Eleven", "Twelve", "Twenty", "Twelfth"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「20」を英語で言うと？", "options": ["Two zero", "Twelve", "Twenty", "Twentieth"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「1000」を英語で言うと？", "options": ["Hundred", "Thousand", "Million", "Billion"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「第3の（3番目の）」を英語で言うと？", "options": ["Three", "Third", "Thirteen", "Thirty"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「第1の（1番目の）」を英語で言うと？", "options": ["One", "First", "Fast", "Front"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「8」の正しいスペルは？", "options": ["Eit", "Eight", "Eigth", "Aight"], "correctIndex": 1, "timeLimitSec": 12 },
+      { "text": "「40」の正しいスペルは？", "options": ["Fourty", "Forty", "Fouty", "Fourtie"], "correctIndex": 1, "timeLimitSec": 12 },
+      { "text": "「100万」を英語で言うと？", "options": ["Thousand", "Million", "Billion", "Trillion"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「半分（1/2）」を英語で言うと？", "options": ["Double", "Half", "Quarter", "Middle"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「2回（2度）」を英語で言うと？", "options": ["Two times", "Second", "Twice", "Double"], "correctIndex": 2, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "🍎 身近な食べ物・飲み物",
+    "mode": "trivia",
+    "description": "毎日食べてるアレ、英語で言えますか？",
+    "questions": [
+      { "text": "「にんじん」を英語で言うと？", "options": ["Onion", "Potato", "Carrot", "Tomato"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「玉ねぎ」を英語で言うと？", "options": ["Onion", "Garlic", "Cabbage", "Lettuce"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「牛肉」を英語で言うと？", "options": ["Pork", "Beef", "Chicken", "Meat"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「豚肉」を英語で言うと？", "options": ["Pork", "Beef", "Ham", "Bacon"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「砂糖」を英語で言うと？", "options": ["Salt", "Sugar", "Pepper", "Sweet"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「塩」を英語で言うと？", "options": ["Salt", "Sugar", "Soy sauce", "Spice"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「小麦粉」を英語で言うと？", "options": ["Powder", "Wheat", "Flour", "Flower"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「ぶどう」を英語で言うと？", "options": ["Apple", "Peach", "Grape", "Melon"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「にんにく」を英語で言うと？", "options": ["Garlic", "Ginger", "Onion", "Herb"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「水」を英語で言うと？", "options": ["Juice", "Water", "Milk", "Tea"], "correctIndex": 1, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "👕 服・身につけるもの",
+    "mode": "trivia",
+    "description": "ファッションアイテムの英語。和製英語に注意！",
+    "questions": [
+      { "text": "「靴下」を英語で言うと？", "options": ["Shoes", "Socks", "Boots", "Sneakers"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「手袋」を英語で言うと？", "options": ["Mittens", "Gloves", "Hands", "Socks"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「帽子」を英語で言うと？（一般的なつば付き）", "options": ["Hat", "Cap", "Hood", "Mask"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「指輪」を英語で言うと？", "options": ["Ring", "Circle", "Band", "Jewel"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「腕時計」を英語で言うと？", "options": ["Clock", "Time", "Watch", "Alarm"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「財布」を英語で言うと？", "options": ["Bag", "Pocket", "Purse", "Wallet"], "correctIndex": 3, "timeLimitSec": 10 },
+      { "text": "「眼鏡」を英語で言うと？", "options": ["Glass", "Glasses", "Eyes", "Lens"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「傘」を英語で言うと？", "options": ["Raincoat", "Umbrella", "Parasol", "Cover"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「ズボン」を英語で言うと？（アメリカ英語）", "options": ["Bottoms", "Pants", "Legs", "Skirts"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "首に巻く「ネクタイ」。英語で言うと？", "options": ["Neck", "Tie", "Ribbon", "Scarf"], "correctIndex": 1, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "🏃 超基本の動詞（アクション）",
+    "mode": "trivia",
+    "description": "中学校で最初に習うレベルの超必須動詞。",
+    "questions": [
+      { "text": "「Teach」の意味は？", "options": ["話す", "教える", "触る", "取る"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Learn」の意味は？", "options": ["聞く", "教える", "学ぶ・習う", "走る"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「Catch」の意味は？", "options": ["投げる", "切る", "捕まえる", "探す"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「Bring」の意味は？", "options": ["持ってくる", "建てる", "壊す", "歌う"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「Build」の意味は？", "options": ["買う", "建てる・作る", "焼く", "描く"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Choose」の意味は？", "options": ["閉める", "選ぶ", "噛む", "洗う"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Draw」の意味は？", "options": ["飲む", "運転する", "落とす", "描く・引っ張る"], "correctIndex": 3, "timeLimitSec": 10 },
+      { "text": "「Forget」の意味は？", "options": ["忘れる", "思い出す", "手に入れる", "許す"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「Grow」の意味は？", "options": ["行く", "光る", "成長する・育てる", "与える"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「Listen」の意味は？", "options": ["話す", "見る", "聞く", "嗅ぐ"], "correctIndex": 2, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "🏫 学校・勉強の英単語",
+    "mode": "trivia",
+    "description": "学生時代を思い出せ！教室にあるものや科目の英語。",
+    "questions": [
+      { "text": "「辞書」を英語で言うと？", "options": ["Book", "Textbook", "Dictionary", "Notebook"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「科学（理科）」を英語で言うと？", "options": ["Math", "Science", "History", "Music"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「数学（算数）」を英語で言うと？", "options": ["Math", "Science", "English", "Art"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「宿題」を英語で言うと？", "options": ["Housework", "Classwork", "Homework", "Test"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「図書館」を英語で言うと？", "options": ["Library", "School", "Museum", "Hospital"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「定規」を英語で言うと？", "options": ["Eraser", "Pencil", "Ruler", "Pen"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「消しゴム」を英語で言うと？", "options": ["Eraser", "Rubber", "どちらも正解", "どちらも不正解"], "correctIndex": 2, "timeLimitSec": 12 },
+      { "text": "「黒板」を英語で言うと？", "options": ["Whiteboard", "Blackboard", "Chalkboard", "Blackboard / Chalkboard"], "correctIndex": 3, "timeLimitSec": 12 },
+      { "text": "「生徒・学生」を英語で言うと？", "options": ["Teacher", "Student", "Child", "People"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「歴史」を英語で言うと？", "options": ["Story", "Future", "History", "Past"], "correctIndex": 2, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "🚗 乗り物・街の場所",
+    "mode": "trivia",
+    "description": "街に出かけよう。場所や交通機関の基礎単語。",
+    "questions": [
+      { "text": "「病院」を英語で言うと？", "options": ["Hotel", "Hospital", "Hostel", "House"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「警察署」を英語で言うと？", "options": ["Police station", "Fire station", "Train station", "Post office"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「郵便局」を英語で言うと？", "options": ["Mail office", "Letter station", "Post office", "Bank"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「飛行機」を英語で言うと？", "options": ["Train", "Ship", "Airplane", "Bus"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「自転車」を英語で言うと？", "options": ["Car", "Motorcycle", "Bicycle", "Train"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「駅」を英語で言うと？", "options": ["Stop", "Station", "Port", "Airport"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「公園」を英語で言うと？", "options": ["Garden", "Park", "Yard", "Field"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「銀行」を英語で言うと？", "options": ["Store", "Shop", "Bank", "Money"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「美術館・博物館」を英語で言うと？", "options": ["Library", "Theater", "Stadium", "Museum"], "correctIndex": 3, "timeLimitSec": 10 },
+      { "text": "「船」を英語で言うと？", "options": ["Ship", "Car", "Plane", "Train"], "correctIndex": 0, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "☀️ 天気・季節・自然",
+    "mode": "trivia",
+    "description": "空や周りの景色を表す、超基本的な英単語。",
+    "questions": [
+      { "text": "天気の「晴れ」を英語で言うと？", "options": ["Cloudy", "Rainy", "Sunny", "Windy"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "天気の「くもり」を英語で言うと？", "options": ["Cloudy", "Sunny", "Snowy", "Clear"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「雪」を英語で言うと？", "options": ["Rain", "Ice", "Snow", "Cold"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「風」を英語で言うと？", "options": ["Air", "Wind", "Storm", "Breeze"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「川」を英語で言うと？", "options": ["Sea", "Ocean", "Lake", "River"], "correctIndex": 3, "timeLimitSec": 10 },
+      { "text": "「山」を英語で言うと？", "options": ["Hill", "Valley", "Mountain", "Rock"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「海」を英語で言うと？", "options": ["River", "Lake", "Pond", "Sea / Ocean"], "correctIndex": 3, "timeLimitSec": 10 },
+      { "text": "「森」を英語で言うと？", "options": ["Wood", "Forest", "Tree", "Leaf"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「島」を英語で言うと？", "options": ["Island", "Land", "Earth", "World"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「星」を英語で言うと？", "options": ["Sun", "Moon", "Sky", "Star"], "correctIndex": 3, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "😊 気持ち・状態の形容詞",
+    "mode": "trivia",
+    "description": "「今どんな気分？」を伝える一番簡単な英単語。",
+    "questions": [
+      { "text": "「Glad」の意味は？", "options": ["悲しい", "怒っている", "嬉しい", "疲れている"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「Sad」の意味は？", "options": ["嬉しい", "悲しい", "眠い", "忙しい"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Angry」の意味は？", "options": ["お腹が空いている", "喉が渇いている", "怒っている", "驚いている"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「Tired」の意味は？", "options": ["疲れている", "元気な", "退屈な", "面白い"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「Hungry」の意味は？", "options": ["喉が渇いている", "お腹が空いている", "怒っている", "急いでいる"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Thirsty」の意味は？", "options": ["お腹が空いている", "喉が渇いている", "眠い", "寒い"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Sleepy」の意味は？", "options": ["起きている", "眠い", "滑りやすい", "ゆっくりな"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Busy」の意味は？", "options": ["暇な", "簡単な", "忙しい", "難しい"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「Free」のこの場合の意味は？（I'm free.）", "options": ["無料だ", "自由な・暇だ", "凍っている", "逃げている"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「Excited」の意味は？", "options": ["退屈している", "興奮している・ワクワクしている", "疲れている", "落ち着いている"], "correctIndex": 1, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "雑学クイズ",
+    "title": "🐶 動物・生き物の英単語",
+    "mode": "trivia",
+    "description": "桃太郎にも出てくる？超メジャーな動物たちの英語。",
+    "questions": [
+      { "text": "「豚」を英語で言うと？", "options": ["Cow", "Horse", "Pig", "Sheep"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「牛」を英語で言うと？", "options": ["Cow", "Horse", "Pig", "Goat"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「馬」を英語で言うと？", "options": ["Cow", "Horse", "Zebra", "Camel"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「羊」を英語で言うと？", "options": ["Goat", "Deer", "Sheep", "Wolf"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「鳥」を英語で言うと？", "options": ["Bat", "Bird", "Chicken", "Duck"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「猿」を英語で言うと？", "options": ["Monkey", "Gorilla", "Ape", "Chimpanzee"], "correctIndex": 0, "timeLimitSec": 10 },
+      { "text": "「熊」を英語で言うと？", "options": ["Boar", "Bear", "Lion", "Tiger"], "correctIndex": 1, "timeLimitSec": 10 },
+      { "text": "「蛇」を英語で言うと？", "options": ["Frog", "Lizard", "Snake", "Worm"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「兎（うさぎ）」を英語で言うと？", "options": ["Mouse", "Rat", "Rabbit", "Squirrel"], "correctIndex": 2, "timeLimitSec": 10 },
+      { "text": "「象」を英語で言うと？", "options": ["Giraffe", "Hippo", "Rhino", "Elephant"], "correctIndex": 3, "timeLimitSec": 10 }
+    ]
+  }
+]

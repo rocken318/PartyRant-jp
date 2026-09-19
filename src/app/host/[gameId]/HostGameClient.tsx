@@ -240,7 +240,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
   const [hostJoining, setHostJoining] = useState(false);
   const [hostPlayerId, setHostPlayerId] = useState<string | null>(null);
   const [hostAnsweredIds, setHostAnsweredIds] = useState<Set<string>>(new Set());
-  const [hostSelectedChoice, setHostSelectedChoice] = useState<number | null>(null);
+  const [hostSelectedChoice, setHostSelectedChoice] = useState<{ questionId: string; choiceIndex: number } | null>(null);
   const [hostSubmitting, setHostSubmitting] = useState(false);
 
   useEffect(() => {
@@ -291,10 +291,6 @@ export function HostGameClient({ gameId }: { gameId: string }) {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game?.status, answers.length, players.length]);
-
-  useEffect(() => {
-    setHostSelectedChoice(null);
-  }, [game?.currentQuestionIndex]);
 
   const handleEvent = useCallback((event: GameEvent) => {
     switch (event.type) {
@@ -348,7 +344,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
 
   async function handleHostAnswer(choiceIndex: number) {
     if (!hostPlayerId || !currentQuestion || hostAnswered || hostSubmitting) return;
-    setHostSelectedChoice(choiceIndex);
+    setHostSelectedChoice({ questionId: currentQuestion.id, choiceIndex });
     setHostSubmitting(true);
     try {
       const res = await fetch(`/api/games/${gameId}/answers`, {
@@ -532,7 +528,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                     disabled={hostSubmitting}
                     className={[
                       'w-full h-12 rounded-[6px] font-bold text-sm border-[3px] touch-manipulation transition-[transform,box-shadow] duration-75',
-                      hostSelectedChoice === i
+                      hostSelectedChoice?.questionId === currentQuestion.id && hostSelectedChoice.choiceIndex === i
                         ? 'bg-pr-pink text-white border-pr-dark shadow-[1px_1px_0_#111]'
                         : 'bg-white text-pr-dark border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px]',
                     ].join(' ')}

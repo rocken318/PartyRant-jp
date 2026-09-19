@@ -12,6 +12,7 @@ const SCENE_META: Record<string, { icon: string; color: string }> = {
   '多数派クイズ':         { icon: '⚔️', color: '#F97316' },
   '究極の二択':           { icon: '⚡', color: '#FF0080' },
   'この中で●●なのは誰だ': { icon: '👆', color: '#FF6B9D' },
+  'キャスト指名':           { icon: '🎤', color: '#FFD600' },
   '結婚式':               { icon: '💍', color: '#FF0080' },
   '合コン':               { icon: '💕', color: '#FF6B9D' },
   'カップル':             { icon: '🫶', color: '#FF4D6D' },

@@ -1,0 +1,182 @@
+[
+  {
+    "scene": "多数派クイズ",
+    "title": "🚗 ドライブ・車内空間の掟",
+    "mode": "polling",
+    "description": "密室だからこそ本性がバレる。運転手と助手席の果てなき戦い。",
+    "questions": [
+      { "text": "助手席で寝るのはアリ？", "options": ["寝てもいい", "絶対に起きておくべき"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "車内のBGMは誰が決める？", "options": ["運転手", "助手席の人"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "渋滞にハマった時、イライラが態度に出る？", "options": ["出る", "出ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "運転中、人が変わるタイプ？（口が悪くなる等）", "options": ["変わる", "普段通り"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "駐車は一発で決めたい？", "options": ["一発で決めたい（ドヤりたい）", "何回切り返してもいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "車内での飲食、どこまで許せる？", "options": ["飲み物だけ", "お菓子まで", "ハンバーガーやポテトもOK"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ナビの指示、絶対に従う？", "options": ["従う", "自分の道を信じる時がある"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "高速道路のSA・PA、寄りたい派？", "options": ["見つけるたびに寄りたい", "トイレ休憩の時だけ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "前の車が遅い時、どうする？", "options": ["車間距離を詰めてプレッシャー", "追い越す", "のんびりついていく"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "免許証の写真は？", "options": ["盛れた", "見せられないレベルでヤバい"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "😱 絶体絶命！人生のピンチ",
+    "mode": "polling",
+    "description": "こんな時あなたはどうする？究極の状況下での対応力をチェック。",
+    "questions": [
+      { "text": "トイレに入って用を足した後に紙がない！", "options": ["誰かを大声で呼ぶ", "トイレットペーパーの芯を使う", "そのままパンツを履く"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "レジで会計時に「財布がない」ことに気づいた！", "options": ["店員に謝って取りに帰る", "連れに借りる", "スマホ決済でなんとかする"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "上司への強烈な悪口LINEを、上司本人に誤爆！", "options": ["即座に送信取り消し", "「冗談です」と誤魔化す", "絶望してスマホの電源を切る"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "スマホを便器に落とした！", "options": ["ためらわず素手で拾う", "何か道具を探す", "諦めて流す"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "絶対寝坊！遅刻確定の連絡はいつ入れる？", "options": ["起きてすぐ（家を出る前）", "移動中の電車の中", "約束の時間を過ぎてから"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "知ったかぶりをして話が進んでしまった！", "options": ["最後まで知ってるフリを貫く", "途中で「ごめん、実は知らない」と白状する"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お風呂でシャンプー中に突然のお湯切れ（水になる）！", "options": ["冷水で気合いで洗い流す", "タオルで拭いてやり過ごす"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "街で元恋人と遭遇！しかも相手は新しい恋人と一緒。", "options": ["見えないフリをして逃げる", "堂々と挨拶する"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "パソコンがフリーズ！保存してないデータはどうする？", "options": ["神に祈りながら少し待つ", "キレながら強制終了ボタン長押し"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "「ここだけの話」を別の人にポロっと言ってしまった！", "options": ["「絶対内緒ね」とさらに念押しする", "言ったことを忘れたフリをする"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🍔 欲望むき出し！ジャンクフード",
+    "mode": "polling",
+    "description": "健康診断なんて気にしない。背徳感あふれる食の好みを暴く。",
+    "questions": [
+      { "text": "フライドポテトの形は？", "options": ["細長くてカリカリ（マック系）", "太くてホクホク（モス系）", "皮付き（ウェッジ）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "深夜2時のカップラーメン、やる？", "options": ["頻繁にやる", "たまに誘惑に負ける", "絶対やらない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ハンバーガーのセット、飲み物は？", "options": ["コーラ一択", "ウーロン茶・爽健美茶で罪悪感減らす", "コーヒー"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ピザを頼むなら？", "options": ["王道のマルゲリータ", "肉たっぷりのガッツリ系", "マヨネーズ・照り焼き系"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "ポテトチップスの味は？", "options": ["うすしお", "コンソメ", "のり塩"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ドーナツは？", "options": ["オールドファッションなど固め", "ポン・デ・リングなどモチモチ", "クリームたっぷり系"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "アイスを食べるなら？", "options": ["カップ", "コーン", "棒アイス"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "マクドナルドのナゲットソースは？", "options": ["バーベキュー", "マスタード", "何もつけない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ジャンクフードを食べた後の罪悪感は？", "options": ["ある（明日からダイエット）", "ない（美味しかったからゼロカロリー）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "一生、どちらかしか食べられないなら？", "options": ["一生、甘いお菓子だけ", "一生、しょっぱいスナックだけ"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🎤 カラオケ・音楽の流儀",
+    "mode": "polling",
+    "description": "マイクの持ち方から選曲まで、音楽にまつわるこだわり。",
+    "questions": [
+      { "text": "カラオケの1曲目、どうする？", "options": ["みんなが知ってる盛り上がる曲", "自分が一番歌いたい曲", "誰かが入れるのを待つ"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "他人が歌っている時、どうしてる？", "options": ["手拍子や合いの手で盛り上げる", "次に歌う曲を必死で探す", "スマホをいじる"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "アニソンやボカロ、歌う？", "options": ["ガンガン歌う", "メンバーを見て決める", "歌わない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "カラオケの採点機能、入れる？", "options": ["絶対入れる", "入れない（プレッシャー）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "マイクの持ち方は？", "options": ["普通に真ん中を持つ", "マイクのヘッド（丸い部分）を包むように持つ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "歌唱力に自信はある？", "options": ["ある方だと思う", "全然ない・音痴"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "普段音楽を聴く時、プレイリストはどうしてる？", "options": ["お気に入りをシャッフル", "アルバムを曲順通りに聴く"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "イヤホン・ヘッドホンへのこだわりは？", "options": ["数万円以上の良いやつを使う", "音が鳴れば何でもいい（付属や100均）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ライブやフェスに毎年行く？", "options": ["行く", "行かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "失恋した時、聴く音楽は？", "options": ["とことん暗い曲で泣く", "明るい曲で励ます"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🍻 飲み会の「幹事・立ち回り」編",
+    "mode": "polling",
+    "description": "ただ飲むだけじゃない。大人の飲み会サバイバル術。",
+    "questions": [
+      { "text": "飲み会の幹事、任されることが多い？", "options": ["多い", "少ない・絶対やりたくない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "「とりあえず生！」の文化、どう思う？", "options": ["賛成・ラクだからいい", "反対・最初から好きなもの飲ませて"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "グラスが空いている人に「次何飲みます？」って聞く？", "options": ["常に気を配って聞く", "気づいた時だけ", "自分のペースで飲めばいいと思う"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "飲み会の席替え、したい派？", "options": ["定期的にシャッフルしたい", "最初に座った席から動きたくない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "上司の武勇伝・説教が始まったら？", "options": ["ひたすら相槌を打って耐える", "トイレに逃げる・誰かにパスする"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "お会計の時、端数はどうする？", "options": ["1円単位できっちり割り勘", "大雑把に丸める", "先輩・上司が多く出すべき"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "「行けたら行く」はどっちの意味？", "options": ["頑張って行くつもり", "ほぼ100%行かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "飲み会でサラダの取り分け、自分からやる？", "options": ["率先してやる", "誰かがやるのを待つ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お酒を飲まない人（ソフドリ）の割り勘、安くするべき？", "options": ["安くするべき", "割り勘でいい（食事代として）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "二次会のカラオケ、正直…", "options": ["行きたい！", "本当は帰りたいけど付き合う", "絶対行かない"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "😭 涙と怒り・感情のトリガー",
+    "mode": "polling",
+    "description": "何で怒り、何で泣くか。人間の喜怒哀楽を丸裸に。",
+    "questions": [
+      { "text": "最近、いつ泣いた？", "options": ["1週間以内", "1ヶ月以内", "もう何年も泣いてない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "映画やドラマで一番泣けるジャンルは？", "options": ["恋愛・失恋", "家族愛", "動物もの", "スポーツ・努力"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "怒った時、どうなる？", "options": ["大声で怒鳴る", "黙り込む・無視する", "理詰めで追い詰める"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "ストレスが限界に達すると？", "options": ["暴食する", "食欲がなくなる", "とにかく寝る"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "他人の怒っている声（怒鳴り声）、怖い？", "options": ["萎縮してしまうほど怖い", "うるさいなと思うだけ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "嬉し泣き、したことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "人に悩みを聞いてほしい時、求めているのは？", "options": ["ただの共感（「わかるよ」）", "具体的な解決策のアドバイス"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "嫉妬深い性格だと思う？", "options": ["かなり嫉妬深い", "そうでもない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分の感情、顔に出やすい？", "options": ["出やすい", "ポーカーフェイス"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "過去の黒歴史を思い出して「あぁぁ！」ってなる頻度は？", "options": ["よくある", "たまにある", "過去は振り返らない"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "👻 ジンクス・オカルト・スピリチュアル",
+    "mode": "polling",
+    "description": "見えないものを信じる？信じない？第六感のチェック。",
+    "questions": [
+      { "text": "幽霊や心霊現象、信じる？", "options": ["信じる（見たことある）", "信じる（見たことはない）", "絶対に信じない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "宇宙人（地球外生命体）はいると思う？", "options": ["いると思う", "いないと思う"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "血液型性格診断、当たってると思う？", "options": ["当たってる", "ただの思い込み"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "朝のテレビの星占い、順位が悪かったら？", "options": ["少しテンション下がる", "1秒で忘れる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お守りやパワーストーン、持ってる？", "options": ["持ってる", "持ってない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "金縛りにあったこと、ある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "初詣のおみくじで「大凶」が出たら？", "options": ["結んで忘れる", "もう一回引く", "今年終わったと落ち込む"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "「運命の人」って存在すると思う？", "options": ["存在する", "努力次第で誰でも運命にできる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "自分なりのジンクス・ルーティンはある？（例：大事な日はカツ丼）", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "心霊スポット、誘われたら行く？", "options": ["絶対行かない", "肝試しノリで行っちゃう"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🏃‍♂️ スポーツ・体育の授業トラウマ",
+    "mode": "polling",
+    "description": "運動神経と思い出。体育の時間が天国だったか地獄だったか。",
+    "questions": [
+      { "text": "学生時代、体育の授業は？", "options": ["大好きだった", "普通", "地獄だった"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "50m走のタイム、クラスでどのくらいだった？", "options": ["速い方", "真ん中くらい", "遅い方"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "持久走（マラソン）大会は？", "options": ["張り切って走る", "友達と一緒にゆっくり走る約束をする", "仮病で休みたい"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "球技（サッカー・バスケ等）と陸上、どっちが得意？", "options": ["球技", "陸上"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ドッジボールで最後まで残りがちなのは？", "options": ["キャッチが上手いから", "逃げるのが上手いから", "最初に当てられる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "今、突然5km走れと言われたら？", "options": ["余裕で走れる", "歩きならいける", "絶対無理、倒れる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "オリンピックやW杯など、スポーツ観戦は？", "options": ["熱狂して見る", "ニュースで結果を見るだけ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "筋トレ、習慣になってる？", "options": ["なっている", "三日坊主で終わる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "水泳、何メートル泳げる？", "options": ["50m以上余裕", "25mくらいなら", "カナヅチ（浮かない）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "「eスポーツ」はスポーツだと思う？", "options": ["思う", "思わない（ゲームはゲーム）"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🏡 地元・上京・ローカルあるある",
+    "mode": "polling",
+    "description": "どこで生まれ、どこで生きるか。地元愛と都会への憧れ。",
+    "questions": [
+      { "text": "将来、地元に帰りたい（または地元から出たくない）？", "options": ["地元がいい", "都会（別の場所）がいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分の出身地の方言、普段から出る？", "options": ["ガンガン出る", "家族や地元の友達と話す時だけ出る", "標準語"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "東京への憧れ、あった？（またはある？）", "options": ["あった（上京した）", "全くない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "地元の「あるある」ネタ、語れる？", "options": ["いくらでも語れる", "あまり思いつかない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "実家に帰る頻度は？", "options": ["月に1回以上", "お盆と正月だけ", "何年も帰ってない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "地元の友達と今でも連絡取ってる？", "options": ["頻繁に取ってる", "数人だけ", "誰とも取ってない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "地元にしかないローカルチェーン店、好き？", "options": ["めちゃくちゃ好き（帰省したら絶対行く）", "そうでもない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "満員電車、慣れた？", "options": ["慣れた", "一生慣れない", "乗る環境にない（車社会など）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "「田舎」の定義、どこから？", "options": ["電車が1時間に1本以下", "最寄りのコンビニまで車が必要", "スタバがない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "一番住みやすいのはどこだと思う？", "options": ["超都会（東京・大阪など）", "地方都市（仙台・福岡など）", "大自然の田舎"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🔥 究極の「もしも」二択：ハードコア編",
+    "mode": "polling",
+    "description": "少し答えづらい、道徳や本能を揺さぶる究極の選択。",
+    "questions": [
+      { "text": "もし知ることができるなら？", "options": ["自分が「いつ」死ぬか", "自分が「どうやって」死ぬか", "絶対に知りたくない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "一生どちらかしか選べないなら？", "options": ["愛される人生", "愛する人生"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "押せば1億円もらえるが、見知らぬ誰かの寿命が1年縮むボタン。押す？", "options": ["押す", "絶対に押さない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "どちらの呪いにかかる？", "options": ["一生、嘘がつけなくなる", "一生、誰も自分の言うことを信じてくれない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "100%成功するが給料が安い仕事 vs 成功率10%だが大富豪になれる仕事", "options": ["安定の安い仕事", "ギャンブルで大富豪"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "記憶を消してもう一度体験したいことがある？", "options": ["ある（映画、ゲーム、恋愛など）", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分のクローン（全く同じ考えを持つ人間）ができたら？", "options": ["最高の親友になる", "絶対に殺し合いになる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "一生、どちらかの味しかしないご飯を食べるなら？", "options": ["激辛", "無味"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分の過去の過ちを1つだけ無かったことにできるなら？", "options": ["使う", "今の自分があるから使わない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "明日地球が終わるとしたら、最後に食べるのは？", "options": ["高級なフルコース", "お母さんの手料理・思い出の味", "いつものカップ麺でいい"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  }
+]

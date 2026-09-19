@@ -110,6 +110,12 @@ async function main() {
   presets.push(...batchWhoIs);
   console.log(`  Loaded ${batchWhoIs.length} presets from 0421/partyrant_who_is (scene → この中で●●なのは誰だ)`);
 
+  // ── 0422 キャスト指名
+  const dirCast = join(__dirname, '../files/0422/partyrant_cast');
+  const batchCast = loadPresetsFromDir(dirCast, 'キャスト指名');
+  presets.push(...batchCast);
+  console.log(`  Loaded ${batchCast.length} presets from 0422/partyrant_cast (scene → キャスト指名)`);
+
   console.log(`Total: ${presets.length} presets to insert.`);
 
   // Delete existing presets first (clean re-seed)

@@ -35,7 +35,7 @@ export async function POST(
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
-    if (game.status !== 'question') {
+    if (game.gameMode !== 'self_paced' && game.status !== 'question') {
       return NextResponse.json({ error: 'Game is not accepting answers' }, { status: 409 });
     }
 
@@ -43,6 +43,28 @@ export async function POST(
     const parsed = answerSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json({ error: parsed.error.message }, { status: 400 });
+    }
+
+    const currentQuestion = game.questions[game.currentQuestionIndex];
+    const targetQuestion = game.gameMode === 'self_paced'
+      ? game.questions.find((question) => question.id === parsed.data.questionId)
+      : currentQuestion;
+
+    if (!targetQuestion) {
+      return NextResponse.json({ error: 'Question not found in this game' }, { status: 404 });
+    }
+
+    if (game.gameMode !== 'self_paced' && parsed.data.questionId !== targetQuestion.id) {
+      return NextResponse.json({ error: 'Question is not active' }, { status: 409 });
+    }
+
+    if (parsed.data.choiceIndex >= targetQuestion.options.length) {
+      return NextResponse.json({ error: 'Choice index is out of range' }, { status: 400 });
+    }
+
+    const players = await store.listPlayers(gameId);
+    if (!players.some((player) => player.id === parsed.data.playerId)) {
+      return NextResponse.json({ error: 'Player not found in this game' }, { status: 404 });
     }
 
     const answer = await store.submitAnswer({

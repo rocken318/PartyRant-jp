@@ -224,6 +224,10 @@ function computePersonVoteResults(
     .sort((a, b) => b.voteCount - a.voteCount);
 }
 
+function isPlayerPlaceholder(opt: string): boolean {
+  return /^[A-Z]さん$/.test(opt) || /^プレイヤー[A-Z]$/.test(opt);
+}
+
 // キャスト指名ゲーム用: オプション名ベースで集計（参加プレイヤーと無関係）
 function computeOptionVoteResults(
   questions: Question[],
@@ -255,8 +259,13 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
   const [hostJoining, setHostJoining] = useState(false);
   const [hostPlayerId, setHostPlayerId] = useState<string | null>(null);
   const [hostAnsweredIds, setHostAnsweredIds] = useState<Set<string>>(new Set());
-  const [hostSelectedChoice, setHostSelectedChoice] = useState<number | null>(null);
+  const [hostSelectedChoice, setHostSelectedChoice] = useState<{ questionId: string; choiceIndex: number } | null>(null);
   const [hostSubmitting, setHostSubmitting] = useState(false);
+
+  // キャスト指名scene専用: キャスト名リスト
+  const [castNames, setCastNames] = useState<string[]>(['', '']);
+  const [castSaving, setCastSaving] = useState(false);
+  const [castSaved, setCastSaved] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -271,6 +280,15 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
         const playersData = playersRes.ok ? await playersRes.json() as Player[] : [];
         const answersData = answersRes.ok ? await answersRes.json() as Answer[] : [];
         dispatch({ type: 'LOADED', game: gameData, players: playersData, answers: answersData });
+        // キャスト指名: DBに既にキャスト名が入っていればcastSavedをtrueに復元
+        if (gameData.scene === 'キャスト指名' && gameData.questions.length > 0) {
+          const opts = gameData.questions[0].options;
+          const hasRealNames = opts.length > 0 && opts.every((o: string) => !isPlayerPlaceholder(o) && o.trim() !== '');
+          if (hasRealNames) {
+            setCastNames(opts);
+            setCastSaved(true);
+          }
+        }
       } catch (e) {
         dispatch({ type: 'ERROR', message: e instanceof Error ? e.message : t('notFound') });
       }
@@ -288,10 +306,6 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game?.status, answers.length, players.length]);
-
-  useEffect(() => {
-    setHostSelectedChoice(null);
-  }, [game?.currentQuestionIndex]);
 
   const handleEvent = useCallback((event: GameEvent) => {
     switch (event.type) {
@@ -332,6 +346,26 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
     }
   }
 
+  async function handleSaveCast() {
+    const names = castNames.map(n => n.trim()).filter(Boolean);
+    if (names.length < 2) return;
+    setCastSaving(true);
+    try {
+      const res = await fetch(`/api/games/${gameId}/cast`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ names }),
+      });
+      if (res.ok) {
+        const updated = await res.json() as import('@/types/domain').Game;
+        dispatch({ type: 'GAME_UPDATED', game: updated });
+        setCastSaved(true);
+      }
+    } finally {
+      setCastSaving(false);
+    }
+  }
+
   async function handleHostJoin() {
     const name = hostNameInput.trim();
     if (!name) return;
@@ -356,7 +390,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
 
   async function handleHostAnswer(choiceIndex: number) {
     if (!hostPlayerId || !currentQuestion || hostAnswered || hostSubmitting) return;
-    setHostSelectedChoice(choiceIndex);
+    setHostSelectedChoice({ questionId: currentQuestion.id, choiceIndex });
     setHostSubmitting(true);
     try {
       const res = await fetch(`/api/games/${gameId}/answers`, {
@@ -476,12 +510,59 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
             )}
 
+            {/* キャスト指名scene専用: キャスト名入力 */}
+            {game.scene === 'キャスト指名' && (
+              <div className="flex flex-col gap-2 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111]">
+                <p className="text-sm font-bold text-pr-dark">キャスト名を入力</p>
+                {castNames.map((name, i) => (
+                  <div key={i} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={e => {
+                        const next = [...castNames];
+                        next[i] = e.target.value;
+                        setCastNames(next);
+                        setCastSaved(false);
+                      }}
+                      placeholder={`キャスト${i + 1}`}
+                      maxLength={20}
+                      className="flex-1 h-10 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
+                      style={{ fontFamily: 'var(--font-dm)' }}
+                    />
+                    {castNames.length > 2 && (
+                      <button
+                        type="button"
+                        onClick={() => { setCastNames(castNames.filter((_, j) => j !== i)); setCastSaved(false); }}
+                        className="text-gray-400 font-bold text-lg px-2"
+                      >×</button>
+                    )}
+                  </div>
+                ))}
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => { setCastNames([...castNames, '']); setCastSaved(false); }}
+                    className="flex-1 h-9 text-sm font-bold text-pr-dark border-[2px] border-pr-dark rounded-[6px] bg-white touch-manipulation"
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >＋ 追加</button>
+                  <button
+                    type="button"
+                    onClick={handleSaveCast}
+                    disabled={castSaving || castNames.filter(n => n.trim()).length < 2}
+                    className="flex-1 h-9 text-sm font-bold text-white bg-pr-dark border-[2px] border-pr-dark rounded-[6px] disabled:opacity-50 touch-manipulation"
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >{castSaving ? '保存中…' : castSaved ? '✓ 保存済み' : '確定'}</button>
+                </div>
+              </div>
+            )}
+
             {players.length === 0 && (
               <p className="text-xs text-center text-gray-400">ホストも参加するか、ゲストの参加を待ってください</p>
             )}
             <PinkBtn
               onClick={handleAdvance}
-              disabled={players.length === 0}
+              disabled={players.length === 0 || (game.scene === 'キャスト指名' && !castSaved)}
             >
               {t('startGame', { count: players.length })}
             </PinkBtn>
@@ -534,7 +615,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     key={i}
                     label={opt}
                     index={i}
-                    selected={hostSelectedChoice === i}
+                    selected={hostSelectedChoice?.questionId === currentQuestion.id && hostSelectedChoice.choiceIndex === i}
                     disabled={hostSubmitting}
                     onClick={() => handleHostAnswer(i)}
                   />
@@ -622,8 +703,8 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                   );
                 })}
                 {(() => {
-                  // キャスト指名ゲーム: オプション名ベース集計
-                  if (game.scene === 'この中で●●なのは誰だ') {
+                  // キャスト指名scene: キャスト名（option名）ベース集計
+                  if (game.scene === 'キャスト指名') {
                     const optResults = computeOptionVoteResults(game.questions, answers);
                     if (!optResults) return null;
                     const maxVotes = Math.max(...optResults.map(r => r.voteCount), 1);
@@ -644,7 +725,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                       </div>
                     );
                   }
-                  // その他の polling: プレイヤー名ベース集計
+                  // その他（この中で●●なのは誰だ含む）: 参加者名ベース集計
                   if (players.length === 0) return null;
                   const personResults = computePersonVoteResults(game.questions, answers, players);
                   if (!personResults) return null;
@@ -666,7 +747,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     </div>
                   );
                 })()}
-                {game.scene !== 'この中で●●なのは誰だ' && players.length > 0 && (() => {
+                {game.scene !== 'キャスト指名' && players.length > 0 && (() => {
                   const results = computePollingResults(game.questions, answers, players);
                   if (results.length === 0) return null;
                   const topMajority = results[0];

@@ -1,0 +1,364 @@
+[
+  {
+    "scene": "多数派クイズ",
+    "title": "🏢 仕事の流儀：プロフェッショナル編",
+    "mode": "polling",
+    "description": "職場で思わず「わかる！」となる、仕事の進め方や態度の多数派戦。",
+    "questions": [
+      { "text": "メールの返信、基本は？", "options": ["即レス", "しっかり考えてから"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "会議中の発言、多い方？", "options": ["多い", "少ない（聞き専）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "デスクの整理整頓は？", "options": ["常にピカピカ", "必要なものが出てればいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "仕事中のイヤホン、あり？", "options": ["あり（集中できる）", "なし（失礼・不安）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ランチの予算、普段は？", "options": ["1000円以内", "1000円以上"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "仕事の愚痴、誰に言う？", "options": ["同僚", "家族・友人", "言わない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "有給休暇、使い切る？", "options": ["使い切る", "余らせがち"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "嫌な仕事は？", "options": ["最初に片付ける", "最後まで残す"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "上司に飲みに誘われたら？", "options": ["喜んで行く", "内心行きたくない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "転職を考えたことは？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🍚 究極の食習慣：食へのこだわり",
+    "mode": "polling",
+    "description": "食べ方ひとつで性格が出る。食卓でのこだわり多数派チェック。",
+    "questions": [
+      { "text": "目玉焼き、何かける？", "options": ["醤油", "ソース", "塩コショウ", "ケチャップ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "カレーのルー、混ぜる？", "options": ["食べる分だけ混ぜる", "全部混ぜる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "納豆、何回混ぜる？", "options": ["数回", "めちゃくちゃ混ぜる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ラーメンの汁、飲み干す？", "options": ["飲み干す", "残す"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ピザの耳、食べる？", "options": ["食べる", "残す"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ハンバーガー、包み紙はどうする？", "options": ["巻いたまま食べる", "皿に出す"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ショートケーキの苺、いつ食べる？", "options": ["最初", "途中", "最後"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "食べ放題、元を取れる自信は？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "外食で「おすすめ」聞く？", "options": ["聞く", "自分で決める"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自炊は？", "options": ["毎日する", "たまにする", "ほぼしない"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "📱 令和のデジタル・SNS事情",
+    "mode": "polling",
+    "description": "スマホなしでは生きられない。SNSやアプリの使い方の本音。",
+    "questions": [
+      { "text": "インスタのストーリー、毎日投稿する？", "options": ["する", "たまに", "見るだけ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "未読スルー、しがち？", "options": ["しがち", "即返す"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマホのホーム画面、アプリ整理してる？", "options": ["してる", "ごちゃごちゃ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "YouTube、倍速で見る？", "options": ["1.5倍以上", "等速"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "TikTok、インストールしてる？", "options": ["してる", "してない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "電子マネー派？QRコード決済派？", "options": ["電子マネー", "QRコード"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマホの待ち受け、何？", "options": ["初期設定", "風景・物", "人・ペット"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "自分の名前を検索（エゴサ）したことは？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "広告、最後まで見る？", "options": ["即スキップ", "たまに見る"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマホを家に忘れたら？", "options": ["絶対に取りに帰る", "一日我慢する"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "❤️ 恋愛のレッドフラグと本音",
+    "mode": "polling",
+    "description": "これはアリ？ナシ？恋愛観が浮き彫りになる2択。",
+    "questions": [
+      { "text": "初デートでチェーン店、アリ？", "options": ["アリ", "ナシ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "恋人のスマホ、パスワード知ってる？", "options": ["知ってる", "知らない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "元カレ・元カノの連絡先、残す？", "options": ["残す", "消す"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "束縛は？", "options": ["少しはされたい", "絶対イヤ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "遠距離恋愛、耐えられる？", "options": ["耐えられる", "無理"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "浮気のラインはどこから？", "options": ["2人で食事", "手を繋ぐ", "キス"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "結婚相手に一番求めるのは？", "options": ["経済力", "顔", "居心地"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "マッチングアプリ、使ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "プロポーズ、したい？されたい？", "options": ["したい", "されたい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "失恋したら、立ち直りは早い方？", "options": ["早い", "引きずる"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🍼 懐かしの子供時代・放課後",
+    "mode": "polling",
+    "description": "あの頃、みんなはどうしてた？懐かしさ全開の記憶チェック。",
+    "questions": [
+      { "text": "小学校のランドセル、何色だった？", "options": ["赤/黒", "その他の色"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "宿題、いつやってた？", "options": ["帰ってすぐ", "夜寝る前", "朝早起きして"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "給食で好きだったのは？", "options": ["カレー", "揚げパン", "ソフト麺"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "放課後の遊びは？", "options": ["外遊び", "家でゲーム"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "習い事、してた？", "options": ["してた", "してない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "運動会、好きだった？", "options": ["好き", "嫌い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "通知表の結果、親に見せる時…", "options": ["堂々と見せる", "恐る恐る見せる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "サンタさん、いつまで信じてた？", "options": ["小学校低学年", "高学年以上", "最初から…"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "駄菓子屋でよく買ったのは？", "options": ["ガム・アメ", "スナック菓子", "クジ引き"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "夏休み、ラジオ体操行ってた？", "options": ["毎日", "たまに", "行かない"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🚅 旅行・お出かけのこだわり",
+    "mode": "polling",
+    "description": "旅のスタイルは人それぞれ。プランニングから移動中の習慣まで。",
+    "questions": [
+      { "text": "旅行の準備、何日前から？", "options": ["1週間前", "前日", "当日"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "飛行機の席は？", "options": ["窓側", "通路側"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "新幹線で駅弁、買う？", "options": ["必ず買う", "買わない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ホテルは？", "options": ["寝るだけだから安く", "贅沢したい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "旅先で写真は？", "options": ["めちゃくちゃ撮る", "ほどほどに撮る"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "海外旅行、行きたいのは？", "options": ["ハワイなどのリゾート", "ヨーロッパの街並み", "アジアのグルメ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "旅先で早起きする？", "options": ["する", "のんびり寝る"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ガイドブック、買う？", "options": ["買う", "ネットで十分"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お土産選びに時間は？", "options": ["かける", "かけない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "一人の旅行は？", "options": ["アリ", "ナシ"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "💰 お金と将来の不安・本音",
+    "mode": "polling",
+    "description": "節約術から投資、宝くじまで、リアルなお金の価値観。",
+    "questions": [
+      { "text": "毎月の貯金額、決めてる？", "options": ["決めてる", "余ったら貯める"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "投資（NISAなど）、してる？", "options": ["してる", "興味はあるがしてない", "興味ない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "宝くじ、買ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "コンビニで「つい買っちゃう」こと…", "options": ["よくある", "ほぼない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "家を買うなら？", "options": ["一軒家", "マンション"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "借金（ローン以外）は？", "options": ["絶対しない", "少しくらいなら…"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "財布の中身、いくら入ってると安心？", "options": ["1万円以下", "3万円以上"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ふるさと納税、やってる？", "options": ["やってる", "やってない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "家計簿、つけてる？", "options": ["アプリなどでつけてる", "つけてない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "老後の資金、不安？", "options": ["不安", "なんとかなる"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🛌 睡眠とナイトルーティン",
+    "mode": "polling",
+    "description": "眠りの質は人生の質。寝室の環境や習慣をジャッジ。",
+    "questions": [
+      { "text": "寝る時の服装は？", "options": ["パジャマ", "Tシャツ・短パン", "スウェット"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "枕の高さ、こだわりある？", "options": ["ある", "なんでもいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "寝る直前までスマホ見てる？", "options": ["見てる", "控えてる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "目覚まし、何個かけてる？", "options": ["1個", "複数個", "自然に起きる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "夢、よく見る？", "options": ["見る", "見ない（覚えてない）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "布団に入ってから寝つくまで…", "options": ["即寝", "時間がかかる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "寝返り、多い方？", "options": ["多い", "少ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "寝室の温度は？", "options": ["少し寒いくらい", "暖かいほうがいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "休日の昼寝、する？", "options": ["する", "しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "朝起きて一番にすることは？", "options": ["カーテンを開ける", "スマホを見る", "トイレに行く"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "💇 ファッションと身だしなみ",
+    "mode": "polling",
+    "description": "センスのこだわりや手入れの頻度。外見への意識調査。",
+    "questions": [
+      { "text": "服を買う頻度は？", "options": ["毎月", "季節ごと", "たまに"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "美容院に行く頻度は？", "options": ["1ヶ月以内", "2〜3ヶ月", "半年以上"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "香水、つける？", "options": ["毎日", "特別な時だけ", "つけない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "靴の数は？", "options": ["5足以下", "6〜10足", "それ以上"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "寝癖、直す？", "options": ["完璧に直す", "適当に直す", "そのまま"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ムダ毛処理、気にしてる？", "options": ["めちゃくちゃ気にしてる", "そこまで"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ブランド品、好き？", "options": ["好き", "興味ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "鏡の前でのチェック、時間は？", "options": ["長い", "短い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "服のコーディネート、前日に決める？", "options": ["決める", "当日の気分"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "流行は追う方？", "options": ["追う", "自分流を貫く"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🏠 住まいと家事のリアリティ",
+    "mode": "polling",
+    "description": "洗濯、掃除、ゴミ出し。生活感あふれる多数派チェック。",
+    "questions": [
+      { "text": "洗濯物、畳むの好き？", "options": ["好き", "嫌い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "掃除機、毎日かける？", "options": ["かける", "たまに", "週末にまとめて"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "トイレ掃除の頻度は？", "options": ["毎日", "週1回", "たまに"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ゴミの分別、完璧にやってる？", "options": ["完璧", "そこそこ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "食器洗い、すぐやる？", "options": ["すぐやる", "溜めてからやる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "部屋の芳香剤、置いてる？", "options": ["置いてる", "置いてない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ミニマリストに憧れる？", "options": ["憧れる", "物がたくさんある方がいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "インテリア、こだわりある？", "options": ["ある", "なんでもいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "実家暮らし？一人暮らし？", "options": ["実家", "一人暮らし", "同棲・結婚"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "一番嫌いな家事は？", "options": ["掃除", "洗濯", "料理", "洗い物"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🎮 オタク・エンタメ愛好家セット",
+    "mode": "polling",
+    "description": "趣味への没頭度合いを測る。推し活やゲームの習慣。",
+    "questions": [
+      { "text": "推し（好きなアイドル・キャラ）いる？", "options": ["いる", "いない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "アニメ、1クール全話見る？", "options": ["見る", "途中で脱落しがち"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "漫画は？", "options": ["単行本派", "連載追いかけ派"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ゲームのトロコン（コンプ）、目指す？", "options": ["目指す", "クリアすれば満足"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ライブやイベント、一人で行ける？", "options": ["行ける", "誰かと行きたい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "グッズ、集める？", "options": ["集める", "使えればいい", "買わない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "聖地巡礼、したことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "推しに課金、いくらまで出せる？",
+        "options": ["1万円以内", "1〜10万円", "無制限"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "声優さんの名前、詳しい？", "options": ["詳しい", "わからない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分の趣味をオープンにしてる？", "options": ["してる", "隠してる（隠れオタク）"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🗣️ コミュニケーションの癖と本音",
+    "mode": "polling",
+    "description": "対人関係での振る舞い。外交的か内向的か。",
+    "questions": [
+      { "text": "初対面で自分から話しかける？", "options": ["話しかける", "待つ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "相槌、うまい方だと思う？", "options": ["思う", "苦手"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "人見知り、する？", "options": ["する", "しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "電話に出る時、緊張する？", "options": ["する", "しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "グループでの話し合い、主導権握る？", "options": ["握る", "従う"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "人の顔と名前、覚えるの得意？", "options": ["得意", "苦手"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "冗談、通じやすい方？", "options": ["通じやすい", "真に受けがち"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "他人の評価、気になる？", "options": ["気になる", "気にならない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "謝るの、早い方？", "options": ["早い", "なかなか謝れない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "大人数の飲み会、正直疲れる？", "options": ["疲れる", "楽しい"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🦄 もしも…？空想シチュエーション",
+    "mode": "polling",
+    "description": "現実にありえないけど選ぶならどっち？想像力バトル。",
+    "questions": [
+      { "text": "一生どちらかしかできないなら？", "options": ["空を飛ぶ", "透明人間になる"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "過去に戻れるなら、いつ？", "options": ["小学校時代", "高校時代", "戻りたくない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "無人島に一つだけ持って行くなら？", "options": ["ナイフ", "ライター", "本"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "どちらかの特殊能力、もらえるなら？", "options": ["記憶力100倍", "身体能力100倍"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "宇宙旅行、誘われたら行く？", "options": ["行く", "怖いから行かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "タイムマシン、行くなら？", "options": ["過去", "未来"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "動物と話せる能力、欲しい？", "options": ["欲しい", "知りたくないこともある"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ゾンビパンデミックが起きたら…", "options": ["生き残る自信がある", "すぐ噛まれる自信がある"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "一生、冬が来ない世界は？", "options": ["最高", "寂しい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ドラえもんの道具、一つもらえるなら？",
+        "options": ["どこでもドア", "タイムマシン", "アンキパン"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🛍️ 買い物と物欲のジャッジ",
+    "mode": "polling",
+    "description": "即決か熟考か。お金を払う時のこだわり。",
+    "questions": [
+      { "text": "Amazonのセール、必ずチェックする？", "options": ["する", "しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スーパーで半額シール、待つ？", "options": ["待つ", "待たない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "高額な買い物、誰かに相談する？", "options": ["する", "自分だけで決める"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "限定品という言葉に弱い？", "options": ["弱い", "関係ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ポイントカード、何枚持ってる？", "options": ["1〜5枚", "6枚以上", "持たない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "レシート、もらう？", "options": ["もらう", "もらわない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "メルカリなどで売ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ウィンドウショッピング、好き？", "options": ["好き", "疲れる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "一番お金をかけているのは？", "options": ["食費", "趣味", "美容・服", "家賃"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "福袋、買う？", "options": ["買う", "買わない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🏫 学校・学生時代の思い出",
+    "mode": "polling",
+    "description": "テスト、部活、制服。あの頃の自分を振り返る。",
+    "questions": [
+      { "text": "テスト勉強、一夜漬けだった？", "options": ["はい", "いいえ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "制服、着崩してた？", "options": ["してた", "きっちり着てた"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "文化祭での立ち位置は？", "options": ["リーダー・中心", "裏方", "サボり気味"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "部活、途中で辞めたことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "数学と国語、どっちが得意だった？", "options": ["数学", "国語"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "先生に怒られたこと、多い？", "options": ["多い", "少ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "校則、破ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "学食派？お弁当派？", "options": ["学食", "お弁当", "コンビニ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "屋上で過ごしたこと、ある？", "options": ["ある（または憧れた）", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "卒業式で泣いた？", "options": ["泣いた", "泣かなかった"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🚿 お風呂・洗面所の習慣",
+    "mode": "polling",
+    "description": "究極にプライベートな空間。みんなはどうしてる？",
+    "questions": [
+      { "text": "体、どこから洗う？", "options": ["頭", "上半身", "足"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "湯船に浸かる頻度は？", "options": ["毎日", "たまに", "ほぼシャワーのみ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "入浴剤、使う？", "options": ["使う", "使わない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お風呂でスマホ、使う？", "options": ["使う", "使わない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "バスタオル、毎日変える？", "options": ["毎日", "数日使う"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "歯ブラシの硬さは？", "options": ["かため", "ふつう", "やわらかめ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ドライヤーで髪を乾かす時間は？", "options": ["長い", "短い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "洗顔、洗顔フォーム使う？", "options": ["使う", "水・お湯のみ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お風呂上りに飲むのは？", "options": ["水・お茶", "牛乳", "ビール"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "朝シャン派？夜お風呂派？", "options": ["朝", "夜", "両方"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🍿 エンタメ・映画・メディア",
+    "mode": "polling",
+    "description": "映画館でのマナーや鑑賞スタイル。最新トレンドへの感度。",
+    "questions": [
+      { "text": "映画館でポップコーン、買う？", "options": ["買う", "買わない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "映画のエンディングロール、最後まで見る？", "options": ["見る", "すぐ出る"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ドラマ、全話溜めてから一気見する？", "options": ["一気見派", "毎週コツコツ派"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "映画館で一番いい席は？", "options": ["真ん中", "後ろ", "一番前"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "映画で泣ける方？", "options": ["すぐ泣く", "泣かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "バラエティ番組、よく見る？", "options": ["見る", "見ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ニュース、どこで見る？", "options": ["テレビ", "ネット・SNS", "新聞"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "音楽サブスク、どこ使ってる？", "options": ["Spotify", "Apple Music", "その他/使ってない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ラジオ、聴く？", "options": ["聴く", "聴かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お気に入りの芸能人いる？", "options": ["いる", "いない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "❄️ 季節とイベント・行事",
+    "mode": "polling",
+    "description": "春夏秋冬、みんなが好きな時期とイベントの過ごし方。",
+    "questions": [
+      { "text": "一番好きな季節は？", "options": ["春", "夏", "秋", "冬"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "花見、毎年行く？", "options": ["行く", "行かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "夏祭りの屋台、必ず買うのは？", "options": ["焼きそば", "たこ焼き", "かき氷", "チョコバナナ"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "紅葉、見に行く？", "options": ["行く", "近場で見れば十分"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "クリスマス、どう過ごしたい？", "options": ["パーティー", "家でのんびり", "仕事"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "お正月、初詣に行くタイミングは？", "options": ["元旦", "三が日以内", "行かない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "バレンタイン、チョコ渡す？", "options": ["渡す", "もらいたい", "関係ない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ハロウィン、仮装したことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "誕生日は祝われたい派？", "options": ["派手に祝われたい", "ひっそり過ごしたい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "梅雨の時期、テンション下がる？", "options": ["下がる", "あまり気にしない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🌀 人間関係のモヤモヤ・マナー",
+    "mode": "polling",
+    "description": "正解はないけど気になる。マナーとデリカシーの境界線。",
+    "questions": [
+      { "text": "待ち合わせに10分遅れる友人、許せる？", "options": ["許せる", "許せない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "店員さんへの態度、厳しい方？", "options": ["普通", "丁寧", "少し厳しい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "電車で隣の人が寝て寄りかかってきたら？", "options": ["我慢する", "さりげなく押し返す"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "貸した100円、催促する？", "options": ["する", "しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "他人の指摘、素直に聞ける？", "options": ["聞ける", "内心反論する"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "食事中にスマホをいじるのは？", "options": ["アリ", "ナシ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "歩きスマホ、しちゃう？", "options": ["しちゃう", "絶対しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分の秘密、誰かに話したくなる？", "options": ["話す", "墓場まで持っていく"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "SNSのフォロー、知り合いなら全員返す？", "options": ["返す", "人による"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "サプライズされるのは？", "options": ["好き", "苦手"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🌀 毎日のルーティンと性格診断",
+    "mode": "polling",
+    "description": "朝から夜までの習慣でわかる、あなたの「普通」度。",
+    "questions": [
+      { "text": "朝はパン？ご飯？", "options": ["パン", "ご飯", "食べない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "占いの結果、信じる？", "options": ["信じる", "いい時だけ信じる", "信じない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "忘れ物、多い方？", "options": ["多い", "少ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "時間を守るのは得意？", "options": ["得意", "ルーズ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "悩み事、誰かに相談する？", "options": ["する", "自分で解決する"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "プレッシャーを感じると…", "options": ["燃える", "逃げたくなる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "完璧主義？", "options": ["はい", "いいえ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お化け、信じてる？", "options": ["信じてる", "信じてない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "直感で動くタイプ？", "options": ["はい", "理屈で考える"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "今の自分、好き？", "options": ["はい", "これからもっと好きになりたい"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  }
+]

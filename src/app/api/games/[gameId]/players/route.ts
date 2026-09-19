@@ -33,6 +33,10 @@ export async function POST(
       return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
+    if (game.status !== 'lobby') {
+      return NextResponse.json({ error: 'Game is not accepting players' }, { status: 409 });
+    }
+
     const body = await req.json();
     const parsed = joinSchema.safeParse(body);
     if (!parsed.success) {

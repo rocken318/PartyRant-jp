@@ -1,0 +1,410 @@
+[
+  {
+    "scene": "多数派クイズ",
+    "title": "🎮 ゲーム・ネット文化の多数派戦",
+    "mode": "polling",
+    "description": "ゲーマーやネット民なら避けて通れない、こだわりが爆発する二択セット。",
+    "questions": [
+      {
+        "text": "RPGで名前を付けるなら？",
+        "options": ["自分の本名（またはニックネーム）", "デフォルト名・かっこいい名前"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "対戦ゲームで負けた時、どう思う？",
+        "options": ["次は勝つ！（リベンジ燃える）", "向いてないかも…（即やめる）"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "ゲームの難易度は？",
+        "options": ["サクサク進める「イージー」", "歯ごたえのある「ノーマル以上」"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "コントローラーの決定ボタンは？",
+        "options": ["下（A/×）派", "右（B/○）派"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "攻略情報は？",
+        "options": ["詰まるまで見ない", "最初から効率よく見ちゃう"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "動画配信、見るなら？",
+        "options": ["編集されたYouTube動画", "臨場感のある生配信（Twitch等）"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "PCのブラウザ、タブは？",
+        "options": ["数個だけ。使い終わったら閉じる", "数十個。開きっぱなしがデフォ"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "マウスの感度（DPI）は？",
+        "options": ["ローセンシ（大きく動かす）", "ハイセンシ（手首だけで動かす）"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "課金についてどう思う？",
+        "options": ["時短・応援だからアリ", "無課金で頑張るのが美学"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "一度だけ異世界転生するなら？",
+        "options": ["圧倒的パワーを持つ勇者", "平和に暮らす村人A", "知識で無双する商人"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "✈️ 旅行・アドベンチャーの価値観",
+    "mode": "polling",
+    "description": "旅先でのトラブルや楽しみ方。一緒に旅行に行ける相手かどうかがバレる？",
+    "questions": [
+      {
+        "text": "ホテルに着いたらまず何をする？",
+        "options": ["ベッドにダイブ", "荷物を全部整理する", "部屋の写真を撮る"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "旅行の移動手段、理想は？",
+        "options": ["自分で運転するレンタカー", "のんびり電車・バス"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "知らない土地での食事は？",
+        "options": ["行列のできる有名店", "適当に見つけた路地裏の名店"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "旅先でトラブル発生！あなたの態度は？",
+        "options": ["「これもネタ！」と笑う", "ガチで落ち込む・不機謙になる"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "お土産は？",
+        "options": ["配る用に大量買い", "自分に一点豪華主義", "基本買わない"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "飛行機で隣の人が肘置きを占領してたら？",
+        "options": ["我慢する", "さりげなく取り返す", "CAさんに相談（または睨む）"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "長期休暇、行くなら？",
+        "options": ["超都会（NY、東京など）", "大自然（スイス、北海道など）"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "パッキングは？",
+        "options": ["数日前から完璧にやる", "出発当日の数時間前にやる"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "旅先で現地の言葉、使う？",
+        "options": ["積極的に使ってみる", "日本語か英語で押し通す"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "理想の旅の終わり方は？",
+        "options": ["余韻に浸りながら早めに帰宅", "最終便ギリギリまで遊び尽くす"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🧘 健康・肉体派の多数派ジャッジ",
+    "mode": "polling",
+    "description": "筋トレ、ダイエット、睡眠。ストイック派とズボラ派の境界線。",
+    "questions": [
+      {
+        "text": "エスカレーターと階段、どっちを使う？",
+        "options": ["迷わずエスカレーター", "運動のために階段"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "体調が悪い時、どうする？",
+        "options": ["すぐに病院・薬", "寝て治す"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "ジムに通うなら？",
+        "options": ["黙々と一人で追い込む", "友達やトレーナーと楽しく"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "サウナは？",
+        "options": ["「整う」まで我慢する派", "暑いのが無理で即出る派"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "1日の睡眠時間は？",
+        "options": ["6時間未満でも平気", "7〜8時間は絶対寝たい"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "食事制限、するならどっち？",
+        "options": ["糖質制限（米・パン抜き）", "脂質制限（揚げ物抜き）"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "鏡を見る回数は？",
+        "options": ["気づけば見ている（ナルシスト気味）", "必要最低限しか見ない"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "朝起きて最初にすることは？",
+        "options": ["コップ一杯の水", "スマホチェック", "二度寝"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "健康診断の結果は？",
+        "options": ["隅々まで読み込む", "判定だけ見て終わり"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "一生どちらかの体になれるなら？",
+        "options": ["バキバキの筋肉美", "モデルのような細身", "ほどよく動ける標準体型"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "📱 デジタル・SNS生活の裏側",
+    "mode": "polling",
+    "description": "スマホなしでは生きられない現代人の、リアルな生態をチェック。",
+    "questions": [
+      {
+        "text": "LINEの通知バッジ（未読数）、気になる？",
+        "options": ["1つでもあると消したい", "数百件あっても放置"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "SNSの「裏垢」持ってる？",
+        "options": ["持っている（または持ってた）", "本垢ひとつで勝負"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "スマホの充電、何％で焦る？",
+        "options": ["50%を切ったら", "20%を切ったら", "1%になるまで余裕"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "知らない番号からの電話、出る？",
+        "options": ["とりあえず出る", "絶対に出ない（後で番号調べる）"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "フリック入力？トグル入力（ガラケー打ち）？",
+        "options": ["フリック派", "トグル・連打派"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "ネットで買い物する時、レビューは？",
+        "options": ["星1の低評価をチェックする", "全体の平均点だけ見る"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "スマホの画面、割れたまま使ったことある？",
+        "options": ["ある（または今そう）", "すぐに直す・ありえない"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "サブスク、月額合計いくら払ってる？",
+        "options": ["3000円未満", "3000円〜1万円", "把握してない"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "SNSで「知り合い」を見つけたら？",
+        "options": ["自分からフォローする", "相手から来るまで待つ", "見なかったことにする"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "パスワードの管理は？",
+        "options": ["使い回し派", "ツールや手帳でバラバラに管理"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🤐 禁断の本音！ブラック多数派戦",
+    "mode": "polling",
+    "description": "少しリスク高め。人間関係のドロドロした部分をあえて突っつくセット。",
+    "questions": [
+      {
+        "text": "ぶっちゃけ、他人の不幸は…？",
+        "options": ["ちょっとだけ蜜の味", "全く興味ない・同情する"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "親友が悪いことをしていたら？",
+        "options": ["全力で止める", "黙って見守る（または手伝う）"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "SNSのキラキラ投稿を見てどう思う？",
+        "options": ["「おー、すごいな」", "「自慢うざいな」", "何も感じない"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "仕事でミスをなすりつけられそうになったら？",
+        "options": ["徹底抗戦・言い返す", "穏便に済ませるために被る"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "「一生バレない」なら浮気する？",
+        "options": ["するかもしれない", "絶対しない"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "他人の年収、正直気になる？",
+        "options": ["めちゃくちゃ気になる", "どうでもいい"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "奢ってもらった時、財布を出すフリ…",
+        "options": ["必ずする", "しない（感謝だけ伝える）"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "嫌いな人がピンチ！助ける？",
+        "options": ["人助けとして助ける", "無視する・心の中で喜ぶ"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      },
+      {
+        "text": "本音と建前、どっちが得だと思う？",
+        "options": ["建前（嘘も方便）", "本音（正直者が勝つ）"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "もし悪魔が願いを叶えてくれるなら？",
+        "options": ["自分の富", "嫌いな奴の不幸", "世界の平和"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🕰️ 懐かしの平成・昭和あるある",
+    "mode": "polling",
+    "description": "世代交代を感じる瞬間。あの頃の常識は、今の非常識？",
+    "questions": [
+      {
+        "text": "携帯電話のアンテナ、伸ばしてた？",
+        "options": ["伸ばしてた派", "世代じゃない・知らない"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "好きな子への電話、家電（いえでん）にかけたことある？",
+        "options": ["ある（緊張した！）", "ない・直電世代"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "MD（ミニディスク）知ってる？",
+        "options": ["使ってた派", "名前だけ知ってる", "何それ？"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "プリクラ、帳面に貼って交換してた？",
+        "options": ["プリ帳作ってた派", "データ保存世代"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "カセットテープやファミコンをフーフーした？",
+        "options": ["経験あり", "未経験"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "学校の休み時間、何してた？",
+        "options": ["外でドッジボール", "中で雑談・読書", "ゲーム（こっそり）"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "テレビ番組の録画、CMカットしてた？",
+        "options": ["一時停止を駆使してカット", "そのまま録画", "全録世代"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "待ち合わせ場所、駅の「伝言板」って知ってる？",
+        "options": ["見たことある", "都市伝説だと思ってる"],
+        "correctIndex": null,
+        "timeLimitSec": 12
+      },
+      {
+        "text": "プロフィール帳（サイン帳）書かされたことある？",
+        "options": ["あるある", "ない"],
+        "correctIndex": null,
+        "timeLimitSec": 10
+      },
+      {
+        "text": "一番「時代が変わった」と思うのは？",
+        "options": ["タバコを吸える場所が激減", "どこでもキャッシュレス", "AIが喋るようになった"],
+        "correctIndex": null,
+        "timeLimitSec": 15
+      }
+    ]
+  }
+]

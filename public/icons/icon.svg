@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="jpBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF2090"/>
+      <stop offset="100%" stop-color="#C8005F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded-square background -->
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#jpBg)"/>
+
+  <!-- Confetti pieces (party vibe) -->
+  <g>
+    <rect x="-11" y="-5" width="22" height="10" rx="5" fill="#FFD600" transform="translate(78 96) rotate(25)"/>
+    <rect x="-11" y="-5" width="22" height="10" rx="5" fill="#00C472" transform="translate(440 108) rotate(-22)"/>
+    <rect x="-11" y="-5" width="22" height="10" rx="5" fill="#3B82F6" transform="translate(76 424) rotate(-30)"/>
+    <rect x="-11" y="-5" width="22" height="10" rx="5" fill="#FFD600" transform="translate(438 420) rotate(35)"/>
+    <circle cx="56"  cy="256" r="7" fill="#FFD600"/>
+    <circle cx="456" cy="256" r="7" fill="#FFFFFF"/>
+    <circle cx="256" cy="56"  r="6" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="256" cy="456" r="6" fill="#FFD600" opacity="0.8"/>
+  </g>
+
+  <!-- Dark speech bubble -->
+  <path d="M 128 176
+           Q 128 148 156 148
+           L 356 148
+           Q 384 148 384 176
+           L 384 312
+           Q 384 340 356 340
+           L 296 340
+           L 238 392
+           L 248 340
+           L 156 340
+           Q 128 340 128 312 Z"
+        fill="#111111"/>
+
+  <!-- Yellow exclamation mark "!" -->
+  <rect x="200" y="186" width="26" height="82" rx="7" fill="#FFD600"/>
+  <circle cx="213" cy="298" r="15" fill="#FFD600"/>
+
+  <!-- Pink question mark "?" -->
+  <path d="M 264 220
+           Q 264 186 300 186
+           Q 336 186 336 220
+           Q 336 236 320 246
+           L 302 258
+           L 302 278"
+        stroke="#FF2090"
+        stroke-width="24"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none"/>
+  <circle cx="302" cy="306" r="14" fill="#FF2090"/>
+</svg>

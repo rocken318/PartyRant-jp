@@ -1,0 +1,182 @@
+[
+  {
+    "scene": "多数派クイズ",
+    "title": "💰 お金と倫理の境界線",
+    "mode": "polling",
+    "description": "人間の強欲さやズルさが試される。あなたならどこまで許せる？",
+    "questions": [
+      { "text": "道で1万円拾ったらどうする？", "options": ["交番に届ける", "こっそり自分のものにする", "その場で募金箱に入れる"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "「何もしないで月30万円」もらえるボタン、押す？", "options": ["絶対に押す", "裏がありそうで怖いから押さない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "お釣りが1000円多かった！店員に言う？", "options": ["正直に言う", "ラッキーと思って黙っておく"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "お金で愛は買えると思う？", "options": ["買える", "買えない", "ある程度までは買える"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "親友が「10万円貸して」と言ってきたら？", "options": ["理由を聞いて貸す", "絶対貸さない", "あげたものとして貸す"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "落ちている硬貨、いくらから拾う？", "options": ["1円から", "100円から", "500円から", "拾わない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "会社の備品（ペンや付箋）、こっそり持ち帰ったことある？", "options": ["ある", "絶対にない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "「合法だけど道徳的にグレーな儲け話」乗る？", "options": ["乗る", "乗らない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "宝くじで3億円当たったら、周りに言う？", "options": ["家族にだけ言う", "誰にも言わない", "自慢しまくる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "一番「ケチだな」と思う他人の行動は？", "options": ["1円単位の割り勘", "クーポンを使う時だけ張り切る", "人のおごりだと高いものを頼む"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "👃 五感とフェティッシュ・偏愛",
+    "mode": "polling",
+    "description": "理解されないかもしれないけど、なぜか好きな匂いや感覚。",
+    "questions": [
+      { "text": "ガソリンスタンドの匂い、好き？", "options": ["好き", "嫌い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "プチプチ（緩衝材）、最後まで潰したくなる？", "options": ["なる", "途中で飽きる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "他人の身体のパーツ、どこに惹かれる？", "options": ["手・指先", "声", "匂い", "筋肉・骨格"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "古い本（古本）の匂い、好き？", "options": ["好き", "嫌い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ASMR（咀嚼音やささやき声）の動画、見る？", "options": ["見る（癒やされる）", "見ない（逆にゾワゾワする）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "かさぶた、剥がしたくなる？", "options": ["我慢できずに剥がす", "綺麗に治るまで我慢する"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "新しい電化製品の保護フィルム、いつ剥がす？", "options": ["買った瞬間に剥がす", "ボロボロになるまで貼っておく"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "雨の降り始めの匂い（ペトリコール）、好き？", "options": ["好き", "嫌い", "意識したことない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "他人の「字の綺麗さ」にフェティッシュを感じる？", "options": ["感じる", "読めれば何でもいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "耳かき、やりすぎちゃう？", "options": ["やりすぎちゃう", "適度にやめる"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "📱 デジタル黒歴史とスマホの中身",
+    "mode": "polling",
+    "description": "絶対に見られたくない、スマホの中のパンドラの箱。",
+    "questions": [
+      { "text": "もし死んだら、スマホのデータはどうしてほしい？", "options": ["完全に物理破壊してほしい", "家族になら見られてもいい", "公開されても悔いはない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "「検索履歴」と「写真フォルダ」、見られるならどっちがマシ？", "options": ["検索履歴", "写真フォルダ"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "昔の自分のSNS投稿（黒歴史）を読み返して絶望したことある？", "options": ["ある（そして消した）", "ある（放置してる）", "ない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "カメラロールにある写真、一番多いのは？", "options": ["スクショ（メモ代わり）", "自撮り・友達との写真", "風景・食べ物", "推し・動物"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "スマホのパスコード、恋人の誕生日や記念日にしてる？", "options": ["してる", "絶対しない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "送信取り消し機能、よく使う？", "options": ["よく使う", "ほとんど使わない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "使っていないアプリ、こまめに消す？", "options": ["すぐ消す", "何年も放置している"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "グループLINE、退出するタイミングがわからず居座ってる？", "options": ["居座ってる", "スパッと退出する"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "予測変換、「あ」と打ったら何が出た？（心の中で）", "options": ["まともな言葉", "人に見せられない言葉", "人の名前"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "寝落ちして変なメッセージやスタンプを送ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "📏 マイルール・謎の強迫観念",
+    "mode": "polling",
+    "description": "誰に言われたわけでもないのに、なぜか守ってしまう自分だけのルール。",
+    "questions": [
+      { "text": "テレビやスマホの音量、偶数じゃないと嫌？", "options": ["偶数かキリのいい数字（5など）がいい", "全く気にしない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "横断歩道の白い線だけを踏んで渡ろうとしたことある？", "options": ["ある（大人になってもやる）", "子供の頃はやってた", "ない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "靴を履く時、左右どちらから履くか決まってる？", "options": ["決まっている", "無意識・バラバラ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "階段を上る時、歩数を数えちゃう？", "options": ["数えちゃう", "数えない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマホのアプリアイコン、色やジャンルで完璧に揃えてる？", "options": ["揃えてる", "バラバラ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "トイレットペーパーの切り口、三角に折る？", "options": ["折る", "折らない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "寝る時、クローゼットの扉が少しでも開いていると怖い？", "options": ["怖い（きっちり閉める）", "気にしない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "エスカレーター、左に立つ？右に立つ？", "options": ["左", "右", "歩く"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "目覚まし時計、セットする時間は？", "options": ["キリのいい時間（7:00など）", "中途半端な時間（7:03など）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "お札を財布に入れる時、向きを揃える？", "options": ["絶対揃える", "気にしない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "👨‍👩‍👦 家族・きょうだい・実家の謎ルール",
+    "mode": "polling",
+    "description": "実家ならではの変わった習慣や、家族への隠し事。",
+    "questions": [
+      { "text": "親に言っていない「大きな隠し事」、ある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "きょうだい喧嘩、本気で手を出したことある？", "options": ["ある", "口喧嘩だけ", "一人っ子・喧嘩しない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "反抗期、ひどかった？", "options": ["ひどかった（壁に穴が開いた等）", "普通", "反抗期はなかった"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "実家のお風呂の残り湯、洗濯に使う派だった？", "options": ["使う派だった", "使わない派だった"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "親からのLINE、絵文字多すぎ・または独特？", "options": ["独特で面白い", "そっけない", "連絡取らない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "お年玉、親に預けて「そのまま消えた」経験ある？", "options": ["ある（返してほしい）", "ちゃんと貯金してくれていた"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "実家のカレー、隠し味はあった？", "options": ["あった（チョコ、ソース等）", "普通", "わからない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "親の年齢、即答できる？", "options": ["できる", "たぶん〇〇歳…（曖昧）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "実家でペットを飼っていた？", "options": ["飼っていた", "飼っていなかった"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "将来、親と同居・または近所に住みたい？", "options": ["住みたい", "適度な距離を保ちたい"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🧟 もしもの世界：サバイバル編",
+    "mode": "polling",
+    "description": "映画の世界のようなパニックが起きたら。あなたの生存戦略は？",
+    "questions": [
+      { "text": "ゾンビパンデミック発生！あなたのポジションは？", "options": ["最前線で戦うリーダー", "頭脳で生き残る参謀", "真っ先に噛まれるモブ", "ひたすら隠れる"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "無人島に1つだけ持って行けるなら？（ナイフ、火起こし等以外で）", "options": ["お気に入りの本・漫画", "スマホ（電波はない）", "恋人・友人", "家族の写真"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "ゾンビの群れに囲まれた！武器を選ぶなら？", "options": ["日本刀（近接特化）", "ショットガン（弾切れリスクあり）", "チェーンソー（音でバレる）"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "食糧危機！賞味期限が3年切れた缶詰、食べる？", "options": ["死ぬくらいなら食べる", "お腹を壊すのが怖いから食べない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "デスゲームに参加させられたら、最後まで残る自信は？", "options": ["ある（ズルをしてでも）", "ない（すぐ脱落する）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "森でクマに遭遇した！どうする？", "options": ["死んだふり", "全力で逃げる", "大声を出して威嚇する"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "シェルターに入れるのはあと1人。見知らぬ子供と自分、どっちが入る？", "options": ["子供を入れる", "自分が入る"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "サバイバルで一番キツいのは？", "options": ["飢え・喉の渇き", "孤独", "虫や寒さ・暑さ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "巨大隕石が衝突する1時間前、何してる？", "options": ["大切な人に連絡する", "美味しいものを食べる", "寝る"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "自分がゾンビになったら、自我は？", "options": ["残ってほしい（家族を守る）", "完全に消え去ってほしい"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🪞 容姿・老い・コンプレックス",
+    "mode": "polling",
+    "description": "誰にでもある外見の悩みや、年齢を重ねることへの意識。",
+    "questions": [
+      { "text": "「不老不死の薬」、手に入ったら飲む？", "options": ["飲む", "飲まない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "美容整形、お金とダウンタイムの心配がないならやりたい？", "options": ["全身やりたい", "少しだけ直したい", "今のままでいい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "実年齢より若く見られると嬉しい？", "options": ["嬉しい", "年相応に見られたい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "白髪を発見したらどうする？", "options": ["抜く", "染める", "放置・受け入れる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "自分の顔、点数をつけるなら？", "options": ["70点以上", "40〜60点", "30点以下"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ダイエット、成功したことある？", "options": ["ある", "リバウンドした", "長続きしない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "写真に写るのは好き？", "options": ["好き", "嫌い"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "「性格は顔に出る」って本当だと思う？", "options": ["思う", "思わない（美男美女でも性格悪い人はいる）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "歳をとるのって、楽しみ？", "options": ["楽しみ", "怖い・嫌だ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "一生どちらかキープできるなら？", "options": ["20代の体力", "20代の肌・髪"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🐾 動物・ペット愛と不思議な生態",
+    "mode": "polling",
+    "description": "ペットへの異常な愛着から、動物全般に対する接し方。",
+    "questions": [
+      { "text": "ペットに赤ちゃん言葉で話しかけちゃう？", "options": ["話しかける（デレデレ）", "普通に話しかける", "無言"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "生まれ変わるならどの動物？", "options": ["飼い猫（ダラダラしたい）", "鳥（空を飛びたい）", "百獣の王ライオン"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "道端で可愛い犬が！触らせてもらう？", "options": ["飼い主に許可をもらって触る", "遠くから見つめるだけ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ペットと一緒にベッドで寝るの、アリ？", "options": ["アリ（一緒に寝たい）", "ナシ（衛生的に気になる）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "爬虫類（ヘビやトカゲ）、触れる？", "options": ["触れる（むしろ好き）", "絶対に無理"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "虫を退治する時、どうする？", "options": ["ティッシュで潰す", "殺虫剤をばらまく", "誰かを呼ぶ・逃げる"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "動物園と水族館、どっちが好き？", "options": ["動物園", "水族館"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分を動物に例えると？", "options": ["犬系（人懐っこい）", "猫系（ツンデレ・マイペース）", "ナマケモノ系（動かない）"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "ペット用SNSアカウント、作る人の気持ちわかる？", "options": ["わかる（または作ってる）", "わからない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "カラスと目が合ったら…", "options": ["目をそらす", "威嚇する", "話しかける"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🕰️ タイムトラベル・歴史ロマン",
+    "mode": "polling",
+    "description": "過去を変えるか、未来を見るか。歴史とロマンの選択。",
+    "questions": [
+      { "text": "タイムトラベルできるなら、どっち？", "options": ["100年前の過去", "100年後の未来"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "過去に戻って、自分の「最大の黒歴史」を消す？", "options": ["消す", "今の自分があるから消さない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "歴史上の人物に一人だけ会えるなら？", "options": ["織田信長などの武将", "アインシュタインなどの天才", "クレオパトラなどの絶世の美女"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "恐竜の時代（白亜紀）に行けるツアー、参加する？", "options": ["絶対行く", "食べられそうだから行かない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "タイムマシンがあることは、誰かに言う？", "options": ["信頼できる人にだけ言う", "独り占めする", "SNSでバズらせる"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "もし「前世」があるなら、何だったと思う？", "options": ["王侯貴族", "普通の農民", "動物や虫"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "10年後の自分から手紙が届いた！読む？", "options": ["即読む", "怖くて読めない・破る"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "江戸時代にタイムスリップ！あなたの職業は？", "options": ["武士・お姫様", "町人・商人", "忍者"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "未来の自分が「今の恋人と別れろ」と言ってきたら？", "options": ["信じて別れる", "未来の自分に反抗して付き合い続ける"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "タイムパラドックス（過去を変えると未来が壊れる）、信じる？", "options": ["信じるから過去は変えない", "どうにかなるからガンガン変える"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "👈 この中で一番〇〇なのは？（限界突破編）",
+    "mode": "polling",
+    "description": "他己評価バトルの過激版。仲が良いグループでやると最高に盛り上がります。",
+    "questions": [
+      { "text": "ホラー映画の世界で、一番最初に死にそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "無人島で一番役に立たなそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "実は一番、裏の顔（闇）を持っていそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "一番怪しい宗教や壺を簡単に買わされそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "怒らせたら一番ヤバそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "実は一番、貯金額が多そうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "ゾンビになった時、一番強そうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "秘密を一番守れなさそうな（口が軽そうな）のは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "もし犯罪を犯した時、一番完璧なアリバイを作りそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "なんだかんだで、一番長生きしそうなのは？", "options": ["Aさん", "Bさん", "Cさん", "自分"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  }
+]

@@ -6,6 +6,16 @@ import type { Question } from '@/types/domain';
 
 export const runtime = 'nodejs';
 
+function toCreateQuestion(question: Question): Omit<Question, 'id' | 'order'> {
+  return {
+    text: question.text,
+    imageUrl: question.imageUrl,
+    options: question.options,
+    correctIndex: question.correctIndex,
+    timeLimitSec: question.timeLimitSec,
+  };
+}
+
 export async function POST(
   req: NextRequest,
   context: { params: Promise<{ gameId: string }> }
@@ -31,7 +41,7 @@ export async function POST(
       title: game.title,
       description: game.description,
       scene: game.scene,
-      questions: game.questions.map(({ id: _id, order: _order, ...rest }: Question) => rest),
+      questions: game.questions.map(toCreateQuestion),
       hostId: game.hostId,
     });
 

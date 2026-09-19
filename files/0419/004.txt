@@ -1,0 +1,182 @@
+[
+  {
+    "scene": "多数派クイズ",
+    "title": "🤖 AI・テクノロジーの現在地",
+    "mode": "polling",
+    "description": "急速に進むAI社会。あなたは使いこなす側？それとも警戒する側？",
+    "questions": [
+      { "text": "AI（ChatGPTなど）を仕事や日常で使ってる？", "options": ["頻繁に使う", "たまに使う", "使っていない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "将来、AIに自分の仕事が奪われる不安はある？", "options": ["ある", "ない（AIを活用する側になる）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "運転手がいない「完全自動運転のタクシー」、一人で乗れる？", "options": ["乗れる", "怖いから無理"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマートウォッチ（Apple Watchなど）、毎日着けてる？", "options": ["着けてる", "着けてない（アナログ時計派・着けない派）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スーパーやコンビニの「セルフレジ」、好き？", "options": ["好き・気楽", "嫌い・面倒くさい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "恋人が「AIのキャラクター」にガチ恋していたら許せる？", "options": ["許せる（浮気じゃないから）", "許せない・引く"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "文章の作成や謝罪メール、AIに書いてもらったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "普段の支払いはキャッシュレス？", "options": ["ほぼ100%キャッシュレス", "まだ現金も結構使う"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマート家電（声で電気を消すなど）を取り入れてる？", "options": ["取り入れてる", "取り入れてない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "メタバース（仮想空間）での生活、興味ある？", "options": ["ある", "ない（現実世界だけでいい）"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "📱 令和のSNS・ネット文化",
+    "mode": "polling",
+    "description": "情報収集から承認欲求まで。現代のSNSとの付き合い方。",
+    "questions": [
+      { "text": "ショート動画（TikTokやReels）、気づいたら1時間以上見てる？", "options": ["よくある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ネットの「炎上」や「暴露系」コンテンツ、ついつい見ちゃう？", "options": ["見ちゃう", "興味ない・不快"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "VTuber（バーチャルYouTuber）の配信、見たことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "SNSの「裏垢（鍵垢）」持ってる？", "options": ["持ってる", "持ってない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "最新のニュースは主にどこで知る？", "options": ["SNS（XやTikTok）", "ネットニュースアプリ", "テレビ・新聞"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "自分のSNSのフォロワー数や「いいね」の数、気にする？", "options": ["気にする", "気にしない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "初めて行く飲食店を探すとき、何を使う？", "options": ["InstagramやTikTok", "食べログやGoogleマップ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "他人のSNSでの「匂わせ」投稿、すぐ気づく方？", "options": ["すぐ気づく", "言われるまで気づかない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "インフルエンサーのプロデュース商品、買ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "SNSの「おすすめ（アルゴリズム）」、自分に合いすぎてて怖い？", "options": ["怖い・見透かされてる", "全然合ってない"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "⏱️ タイパ至上主義とエンタメ消費",
+    "mode": "polling",
+    "description": "時間効率（タイムパフォーマンス）を求める現代人のコンテンツ消費。",
+    "questions": [
+      { "text": "映画やドラマの「倍速視聴（1.5倍速など）」、する？", "options": ["する", "絶対しない（等倍で楽しむ）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "結末（ネタバレ）を先に知ってから作品を見るのはアリ？", "options": ["アリ（安心して見たい）", "絶対ナシ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "映画を観る前に、レビューサイトの星の数を必ず確認する？", "options": ["する", "しない（自分の直感で選ぶ）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "音楽を聴くとき、イントロが長いとスキップしたくなる？", "options": ["なる", "ならない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "サブスク（Netflix等）、見ないのに契約したまま放置してるものがある？", "options": ["ある", "ない（こまめに解約する）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "YouTubeで「切り抜き動画」や「ファスト映画」ばかり見ちゃう？", "options": ["見ちゃう", "ちゃんと本編を見る"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "流行りの曲は「サビ（TikTokで使われる部分）」だけ知っていることが多い？", "options": ["多い", "ちゃんとフルで聴く"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "読書するなら？", "options": ["紙の本", "電子書籍・オーディオブック", "要約サイト"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "普段の生活で「タイパ（時間効率）」をすごく意識してる？", "options": ["意識してる", "そうでもない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "面白くないと思った映画や本、途中でやめる？", "options": ["時間がもったいないからやめる", "最後まで一応見る"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "💖 推し活・ファンダムの熱狂",
+    "mode": "polling",
+    "description": "人生に彩りを与える「推し」。推し活の限界と愛の深さをチェック。",
+    "questions": [
+      { "text": "今、熱狂的に「推している」人やキャラクターはいる？", "options": ["いる", "いない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "推し活にかける月の予算は？", "options": ["1万円未満", "1万円〜5万円", "5万円以上・限界突破"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "「推しの熱愛スキャンダル」発覚！ファンをやめる？", "options": ["やめる・冷める", "応援し続ける", "むしろ幸せになってほしい"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "グッズは「使う用」「保存用」で複数買いする？", "options": ["する", "1つで十分"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "アクリルスタンド（アクスタ）と一緒に風景やご飯の写真を撮ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ライブやイベントのための遠征、どこまで行ける？", "options": ["国内ならどこでも", "海外も余裕で行く", "近場だけ"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "推しの誕生日（本人不在の誕生日会）をケーキ等で祝ったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "推しへの「投げ銭（スパチャなど）」したことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "推しの画像をスマホの待ち受けにしている？", "options": ["している", "バレたくないからしていない", "推しがいない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "自分の人生において「推し」の存在は必須？", "options": ["必須・生きがい", "いなくても生きていける"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "💼 令和の働き方・キャリア観",
+    "mode": "polling",
+    "description": "終身雇用の崩壊と新しい働き方。仕事に求めるものは何？",
+    "questions": [
+      { "text": "リモートワークと出社、選べるならどっち？", "options": ["完全リモート", "週何日か出社（ハイブリッド）", "毎日出社"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "副業（複業）、やってる？または興味ある？", "options": ["やってる・興味ある", "本業だけでいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "将来、「FIRE（経済的自立と早期リタイア）」したい？", "options": ["絶対したい", "適度に働き続けたい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "一生の間に、転職は何回くらいが普通だと思う？", "options": ["0〜2回", "3〜5回", "それ以上"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "飲み会や会社のイベント、「勤務時間外」なら絶対に行きたくない？", "options": ["絶対に行きたくない", "メンバー次第で行く", "喜んで行く"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "給料が2割下がるけど「週休3日制」になる。選ぶ？", "options": ["選ぶ", "選ばない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "フリーランスや起業への憧れはある？", "options": ["ある", "安定した会社員がいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "上司や同僚と、プライベートのSNSで繋がってる？", "options": ["繋がってる", "絶対に繋がりたくない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "仕事の連絡はチャット（SlackやLINE等）がメイン？", "options": ["チャットメイン", "メール・電話メイン"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "仕事に一番求めるものは？", "options": ["やりがい・自己成長", "高い給料", "プライベートの確保（休み）"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "💸 投資・ポイ活・現代のお金事情",
+    "mode": "polling",
+    "description": "NISA、仮想通貨、コスパ重視。現代のお金との向き合い方。",
+    "questions": [
+      { "text": "新NISAやiDeCoなど、資産運用（投資）やってる？", "options": ["やってる", "やってない・わからない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "ポイ活（ポイントを貯める活動）、マメにやってる？", "options": ["マメにやってる", "面倒だから気にしてない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "フリマアプリ（メルカリなど）で出品して稼いだことある？", "options": ["ある", "買うだけ・または使ってない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "服やモノを買うとき、手放すときの「リセールバリュー（売値）」を気にする？", "options": ["気にする", "気にしない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "デリバリー（UberEatsなど）、週に何回使う？", "options": ["週1回以上", "ほぼ使わない・自炊派"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "お金をかけるならどっち？", "options": ["旅行や推し活などの「体験」", "服やガジェットなどの「モノ」"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "「コスパが悪い」と感じたら、どんなに好きでもやめる？", "options": ["やめる", "好きならお金を払う"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "仮想通貨（暗号資産）、持ってる？", "options": ["持ってる", "持ってない（怖い）"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "将来の年金、もらえると期待してる？", "options": ["少しは期待してる", "全く期待してない・自分で作る"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "今、一番欲しいのは？", "options": ["自由な時間", "圧倒的なお金", "AIに負けないスキル"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "💘 デジタル時代の恋愛・マッチング",
+    "mode": "polling",
+    "description": "出会いの形も変化。アプリ婚活やSNS恋愛のリアル。",
+    "questions": [
+      { "text": "マッチングアプリで恋人探し、抵抗ある？", "options": ["全くない（当たり前）", "少し抵抗ある・やらない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "アプリで知り合う前に「ビデオ通話」したい？", "options": ["したい（写真詐欺防止）", "いきなり会いたい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "初デートの場所、カフェで1〜2時間が一番気楽？", "options": ["それがいい（タイパ重視）", "ガッツリ半日以上遊びたい"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "恋人に求める条件、一番妥協できないのは？", "options": ["顔・見た目", "価値観・金銭感覚", "経済力・年収"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "マッチングアプリのプロフィール写真、加工はどこまで許せる？", "options": ["肌を綺麗にする程度", "別人に近くても会えればOK", "無加工以外許せない"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "デート代は「完全割り勘」が一番気楽？", "options": ["割り勘がいい", "男性（または年上）に多めに出してほしい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "告白、LINEや通話でもアリ？", "options": ["アリ", "絶対直接がいい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "恋人との位置情報共有アプリ（GPS）、入れる？", "options": ["入れる（安心する）", "絶対入れない（監視されたくない）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "デート中に相手がSNS用の写真を撮るのに必死だったら？", "options": ["付き合う・手伝う", "冷める"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "「推し」のイベントと「恋人」の誕生日が被った！どっちを優先する？", "options": ["推し", "恋人"], "correctIndex": null, "timeLimitSec": 15 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🧖 美容・サウナ・ウェルネス",
+    "mode": "polling",
+    "description": "自己投資としての健康と美容。ととのう感覚、わかってる？",
+    "questions": [
+      { "text": "サウナで「ととのう」感覚、わかる？", "options": ["わかる・サウナー", "わからない・暑いだけ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "男性が日常的にメイク（BBクリームや眉毛など）をすることについて？", "options": ["大賛成・普通だと思う", "少し抵抗がある"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "パーソナルジムやピラティスに通ってる（または通いたい）？", "options": ["通ってる・通いたい", "宅トレやランニングで十分"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "美容医療（医療脱毛、ボトックス、ハイフなど）に課金してる？", "options": ["してる", "してない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "16時間断食など、ファスティングをやったことある？", "options": ["ある", "ない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "睡眠の質を上げるアイテム（ヤクルト1000、オーダーメイド枕など）使ってる？", "options": ["使ってる", "使ってない（どこでも寝れる）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "プロテインを日常的に飲んでる？", "options": ["飲んでる", "飲んでない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "グルテンフリーやオーガニック、食事で気にしてる？", "options": ["気にしてる", "好きなものを食べる"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "スマホの見過ぎでストレートネックや眼精疲労に悩んでる？", "options": ["めっちゃ悩んでる", "大丈夫"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "マインドフルネスや瞑想、やってみたことある？", "options": ["ある", "ない（やり方がわからない）"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🌈 多様性・パーパス・価値観",
+    "mode": "polling",
+    "description": "多様化する生き方。自分らしさや社会問題へのスタンス。",
+    "questions": [
+      { "text": "ジェンダーレスな服装やコスメ、取り入れてる？", "options": ["取り入れてる", "気にしていない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "結婚しなくても、一生一人で幸せになれると思う？", "options": ["思う", "やはり結婚はしたい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "子どもを持たない人生（DINKsなど）の選択、アリだと思う？", "options": ["アリ", "ナシ"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "モノを持たない「ミニマリスト」な生活に憧れる？", "options": ["憧れる", "たくさん好きなモノに囲まれたい"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "環境問題（SDGsなど）を意識して買い物をしている？", "options": ["意識している（エコバッグ等）", "あまり気にしていない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "ニュースを見て「政治や社会を変えたい」と強く思う？", "options": ["思う", "自分には変えられないと思う"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "地方移住や、二拠点生活（デュアルライフ）に興味はある？", "options": ["ある", "都会に住み続けたい"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "自分は「繊細さん（HSP）」気質があると思う？", "options": ["すごく思う", "少し思う", "全く思わない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "飲み会で「お酒を飲まない（ソーバーキュリアス）」選択はアリ？", "options": ["アリ（ソフトドリンクで十分）", "ナシ（お酒の場なんだから飲むべき）"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "これからの日本、明るいと思う？", "options": ["明るいと思う", "不安しかない"], "correctIndex": null, "timeLimitSec": 10 }
+    ]
+  },
+  {
+    "scene": "多数派クイズ",
+    "title": "🍩 最新カルチャー・MBTI・食ブーム",
+    "mode": "polling",
+    "description": "流行りのスイーツから性格診断まで、ミーハー度をチェック。",
+    "questions": [
+      { "text": "流行りのスイーツ（アサイーボウルや最新韓国スイーツなど）、並んででも食べる？", "options": ["並んで食べる", "並ばない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "性格診断「MBTI（16タイプ診断）」、自分のタイプ言える？", "options": ["言える（アルファベット4文字）", "言えない・知らない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "初対面の人にMBTIを聞いて、相性を判断しちゃう？", "options": ["判断しちゃう", "MBTIで人を判断しない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "カフェに行く最大の目的は？", "options": ["美味しいコーヒー・食事", "写真映え・推しのアクスタと撮影", "作業・勉強"], "correctIndex": null, "timeLimitSec": 15 },
+      { "text": "服は「SHEIN」や「GRL」など超プチプラ（通販）で済ませることが多い？", "options": ["多い", "質や試着を重視して買う"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "パーソナルカラー診断や骨格診断、受けたことある？（自己診断含む）", "options": ["ある（服やメイクの参考にしてる）", "ない"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "キャンプやグランピング、最近行った？", "options": ["行った", "行ってない"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "夜パフェ（シメパフェ）の文化、好き？", "options": ["好き・お洒落", "シメはやっぱりラーメン・うどん"], "correctIndex": null, "timeLimitSec": 12 },
+      { "text": "昭和・平成レトロ（フィルムカメラ、純喫茶など）にエモさを感じる？", "options": ["感じる", "古臭いと思う"], "correctIndex": null, "timeLimitSec": 10 },
+      { "text": "次のトレンドは自分が作る・見つける自信がある？", "options": ["ある（流行る前に知ってる）", "いつも流行りに乗る側"], "correctIndex": null, "timeLimitSec": 12 }
+    ]
+  }
+]

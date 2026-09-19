@@ -1,8 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { store } from '@/lib/store';
 import { getUserFromRequest } from '@/lib/supabase/auth-server';
+import type { Question } from '@/types/domain';
 
 export const runtime = 'nodejs';
+
+function toCreateQuestion(question: Question): Omit<Question, 'id' | 'order'> {
+  return {
+    text: question.text,
+    imageUrl: question.imageUrl,
+    options: question.options,
+    correctIndex: question.correctIndex,
+    timeLimitSec: question.timeLimitSec,
+  };
+}
 
 export async function POST(
   req: NextRequest,
@@ -25,7 +36,7 @@ export async function POST(
       title: preset.title,
       description: preset.description,
       scene: preset.scene,
-      questions: preset.questions.map(({ id: _id, order: _order, ...q }) => q),
+      questions: preset.questions.map(toCreateQuestion),
       hostId: user?.id,
     });
 
