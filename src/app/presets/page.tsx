@@ -8,28 +8,28 @@ import type { Game } from '@/types/domain';
 import PresetPreviewDrawer from '@/components/PresetPreviewDrawer';
 
 const SCENE_META: Record<string, { icon: string; color: string }> = {
-  'みんなで':             { icon: '🎉', color: '#8B5CF6' },
-  '多数派クイズ':         { icon: '⚔️', color: '#F97316' },
-  '究極の二択':           { icon: '⚡', color: '#FF0080' },
-  'この中で●●なのは誰だ': { icon: '👆', color: '#FF6B9D' },
-  'キャスト指名':           { icon: '🎤', color: '#FFD600' },
-  '結婚式':               { icon: '💍', color: '#FF0080' },
-  '合コン':               { icon: '💕', color: '#FF6B9D' },
-  'カップル':             { icon: '🫶', color: '#FF4D6D' },
-  'ファミリー':           { icon: '👨‍👩‍👧‍👦', color: '#00C472' },
-  '会社飲み会':           { icon: '🏢', color: '#3B82F6' },
-  'キャバクラ':           { icon: '🥂', color: '#FFD600' },
-  'ホームパーティー':     { icon: '🏠', color: '#8B5CF6' },
-  'サークル':             { icon: '🎓', color: '#F97316' },
-  '居酒屋':               { icon: '🍺', color: '#EF4444' },
-  '勉強':                 { icon: '📚', color: '#10B981' },
-  '雑学クイズ':           { icon: '🎓', color: '#6366F1' },
+  'みんなで':             { icon: '🎉', color: '#cf3a2e' },
+  '多数派クイズ':         { icon: '⚔️', color: '#b8935a' },
+  '究極の二択':           { icon: '⚡', color: '#cf3a2e' },
+  'この中で●●なのは誰だ': { icon: '👆', color: '#a12417' },
+  'キャスト指名':           { icon: '🎤', color: '#b8935a' },
+  '結婚式':               { icon: '💍', color: '#cf3a2e' },
+  '合コン':               { icon: '💕', color: '#a12417' },
+  'カップル':             { icon: '🫶', color: '#cf3a2e' },
+  'ファミリー':           { icon: '👨‍👩‍👧‍👦', color: '#6f8f6a' },
+  '会社飲み会':           { icon: '🏢', color: '#7d7871' },
+  'キャバクラ':           { icon: '🥂', color: '#b8935a' },
+  'ホームパーティー':     { icon: '🏠', color: '#b8935a' },
+  'サークル':             { icon: '🎓', color: '#b8935a' },
+  '居酒屋':               { icon: '🍺', color: '#cf3a2e' },
+  '勉強':                 { icon: '📚', color: '#6f8f6a' },
+  '雑学クイズ':           { icon: '🎓', color: '#7d7871' },
 };
 
 const TYPE_META: Record<string, { label: string; icon: string; color: string }> = {
-  trivia:  { label: 'クイズ',        icon: '🧠', color: '#3B82F6' },
-  polling: { label: '実態調査',     icon: '📊', color: '#FF0080' },
-  opinion: { label: '多数派/少数派', icon: '⚔️', color: '#8B5CF6' },
+  trivia:  { label: 'クイズ',        icon: '🧠', color: '#7d7871' },
+  polling: { label: '実態調査',     icon: '📊', color: '#cf3a2e' },
+  opinion: { label: '多数派/少数派', icon: '⚔️', color: '#b8935a' },
 };
 
 const COUNT_OPTIONS = [5, 10, 15] as const;
@@ -160,7 +160,7 @@ export default function PresetsPage() {
           ←
         </Link>
         <div>
-          <span className="text-pr-pink text-3xl tracking-wide" style={{ fontFamily: 'var(--font-bebas)' }}>
+          <span className="text-pr-pink text-3xl tracking-wide kg-serif" style={{ fontFamily: 'var(--font-bebas)' }}>
             {t('title')}
           </span>
           <p className="text-gray-400 text-xs font-bold">{t('subtitle')}</p>
@@ -180,7 +180,7 @@ export default function PresetsPage() {
         ) : (
           <>
             {/* ── AIが問題を作る ── */}
-            <div className="bg-gradient-to-br from-pr-pink to-purple-600 rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
+            <div className="bg-gradient-to-br from-[#22120f] to-[#0a0a0b] rounded-[10px] border-[3px] border-[rgba(236,231,223,.14)] shadow-[0_10px_40px_rgba(0,0,0,.5)] overflow-hidden">
               {/* ヘッダー */}
               <div className="px-4 py-3 flex items-center gap-3">
                 <span className="text-2xl">✨</span>
@@ -312,7 +312,7 @@ export default function PresetsPage() {
             </div>
 
             {/* ── 意見バトルカード ── */}
-            <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
+            <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
               <div className="px-4 py-3 flex items-center gap-3">
                 <span className="text-2xl">⚔️</span>
                 <div className="flex-1 min-w-0">
@@ -391,7 +391,7 @@ export default function PresetsPage() {
             </div>
 
             {/* ── 雑学クイズカード ── */}
-            <div className="bg-white rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
+            <div className="bg-white rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
               <div className="px-4 py-3 flex items-center gap-3 border-b-[2px] border-pr-dark">
                 <span className="text-2xl">🧠</span>
                 <div className="flex-1 min-w-0">
@@ -449,7 +449,7 @@ export default function PresetsPage() {
                         </button>
                         {triviaScenes.map(scene => {
                           const active = settings.scene === scene;
-                          const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#FF0080' };
+                          const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#cf3a2e' };
                           return (
                             <button
                               key={scene}
@@ -470,7 +470,7 @@ export default function PresetsPage() {
                     type="button"
                     onClick={handleRandomTrivia}
                     disabled={randomStarting !== null || starting !== null}
-                    className="w-full h-11 bg-pr-pink text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] disabled:opacity-50 touch-manipulation hover:bg-pr-pink/90 transition-colors"
+                    className="w-full h-11 bg-pr-pink text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)] disabled:opacity-50 touch-manipulation hover:bg-pr-pink/90 transition-colors"
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >
                     {randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}
@@ -491,7 +491,7 @@ export default function PresetsPage() {
                     {t('filterAll')}
                   </button>
                   {scenes.map(scene => {
-                    const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#FF0080' };
+                    const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#cf3a2e' };
                     const active = selectedScene === scene;
                     return (
                       <button key={scene}
@@ -513,7 +513,7 @@ export default function PresetsPage() {
               <div className="grid grid-cols-3 gap-2">
                 <button
                   onClick={() => setSelectedType(null)}
-                  className={`h-11 rounded-[8px] text-sm font-bold border-[2px] border-pr-dark touch-manipulation transition-colors ${!selectedType ? 'bg-pr-dark text-white shadow-[2px_2px_0_#111]' : 'bg-white text-pr-dark shadow-[3px_3px_0_#111]'}`}
+                  className={`h-11 rounded-[8px] text-sm font-bold border-[2px] border-pr-dark touch-manipulation transition-colors ${!selectedType ? 'bg-pr-dark text-white shadow-[0_2px_8px_rgba(0,0,0,.3)]' : 'bg-white text-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]'}`}
                   style={{ fontFamily: 'var(--font-dm)' }}>
                   {t('filterAll')}
                 </button>
@@ -522,7 +522,7 @@ export default function PresetsPage() {
                   return (
                     <button key={key}
                       onClick={() => setSelectedType(active ? null : key)}
-                      className={`h-11 rounded-[8px] text-sm font-bold border-[2px] touch-manipulation transition-colors ${active ? 'text-white shadow-[2px_2px_0_#111]' : 'bg-white text-pr-dark border-pr-dark shadow-[3px_3px_0_#111]'}`}
+                      className={`h-11 rounded-[8px] text-sm font-bold border-[2px] touch-manipulation transition-colors ${active ? 'text-white shadow-[0_2px_8px_rgba(0,0,0,.3)]' : 'bg-white text-pr-dark border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]'}`}
                       style={active ? { backgroundColor: meta.color, borderColor: meta.color } : {}}
                     >
                       {meta.icon} {meta.label}
@@ -543,12 +543,12 @@ export default function PresetsPage() {
             ) : (
               <div className="flex flex-col gap-3">
                 {filtered.map(preset => {
-                  const sceneMeta = SCENE_META[preset.scene ?? ''] ?? { icon: '🎉', color: '#FF0080' };
+                  const sceneMeta = SCENE_META[preset.scene ?? ''] ?? { icon: '🎉', color: '#cf3a2e' };
                   const typeMeta = TYPE_META[preset.mode] ?? TYPE_META['polling'];
                   const isStarting = starting === preset.id;
                   return (
                     <div key={preset.id}
-                      className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
+                      className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
 
                       {/* カードヘッダー */}
                       <div className="px-4 py-3 flex items-center gap-3"
@@ -589,7 +589,7 @@ export default function PresetsPage() {
                           type="button"
                           onClick={() => setPreviewPreset(preset)}
                           disabled={isStarting}
-                          className="flex-shrink-0 h-12 px-4 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
+                          className="flex-shrink-0 h-12 px-4 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
                           style={{ fontFamily: 'var(--font-dm)' }}>
                           {t('previewButton')}
                         </button>
@@ -597,7 +597,7 @@ export default function PresetsPage() {
                           type="button"
                           onClick={() => handleStart(preset.id)}
                           disabled={isStarting || starting !== null}
-                          className="flex-1 min-w-[80px] h-12 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
+                          className="flex-1 min-w-[80px] h-12 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
                           style={{ fontFamily: 'var(--font-dm)' }}>
                           {isStarting ? t('starting') : t('startButton')}
                         </button>
@@ -615,7 +615,7 @@ export default function PresetsPage() {
           href="https://www.sencaba.com/download"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 mt-2"
+          className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 mt-2"
         >
           <span className="text-2xl">🥂</span>
           <div className="flex-1 min-w-0">

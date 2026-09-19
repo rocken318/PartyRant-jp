@@ -46,7 +46,7 @@ export default function SignupPage() {
           <label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('email')}</label>
           <input
             type="email" required value={email} onChange={e => setEmail(e.target.value)}
-            className="w-full h-14 text-base px-4 border-[3px] border-pr-dark shadow-[3px_3px_0_#111] rounded-[6px] focus:outline-none focus:shadow-[5px_5px_0_#111] transition-shadow"
+            className="w-full h-14 text-base px-4 border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px] focus:outline-none focus:shadow-[0_10px_40px_rgba(0,0,0,.5)] transition-shadow"
             style={{ fontFamily: 'var(--font-dm)' }}
           />
         </div>
@@ -55,14 +55,14 @@ export default function SignupPage() {
           <input
             type="password" required value={password} onChange={e => setPassword(e.target.value)}
             placeholder="6文字以上"
-            className="w-full h-14 text-base px-4 border-[3px] border-pr-dark shadow-[3px_3px_0_#111] rounded-[6px] focus:outline-none focus:shadow-[5px_5px_0_#111] transition-shadow"
+            className="w-full h-14 text-base px-4 border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px] focus:outline-none focus:shadow-[0_10px_40px_rgba(0,0,0,.5)] transition-shadow"
             style={{ fontFamily: 'var(--font-dm)' }}
           />
         </div>
         {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
         <button
           type="submit" disabled={loading}
-          className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
+          className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
           style={{ fontFamily: 'var(--font-dm)' }}
         >
           {loading ? t('signingUp') : t('signupButton')}

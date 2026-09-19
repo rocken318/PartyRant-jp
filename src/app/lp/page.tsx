@@ -16,9 +16,9 @@ export default async function LandingPageFull() {
   ];
 
   const features = [
-    { title: t('feature1Title'), desc: t('feature1Desc'), color: '#FF0080' },
-    { title: t('feature2Title'), desc: t('feature2Desc'), color: '#FFD600' },
-    { title: t('feature3Title'), desc: t('feature3Desc'), color: '#00C472' },
+    { title: t('feature1Title'), desc: t('feature1Desc'), color: '#cf3a2e' },
+    { title: t('feature2Title'), desc: t('feature2Desc'), color: '#b8935a' },
+    { title: t('feature3Title'), desc: t('feature3Desc'), color: '#6f8f6a' },
   ];
 
   const steps = [

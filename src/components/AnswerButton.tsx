@@ -9,8 +9,8 @@ interface AnswerButtonProps {
 }
 
 // A=Pink, B=Yellow(dark text), C=Green, D=Blue
-const BG_COLORS = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
-const TEXT_COLORS = ['#FFFFFF', '#111111', '#FFFFFF', '#FFFFFF'];
+const BG_COLORS = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
+const TEXT_COLORS = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
 const LABELS = ['A', 'B', 'C', 'D'];
 
 export function AnswerButton({
@@ -34,8 +34,8 @@ export function AnswerButton({
         'w-full min-h-[80px] px-4 py-3 rounded-[8px]',
         'border-[3px] border-pr-dark',
         selected
-          ? 'shadow-[2px_2px_0_#111] translate-x-[2px] translate-y-[2px]'
-          : 'shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px]',
+          ? 'shadow-[0_2px_8px_rgba(0,0,0,.4)] translate-x-[2px] translate-y-[2px]'
+          : 'shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px]',
         'transition-[transform,box-shadow] duration-75',
         'touch-manipulation cursor-pointer',
         disabled && !selected ? 'opacity-40' : '',

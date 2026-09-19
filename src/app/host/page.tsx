@@ -85,7 +85,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between">
           <h2 className="text-pr-dark text-3xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('myEvents')}</h2>
           <button onClick={() => setShowCreate(!showCreate)}
-            className="bg-pr-pink text-white font-bold text-sm px-4 h-10 rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="bg-pr-pink text-white font-bold text-sm px-4 h-10 rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}>
             {t('newEvent')}
           </button>
@@ -95,10 +95,10 @@ export default function DashboardPage() {
           <form onSubmit={handleCreateEvent} className="flex gap-2">
             <input autoFocus type="text" maxLength={80} placeholder={t('eventNamePlaceholder')}
               value={newEventName} onChange={e => setNewEventName(e.target.value)}
-              className="flex-1 h-12 px-3 text-base border-[3px] border-pr-dark shadow-[3px_3px_0_#111] rounded-[6px] focus:outline-none"
+              className="flex-1 h-12 px-3 text-base border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px] focus:outline-none"
               style={{ fontFamily: 'var(--font-dm)' }} />
             <button type="submit" disabled={creating}
-              className="h-12 px-4 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] disabled:opacity-50 touch-manipulation"
+              className="h-12 px-4 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] disabled:opacity-50 touch-manipulation"
               style={{ fontFamily: 'var(--font-dm)' }}>
               {creating ? '...' : t('create')}
             </button>
@@ -118,7 +118,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-2 gap-3">
             {events.map(event => (
               <button key={event.id} onClick={() => router.push(`/host/events/${event.id}`)}
-                className="flex flex-col items-start gap-2 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation text-left">
+                className="flex flex-col items-start gap-2 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation text-left">
                 <span className="font-bold text-pr-dark text-sm leading-tight line-clamp-2" style={{ fontFamily: 'var(--font-dm)' }}>
                   {event.name}
                 </span>

@@ -38,7 +38,7 @@ export function GameQRCode({ joinCode }: { joinCode: string }) {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111]">
+      <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
         <QRCodeSVG value={url} size={224} />
       </div>
       <p className="text-xs text-gray-400 text-center break-all max-w-xs">{url}</p>

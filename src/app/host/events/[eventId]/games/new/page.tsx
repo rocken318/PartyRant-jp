@@ -98,7 +98,7 @@ export default function NewGamePage() {
                 {(['trivia', 'polling', 'opinion'] as const).map(m => (
                   <button key={m} type="button" onClick={() => field.onChange(m)}
                     className={['flex flex-col items-center gap-2 p-4 rounded-[8px] border-[3px] border-pr-dark transition-[box-shadow,transform] duration-75 touch-manipulation min-h-[96px]',
-                      field.value === m ? 'bg-pr-pink text-white shadow-[2px_2px_0_#111] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[4px_4px_0_#111]'].join(' ')}>
+                      field.value === m ? 'bg-pr-pink text-white shadow-[0_2px_8px_rgba(0,0,0,.3)] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]'].join(' ')}>
                     <span className="text-2xl">{m === 'trivia' ? '🧠' : m === 'polling' ? '📊' : '⚔️'}</span>
                     <span className="font-bold text-xs text-center" style={{ fontFamily: 'var(--font-dm)' }}>
                       {m === 'trivia' ? t('triviaLabel') : m === 'polling' ? t('pollingLabel') : t('opinionLabel')}
@@ -121,7 +121,7 @@ export default function NewGamePage() {
                   {(['minority', 'majority'] as const).map(r => (
                     <button key={r} type="button" onClick={() => field.onChange(r)}
                       className={['flex flex-col items-center gap-2 p-5 rounded-[8px] border-[3px] border-pr-dark transition-[box-shadow,transform] duration-75 touch-manipulation min-h-[96px]',
-                        field.value === r ? 'bg-pr-dark text-white shadow-[2px_2px_0_#111] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[4px_4px_0_#111]'].join(' ')}>
+                        field.value === r ? 'bg-pr-dark text-white shadow-[0_2px_8px_rgba(0,0,0,.3)] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]'].join(' ')}>
                       <span className="text-2xl">{r === 'minority' ? '🦄' : '🐑'}</span>
                       <span className="font-bold text-sm" style={{ fontFamily: 'var(--font-dm)' }}>
                         {r === 'minority' ? t('loseRuleMinority') : t('loseRuleMajority')}
@@ -144,7 +144,7 @@ export default function NewGamePage() {
                 {(['live', 'self_paced'] as const).map(m => (
                   <button key={m} type="button" onClick={() => field.onChange(m)}
                     className={['flex flex-col items-center gap-2 p-5 rounded-[8px] border-[3px] border-pr-dark transition-[box-shadow,transform] duration-75 touch-manipulation min-h-[96px]',
-                      field.value === m ? 'bg-pr-dark text-white shadow-[2px_2px_0_#111] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[4px_4px_0_#111]'].join(' ')}>
+                      field.value === m ? 'bg-pr-dark text-white shadow-[0_2px_8px_rgba(0,0,0,.3)] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]'].join(' ')}>
                     <span className="text-2xl">{m === 'live' ? '🎙️' : '🎯'}</span>
                     <span className="font-bold text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{m === 'live' ? t('liveLabel') : t('selfPacedLabel')}</span>
                     <span className="text-xs text-center opacity-70">{m === 'live' ? t('liveDescription') : t('selfPacedDescription')}</span>
@@ -158,7 +158,7 @@ export default function NewGamePage() {
           <div className="flex flex-col gap-2">
             <Label htmlFor="title" className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('gameTitleLabel')}</Label>
             <Input id="title" {...register('title')} placeholder={t('gameTitlePlaceholder')}
-              className="text-base h-12 border-[3px] border-pr-dark shadow-[3px_3px_0_#111] rounded-[6px]" maxLength={80} />
+              className="text-base h-12 border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px]" maxLength={80} />
             {errors.title && <p className="text-sm text-red-500 font-bold">{errors.title.message}</p>}
           </div>
 
@@ -185,7 +185,7 @@ export default function NewGamePage() {
           )}
 
           <button type="submit" disabled={isSubmitting}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
+            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}>
             {isSubmitting ? t('submitting') : t('publish')}
           </button>

@@ -216,9 +216,9 @@ function PinkBtn({
       className={[
         'w-full h-14 text-lg font-bold rounded-[6px] border-[3px] border-pr-dark touch-manipulation',
         outline
-          ? 'bg-white text-pr-dark shadow-[4px_4px_0_#111] hover:shadow-[5px_5px_0_#111]'
-          : 'bg-pr-pink text-white shadow-[5px_5px_0_#111]',
-        'active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75',
+          ? 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] hover:shadow-[0_10px_40px_rgba(0,0,0,.5)]'
+          : 'bg-pr-pink text-white shadow-[0_10px_40px_rgba(0,0,0,.5)]',
+        'active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75',
         disabled ? 'opacity-50 cursor-not-allowed' : '',
       ].filter(Boolean).join(' ')}
       style={{ fontFamily: 'var(--font-dm)' }}
@@ -438,7 +438,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                   <button
                     type="button"
                     onClick={() => setHostShowInput(true)}
-                    className="w-full h-11 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                    className="w-full h-11 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >
                     ＋ ホストも参加する
@@ -460,7 +460,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                       type="button"
                       onClick={handleHostJoin}
                       disabled={!hostNameInput.trim() || hostJoining}
-                      className="h-11 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[2px_2px_0_#111] disabled:opacity-50 touch-manipulation"
+                      className="h-11 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)] disabled:opacity-50 touch-manipulation"
                       style={{ fontFamily: 'var(--font-dm)' }}
                     >
                       {hostJoining ? '…' : '参加'}
@@ -500,7 +500,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               )}
             </div>
 
-            <div className="flex flex-col gap-3 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111]">
+            <div className="flex flex-col gap-3 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
               <p className="text-xl font-bold text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>
                 {currentQuestion.text}
               </p>
@@ -529,8 +529,8 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                     className={[
                       'w-full h-12 rounded-[6px] font-bold text-sm border-[3px] touch-manipulation transition-[transform,box-shadow] duration-75',
                       hostSelectedChoice?.questionId === currentQuestion.id && hostSelectedChoice.choiceIndex === i
-                        ? 'bg-pr-pink text-white border-pr-dark shadow-[1px_1px_0_#111]'
-                        : 'bg-white text-pr-dark border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px]',
+                        ? 'bg-pr-pink text-white border-pr-dark shadow-[0_1px_4px_rgba(0,0,0,.3)]'
+                        : 'bg-white text-pr-dark border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px]',
                     ].join(' ')}
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >
@@ -549,7 +549,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
         {/* Phase C: Reveal */}
         {game.status === 'reveal' && currentQuestion && (
           <>
-            <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111]">
+            <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">
                 {t('questionCounter', { current: game.currentQuestionIndex + 1, total: game.questions.length })}
               </p>
@@ -630,7 +630,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                 <div className="flex flex-col gap-2 mt-2">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
                   {personResults.map((r, i) => (
-                    <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                    <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
                       <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
                       <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
                       <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -653,7 +653,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                 <div className="flex flex-col gap-2 mt-4">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">みんなの実態まとめ</p>
                   {results.map((r, i) => (
-                    <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                    <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
                       <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
                       <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
                       {r.playerId === topMajority.playerId && <span className="text-xs font-bold bg-yellow-300 text-pr-dark px-2 py-0.5 rounded-full">多数派王</span>}
@@ -690,7 +690,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                               ? 'bg-red-500 border-red-700 shadow-[4px_4px_0_#7f1d1d] text-white'
                               : isWinner
                               ? 'bg-yellow-50 border-yellow-400 shadow-[3px_3px_0_#a16207] text-pr-dark'
-                              : 'bg-white border-pr-dark shadow-[3px_3px_0_#111] text-pr-dark',
+                              : 'bg-white border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] text-pr-dark',
                           ].join(' ')}
                         >
                           <span className="text-2xl">{isLoser ? '💀' : isWinner ? '👑' : '😐'}</span>
@@ -716,14 +716,14 @@ export function HostGameClient({ gameId }: { gameId: string }) {
             <div className="flex flex-col gap-3">
               <Link
                 href="/presets"
-                className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}
               >
                 🎮 プリセット一覧へ
               </Link>
               <Link
                 href="/host/new"
-                className="w-full h-11 bg-white text-pr-dark flex items-center justify-center text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+                className="w-full h-11 bg-white text-pr-dark flex items-center justify-center text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}
               >
                 ＋ 新しく作る

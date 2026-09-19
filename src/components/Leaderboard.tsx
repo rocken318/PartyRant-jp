@@ -22,7 +22,7 @@ export function Leaderboard({ scores, limit }: LeaderboardProps) {
       {displayed.map((score, i) => (
         <div
           key={score.playerId}
-          className="flex items-center gap-3 px-4 py-3 rounded-[6px] border-[3px] border-pr-dark bg-white shadow-[3px_3px_0_#111]"
+          className="flex items-center gap-3 px-4 py-3 rounded-[6px] border-[3px] border-pr-dark bg-white shadow-[0_4px_12px_rgba(0,0,0,.35)]"
         >
           <span className="text-xl w-8 text-center shrink-0">
             {i < 3 ? MEDALS[i] : <span className="text-sm font-bold text-gray-400">#{i + 1}</span>}

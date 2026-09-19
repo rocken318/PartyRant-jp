@@ -458,7 +458,7 @@ export default function GuestGameClient({ code }: Props) {
           <button
             type="button"
             onClick={() => router.push('/join')}
-            className="px-8 py-3 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="px-8 py-3 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {t('back')}
@@ -497,7 +497,7 @@ export default function GuestGameClient({ code }: Props) {
             onChange={(e) => setNameInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleJoinGame()}
             autoFocus
-            className="w-full text-xl text-center bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 focus:outline-none focus:shadow-[6px_6px_0_#111] transition-shadow duration-75 text-pr-dark placeholder-gray-300"
+            className="w-full text-xl text-center bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 focus:outline-none focus:shadow-[0_0_0_2px_rgba(207,58,46,.5)] transition-shadow duration-75 text-pr-dark placeholder-gray-300"
             style={{ fontFamily: 'var(--font-dm)' }}
           />
           {nameError && (
@@ -506,7 +506,7 @@ export default function GuestGameClient({ code }: Props) {
           <button
             type="button"
             onClick={() => handleJoinGame()}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {t('joinButton')}
@@ -527,7 +527,7 @@ export default function GuestGameClient({ code }: Props) {
           </button>
         </div>
         <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
-          <div className="w-24 h-24 bg-pr-pink rounded-full border-[4px] border-pr-dark shadow-[5px_5px_0_#111] flex items-center justify-center text-4xl animate-bounce">
+          <div className="w-24 h-24 bg-pr-pink rounded-full border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] flex items-center justify-center text-4xl animate-bounce">
             🎮
           </div>
           <div>
@@ -586,7 +586,7 @@ export default function GuestGameClient({ code }: Props) {
             <img
               src={q.imageUrl}
               alt="Question"
-              className="w-full rounded-[8px] object-cover max-h-48 border-[3px] border-pr-dark shadow-[4px_4px_0_#111]"
+              className="w-full rounded-[8px] object-cover max-h-48 border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]"
             />
           )}
           <p
@@ -625,7 +625,7 @@ export default function GuestGameClient({ code }: Props) {
     return (
       <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
         <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
-          <div className="w-24 h-24 bg-pr-yellow rounded-full border-[4px] border-pr-dark shadow-[5px_5px_0_#111] flex items-center justify-center text-4xl font-bold text-pr-dark">
+          <div className="w-24 h-24 bg-pr-yellow rounded-full border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] flex items-center justify-center text-4xl font-bold text-pr-dark">
             ✓
           </div>
           <p
@@ -646,7 +646,7 @@ export default function GuestGameClient({ code }: Props) {
             {t('changeAnswer')}
           </button>
           <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 w-full">
+            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 w-full">
             <span className="text-2xl">🥂</span>
             <div className="flex-1 min-w-0">
               <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -686,8 +686,8 @@ export default function GuestGameClient({ code }: Props) {
         <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
           <div className="flex flex-col flex-1 items-center justify-center px-6 gap-5 text-center">
             <div
-              className="w-24 h-24 rounded-full border-[4px] border-pr-dark shadow-[5px_5px_0_#111] flex items-center justify-center text-4xl"
-              style={{ backgroundColor: didAnswer ? (isCorrect ? '#00C472' : '#FF3B30') : '#888' }}
+              className="w-24 h-24 rounded-full border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] flex items-center justify-center text-4xl"
+              style={{ backgroundColor: didAnswer ? (isCorrect ? '#6f8f6a' : '#cf3a2e') : '#888' }}
             >
               {didAnswer ? (isCorrect ? '🎉' : '😅') : '？'}
             </div>
@@ -695,7 +695,7 @@ export default function GuestGameClient({ code }: Props) {
             {didAnswer && (
               <p
                 className="font-extrabold"
-                style={{ fontFamily: 'var(--font-bebas)', fontSize: '2.8rem', lineHeight: 1, color: isCorrect ? '#00C472' : '#FF3B30' }}
+                style={{ fontFamily: 'var(--font-bebas)', fontSize: '2.8rem', lineHeight: 1, color: isCorrect ? '#6f8f6a' : '#cf3a2e' }}
               >
                 {isCorrect ? t('correct') : t('wrong')}
               </p>
@@ -711,7 +711,7 @@ export default function GuestGameClient({ code }: Props) {
               </p>
             </div>
 
-            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[5px_5px_0_#111] rounded-[8px] px-6 py-5 flex flex-col gap-2">
+            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] rounded-[8px] px-6 py-5 flex flex-col gap-2">
               <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{t('pointsThisRound')}</p>
               {didAnswer ? (
                 <>
@@ -734,7 +734,7 @@ export default function GuestGameClient({ code }: Props) {
             </div>
 
             <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 w-full">
+              className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 w-full">
               <span className="text-2xl">🥂</span>
               <div className="flex-1 min-w-0">
                 <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -763,8 +763,8 @@ export default function GuestGameClient({ code }: Props) {
       );
     }
     const totalVotes = revealInfo.allAnswers.filter((a) => a.questionId === q.id).length;
-    const BG = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
-    const FG = ['#fff', '#111', '#fff', '#fff'];
+    const BG = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
+    const FG = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
 
     return (
       <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
@@ -783,7 +783,7 @@ export default function GuestGameClient({ code }: Props) {
               return (
                 <div
                   key={i}
-                  className="rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3"
+                  className="rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3"
                   style={{ backgroundColor: BG[i % 4] }}
                 >
                   <div className="flex justify-between items-center mb-1">
@@ -805,7 +805,7 @@ export default function GuestGameClient({ code }: Props) {
             })}
           </div>
           <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3">
+            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3">
             <span className="text-2xl">🥂</span>
             <div className="flex-1 min-w-0">
               <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -833,7 +833,7 @@ export default function GuestGameClient({ code }: Props) {
         </div>
         <div className="flex-1 px-4 py-6 flex flex-col gap-5">
           {game.mode === 'trivia' && (
-            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[4px_4px_0_#111] rounded-[8px] px-5 py-4 text-center">
+            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4 text-center">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('yourScore')}</p>
               <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.5rem', lineHeight: 1 }}>{totalPoints}</p>
             </div>
@@ -847,7 +847,7 @@ export default function GuestGameClient({ code }: Props) {
                 const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
                 return (
                   <div key={score.playerId}
-                    className={`flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark ${isMe ? 'bg-pr-pink text-white shadow-[4px_4px_0_#111]' : 'bg-white shadow-[3px_3px_0_#111]'}`}>
+                    className={`flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark ${isMe ? 'bg-pr-pink text-white shadow-[0_4px_16px_rgba(0,0,0,.4)]' : 'bg-white shadow-[0_4px_12px_rgba(0,0,0,.35)]'}`}>
                     <div className="flex items-center gap-3">
                       <span className="text-lg">{medal}</span>
                       <span className="font-bold text-sm" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -871,7 +871,7 @@ export default function GuestGameClient({ code }: Props) {
             <div className="flex flex-col items-center gap-3 py-6 text-center">
               <p className="text-red-500 font-bold text-sm">{t('loadError')}</p>
               <button type="button" onClick={() => gameId && fetchEndResults(gameId)}
-                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
+                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}>
                 {t('retry')}
               </button>
@@ -884,10 +884,10 @@ export default function GuestGameClient({ code }: Props) {
               {game.questions.map((q, qi) => {
                 const qAnswers = endAnswers.filter(a => a.questionId === q.id);
                 const totalVotes = qAnswers.length;
-                const BG = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
-                const FG = ['#fff', '#111', '#fff', '#fff'];
+                const BG = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
+                const FG = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
                 return (
-                  <div key={q.id} className="flex flex-col gap-2 p-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111]">
+                  <div key={q.id} className="flex flex-col gap-2 p-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]">
                     <p className="font-bold text-sm text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>{qi + 1}. {q.text}</p>
                     <div className="flex flex-col gap-1.5">
                       {q.options.map((option, j) => {
@@ -922,7 +922,7 @@ export default function GuestGameClient({ code }: Props) {
                 <div className="flex flex-col gap-2 mt-2">
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
                   {optResults.map((r, i) => (
-                    <div key={r.optionName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                    <div key={r.optionName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
                       <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
                       <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.optionName}</span>
                       <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -944,7 +944,7 @@ export default function GuestGameClient({ code }: Props) {
               <div className="flex flex-col gap-2 mt-2">
                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
                 {personResults.map((r, i) => (
-                  <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                  <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
                     <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
                     <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
                     <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -967,7 +967,7 @@ export default function GuestGameClient({ code }: Props) {
               <div className="flex flex-col gap-2 mt-4">
                 <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">みんなの実態まとめ</p>
                 {results.map((r, i) => (
-                  <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[2px_2px_0_#111]">
+                  <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
                     <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
                     <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
                     {r.playerId === topMajority.playerId && <span className="text-xs font-bold bg-yellow-300 text-pr-dark px-2 py-0.5 rounded-full">多数派王</span>}
@@ -989,7 +989,7 @@ export default function GuestGameClient({ code }: Props) {
             <div className="flex flex-col items-center gap-3 py-6 text-center">
               <p className="text-red-500 font-bold text-sm">{t('loadError')}</p>
               <button type="button" onClick={() => gameId && fetchEndResults(gameId)}
-                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] touch-manipulation"
+                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}>
                 {t('retry')}
               </button>
@@ -1032,7 +1032,7 @@ export default function GuestGameClient({ code }: Props) {
                   const isWinner = !isLoser && maxLoss !== minLoss && r.lossCount === minLoss && results.length > 1;
                   return (
                     <div key={r.playerId}
-                      className="flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111]"
+                      className="flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]"
                       style={{ backgroundColor: isLoser ? '#FEE2E2' : isWinner ? '#FEF9C3' : '#fff' }}>
                       <div className="flex items-center gap-3">
                         <span className="text-xl">{isLoser ? '💀' : isWinner ? '👑' : '😐'}</span>
@@ -1057,7 +1057,7 @@ export default function GuestGameClient({ code }: Props) {
             href="https://www.sencaba.com/download"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 mt-2"
+            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 mt-2"
           >
             <span className="text-2xl">🥂</span>
             <div className="flex-1 min-w-0">
@@ -1071,7 +1071,7 @@ export default function GuestGameClient({ code }: Props) {
 
           <div className="flex flex-col gap-3 mt-auto">
             <button type="button" onClick={() => router.push('/join')}
-              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
               style={{ fontFamily: 'var(--font-dm)' }}>
               🚪 抜ける
             </button>
@@ -1095,7 +1095,7 @@ export default function GuestGameClient({ code }: Props) {
         <div className="flex flex-col flex-1 px-4 py-5 gap-5">
           {q.imageUrl && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={q.imageUrl} alt="Question" className="w-full rounded-[8px] object-cover max-h-48 border-[3px] border-pr-dark shadow-[4px_4px_0_#111]" />
+            <img src={q.imageUrl} alt="Question" className="w-full rounded-[8px] object-cover max-h-48 border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]" />
           )}
           <p className="text-pr-dark text-center font-bold" style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1.2 }}>
             {q.text}
@@ -1120,8 +1120,8 @@ export default function GuestGameClient({ code }: Props) {
         <div className="flex flex-col flex-1 items-center justify-center px-6 gap-5 text-center">
           {game.mode === 'trivia' && (
             <>
-              <div className="w-20 h-20 rounded-full border-[4px] border-pr-dark shadow-[4px_4px_0_#111] flex items-center justify-center text-3xl"
-                style={{ backgroundColor: isCorrect ? '#00C472' : '#FF3B30' }}>
+              <div className="w-20 h-20 rounded-full border-[4px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] flex items-center justify-center text-3xl"
+                style={{ backgroundColor: isCorrect ? '#6f8f6a' : '#cf3a2e' }}>
                 {isCorrect ? '🎉' : '😅'}
               </div>
               {correctOption && (
@@ -1139,7 +1139,7 @@ export default function GuestGameClient({ code }: Props) {
                 </div>
               )}
               {revealInfo && (
-                <div className="w-full bg-white border-[3px] border-pr-dark shadow-[4px_4px_0_#111] rounded-[8px] px-5 py-4">
+                <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4">
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('pointsThisRound')}</p>
                   <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '3rem', lineHeight: 1 }}>+{revealInfo.pointsEarned}</p>
                   <p className="text-xs text-gray-400">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
@@ -1151,7 +1151,7 @@ export default function GuestGameClient({ code }: Props) {
             <p className="font-bold text-pr-dark text-xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('voteRecorded')}</p>
           )}
           <button type="button" onClick={handleSelfPacedNext}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}>
             {localQuestionIndex < game.questions.length - 1 ? t('nextQuestion') : t('seeResults')}
           </button>
@@ -1166,7 +1166,7 @@ export default function GuestGameClient({ code }: Props) {
         <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
           <span className="text-7xl">🏆</span>
           <h1 className="text-pr-dark text-6xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('done')}</h1>
-          <div className="w-full bg-white border-[3px] border-pr-dark shadow-[5px_5px_0_#111] rounded-[8px] px-6 py-5">
+          <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] rounded-[8px] px-6 py-5">
             <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{t('yourScore')}</p>
             <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '4rem', lineHeight: 1 }}>{totalPoints}</p>
             <p className="text-gray-400 text-sm">{t('points')}</p>
@@ -1176,7 +1176,7 @@ export default function GuestGameClient({ code }: Props) {
             href="https://www.sencaba.com/download"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 w-full"
+            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 w-full"
           >
             <span className="text-2xl">🥂</span>
             <div className="flex-1 min-w-0">
@@ -1190,7 +1190,7 @@ export default function GuestGameClient({ code }: Props) {
 
           <div className="flex flex-col gap-3 w-full">
             <button type="button" onClick={() => router.push('/join')}
-              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[3px_3px_0_#111] active:shadow-[1px_1px_0_#111] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
               style={{ fontFamily: 'var(--font-dm)' }}>
               🚪 抜ける
             </button>

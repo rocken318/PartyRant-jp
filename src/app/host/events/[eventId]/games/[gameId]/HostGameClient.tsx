@@ -136,9 +136,9 @@ function PinkBtn({
       className={[
         'w-full h-14 text-lg font-bold rounded-[6px] border-[3px] border-pr-dark touch-manipulation',
         outline
-          ? 'bg-white text-pr-dark shadow-[4px_4px_0_#111] hover:shadow-[5px_5px_0_#111]'
-          : 'bg-pr-pink text-white shadow-[5px_5px_0_#111]',
-        'active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75',
+          ? 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] hover:shadow-[0_10px_40px_rgba(0,0,0,.5)]'
+          : 'bg-pr-pink text-white shadow-[0_10px_40px_rgba(0,0,0,.5)]',
+        'active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75',
         disabled ? 'opacity-50 cursor-not-allowed' : '',
       ].filter(Boolean).join(' ')}
       style={{ fontFamily: 'var(--font-dm)' }}
@@ -311,7 +311,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
               )}
             </div>
 
-            <div className="flex flex-col gap-3 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111]">
+            <div className="flex flex-col gap-3 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
               <p className="text-xl font-bold text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>
                 {currentQuestion.text}
               </p>
@@ -336,7 +336,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
         {/* Phase C: Reveal */}
         {game.status === 'reveal' && currentQuestion && (
           <>
-            <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111]">
+            <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">
                 Q {game.currentQuestionIndex + 1}/{game.questions.length}
               </p>
@@ -414,7 +414,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
             </PinkBtn>
             <Link
               href={`/host/events/${eventId}/games/new`}
-              className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+              className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
               style={{ fontFamily: 'var(--font-dm)' }}
             >
               Create another game →

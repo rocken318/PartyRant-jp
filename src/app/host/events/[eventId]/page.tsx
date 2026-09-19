@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import type { Game, Event } from '@/types/domain';
 
 const STATUS_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-  draft:    { bg: '#f0f9ff', text: '#3B82F6', label: 'DRAFT' },
+  draft:    { bg: '#17171b', text: '#b9b4ac', label: 'DRAFT' },
   lobby:    { bg: '#fefce8', text: '#ca8a04', label: 'LOBBY' },
   question: { bg: '#dcfce7', text: '#16a34a', label: 'LIVE' },
   reveal:   { bg: '#dcfce7', text: '#16a34a', label: 'LIVE' },
@@ -62,7 +62,7 @@ export default function EventDetailPage() {
 
       <div className="flex-1 px-4 py-5 flex flex-col gap-4">
         <Link href={`/host/events/${eventId}/games/new`}
-          className="w-full h-14 bg-pr-pink text-white flex items-center justify-center font-bold text-base rounded-[6px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+          className="w-full h-14 bg-pr-pink text-white flex items-center justify-center font-bold text-base rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
           style={{ fontFamily: 'var(--font-dm)' }}>
           {t('addGame')}
         </Link>
@@ -86,7 +86,7 @@ export default function EventDetailPage() {
               return (
                 <button key={game.id}
                   onClick={() => router.push(`/host/events/${eventId}/games/${game.id}`)}
-                  className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation text-left">
+                  className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation text-left">
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-center gap-1.5">
                       <span className="text-sm">{TYPE_ICON[game.mode]}</span>

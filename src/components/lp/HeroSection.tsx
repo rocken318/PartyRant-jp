@@ -11,11 +11,11 @@ interface Props {
 
 export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
   return (
-    <section className="relative bg-pr-pink overflow-hidden">
+    <section className="relative bg-pr-dark overflow-hidden">
       {/* グラデーション背景 */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'linear-gradient(160deg, #FF0080 0%, #FF4DAA 100%)' }}
+        style={{ background: 'linear-gradient(160deg, #0a0a0b 0%, #17171b 60%, #22120f 100%)' }}
       />
 
       <div className="relative z-10 flex flex-col items-center px-6 pt-16 pb-28 gap-6 text-center">
@@ -26,7 +26,7 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
 
         {/* メインロゴ */}
         <h1
-          className="text-white"
+          className="text-white kg-serif"
           style={{ fontFamily: 'var(--font-bebas)', fontSize: '4.5rem', lineHeight: 1 }}
         >
           {BRAND.name}
@@ -42,7 +42,7 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
         <p className="text-white/80 text-base max-w-[300px]">{sub}</p>
 
         {/* モックアップ — ネオブルータリズム風スマホ枠 */}
-        <div className="w-[200px] h-[340px] bg-white border-[4px] border-pr-dark shadow-[8px_8px_0_#111] rounded-[18px] flex flex-col overflow-hidden mt-2">
+        <div className="w-[200px] h-[340px] bg-white border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] rounded-[18px] flex flex-col overflow-hidden mt-2">
           {/* 偽ステータスバー */}
           <div className="bg-pr-dark h-6 flex items-center justify-center shrink-0">
             <span className="text-pr-pink text-[10px] font-bold tracking-widest">● LIVE</span>
@@ -57,7 +57,7 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
             </p>
             <div className="grid grid-cols-2 gap-1 flex-1">
               {['🍺 ビール', '🍶 日本酒', '🍷 ワイン', '🥃 ウイスキー'].map((opt, i) => {
-                const colors = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
+                const colors = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
                 return (
                   <div
                     key={i}
@@ -72,7 +72,7 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
             {/* 投票バー */}
             <div className="flex flex-col gap-1 mt-1 shrink-0">
               {[62, 18, 12, 8].map((pct, i) => {
-                const colors = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
+                const colors = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
                 return (
                   <div key={i} className="flex items-center gap-1">
                     <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden border border-pr-dark">
@@ -93,7 +93,7 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
         <div className="flex flex-col gap-3 w-full max-w-[320px] mt-2">
           <Link
             href="/auth/login"
-            className="w-full h-14 bg-white text-pr-dark flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="w-full h-14 bg-white text-pr-dark flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_0_30px_rgba(207,58,46,.25)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {cta1}

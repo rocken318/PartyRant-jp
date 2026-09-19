@@ -75,7 +75,7 @@ export default function JoinPage() {
           onChange={(e) => setCode(e.target.value.toUpperCase())}
           onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
           autoFocus
-          className="w-full text-center rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-4 tracking-[0.3em] focus:outline-none focus:shadow-[6px_6px_0_#111] transition-shadow duration-75 text-pr-pink placeholder-gray-300 bg-white"
+          className="w-full text-center rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-4 tracking-[0.3em] focus:outline-none focus:shadow-[0_0_0_2px_rgba(207,58,46,.5)] transition-shadow duration-75 text-pr-pink placeholder-gray-300 bg-white"
           style={{ fontFamily: 'var(--font-bebas)', fontSize: '3rem', lineHeight: 1.2 }}
         />
 
@@ -87,7 +87,7 @@ export default function JoinPage() {
           type="button"
           onClick={handleJoin}
           disabled={loading}
-          className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+          className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
           style={{ fontFamily: 'var(--font-dm)' }}
         >
           {loading ? t('joining') : t('joinButton')}

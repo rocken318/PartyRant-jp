@@ -24,7 +24,7 @@ export function JoinCodeDisplay({ code }: { code: string }) {
         type="button"
         onClick={handleCopy}
         aria-label={`Join code ${code}. Tap to copy.`}
-        className="flex flex-col items-center gap-1 px-8 py-4 rounded-[8px] border-[3px] border-pr-dark bg-white shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation cursor-pointer"
+        className="flex flex-col items-center gap-1 px-8 py-4 rounded-[8px] border-[3px] border-pr-dark bg-white shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation cursor-pointer"
       >
         <span
           className="text-pr-pink tracking-widest select-all"

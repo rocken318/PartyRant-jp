@@ -14,14 +14,14 @@ interface Props {
   extras: string[];
 }
 
-const FEATURE_COLORS = ['#FF0080', '#FFD600', '#00C472'];
+const FEATURE_COLORS = ['#cf3a2e', '#b8935a', '#6f8f6a'];
 const FEATURE_ICONS = ['🎯', '📊', '⚔️'];
 
 export function FeatureSection({ title, features, aiTitle, aiDesc, aiNewBadge, extraTitle, extras }: Props) {
   return (
     <section className="px-6 py-14 bg-gray-50">
       <h2
-        className="text-pr-dark text-4xl text-center mb-8"
+        className="text-pr-dark text-4xl text-center mb-8 kg-serif"
         style={{ fontFamily: 'var(--font-bebas)' }}
       >
         {title}
@@ -32,7 +32,7 @@ export function FeatureSection({ title, features, aiTitle, aiDesc, aiNewBadge, e
         {features.map((f, i) => (
           <div
             key={i}
-            className="flex items-start gap-4 border-[3px] border-pr-dark shadow-[4px_4px_0_#111] rounded-[8px] px-5 py-4"
+            className="flex items-start gap-4 border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4"
             style={{ backgroundColor: FEATURE_COLORS[i] }}
           >
             <span className="text-3xl shrink-0">{FEATURE_ICONS[i]}</span>
@@ -50,7 +50,7 @@ export function FeatureSection({ title, features, aiTitle, aiDesc, aiNewBadge, e
       </div>
 
       {/* AI カード */}
-      <div className="flex items-start gap-4 bg-pr-dark border-[3px] border-pr-dark shadow-[4px_4px_0_#111] rounded-[8px] px-5 py-4 mb-8">
+      <div className="flex items-start gap-4 bg-pr-dark border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4 mb-8">
         <span className="text-3xl shrink-0">✨</span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
@@ -75,7 +75,7 @@ export function FeatureSection({ title, features, aiTitle, aiDesc, aiNewBadge, e
         </p>
         <div className="flex flex-col gap-2">
           {extras.map((e, i) => (
-            <div key={i} className="flex items-center gap-3 bg-white border-[2px] border-pr-dark rounded-[6px] px-4 py-3 shadow-[2px_2px_0_#111]">
+            <div key={i} className="flex items-center gap-3 bg-white border-[2px] border-pr-dark rounded-[6px] px-4 py-3 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
               <span className="text-pr-pink font-bold text-lg shrink-0">✓</span>
               <span className="text-pr-dark text-sm font-bold" style={{ fontFamily: 'var(--font-dm)' }}>{e}</span>
             </div>

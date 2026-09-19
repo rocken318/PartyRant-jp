@@ -22,7 +22,7 @@ export function FaqSection({ title, items }: Props) {
         {items.map((item, i) => (
           <details
             key={i}
-            className="group bg-white border-[3px] border-pr-dark shadow-[3px_3px_0_#111] rounded-[8px] overflow-hidden"
+            className="group bg-white border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[8px] overflow-hidden"
           >
             <summary
               className="flex items-center justify-between px-5 py-4 cursor-pointer list-none font-bold text-pr-dark text-sm"

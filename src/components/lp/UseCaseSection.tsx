@@ -23,7 +23,7 @@ export function UseCaseSection({ title, cases }: Props) {
         {cases.map((c, i) => (
           <div
             key={i}
-            className="flex items-start gap-4 bg-white border-[3px] border-pr-dark shadow-[4px_4px_0_#111] rounded-[8px] px-5 py-4"
+            className="flex items-start gap-4 bg-white border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4"
           >
             <span className="text-4xl mt-0.5 shrink-0">{c.icon}</span>
             <div>

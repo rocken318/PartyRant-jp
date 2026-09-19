@@ -40,7 +40,7 @@ export function CountdownTimer({ startedAt, timeLimitSec, onExpired }: Countdown
   }, [startedAt, timeLimitSec]);
 
   // Color: pink → orange → red as time runs out
-  const barColor = pct > 40 ? '#FF0080' : pct > 15 ? '#FF6B00' : '#FF0000';
+  const barColor = pct > 40 ? '#cf3a2e' : pct > 15 ? '#a12417' : '#7d0e09';
 
   return (
     <div className="w-full flex flex-col gap-1">

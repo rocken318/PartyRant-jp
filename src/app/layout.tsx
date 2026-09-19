@@ -59,7 +59,7 @@ export default async function RootLayout({
           content="宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。"
         />
       </head>
-      <body className="min-h-full flex flex-col pb-[env(safe-area-inset-bottom)]">
+      <body className="kg-grain min-h-full flex flex-col pb-[env(safe-area-inset-bottom)]">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

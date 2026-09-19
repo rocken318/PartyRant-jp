@@ -75,9 +75,9 @@ export function ImageUploader({ value, onChange }: ImageUploaderProps) {
     return (
       <div className="flex flex-col gap-2">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={value} alt="Question image preview" className="max-h-48 rounded-[6px] object-contain border-[3px] border-pr-dark shadow-[3px_3px_0_#111]" />
+        <img src={value} alt="Question image preview" className="max-h-48 rounded-[6px] object-contain border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]" />
         <button type="button" onClick={() => onChange(undefined)}
-          className="self-start px-4 h-9 text-sm font-bold border-[2px] border-pr-dark rounded-[4px] shadow-[2px_2px_0_#111] active:shadow-none active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation">
+          className="self-start px-4 h-9 text-sm font-bold border-[2px] border-pr-dark rounded-[4px] shadow-[0_2px_8px_rgba(0,0,0,.3)] active:shadow-none active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation">
           Remove
         </button>
       </div>
@@ -92,7 +92,7 @@ export function ImageUploader({ value, onChange }: ImageUploaderProps) {
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
         disabled={uploading}
-        className={`flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-[8px] border-[3px] border-dashed transition-colors touch-manipulation ${dragging ? 'border-pr-pink bg-pink-50' : 'border-pr-dark hover:bg-gray-50'} ${uploading ? 'opacity-50' : ''}`}
+        className={`flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-[8px] border-[3px] border-dashed transition-colors touch-manipulation ${dragging ? 'border-pr-pink bg-[#17171b]' : 'border-pr-dark hover:bg-gray-50'} ${uploading ? 'opacity-50' : ''}`}
       >
         <span className="text-2xl">{uploading ? '⏳' : '🖼️'}</span>
         <span className="text-sm font-bold text-gray-500">{uploading ? 'Uploading...' : 'Tap or drop to add image'}</span>

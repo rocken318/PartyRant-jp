@@ -1,7 +1,7 @@
 'use client';
 
-const BAR_COLORS = ['#FF0080', '#FFD600', '#00C472', '#3B82F6'];
-const BAR_TEXT = ['#FFFFFF', '#111111', '#FFFFFF', '#FFFFFF'];
+const BAR_COLORS = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
+const BAR_TEXT = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
 const LABELS = ['A', 'B', 'C', 'D'];
 
 interface VoteBarProps {
@@ -20,14 +20,14 @@ export function VoteBar({ options, votes, correctIndex, showCorrect = false }: V
         const count = votes[i] ?? 0;
         const pct = total > 0 ? Math.round((count / total) * 100) : 0;
         const isCorrect = showCorrect && correctIndex === i;
-        const bg = isCorrect ? '#00C472' : BAR_COLORS[i % BAR_COLORS.length];
+        const bg = isCorrect ? '#6f8f6a' : BAR_COLORS[i % BAR_COLORS.length];
         const fg = isCorrect ? '#FFFFFF' : BAR_TEXT[i % BAR_TEXT.length];
         const letter = LABELS[i % LABELS.length];
 
         return (
           <div
             key={i}
-            className="flex flex-col gap-1 p-3 rounded-[6px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111]"
+            className="flex flex-col gap-1 p-3 rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]"
             style={{ backgroundColor: bg }}
           >
             <div className="flex items-center gap-2 justify-between">

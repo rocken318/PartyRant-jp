@@ -17,7 +17,7 @@ export default async function GuidePage() {
           ←
         </Link>
         <h1
-          className="text-white tracking-wider text-center leading-none"
+          className="text-white tracking-wider text-center leading-none kg-serif"
           style={{ fontFamily: 'var(--font-bebas)', fontSize: '4rem' }}
         >
           {t('heroTitle')}
@@ -32,7 +32,7 @@ export default async function GuidePage() {
         {/* ── Section 2: サービス紹介 ── */}
         <section className="flex flex-col gap-4">
           <h2
-            className="text-pr-dark text-3xl tracking-wide"
+            className="text-pr-dark text-3xl tracking-wide kg-serif"
             style={{ fontFamily: 'var(--font-bebas)' }}
           >
             {t('aboutTitle')}
@@ -43,7 +43,7 @@ export default async function GuidePage() {
 
           {/* Game mode cards */}
           <div className="flex flex-col gap-3">
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 flex items-center gap-4">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 flex items-center gap-4">
               <span className="text-3xl flex-shrink-0">🧠</span>
               <div>
                 <p className="font-extrabold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -52,7 +52,7 @@ export default async function GuidePage() {
                 <p className="text-gray-500 text-xs mt-0.5">{t('modeTriviaDesc')}</p>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 flex items-center gap-4">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 flex items-center gap-4">
               <span className="text-3xl flex-shrink-0">📊</span>
               <div>
                 <p className="font-extrabold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -61,7 +61,7 @@ export default async function GuidePage() {
                 <p className="text-gray-500 text-xs mt-0.5">{t('modePollingDesc')}</p>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] px-4 py-3 flex items-center gap-4">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 flex items-center gap-4">
               <span className="text-3xl flex-shrink-0">⚔️</span>
               <div>
                 <p className="font-extrabold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
@@ -76,7 +76,7 @@ export default async function GuidePage() {
         {/* ── Section 3: 使い方（4ステップ）── */}
         <section className="flex flex-col gap-4">
           <h2
-            className="text-pr-dark text-3xl tracking-wide"
+            className="text-pr-dark text-3xl tracking-wide kg-serif"
             style={{ fontFamily: 'var(--font-bebas)' }}
           >
             {t('howTitle')}
@@ -91,7 +91,7 @@ export default async function GuidePage() {
                 </div>
                 <div className="w-0.5 h-4 bg-gray-200 mt-1" />
               </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex-1">
+              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
                 <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
                   🖥️ {t('step1Title')}
                 </p>
@@ -106,7 +106,7 @@ export default async function GuidePage() {
                 </div>
                 <div className="w-0.5 h-4 bg-gray-200 mt-1" />
               </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex-1">
+              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
                 <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
                   🔑 {t('step2Title')}
                 </p>
@@ -121,7 +121,7 @@ export default async function GuidePage() {
                 </div>
                 <div className="w-0.5 h-4 bg-gray-200 mt-1" />
               </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex-1">
+              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
                 <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
                   📱 {t('step3Title')}
                 </p>
@@ -135,7 +135,7 @@ export default async function GuidePage() {
                   <span className="text-white font-extrabold text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>4</span>
                 </div>
               </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex-1">
+              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
                 <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
                   🎮 {t('step4Title')}
                 </p>
@@ -148,42 +148,42 @@ export default async function GuidePage() {
         {/* ── Section 4: シーン別おすすめ ── */}
         <section className="flex flex-col gap-4">
           <h2
-            className="text-pr-dark text-3xl tracking-wide"
+            className="text-pr-dark text-3xl tracking-wide kg-serif"
             style={{ fontFamily: 'var(--font-bebas)' }}
           >
             {t('scenesTitle')}
           </h2>
 
           <div className="flex flex-col gap-2">
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex items-center gap-3">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
               <span className="text-2xl flex-shrink-0">💍</span>
               <div>
                 <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneWeddingName')}</p>
                 <p className="text-gray-500 text-xs mt-0.5">{t('sceneWeddingTip')}</p>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex items-center gap-3">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
               <span className="text-2xl flex-shrink-0">💕</span>
               <div>
                 <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneGoukonName')}</p>
                 <p className="text-gray-500 text-xs mt-0.5">{t('sceneGoukonTip')}</p>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex items-center gap-3">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
               <span className="text-2xl flex-shrink-0">🏢</span>
               <div>
                 <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneCompanyName')}</p>
                 <p className="text-gray-500 text-xs mt-0.5">{t('sceneCompanyTip')}</p>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex items-center gap-3">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
               <span className="text-2xl flex-shrink-0">🏠</span>
               <div>
                 <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneHomepartyName')}</p>
                 <p className="text-gray-500 text-xs mt-0.5">{t('sceneHomepartyTip')}</p>
               </div>
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[3px_3px_0_#111] px-4 py-3 flex items-center gap-3">
+            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
               <span className="text-2xl flex-shrink-0">🎓</span>
               <div>
                 <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneSchoolName')}</p>
@@ -196,13 +196,13 @@ export default async function GuidePage() {
         {/* ── Section 5: 盛り上がる方法 TOP5 ── */}
         <section className="flex flex-col gap-4">
           <h2
-            className="text-pr-dark text-3xl tracking-wide"
+            className="text-pr-dark text-3xl tracking-wide kg-serif"
             style={{ fontFamily: 'var(--font-bebas)' }}
           >
             {t('tipsTitle')}
           </h2>
 
-          <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] overflow-hidden">
+          <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
             {[
               { num: 1, icon: '🎤', text: t('tip1Text') },
               { num: 2, icon: '🏆', text: t('tip2Text') },
@@ -229,7 +229,7 @@ export default async function GuidePage() {
         {/* ── Section 6: 自作質問集の作り方 ── */}
         <section className="flex flex-col gap-4">
           <h2
-            className="text-pr-dark text-3xl tracking-wide"
+            className="text-pr-dark text-3xl tracking-wide kg-serif"
             style={{ fontFamily: 'var(--font-bebas)' }}
           >
             {t('customTitle')}
@@ -256,7 +256,7 @@ export default async function GuidePage() {
 
           <Link
             href="/auth/login"
-            className="w-full h-14 bg-white text-pr-dark flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[4px_4px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="w-full h-14 bg-white text-pr-dark flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {t('customCta')}
@@ -266,14 +266,14 @@ export default async function GuidePage() {
         {/* ── Section 7: Bottom CTA ── */}
         <section className="flex flex-col items-center gap-4 pb-4">
           <h2
-            className="text-pr-dark text-4xl tracking-wide text-center"
+            className="text-pr-dark text-4xl tracking-wide text-center kg-serif"
             style={{ fontFamily: 'var(--font-bebas)' }}
           >
             {t('bottomCtaTitle')}
           </h2>
           <Link
             href="/presets"
-            className="w-full h-16 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[5px_5px_0_#111] active:shadow-[2px_2px_0_#111] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+            className="w-full h-16 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {t('bottomCtaButton')}

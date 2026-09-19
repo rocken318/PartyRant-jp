@@ -15,7 +15,7 @@ export function PlayerList({ players }: { players: Player[] }) {
           {players.map((player) => (
             <li
               key={player.id}
-              className="px-3 py-1.5 rounded-full bg-pr-pink text-white text-sm font-bold border-[2px] border-pr-dark shadow-[2px_2px_0_#111]"
+              className="px-3 py-1.5 rounded-full bg-pr-pink text-white text-sm font-bold border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)]"
               style={{ fontFamily: 'var(--font-dm)' }}
             >
               {player.displayName}
