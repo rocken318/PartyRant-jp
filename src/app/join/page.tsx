@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { BRAND } from '@/app/brand';
 
 export default function JoinPage() {
   const t = useTranslations('join');
@@ -51,7 +52,7 @@ export default function JoinPage() {
           className="text-pr-pink text-3xl tracking-wide"
           style={{ fontFamily: 'var(--font-bebas)' }}
         >
-          PartyRant
+          {BRAND.name}
         </span>
       </div>
 

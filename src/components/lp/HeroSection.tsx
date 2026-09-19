@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BRAND } from '@/app/brand';
 
 interface Props {
   tagline: string;
@@ -28,7 +29,7 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
           className="text-white"
           style={{ fontFamily: 'var(--font-bebas)', fontSize: '4.5rem', lineHeight: 1 }}
         >
-          PartyRant
+          {BRAND.name}
         </h1>
 
         {/* キャッチコピー */}

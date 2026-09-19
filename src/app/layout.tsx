@@ -28,8 +28,13 @@ const shippori = Shippori_Mincho({
 });
 
 export const metadata: Metadata = {
-  title: 'PartyRant',
-  description: 'パーティーやイベントのためのリアルタイムクイズ＆投票',
+  title: 'NEWCLUB Kingyo 宴会ゲームズ',
+  description: '宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。',
+  openGraph: {
+    title: 'NEWCLUB Kingyo 宴会ゲームズ',
+    description: '宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。',
+    images: ['/icons/icon-512.png'],
+  },
 };
 
 export default async function RootLayout({
@@ -51,7 +56,7 @@ export default async function RootLayout({
         />
         <meta
           name="description"
-          content="パーティーやイベントのためのリアルタイムクイズ＆投票"
+          content="宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。"
         />
       </head>
       <body className="min-h-full flex flex-col pb-[env(safe-area-inset-bottom)]">

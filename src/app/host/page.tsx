@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { createBrowserClient } from '@supabase/ssr';
 import type { Event } from '@/types/domain';
+import { BRAND } from '@/app/brand';
 
 function getSupabase() {
   return createBrowserClient(
@@ -70,7 +71,7 @@ export default function DashboardPage() {
     <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
       <div className="bg-pr-pink px-5 py-4 flex items-center justify-between rounded-b-[20px]">
         <span className="text-white tracking-wider text-3xl" style={{ fontFamily: 'var(--font-bebas)' }}>
-          PartyRant
+          {BRAND.name}
         </span>
         <div className="flex flex-col items-end gap-0.5">
           <span className="text-white/80 text-xs truncate max-w-[160px]">{userEmail}</span>

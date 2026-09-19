@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BRAND } from '@/app/brand';
 
 interface Props {
   title: string;
@@ -33,7 +34,7 @@ export function FinalCtaSection({ title, cta1, cta2 }: Props) {
         </Link>
       </div>
 
-      <p className="text-white/30 text-xs">© 2026 PartyRant</p>
+      <p className="text-white/30 text-xs">© 2026 {BRAND.club}</p>
     </section>
   );
 }

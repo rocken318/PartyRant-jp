@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
+import { BRAND } from '@/app/brand';
 
 export default async function LandingPage() {
   const t = await getTranslations('landing');
@@ -12,7 +13,7 @@ export default async function LandingPage() {
           className="text-white tracking-wider"
           style={{ fontFamily: 'var(--font-bebas)', fontSize: '5rem', lineHeight: 1 }}
         >
-          PartyRant
+          {BRAND.name}
         </h1>
         <p className="text-white/80 text-xs font-bold uppercase tracking-[0.2em]">
           {t('tagline')}
