@@ -4,6 +4,9 @@
   "main": "worker.ts",
   "compatibility_date": "2025-03-25",
   "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "PARTYRANT_AI_UNLIMITED": "1"
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
