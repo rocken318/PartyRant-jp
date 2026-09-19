@@ -1,25 +1,30 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Inter, Bebas_Neue, DM_Sans } from 'next/font/google';
+import { Zen_Kaku_Gothic_New, Cormorant_Garamond, Shippori_Mincho } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import './globals.css';
 
-const inter = Inter({
+const zenKaku = Zen_Kaku_Gothic_New({
+  weight: ['300', '400', '500', '700'],
   variable: '--font-sans',
   subsets: ['latin'],
+  display: 'swap',
 });
 
-const bebasNeue = Bebas_Neue({
-  weight: '400',
+const cormorant = Cormorant_Garamond({
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
   variable: '--font-bebas',
   subsets: ['latin'],
+  display: 'swap',
 });
 
-const dmSans = DM_Sans({
-  weight: ['400', '700', '800'],
+const shippori = Shippori_Mincho({
+  weight: ['400', '500', '600', '700'],
   variable: '--font-dm',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -37,7 +42,7 @@ export default async function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${inter.variable} ${bebasNeue.variable} ${dmSans.variable} h-full antialiased`}
+      className={`dark ${zenKaku.variable} ${cormorant.variable} ${shippori.variable} h-full antialiased`}
     >
       <head>
         <meta
