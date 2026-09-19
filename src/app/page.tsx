@@ -42,6 +42,15 @@ export default async function LandingPage() {
           {t('playNow')}
         </Link>
 
+        {/* AIでその場作成 */}
+        <Link
+          href="/presets"
+          className="w-full h-14 bg-white text-[#cf3a2e] flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-[#cf3a2e] shadow-[0_4px_16px_rgba(207,58,46,.25)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
+          style={{ fontFamily: 'var(--font-dm)' }}
+        >
+          {t('aiCreate')}
+        </Link>
+
         {/* 自分で作る */}
         <Link
           href="/auth/login"

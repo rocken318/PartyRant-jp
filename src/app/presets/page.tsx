@@ -168,6 +168,138 @@ export default function PresetsPage() {
       </div>
 
       <div className="flex-1 px-4 py-5 flex flex-col gap-4">
+        {/* ── AIが問題を作る（常時表示・最上位CTA） ── */}
+        <div className="bg-gradient-to-br from-[#22120f] to-[#0a0a0b] rounded-[10px] border-[3px] border-[#cf3a2e] shadow-[0_10px_40px_rgba(207,58,46,.25)] overflow-hidden">
+          {/* ヘッダー */}
+          <div className="px-4 py-4 flex items-center gap-3">
+            <span className="text-3xl">✨</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-bold text-lg leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                {t('aiTitle')}
+              </p>
+              <p className="text-[#b8935a] text-xs font-bold mt-0.5">{t('aiSubtitle')}</p>
+            </div>
+            <span className="flex-shrink-0 text-[10px] font-bold bg-[#cf3a2e] text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
+              NEW
+            </span>
+          </div>
+
+          {/* フォーム */}
+          <div className="bg-white/10 px-4 py-4 flex flex-col gap-4">
+            {/* テーマ入力 */}
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="ai-theme" className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiThemeLabel')}</label>
+              <input
+                id="ai-theme"
+                type="text"
+                value={aiTheme}
+                onChange={e => { setAiTheme(e.target.value); setAiError(false); }}
+                onKeyDown={e => { if (e.key === 'Enter') handleAiGenerate(); }}
+                placeholder={t('aiThemePlaceholder')}
+                maxLength={50}
+                className="w-full h-12 px-4 rounded-[6px] border-[2px] border-white/30 bg-white/20 text-white placeholder:text-white/40 text-sm font-bold focus:outline-none focus:border-white transition-colors"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              />
+            </div>
+
+            {/* タイプ選択 */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiTypeLabel')}</p>
+              <div className="grid grid-cols-3 gap-2">
+                {([
+                  ['trivia',  t('aiTypeTrivia')],
+                  ['polling', t('aiTypePolling')],
+                  ['opinion', t('aiTypeOpinion')],
+                ] as const).map(([mode, label]) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setAiMode(mode)}
+                    className={[
+                      'h-10 rounded-[6px] text-xs font-bold border-[2px] touch-manipulation transition-colors',
+                      aiMode === mode
+                        ? 'bg-[#cf3a2e] text-white border-[#cf3a2e]'
+                        : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
+                    ].join(' ')}
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 意見バトル：負けルール */}
+            {aiMode === 'opinion' && (
+              <div className="flex flex-col gap-1.5">
+                <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiLoseRuleLabel')}</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {([
+                    ['minority', t('randomMinority')],
+                    ['majority', t('randomMajority')],
+                  ] as const).map(([rule, label]) => (
+                    <button
+                      key={rule}
+                      type="button"
+                      onClick={() => setAiLoseRule(rule)}
+                      className={[
+                        'h-10 rounded-[6px] text-xs font-bold border-[2px] touch-manipulation transition-colors',
+                        aiLoseRule === rule
+                          ? 'bg-[#cf3a2e] text-white border-[#cf3a2e]'
+                          : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
+                      ].join(' ')}
+                      style={{ fontFamily: 'var(--font-dm)' }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 問題数 */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiCountLabel')}</p>
+              <div className="flex gap-2">
+                {COUNT_OPTIONS.map(n => (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => setAiCount(n)}
+                    className={[
+                      'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
+                      aiCount === n
+                        ? 'bg-[#cf3a2e] text-white border-[#cf3a2e]'
+                        : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
+                    ].join(' ')}
+                    style={{ fontFamily: 'var(--font-dm)' }}
+                  >
+                    {n}問
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* エラー表示 */}
+            {aiError && (
+              <p className="text-white/90 text-xs font-bold bg-red-500/40 rounded-[6px] px-3 py-2">
+                {t('aiErrorMessage')}
+              </p>
+            )}
+
+            {/* 生成ボタン */}
+            <button
+              type="button"
+              onClick={handleAiGenerate}
+              disabled={!aiTheme.trim() || aiGenerating || starting !== null || randomStarting !== null}
+              className="w-full bg-[#cf3a2e] text-white font-bold text-base rounded-[6px] border-[2px] border-[#cf3a2e] shadow-[3px_3px_0_rgba(0,0,0,0.4)] active:shadow-[1px_1px_0_rgba(0,0,0,0.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation hover:bg-[#b8302a]"
+              style={{ fontFamily: 'var(--font-dm)', height: '56px' }}
+            >
+              {aiGenerating ? t('aiGenerating') : t('aiGenerateButton')}
+            </button>
+          </div>
+        </div>
+
         {loading ? (
           <div className="flex justify-center py-20">
             <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
@@ -179,138 +311,6 @@ export default function PresetsPage() {
           </div>
         ) : (
           <>
-            {/* ── AIが問題を作る ── */}
-            <div className="bg-gradient-to-br from-[#22120f] to-[#0a0a0b] rounded-[10px] border-[3px] border-[rgba(236,231,223,.14)] shadow-[0_10px_40px_rgba(0,0,0,.5)] overflow-hidden">
-              {/* ヘッダー */}
-              <div className="px-4 py-3 flex items-center gap-3">
-                <span className="text-2xl">✨</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white font-bold text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                    {t('aiTitle')}
-                  </p>
-                  <p className="text-white/70 text-xs mt-0.5">{t('aiSubtitle')}</p>
-                </div>
-                <span className="flex-shrink-0 text-[10px] font-bold bg-white text-pr-pink px-2 py-0.5 rounded-full uppercase tracking-wider">
-                  NEW
-                </span>
-              </div>
-
-              {/* フォーム */}
-              <div className="bg-white/10 px-4 py-4 flex flex-col gap-4">
-                {/* テーマ入力 */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="ai-theme" className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiThemeLabel')}</label>
-                  <input
-                    id="ai-theme"
-                    type="text"
-                    value={aiTheme}
-                    onChange={e => { setAiTheme(e.target.value); setAiError(false); }}
-                    onKeyDown={e => { if (e.key === 'Enter') handleAiGenerate(); }}
-                    placeholder={t('aiThemePlaceholder')}
-                    maxLength={50}
-                    className="w-full h-12 px-4 rounded-[6px] border-[2px] border-white/30 bg-white/20 text-white placeholder:text-white/40 text-sm font-bold focus:outline-none focus:border-white transition-colors"
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  />
-                </div>
-
-                {/* タイプ選択 */}
-                <div className="flex flex-col gap-1.5">
-                  <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiTypeLabel')}</p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {([
-                      ['trivia',  t('aiTypeTrivia')],
-                      ['polling', t('aiTypePolling')],
-                      ['opinion', t('aiTypeOpinion')],
-                    ] as const).map(([mode, label]) => (
-                      <button
-                        key={mode}
-                        type="button"
-                        onClick={() => setAiMode(mode)}
-                        className={[
-                          'h-10 rounded-[6px] text-xs font-bold border-[2px] touch-manipulation transition-colors',
-                          aiMode === mode
-                            ? 'bg-white text-pr-pink border-white'
-                            : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                        ].join(' ')}
-                        style={{ fontFamily: 'var(--font-dm)' }}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 意見バトル：負けルール */}
-                {aiMode === 'opinion' && (
-                  <div className="flex flex-col gap-1.5">
-                    <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiLoseRuleLabel')}</p>
-                    <div className="grid grid-cols-2 gap-2">
-                      {([
-                        ['minority', t('randomMinority')],
-                        ['majority', t('randomMajority')],
-                      ] as const).map(([rule, label]) => (
-                        <button
-                          key={rule}
-                          type="button"
-                          onClick={() => setAiLoseRule(rule)}
-                          className={[
-                            'h-10 rounded-[6px] text-xs font-bold border-[2px] touch-manipulation transition-colors',
-                            aiLoseRule === rule
-                              ? 'bg-white text-pr-pink border-white'
-                              : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                          ].join(' ')}
-                          style={{ fontFamily: 'var(--font-dm)' }}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* 問題数 */}
-                <div className="flex flex-col gap-1.5">
-                  <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiCountLabel')}</p>
-                  <div className="flex gap-2">
-                    {COUNT_OPTIONS.map(n => (
-                      <button
-                        key={n}
-                        type="button"
-                        onClick={() => setAiCount(n)}
-                        className={[
-                          'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
-                          aiCount === n
-                            ? 'bg-white text-pr-pink border-white'
-                            : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                        ].join(' ')}
-                        style={{ fontFamily: 'var(--font-dm)' }}
-                      >
-                        {n}問
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* エラー表示 */}
-                {aiError && (
-                  <p className="text-white/90 text-xs font-bold bg-red-500/40 rounded-[6px] px-3 py-2">
-                    {t('aiErrorMessage')}
-                  </p>
-                )}
-
-                {/* 生成ボタン */}
-                <button
-                  type="button"
-                  onClick={handleAiGenerate}
-                  disabled={!aiTheme.trim() || aiGenerating || starting !== null || randomStarting !== null}
-                  className="w-full bg-white text-pr-pink font-bold text-base rounded-[6px] border-[2px] border-white shadow-[3px_3px_0_rgba(0,0,0,0.3)] active:shadow-[1px_1px_0_rgba(0,0,0,0.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
-                  style={{ fontFamily: 'var(--font-dm)', height: '52px' }}
-                >
-                  {aiGenerating ? t('aiGenerating') : t('aiGenerateButton')}
-                </button>
-              </div>
-            </div>
-
             {/* ── 意見バトルカード ── */}
             <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
               <div className="px-4 py-3 flex items-center gap-3">

@@ -7,6 +7,8 @@ import { store } from '@/lib/store';
 import { getUserFromRequest } from '@/lib/supabase/auth-server';
 import { getOrCreateProfile, checkAndIncrementAiGen } from '@/lib/supabase/profiles';
 
+const AI_UNLIMITED = process.env.PARTYRANT_AI_UNLIMITED === '1';
+
 const schema = z.object({
   theme: z.string().min(1).max(50).transform(s => s.replace(/[`"\\]/g, '').trim()),
   mode: z.enum(['trivia', 'polling', 'opinion']),
@@ -113,13 +115,15 @@ export async function POST(req: NextRequest) {
       if (!user) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       }
-      const profile = await getOrCreateProfile(user.id);
-      const allowed = await checkAndIncrementAiGen(user.id, profile);
-      if (!allowed) {
-        return NextResponse.json(
-          { error: 'ai_limit_reached', message: '無料プランのAI生成は月3回までです。Proにアップグレードしてください。' },
-          { status: 403 }
-        );
+      if (!AI_UNLIMITED) {
+        const profile = await getOrCreateProfile(user.id);
+        const allowed = await checkAndIncrementAiGen(user.id, profile);
+        if (!allowed) {
+          return NextResponse.json(
+            { error: 'ai_limit_reached', message: '無料プランのAI生成は月3回までです。Proにアップグレードしてください。' },
+            { status: 403 }
+          );
+        }
       }
     }
 
