@@ -1,13 +1,13 @@
 {
-  "name": "PartyRant",
-  "short_name": "PartyRant",
-  "description": "パーティーやイベントのためのリアルタイムクイズ＆投票。みんなで遊ぼう、みんなで笑おう。",
+  "name": "NEWCLUB Kingyo 宴会ゲームズ",
+  "short_name": "宴会ゲームズ",
+  "description": "宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FF0080",
-  "theme_color": "#FF0080",
+  "background_color": "#0a0a0b",
+  "theme_color": "#cf3a2e",
   "lang": "ja",
   "categories": ["entertainment", "games", "social"],
   "icons": [

@@ -35,6 +35,14 @@ export const metadata: Metadata = {
     description: '宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。',
     images: ['/icons/icon-512.png'],
   },
+  icons: {
+    icon: [
+      { url: '/icons/icon.svg', type: 'image/svg+xml' },
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/icons/icon-192.png',
+  },
+  manifest: '/manifest.json',
 };
 
 export default async function RootLayout({
