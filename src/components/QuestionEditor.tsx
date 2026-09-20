@@ -44,11 +44,12 @@ interface QuestionEditorProps {
 }
 
 const OPTION_COLORS = ['teal', 'coral', 'amber', 'purple'] as const;
+// 墨基調：選択肢バッジは金のヘアライン枠で統一（原色を排し上品に）
 const OPTION_LABEL_COLORS: Record<string, string> = {
-  teal: 'border-[var(--color-teal)] text-[var(--color-teal)]',
-  coral: 'border-[var(--color-coral)] text-[var(--color-coral)]',
-  amber: 'border-[var(--color-amber)] text-[var(--color-amber)]',
-  purple: 'border-[var(--color-purple)] text-[var(--color-purple)]',
+  teal: 'border-[#b8935a]/55 text-[#b8935a]',
+  coral: 'border-[#b8935a]/55 text-[#b8935a]',
+  amber: 'border-[#b8935a]/55 text-[#b8935a]',
+  purple: 'border-[#b8935a]/55 text-[#b8935a]',
 };
 
 export function QuestionEditor({
@@ -135,9 +136,10 @@ export function QuestionEditor({
                       key={opt.value}
                       type="button"
                       onClick={() => field.onChange(opt.value)}
-                      className={`h-10 rounded-[6px] border-2 font-bold text-sm transition-colors touch-manipulation ${
-                        selected ? 'bg-pr-dark border-pr-dark text-white' : 'bg-transparent border-gray-300 text-gray-600'
+                      className={`min-h-[44px] border text-sm transition-colors duration-300 touch-manipulation ${
+                        selected ? 'bg-[#cf3a2e] border-[#cf3a2e] text-[#ece7df]' : 'bg-[#111114] border-[rgba(236,231,223,.14)] text-[#ece7df]/80 hover:border-[rgba(236,231,223,.4)]'
                       }`}
+                      style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
                     >
                       {opt.label}
                     </button>
@@ -166,17 +168,19 @@ export function QuestionEditor({
                     type="button"
                     onClick={() => setValue(`questions.${index}.correctIndex`, optIdx)}
                     aria-label={`Set option ${optIdx + 1} as correct`}
-                    className={`flex-shrink-0 w-8 h-8 rounded-full border-2 font-bold text-sm transition-colors touch-manipulation flex items-center justify-center ${
+                    className={`flex-shrink-0 w-8 h-8 rounded-full border font-medium text-sm transition-colors duration-300 touch-manipulation flex items-center justify-center ${
                       isCorrect
-                        ? 'bg-green-500 border-green-500 text-white'
+                        ? 'bg-[#cf3a2e] border-[#cf3a2e] text-[#ece7df]'
                         : `${OPTION_LABEL_COLORS[colorKey]} bg-transparent`
                     }`}
+                    style={{ fontFamily: 'var(--font-bebas)' }}
                   >
                     {String.fromCharCode(65 + optIdx)}
                   </button>
                 ) : (
                   <span
-                    className={`flex-shrink-0 w-8 h-8 rounded-full border-2 font-bold text-sm flex items-center justify-center ${OPTION_LABEL_COLORS[colorKey]}`}
+                    className={`flex-shrink-0 w-8 h-8 rounded-full border font-medium text-sm flex items-center justify-center ${OPTION_LABEL_COLORS[colorKey]}`}
+                    style={{ fontFamily: 'var(--font-bebas)' }}
                   >
                     {String.fromCharCode(65 + optIdx)}
                   </span>

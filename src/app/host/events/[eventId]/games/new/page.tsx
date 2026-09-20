@@ -91,36 +91,45 @@ export default function NewGamePage() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bg-white">
-      <div className="bg-pr-pink px-4 py-4 flex items-center gap-4 rounded-b-[20px]">
-        <Link href={`/host/events/${eventId}`}
-          className="text-white text-xl font-bold w-10 h-10 flex items-center justify-center rounded-full border-[2px] border-white/30 hover:border-white transition-colors touch-manipulation">
-          ←
-        </Link>
-        <span className="text-white text-3xl tracking-wide" style={{ fontFamily: 'var(--font-bebas)' }}>{t('title')}</span>
-      </div>
+    <main className="kg-page kg-grain">
+      <div aria-hidden className="kg-glow" />
 
-      <div className="max-w-[720px] w-full mx-auto px-4 py-8 flex flex-col gap-8">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8" noValidate>
+      <div className="relative z-[2] mx-auto flex min-h-screen w-full max-w-[720px] flex-col px-6 pb-12">
+        {/* ヘッダー */}
+        <header className="flex items-center gap-4 pt-8">
+          <Link href={`/host/events/${eventId}`}
+            aria-label="←"
+            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation">
+            <span aria-hidden className="text-lg">←</span>
+          </Link>
+          <div className="min-w-0">
+            <span className="kg-eyebrow">New Game</span>
+            <p className="kg-h mt-1 text-[1.4rem] leading-tight">{t('title')}</p>
+          </div>
+        </header>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-10 flex flex-col gap-8" noValidate>
 
           {/* Game type */}
           <div className="flex flex-col gap-3">
-            <Label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('gameTypeSectionLabel')}</Label>
+            <Label className="kg-label">{t('gameTypeSectionLabel')}</Label>
             <Controller control={control} name="mode" render={({ field }) => (
               <div className="grid grid-cols-3 gap-3">
-                {(['trivia', 'polling', 'opinion'] as const).map(m => (
-                  <button key={m} type="button" onClick={() => field.onChange(m)}
-                    className={['flex flex-col items-center gap-2 p-4 rounded-[8px] border-[3px] border-pr-dark transition-[box-shadow,transform] duration-75 touch-manipulation min-h-[96px]',
-                      field.value === m ? 'bg-pr-pink text-white shadow-[0_2px_8px_rgba(0,0,0,.3)] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]'].join(' ')}>
-                    <span className="text-2xl">{m === 'trivia' ? '🧠' : m === 'polling' ? '📊' : '⚔️'}</span>
-                    <span className="font-bold text-xs text-center" style={{ fontFamily: 'var(--font-dm)' }}>
-                      {m === 'trivia' ? t('triviaLabel') : m === 'polling' ? t('pollingLabel') : t('opinionLabel')}
-                    </span>
-                    <span className="text-xs text-center opacity-70">
-                      {m === 'trivia' ? t('triviaDescription') : m === 'polling' ? t('pollingDescription') : t('opinionDescription')}
-                    </span>
-                  </button>
-                ))}
+                {(['trivia', 'polling', 'opinion'] as const).map(m => {
+                  const active = field.value === m;
+                  return (
+                    <button key={m} type="button" onClick={() => field.onChange(m)}
+                      className={['flex min-h-[96px] flex-col items-center justify-center gap-2 border p-4 text-center transition-colors duration-300 touch-manipulation',
+                        active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'].join(' ')}>
+                      <span className="text-[0.9rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>
+                        {m === 'trivia' ? t('triviaLabel') : m === 'polling' ? t('pollingLabel') : t('opinionLabel')}
+                      </span>
+                      <span className={`text-[0.66rem] leading-snug ${active ? 'text-[#ece7df]/80' : 'text-[#7d7871]'}`}>
+                        {m === 'trivia' ? t('triviaDescription') : m === 'polling' ? t('pollingDescription') : t('opinionDescription')}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             )} />
           </div>
@@ -128,22 +137,24 @@ export default function NewGamePage() {
           {/* Lose rule (opinion only) */}
           {mode === 'opinion' && (
             <div className="flex flex-col gap-3">
-              <Label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('loseRuleSectionLabel')}</Label>
+              <Label className="kg-label">{t('loseRuleSectionLabel')}</Label>
               <Controller control={control} name="loseRule" render={({ field }) => (
                 <div className="grid grid-cols-2 gap-3">
-                  {(['minority', 'majority'] as const).map(r => (
-                    <button key={r} type="button" onClick={() => field.onChange(r)}
-                      className={['flex flex-col items-center gap-2 p-5 rounded-[8px] border-[3px] border-pr-dark transition-[box-shadow,transform] duration-75 touch-manipulation min-h-[96px]',
-                        field.value === r ? 'bg-pr-dark text-white shadow-[0_2px_8px_rgba(0,0,0,.3)] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]'].join(' ')}>
-                      <span className="text-2xl">{r === 'minority' ? '🦄' : '🐑'}</span>
-                      <span className="font-bold text-sm" style={{ fontFamily: 'var(--font-dm)' }}>
-                        {r === 'minority' ? t('loseRuleMinority') : t('loseRuleMajority')}
-                      </span>
-                      <span className="text-xs text-center opacity-70">
-                        {r === 'minority' ? t('loseRuleMinorityDesc') : t('loseRuleMajorityDesc')}
-                      </span>
-                    </button>
-                  ))}
+                  {(['minority', 'majority'] as const).map(r => {
+                    const active = field.value === r;
+                    return (
+                      <button key={r} type="button" onClick={() => field.onChange(r)}
+                        className={['flex min-h-[96px] flex-col items-center justify-center gap-2 border p-5 text-center transition-colors duration-300 touch-manipulation',
+                          active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'].join(' ')}>
+                        <span className="text-[0.92rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>
+                          {r === 'minority' ? t('loseRuleMinority') : t('loseRuleMajority')}
+                        </span>
+                        <span className={`text-[0.66rem] leading-snug ${active ? 'text-[#ece7df]/80' : 'text-[#7d7871]'}`}>
+                          {r === 'minority' ? t('loseRuleMinorityDesc') : t('loseRuleMajorityDesc')}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               )} />
             </div>
@@ -151,56 +162,58 @@ export default function NewGamePage() {
 
           {/* Play mode */}
           <div className="flex flex-col gap-3">
-            <Label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('playModeSectionLabel')}</Label>
+            <Label className="kg-label">{t('playModeSectionLabel')}</Label>
             <Controller control={control} name="gameMode" render={({ field }) => (
               <div className="grid grid-cols-2 gap-3">
-                {(['live', 'self_paced'] as const).map(m => (
-                  <button key={m} type="button" onClick={() => field.onChange(m)}
-                    className={['flex flex-col items-center gap-2 p-5 rounded-[8px] border-[3px] border-pr-dark transition-[box-shadow,transform] duration-75 touch-manipulation min-h-[96px]',
-                      field.value === m ? 'bg-pr-dark text-white shadow-[0_2px_8px_rgba(0,0,0,.3)] translate-x-[2px] translate-y-[2px]' : 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]'].join(' ')}>
-                    <span className="text-2xl">{m === 'live' ? '🎙️' : '🎯'}</span>
-                    <span className="font-bold text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{m === 'live' ? t('liveLabel') : t('selfPacedLabel')}</span>
-                    <span className="text-xs text-center opacity-70">{m === 'live' ? t('liveDescription') : t('selfPacedDescription')}</span>
-                  </button>
-                ))}
+                {(['live', 'self_paced'] as const).map(m => {
+                  const active = field.value === m;
+                  return (
+                    <button key={m} type="button" onClick={() => field.onChange(m)}
+                      className={['flex min-h-[96px] flex-col items-center justify-center gap-2 border p-5 text-center transition-colors duration-300 touch-manipulation',
+                        active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'].join(' ')}>
+                      <span className="text-[0.92rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>{m === 'live' ? t('liveLabel') : t('selfPacedLabel')}</span>
+                      <span className={`text-[0.66rem] leading-snug ${active ? 'text-[#ece7df]/80' : 'text-[#7d7871]'}`}>{m === 'live' ? t('liveDescription') : t('selfPacedDescription')}</span>
+                    </button>
+                  );
+                })}
               </div>
             )} />
           </div>
 
           {/* Title */}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="title" className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('gameTitleLabel')}</Label>
+            <Label htmlFor="title" className="kg-label">{t('gameTitleLabel')}</Label>
             <Input id="title" {...register('title')} placeholder={t('gameTitlePlaceholder')}
-              className="text-base h-12 border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px]" maxLength={80} />
-            {errors.title && <p className="text-sm text-red-500 font-bold">{errors.title.message}</p>}
+              className="kg-input" maxLength={80} />
+            {errors.title && <p className="text-[0.8rem] text-[#cf3a2e]">{errors.title.message}</p>}
           </div>
 
           {/* Questions */}
           <div className="flex flex-col gap-4">
-            <Label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('questionsLabel')}</Label>
+            <Label className="kg-label">{t('questionsLabel')}</Label>
             {fields.map((field, i) => (
               <QuestionEditor key={field.id} index={i} mode={mode} control={control as never}
                 register={register as never} remove={() => remove(i)} watch={watch as never} setValue={setValue as never} />
             ))}
             {fields.length < 10 && (
               <button type="button" onClick={() => append(defaultQuestion())}
-                className="h-12 w-full font-bold text-pr-dark border-[3px] border-dashed border-pr-dark rounded-[6px] hover:bg-gray-50 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}>
+                className="min-h-[48px] w-full border border-dashed border-[rgba(184,147,90,.5)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>
                 {t('addQuestion')}
               </button>
             )}
           </div>
 
           {gameMode === 'self_paced' && (
-            <p className="text-sm text-gray-400 font-bold text-center -mt-4">
+            <p className="-mt-4 text-center text-[0.78rem] text-[#7d7871]">
               {t('selfPacedNote')}
             </p>
           )}
 
           <button type="submit" disabled={isSubmitting}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}>
-            {isSubmitting ? t('submitting') : t('publish')}
+            className="kg-btn kg-btn--primary">
+            <span>{isSubmitting ? t('submitting') : t('publish')}</span>
+            {!isSubmitting && <span aria-hidden>→</span>}
           </button>
         </form>
       </div>

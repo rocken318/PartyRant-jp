@@ -6,15 +6,15 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import type { Game, Event } from '@/types/domain';
 
+// 墨基調のステータスバッジ（線のみ・朱/金/ミストで状態を表現）
 const STATUS_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-  draft:    { bg: '#17171b', text: '#b9b4ac', label: 'DRAFT' },
-  lobby:    { bg: '#fefce8', text: '#ca8a04', label: 'LOBBY' },
-  question: { bg: '#dcfce7', text: '#16a34a', label: 'LIVE' },
-  reveal:   { bg: '#dcfce7', text: '#16a34a', label: 'LIVE' },
-  ended:    { bg: '#f3f4f6', text: '#6b7280', label: 'ENDED' },
+  draft:    { bg: 'transparent', text: '#7d7871', label: 'DRAFT' },
+  lobby:    { bg: 'transparent', text: '#b8935a', label: 'LOBBY' },
+  question: { bg: 'transparent', text: '#cf3a2e', label: 'LIVE' },
+  reveal:   { bg: 'transparent', text: '#cf3a2e', label: 'LIVE' },
+  ended:    { bg: 'transparent', text: '#7d7871', label: 'ENDED' },
 };
 
-const TYPE_ICON: Record<string, string> = { trivia: '🧠', polling: '📊' };
 type Tab = 'all' | 'live' | 'self_paced';
 
 export default function EventDetailPage() {
@@ -45,69 +45,85 @@ export default function EventDetailPage() {
   );
 
   if (loading) return (
-    <main className="flex min-h-screen items-center justify-center bg-white">
-      <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+    <main className="kg-page kg-grain flex min-h-screen items-center justify-center">
+      <div className="h-9 w-9 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
     </main>
   );
 
   return (
-    <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-      <div className="bg-pr-pink px-4 py-4 flex items-center gap-3 rounded-b-[20px]">
-        <Link href="/host" className="text-white text-xl w-9 h-9 flex items-center justify-center rounded-full border-[2px] border-white/30 hover:border-white touch-manipulation">←</Link>
-        <div>
-          <h1 className="text-white text-2xl leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>{event?.name ?? t('event')}</h1>
-          <p className="text-white/70 text-xs font-bold">{t('gameCount', { n: games.length })}</p>
-        </div>
-      </div>
+    <main className="kg-page kg-grain">
+      <div aria-hidden className="kg-glow" />
 
-      <div className="flex-1 px-4 py-5 flex flex-col gap-4">
-        <Link href={`/host/events/${eventId}/games/new`}
-          className="w-full h-14 bg-pr-pink text-white flex items-center justify-center font-bold text-base rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-          style={{ fontFamily: 'var(--font-dm)' }}>
-          {t('addGame')}
-        </Link>
+      <div className="kg-wrap relative z-[2] flex min-h-screen flex-col pb-10">
+        {/* ヘッダー */}
+        <header className="flex items-center gap-4 pt-8">
+          <Link
+            href="/host"
+            aria-label="←"
+            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+          >
+            <span aria-hidden className="text-lg">←</span>
+          </Link>
+          <div className="min-w-0">
+            <span className="kg-eyebrow">Event</span>
+            <p className="kg-h mt-1 truncate text-[1.4rem] leading-tight">{event?.name ?? t('event')}</p>
+            <p className="mt-0.5 text-[0.7rem] text-[#7d7871]">{t('gameCount', { n: games.length })}</p>
+          </div>
+        </header>
 
-        <div className="grid grid-cols-3 gap-2">
-          {(['all', 'live', 'self_paced'] as Tab[]).map(tabKey => (
-            <button key={tabKey} onClick={() => setTab(tabKey)}
-              className={`h-9 rounded-[6px] text-xs font-bold border-[2px] border-pr-dark touch-manipulation transition-colors ${tab === tabKey ? 'bg-pr-dark text-white' : 'bg-white text-pr-dark'}`}
-              style={{ fontFamily: 'var(--font-dm)' }}>
-              {tabKey === 'all' ? t('tabAll') : tabKey === 'live' ? t('tabLive') : t('tabSelfPaced')}
-            </button>
-          ))}
-        </div>
+        <div className="mt-8 flex flex-1 flex-col gap-5">
+          <Link href={`/host/events/${eventId}/games/new`}
+            className="flex h-[56px] items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(207,58,46,.24)' }}>
+            <span>{t('addGame')}</span>
+            <span aria-hidden>→</span>
+          </Link>
 
-        {filtered.length === 0 ? (
-          <div className="py-12 text-center text-gray-400 font-bold">{t('noGames')}</div>
-        ) : (
-          <div className="flex flex-col gap-3">
-            {filtered.map(game => {
-              const badge = STATUS_BADGE[game.status] ?? STATUS_BADGE.draft;
+          <div className="grid grid-cols-3 gap-2">
+            {(['all', 'live', 'self_paced'] as Tab[]).map(tabKey => {
+              const active = tab === tabKey;
               return (
-                <button key={game.id}
-                  onClick={() => router.push(`/host/events/${eventId}/games/${game.id}`)}
-                  className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation text-left">
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-sm">{TYPE_ICON[game.mode]}</span>
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                        {game.mode} · {game.gameMode === 'self_paced' ? t('selfPacedLabel') : t('liveLabel')}
-                      </span>
-                    </div>
-                    <span className="font-bold text-pr-dark text-base" style={{ fontFamily: 'var(--font-dm)' }}>{game.title}</span>
-                    <span className="text-xs text-gray-400">{t('questionCount', { n: game.questions.length })}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2 py-1 rounded-[4px] border" style={{ background: badge.bg, color: badge.text, borderColor: badge.text }}>
-                      {badge.label}
-                    </span>
-                    <span className="text-lg text-pr-dark">→</span>
-                  </div>
+                <button key={tabKey} onClick={() => setTab(tabKey)}
+                  className={`min-h-[44px] text-[0.8rem] border transition-colors duration-300 touch-manipulation ${active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'}`}
+                  style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>
+                  {tabKey === 'all' ? t('tabAll') : tabKey === 'live' ? t('tabLive') : t('tabSelfPaced')}
                 </button>
               );
             })}
           </div>
-        )}
+
+          {filtered.length === 0 ? (
+            <div className="py-12 text-center text-[#7d7871]">{t('noGames')}</div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {filtered.map(game => {
+                const badge = STATUS_BADGE[game.status] ?? STATUS_BADGE.draft;
+                return (
+                  <button key={game.id}
+                    onClick={() => router.push(`/host/events/${eventId}/games/${game.id}`)}
+                    className="group kg-card flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition-colors duration-300 hover:border-[rgba(207,58,46,.5)] touch-manipulation">
+                    <div className="flex min-w-0 flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        <span aria-hidden className="text-[0.72rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+                        <span className="text-[0.66rem] uppercase text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>
+                          {game.mode} · {game.gameMode === 'self_paced' ? t('selfPacedLabel') : t('liveLabel')}
+                        </span>
+                      </div>
+                      <span className="kg-h truncate text-[1rem]">{game.title}</span>
+                      <span className="text-[0.68rem] text-[#7d7871]">{t('questionCount', { n: game.questions.length })}</span>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-3">
+                      <span className="border px-2 py-1 text-[0.62rem]" style={{ background: badge.bg, color: badge.text, borderColor: badge.text + '66', letterSpacing: '0.1em', fontFamily: 'var(--font-bebas)' }}>
+                        {badge.label}
+                      </span>
+                      <span aria-hidden className="text-[#7d7871] transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
