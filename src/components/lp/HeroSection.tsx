@@ -11,58 +11,74 @@ interface Props {
 
 export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
   return (
-    <section className="relative bg-pr-dark overflow-hidden">
-      {/* グラデーション背景 */}
+    <section className="relative bg-[#0a0a0b] overflow-hidden">
+      {/* 上部のほのかな朱の灯り */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'linear-gradient(160deg, #0a0a0b 0%, #17171b 60%, #22120f 100%)' }}
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-[60vh] pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(120% 70% at 50% -10%, rgba(207,58,46,.28) 0%, rgba(207,58,46,.06) 38%, transparent 70%)',
+        }}
       />
 
-      <div className="relative z-10 flex flex-col items-center px-6 pt-16 pb-28 gap-6 text-center">
-        {/* タグライン */}
-        <span className="text-white/80 text-xs font-bold uppercase tracking-[0.25em]">
+      <div className="relative z-10 flex flex-col items-center px-6 pt-16 pb-20 gap-6 text-center">
+        {/* タグライン（金・Cormorant） */}
+        <span
+          className="text-[0.62rem] uppercase text-[#b8935a]"
+          style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.42em', textIndent: '0.42em' }}
+        >
           {tagline}
         </span>
 
-        {/* メインロゴ */}
+        {/* メインロゴ（明朝） */}
         <h1
-          className="text-white kg-serif"
-          style={{ fontFamily: 'var(--font-bebas)', fontSize: '4.5rem', lineHeight: 1 }}
+          className="text-[#ece7df]"
+          style={{
+            fontFamily: 'var(--font-dm)',
+            fontSize: '3.4rem',
+            lineHeight: 1.1,
+            letterSpacing: '0.06em',
+            textShadow: '0 0 48px rgba(207,58,46,.45)',
+          }}
         >
           {BRAND.name}
         </h1>
 
-        {/* キャッチコピー */}
+        {/* 朱のヘアライン */}
+        <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+
+        {/* キャッチコピー（明朝） */}
         <p
-          className="text-white text-2xl font-extrabold leading-tight"
-          style={{ fontFamily: 'var(--font-dm)' }}
+          className="text-[#ece7df] text-2xl leading-tight"
+          style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
         >
           {headline}
         </p>
-        <p className="text-white/80 text-base max-w-[300px]">{sub}</p>
+        <p className="text-[#b9b4ac] text-sm leading-relaxed max-w-[300px]">{sub}</p>
 
-        {/* モックアップ — ネオブルータリズム風スマホ枠 */}
-        <div className="w-[200px] h-[340px] bg-white border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] rounded-[18px] flex flex-col overflow-hidden mt-2">
+        {/* モックアップ — 墨基調スマホ枠 */}
+        <div className="w-[200px] h-[340px] bg-[#111114] border border-[rgba(184,147,90,.35)] rounded-[18px] flex flex-col overflow-hidden mt-2">
           {/* 偽ステータスバー */}
-          <div className="bg-pr-dark h-6 flex items-center justify-center shrink-0">
-            <span className="text-pr-pink text-[10px] font-bold tracking-widest">● LIVE</span>
+          <div className="bg-[#0a0a0b] h-6 flex items-center justify-center shrink-0 border-b border-[rgba(236,231,223,.08)]">
+            <span className="text-[#cf3a2e] text-[10px] tracking-[0.25em]" style={{ fontFamily: 'var(--font-bebas)' }}>● LIVE</span>
           </div>
           {/* 投票画面モック */}
-          <div className="flex flex-col flex-1 bg-white px-3 py-3 gap-2 overflow-hidden">
-            <div className="bg-pr-dark rounded-[4px] px-2 py-1 shrink-0">
-              <p className="text-white text-[9px] font-bold text-center">Q1 / 5</p>
+          <div className="flex flex-col flex-1 bg-[#111114] px-3 py-3 gap-2 overflow-hidden">
+            <div className="border border-[rgba(236,231,223,.12)] px-2 py-1 shrink-0">
+              <p className="text-[#b8935a] text-[9px] text-center" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.15em' }}>Q1 / 5</p>
             </div>
-            <p className="text-pr-dark text-[10px] font-bold text-center leading-tight px-1 shrink-0">
+            <p className="text-[#ece7df] text-[10px] text-center leading-tight px-1 shrink-0" style={{ fontFamily: 'var(--font-dm)' }}>
               次の飲み物で一番好きなのは？
             </p>
             <div className="grid grid-cols-2 gap-1 flex-1">
-              {['🍺 ビール', '🍶 日本酒', '🍷 ワイン', '🥃 ウイスキー'].map((opt, i) => {
+              {['ビール', '日本酒', 'ワイン', 'ウイスキー'].map((opt, i) => {
                 const colors = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
                 return (
                   <div
                     key={i}
-                    className="rounded-[4px] border-[2px] border-pr-dark flex items-center justify-center text-[9px] font-bold text-white"
-                    style={{ backgroundColor: colors[i] }}
+                    className="border flex items-center justify-center text-[9px] text-[#ece7df]"
+                    style={{ borderColor: colors[i] + '66', fontFamily: 'var(--font-dm)' }}
                   >
                     {opt}
                   </div>
@@ -75,13 +91,13 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
                 const colors = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
                 return (
                   <div key={i} className="flex items-center gap-1">
-                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden border border-pr-dark">
+                    <div className="flex-1 h-2 bg-[rgba(236,231,223,.08)] overflow-hidden">
                       <div
-                        className="h-full rounded-full"
+                        className="h-full"
                         style={{ width: `${pct}%`, backgroundColor: colors[i] }}
                       />
                     </div>
-                    <span className="text-[8px] font-bold text-gray-500 w-6 text-right">{pct}%</span>
+                    <span className="text-[8px] text-[#7d7871] w-6 text-right">{pct}%</span>
                   </div>
                 );
               })}
@@ -90,29 +106,26 @@ export function HeroSection({ tagline, headline, sub, cta1, cta2 }: Props) {
         </div>
 
         {/* CTAボタン */}
-        <div className="flex flex-col gap-3 w-full max-w-[320px] mt-2">
+        <div className="flex flex-col gap-3 w-full max-w-[320px] mt-4">
           <Link
             href="/auth/login"
-            className="w-full h-14 bg-white text-pr-dark flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_0_30px_rgba(207,58,46,.25)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}
+            className="w-full h-14 bg-[#cf3a2e] text-[#ece7df] flex items-center justify-center gap-2 text-base transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(207,58,46,.24)' }}
           >
             {cta1}
           </Link>
           <Link
             href="/presets"
-            className="w-full h-12 bg-transparent text-white flex items-center justify-center text-sm font-bold rounded-[6px] border-[3px] border-white/60 active:bg-white/10 transition-colors duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}
+            className="w-full h-12 bg-transparent text-[#b8935a] flex items-center justify-center gap-2 text-sm border border-[rgba(184,147,90,.45)] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.1em' }}
           >
-            {cta2} →
+            {cta2} <span aria-hidden>→</span>
           </Link>
         </div>
       </div>
 
-      {/* 波形区切り */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-12 bg-white"
-        style={{ clipPath: 'ellipse(55% 100% at 50% 100%)' }}
-      />
+      {/* 区切り（朱の薄線） */}
+      <span aria-hidden className="absolute bottom-0 left-1/2 -translate-x-1/2 block h-px w-16 bg-[rgba(207,58,46,.5)]" />
     </section>
   );
 }

@@ -37,7 +37,7 @@ export default async function LandingPageFull() {
   const extras = [t('extra1'), t('extra2'), t('extra3')];
 
   return (
-    <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+    <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df] max-w-[480px] mx-auto">
       <HeroSection
         tagline={t('heroTagline')}
         headline={t('heroHeadline')}
