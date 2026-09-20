@@ -12,6 +12,7 @@ const questionSchema = z.object({
   options: z.array(z.string()).min(2).max(4),
   correctIndex: z.number().int().min(0).optional(),
   timeLimitSec: z.number().int().min(1),
+  answerTarget: z.enum(['fixed', 'players', 'casts']).optional(),
 });
 
 const createGameSchema = z.object({

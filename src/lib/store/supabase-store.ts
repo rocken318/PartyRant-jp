@@ -25,6 +25,7 @@ function toGame(row: Record<string, unknown>): Game {
     scene: row.scene as string | undefined,
     isPreset: row.is_preset as boolean | undefined,
     loseRule: row.lose_rule as Game['loseRule'] | undefined,
+    casts: (row.casts as string[] | null) ?? [],
     questions: row.questions as Game['questions'],
     status: row.status as GameStatus,
     currentQuestionIndex: row.current_question_index as number,
@@ -112,6 +113,7 @@ export class SupabaseGameStore implements GameStore {
         description: input.description ?? null,
         scene: input.scene ?? null,
         lose_rule: input.loseRule ?? null,
+        casts: input.casts ?? [],
         questions,
         status: 'draft',
         current_question_index: -1,
@@ -226,6 +228,13 @@ export class SupabaseGameStore implements GameStore {
     const { data, error } = await this.db
       .from('games').update({ questions }).eq('id', gameId).select().single();
     if (error || !data) throw new Error(error?.message ?? 'Failed to update questions');
+    return toGame(data);
+  }
+
+  async updateGameCasts(gameId: string, casts: string[]): Promise<Game> {
+    const { data, error } = await this.db
+      .from('games').update({ casts }).eq('id', gameId).select().single();
+    if (error || !data) throw new Error(error?.message ?? 'Failed to update casts');
     return toGame(data);
   }
 

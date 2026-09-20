@@ -14,9 +14,20 @@ import type { FormValues } from '@/components/QuestionEditor';
 const questionSchema = z.object({
   text: z.string().min(1, 'Required').max(200),
   imageUrl: z.string().optional(),
-  options: z.array(z.object({ value: z.string().min(1, 'Required') })).min(2).max(4),
+  // players/casts は開始時に名前へ自動置換されるため、値の入力は任意。
+  options: z.array(z.object({ value: z.string().max(200) })).min(2).max(4),
   correctIndex: z.number().optional(),
   timeLimitSec: z.number().min(10).max(60),
+  answerTarget: z.enum(['fixed', 'players', 'casts']).optional(),
+}).superRefine((q, ctx) => {
+  // fixed（未指定含む）のときのみ全 option に値が必要。
+  if ((q.answerTarget ?? 'fixed') === 'fixed') {
+    q.options.forEach((o, i) => {
+      if (!o.value || o.value.trim() === '') {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Required', path: ['options', i, 'value'] });
+      }
+    });
+  }
 });
 
 const schema = z.object({
@@ -35,6 +46,7 @@ const defaultQuestion = (): FormValues['questions'][number] => ({
   options: [{ value: '' }, { value: '' }],
   correctIndex: undefined,
   timeLimitSec: 20,
+  answerTarget: 'fixed',
 });
 
 export default function NewGamePage() {
@@ -64,6 +76,7 @@ export default function NewGamePage() {
         options: q.options.map(o => o.value),
         correctIndex: q.correctIndex,
         timeLimitSec: q.timeLimitSec,
+        answerTarget: q.answerTarget,
       })),
     };
 

@@ -13,6 +13,7 @@ function toCreateQuestion(question: Question): Omit<Question, 'id' | 'order'> {
     options: question.options,
     correctIndex: question.correctIndex,
     timeLimitSec: question.timeLimitSec,
+    answerTarget: question.answerTarget,
   };
 }
 
@@ -41,6 +42,7 @@ export async function POST(
       title: game.title,
       description: game.description,
       scene: game.scene,
+      casts: game.casts,
       questions: game.questions.map(toCreateQuestion),
       hostId: game.hostId,
     });

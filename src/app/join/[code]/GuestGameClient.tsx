@@ -913,8 +913,8 @@ export default function GuestGameClient({ code }: Props) {
           )}
 
           {game.mode === 'polling' && endResultsStatus === 'loaded' && (() => {
-            // キャスト指名scene: キャスト名（option名）ベース集計
-            if (game.scene === 'キャスト指名') {
+            // キャスト指名: キャスト名（option名）ベース集計（answerTarget==='casts' の設問を持つゲーム）
+            if (game.questions.some(q => q.answerTarget === 'casts')) {
               const optResults = computeOptionVoteResults(game.questions, endAnswers);
               if (!optResults) return null;
               const maxVotes = Math.max(...optResults.map(r => r.voteCount), 1);
@@ -958,7 +958,7 @@ export default function GuestGameClient({ code }: Props) {
             );
           })()}
 
-          {game.mode === 'polling' && endResultsStatus === 'loaded' && game.scene !== 'キャスト指名' && endPlayers.length > 0 && (() => {
+          {game.mode === 'polling' && endResultsStatus === 'loaded' && !game.questions.some(q => q.answerTarget === 'casts') && endPlayers.length > 0 && (() => {
             const results = computePollingResults(game.questions, endAnswers, endPlayers);
             if (results.length === 0) return null;
             const topMajority = results[0];

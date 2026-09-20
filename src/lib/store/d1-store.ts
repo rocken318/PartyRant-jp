@@ -27,6 +27,7 @@ function toGame(row: Row): Game {
     scene: (row.scene as string | null) ?? undefined,
     isPreset: row.is_preset === 1 || row.is_preset === true,
     loseRule: (row.lose_rule as Game['loseRule'] | null) ?? undefined,
+    casts: parseCasts(row.casts),
     questions: parseQuestions(row.questions),
     status: row.status as GameStatus,
     currentQuestionIndex: row.current_question_index as number,
@@ -39,6 +40,15 @@ function toGame(row: Row): Game {
 function parseQuestions(value: unknown): Question[] {
   if (typeof value === 'string') return JSON.parse(value) as Question[];
   if (Array.isArray(value)) return value as Question[];
+  return [];
+}
+
+function parseCasts(value: unknown): string[] {
+  if (value == null) return [];
+  if (Array.isArray(value)) return value as string[];
+  if (typeof value === 'string') {
+    try { return JSON.parse(value) as string[]; } catch { return []; }
+  }
   return [];
 }
 
@@ -114,8 +124,8 @@ export class D1GameStore implements GameStore {
     const row = await db
       .prepare(
         `insert into games
-          (id, event_id, host_id, join_code, mode, game_mode, title, description, scene, lose_rule, questions, status, is_preset, current_question_index, created_at)
-         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (id, event_id, host_id, join_code, mode, game_mode, title, description, scene, lose_rule, casts, questions, status, is_preset, current_question_index, created_at)
+         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          returning *`
       )
       .bind(
@@ -129,6 +139,7 @@ export class D1GameStore implements GameStore {
         input.description ?? null,
         input.scene ?? null,
         input.loseRule ?? null,
+        JSON.stringify(input.casts ?? []),
         JSON.stringify(questions),
         'draft',
         0,
@@ -220,6 +231,15 @@ export class D1GameStore implements GameStore {
       .bind(JSON.stringify(questions), gameId)
       .first<Row>();
     if (!row) throw new Error('Failed to update questions');
+    return toGame(row);
+  }
+
+  async updateGameCasts(gameId: string, casts: string[]): Promise<Game> {
+    const row = await this.db
+      .prepare('update games set casts = ? where id = ? returning *')
+      .bind(JSON.stringify(casts), gameId)
+      .first<Row>();
+    if (!row) throw new Error('Failed to update casts');
     return toGame(row);
   }
 

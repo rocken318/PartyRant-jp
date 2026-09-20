@@ -14,6 +14,7 @@ export interface CreateGameInput {
   description?: string;
   scene?: string;
   loseRule?: LoseRule;
+  casts?: string[];
   questions: Omit<Question, 'id' | 'order'>[];
 }
 
@@ -40,6 +41,8 @@ export interface GameStore {
   listPresets(): Promise<Game[]>;
   /** ゲームの questions 配列を丸ごと置き換える（プレースホルダー置換・キャスト名反映用） */
   updateGameQuestions(gameId: string, questions: Question[]): Promise<Game>;
+  /** ゲームのキャスト名リストを保存する（answerTarget==='casts' の実名解決用） */
+  updateGameCasts(gameId: string, casts: string[]): Promise<Game>;
   /** answers/players を削除しゲームを lobby へ戻す */
   resetGame(gameId: string): Promise<Game>;
   /** ホストの最新 lobby ゲームを 1 件返す（exceptGameId は除外） */

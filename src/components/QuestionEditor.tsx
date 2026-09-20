@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { ImageUploader } from '@/components/ImageUploader';
-import type { GameMode } from '@/types/domain';
+import type { GameMode, AnswerTarget } from '@/types/domain';
 
 export interface QuestionFormValues {
   text: string;
@@ -24,6 +24,7 @@ export interface QuestionFormValues {
   options: { value: string }[];
   correctIndex?: number;
   timeLimitSec: number;
+  answerTarget?: AnswerTarget;
 }
 
 export interface FormValues {
@@ -66,6 +67,10 @@ export function QuestionEditor({
 
   const timeLimitSec = watch(`questions.${index}.timeLimitSec`);
   const correctIndex = watch(`questions.${index}.correctIndex`);
+  const answerTarget: AnswerTarget = watch(`questions.${index}.answerTarget`) ?? 'fixed';
+  const isFixed = answerTarget === 'fixed';
+  // fixed かつ trivia のときのみ正解指定を表示。players/casts は開始時に名前へ自動置換。
+  const showCorrectPicker = mode === 'trivia' && isFixed;
 
   return (
     <Card>
@@ -111,15 +116,52 @@ export function QuestionEditor({
           />
         </div>
 
+        {/* Answer target (選択対象の種別) */}
+        <div className="flex flex-col gap-2">
+          <Label>選択肢の種別</Label>
+          <Controller
+            control={control}
+            name={`questions.${index}.answerTarget`}
+            render={({ field }: { field: ControllerRenderProps<FormValues, `questions.${number}.answerTarget`> }) => (
+              <div className="grid grid-cols-3 gap-2">
+                {([
+                  { value: 'fixed', label: '固定内容' },
+                  { value: 'players', label: '参加者' },
+                  { value: 'casts', label: 'キャスト' },
+                ] as const).map((opt) => {
+                  const selected = (field.value ?? 'fixed') === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => field.onChange(opt.value)}
+                      className={`h-10 rounded-[6px] border-2 font-bold text-sm transition-colors touch-manipulation ${
+                        selected ? 'bg-pr-dark border-pr-dark text-white' : 'bg-transparent border-gray-300 text-gray-600'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          />
+          {!isFixed && (
+            <p className="text-xs text-muted-foreground">
+              開始時に選択肢は{answerTarget === 'players' ? '参加者名' : 'キャスト名'}へ自動置換されます（この設問は採点されません）。
+            </p>
+          )}
+        </div>
+
         {/* Options */}
         <div className="flex flex-col gap-3">
           <Label>Answer options</Label>
           {fields.map((field: { id: string }, optIdx: number) => {
             const colorKey = OPTION_COLORS[optIdx % OPTION_COLORS.length];
-            const isCorrect = mode === 'trivia' && correctIndex === optIdx;
+            const isCorrect = showCorrectPicker && correctIndex === optIdx;
             return (
-              <div key={field.id} className="flex items-center gap-2">
-                {mode === 'trivia' ? (
+              <div key={field.id} className={`flex items-center gap-2 ${!isFixed ? 'opacity-50' : ''}`}>
+                {showCorrectPicker ? (
                   <button
                     type="button"
                     onClick={() => setValue(`questions.${index}.correctIndex`, optIdx)}
@@ -141,7 +183,14 @@ export function QuestionEditor({
                 )}
                 <Input
                   {...register(`questions.${index}.options.${optIdx}.value`)}
-                  placeholder={`Option ${String.fromCharCode(65 + optIdx)}`}
+                  placeholder={
+                    isFixed
+                      ? `Option ${String.fromCharCode(65 + optIdx)}`
+                      : answerTarget === 'players'
+                      ? '開始時に参加者名へ置換'
+                      : '開始時にキャスト名へ置換'
+                  }
+                  disabled={!isFixed}
                   className="flex-1 text-base h-12"
                 />
                 {fields.length > 2 && (

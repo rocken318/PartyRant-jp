@@ -47,6 +47,7 @@ export class MemoryStore implements GameStore {
       gameMode: input.gameMode ?? 'live',
       title: input.title,
       loseRule: input.loseRule,
+      casts: input.casts ?? [],
       questions: input.questions.map((q, i) => ({
         ...q,
         id: generateId(),
@@ -180,6 +181,14 @@ export class MemoryStore implements GameStore {
     const game = this.games.get(gameId);
     if (!game) throw new Error(`Game not found: ${gameId}`);
     const updated: Game = { ...game, questions };
+    this.games.set(gameId, updated);
+    return updated;
+  }
+
+  async updateGameCasts(gameId: string, casts: string[]): Promise<Game> {
+    const game = this.games.get(gameId);
+    if (!game) throw new Error(`Game not found: ${gameId}`);
+    const updated: Game = { ...game, casts };
     this.games.set(gameId, updated);
     return updated;
   }

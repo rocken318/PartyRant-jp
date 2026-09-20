@@ -47,29 +47,36 @@ export async function POST(
     // - fixed / 未定義: 原則そのまま。ただし answerTarget 未定義の旧設問は regex fallback で players 解決。
     if (prevStatus === 'lobby') {
       const players = await store.listPlayers(gameId);
-      if (players.length > 0) {
-        const playerNames = players.map((p) => p.displayName);
-        // casts 源は Phase2 で整備。Phase1 は空配列 → resolveOptions が現状の options を維持。
-        const ctx = { playerNames, casts: [] as string[] };
-        let changed = false;
-        const resolved = game.questions.map((q) => {
-          const isPlayersByType = q.answerTarget === 'players';
-          // 後方互換: answerTarget 未定義かつ options が全てプレースホルダなら players 相当。
-          const isPlayersByLegacy = q.answerTarget === undefined && legacyIsPlayersQuestion(q);
-          if (!isPlayersByType && !isPlayersByLegacy) return q;
-
-          const options = resolveOptions(
-            // legacy fallback のときは players として解決させる
-            isPlayersByType ? q : { ...q, answerTarget: 'players' as const },
-            ctx
-          );
+      const playerNames = players.map((p) => p.displayName);
+      // casts は Phase2 で games.casts に保存済み。あればキャスト名で解決、無ければ現状の options を維持。
+      const ctx = { playerNames, casts: game.casts ?? [] };
+      let changed = false;
+      const resolved = game.questions.map((q) => {
+        // casts 設問: games.casts があればキャスト名で解決（採点しない）
+        if (q.answerTarget === 'casts') {
+          if (ctx.casts.length === 0) return q; // 未設定なら options 維持（安全）
           changed = true;
-          // players/casts に解決した設問は採点しない（二重防御で correctIndex を落とす）
-          return { ...q, options, answerTarget: 'players' as const, correctIndex: undefined };
-        });
-        if (changed) {
-          await store.updateGameQuestions(gameId, resolved);
+          return { ...q, options: resolveOptions(q, ctx), correctIndex: undefined };
         }
+
+        const isPlayersByType = q.answerTarget === 'players';
+        // 後方互換: answerTarget 未定義かつ options が全てプレースホルダなら players 相当。
+        const isPlayersByLegacy = q.answerTarget === undefined && legacyIsPlayersQuestion(q);
+        if (!isPlayersByType && !isPlayersByLegacy) return q;
+        // players 解決は参加者が必要。0名なら維持。
+        if (playerNames.length === 0) return q;
+
+        const options = resolveOptions(
+          // legacy fallback のときは players として解決させる
+          isPlayersByType ? q : { ...q, answerTarget: 'players' as const },
+          ctx
+        );
+        changed = true;
+        // players/casts に解決した設問は採点しない（二重防御で correctIndex を落とす）
+        return { ...q, options, answerTarget: 'players' as const, correctIndex: undefined };
+      });
+      if (changed) {
+        await store.updateGameQuestions(gameId, resolved);
       }
     }
 

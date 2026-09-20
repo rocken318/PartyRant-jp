@@ -52,6 +52,8 @@ export interface Game {
   scene?: string;
   isPreset?: boolean;
   loseRule?: LoseRule;
+  /** answerTarget==='casts' の設問向けのキャスト名リスト。実行時に options へ解決される。未設定は []。 */
+  casts?: string[];
   questions: Question[];
   status: GameStatus;
   currentQuestionIndex: number;

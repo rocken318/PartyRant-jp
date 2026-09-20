@@ -201,11 +201,9 @@ function isPersonVoteQuestion(options: string[], playerNames: Set<string>): bool
 }
 
 // casts: キャスト名（option 名）ベースで集計する設問を含むゲームか。
-// answerTarget があればそれを優先、無ければ従来の scene 判定にフォールバック。
+// answerTarget==='casts' の設問を持つゲームで判定する。
 function isCastVoteGame(game: Game): boolean {
-  if (game.questions.some(q => q.answerTarget === 'casts')) return true;
-  // fallback（answerTarget 未定義の旧データ）
-  return game.scene === 'キャスト指名';
+  return game.questions.some(q => q.answerTarget === 'casts');
 }
 
 function computePersonVoteResults(
@@ -235,10 +233,6 @@ function computePersonVoteResults(
   return Array.from(voteMap.entries())
     .map(([displayName, voteCount]) => ({ displayName, voteCount }))
     .sort((a, b) => b.voteCount - a.voteCount);
-}
-
-function isPlayerPlaceholder(opt: string): boolean {
-  return /^[A-Z]さん$/.test(opt) || /^プレイヤー[A-Z]$/.test(opt);
 }
 
 // キャスト指名ゲーム用: オプション名ベースで集計（参加プレイヤーと無関係）
@@ -293,12 +287,11 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
         const playersData = playersRes.ok ? await playersRes.json() as Player[] : [];
         const answersData = answersRes.ok ? await answersRes.json() as Answer[] : [];
         dispatch({ type: 'LOADED', game: gameData, players: playersData, answers: answersData });
-        // キャスト指名: DBに既にキャスト名が入っていればcastSavedをtrueに復元
-        if (gameData.scene === 'キャスト指名' && gameData.questions.length > 0) {
-          const opts = gameData.questions[0].options;
-          const hasRealNames = opts.length > 0 && opts.every((o: string) => !isPlayerPlaceholder(o) && o.trim() !== '');
-          if (hasRealNames) {
-            setCastNames(opts);
+        // キャスト指名: games.casts に既にキャスト名が入っていれば castSaved を復元
+        if (gameData.questions.some(q => q.answerTarget === 'casts')) {
+          const saved = gameData.casts ?? [];
+          if (saved.length >= 2) {
+            setCastNames(saved);
             setCastSaved(true);
           }
         }
@@ -523,8 +516,8 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               <p className="text-xs font-bold text-center text-gray-400">✓ ホストとして参加中</p>
             )}
 
-            {/* キャスト指名scene専用: キャスト名入力 */}
-            {game.scene === 'キャスト指名' && (
+            {/* キャスト指名: キャスト名入力（answerTarget==='casts' の設問を持つゲーム） */}
+            {game.questions.some(q => q.answerTarget === 'casts') && (
               <div className="flex flex-col gap-2 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]">
                 <p className="text-sm font-bold text-pr-dark">キャスト名を入力</p>
                 {castNames.map((name, i) => (
@@ -575,7 +568,10 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             )}
             <PinkBtn
               onClick={handleAdvance}
-              disabled={players.length === 0 || (game.scene === 'キャスト指名' && !castSaved)}
+              disabled={
+                players.length === 0 ||
+                (game.questions.some(q => q.answerTarget === 'casts') && (game.casts?.length ?? 0) < 2)
+              }
             >
               {t('startGame', { count: players.length })}
             </PinkBtn>
