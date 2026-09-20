@@ -16,6 +16,7 @@ import { GameStatusBadge } from '@/components/GameStatusBadge';
 import { useGameStream } from '@/lib/hooks/useGameStream';
 import type { Game, Player, Answer, Score, Question } from '@/types/domain';
 import type { GameEvent } from '@/lib/events/types';
+import { isScored } from '@/lib/game-logic';
 
 interface State {
   game: Game | null;
@@ -88,7 +89,8 @@ function computeScores(game: Game, players: Player[], answers: Answer[]): Score[
     scoreMap.set(player.id, { playerId: player.id, displayName: player.displayName, totalPoints: 0, correctCount: 0 });
   }
   for (const question of game.questions) {
-    if (question.correctIndex === undefined) continue;
+    // fixed かつ correctIndex がある設問のみ採点（answerTarget 未定義=fixed 扱いで後方互換）
+    if (!isScored(question)) continue;
     const qAnswers = answers.filter((a) => a.questionId === question.id);
     const correct = qAnswers.filter((a) => a.choiceIndex === question.correctIndex);
     for (const ans of correct) {
@@ -198,13 +200,24 @@ function isPersonVoteQuestion(options: string[], playerNames: Set<string>): bool
   return options.length > 0 && options.every(opt => playerNames.has(opt));
 }
 
+// casts: キャスト名（option 名）ベースで集計する設問を含むゲームか。
+// answerTarget があればそれを優先、無ければ従来の scene 判定にフォールバック。
+function isCastVoteGame(game: Game): boolean {
+  if (game.questions.some(q => q.answerTarget === 'casts')) return true;
+  // fallback（answerTarget 未定義の旧データ）
+  return game.scene === 'キャスト指名';
+}
+
 function computePersonVoteResults(
   questions: Question[],
   answers: Answer[],
   players: Player[]
 ): { displayName: string; voteCount: number }[] | null {
   const playerNames = new Set(players.map(p => p.displayName));
-  const personQuestions = questions.filter(q => isPersonVoteQuestion(q.options, playerNames));
+  // answerTarget==='players' を優先、無ければ従来の名前一致判定にフォールバック。
+  const personQuestions = questions.filter(q =>
+    q.answerTarget === 'players' || (q.answerTarget === undefined && isPersonVoteQuestion(q.options, playerNames))
+  );
   if (personQuestions.length === 0) return null;
 
   const voteMap = new Map<string, number>();
@@ -645,7 +658,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               options={currentQuestion.options}
               votes={currentVotes}
               correctIndex={currentQuestion.correctIndex}
-              showCorrect={game.mode === 'trivia'}
+              showCorrect={game.mode === 'trivia' && isScored(currentQuestion)}
             />
 
             {game.mode === 'trivia' && scores.length > 0 && (
@@ -703,8 +716,8 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                   );
                 })}
                 {(() => {
-                  // キャスト指名scene: キャスト名（option名）ベース集計
-                  if (game.scene === 'キャスト指名') {
+                  // casts: キャスト名（option名）ベース集計（answerTarget 優先・scene フォールバック）
+                  if (isCastVoteGame(game)) {
                     const optResults = computeOptionVoteResults(game.questions, answers);
                     if (!optResults) return null;
                     const maxVotes = Math.max(...optResults.map(r => r.voteCount), 1);
@@ -747,7 +760,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     </div>
                   );
                 })()}
-                {game.scene !== 'キャスト指名' && players.length > 0 && (() => {
+                {!isCastVoteGame(game) && players.length > 0 && (() => {
                   const results = computePollingResults(game.questions, answers, players);
                   if (results.length === 0) return null;
                   const topMajority = results[0];
