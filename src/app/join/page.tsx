@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { BRAND } from '@/app/brand';
 
 export default function JoinPage() {
   const t = useTranslations('join');
@@ -38,64 +37,71 @@ export default function JoinPage() {
   }
 
   return (
-    <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-      {/* Black top bar */}
-      <div className="bg-pr-dark px-4 py-4 flex items-center gap-4">
-        <Link
-          href="/"
-          className="text-white text-xl font-bold w-10 h-10 flex items-center justify-center rounded-full border-[2px] border-white/30 hover:border-white transition-colors touch-manipulation"
-          aria-label={t('back')}
-        >
-          ←
-        </Link>
-        <span
-          className="text-pr-pink text-3xl tracking-wide"
-          style={{ fontFamily: 'var(--font-bebas)' }}
-        >
-          {BRAND.name}
-        </span>
-      </div>
+    <main className="relative min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[60vh]"
+        style={{
+          background:
+            'radial-gradient(120% 70% at 50% -10%, rgba(207,58,46,.28) 0%, rgba(207,58,46,.06) 38%, transparent 70%)',
+        }}
+      />
 
-      {/* Body */}
-      <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6">
-        <h1
-          className="text-pr-dark text-5xl tracking-tight"
-          style={{ fontFamily: 'var(--font-bebas)' }}
-        >
-          {t('title')}
-        </h1>
+      <div className="relative mx-auto flex min-h-screen max-w-[460px] flex-col px-8">
+        {/* Top bar */}
+        <div className="flex items-center pt-8">
+          <Link
+            href="/"
+            aria-label={t('back')}
+            className="flex h-10 w-10 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)]"
+          >
+            <span aria-hidden className="text-lg">←</span>
+          </Link>
+        </div>
 
-        <input
-          type="text"
-          inputMode="text"
-          autoCapitalize="characters"
-          maxLength={6}
-          placeholder={t('placeholder')}
-          value={code}
-          onChange={(e) => setCode(e.target.value.toUpperCase())}
-          onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
-          autoFocus
-          className="w-full text-center rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-4 tracking-[0.3em] focus:outline-none focus:shadow-[0_0_0_2px_rgba(207,58,46,.5)] transition-shadow duration-75 text-pr-pink placeholder-gray-300 bg-white"
-          style={{ fontFamily: 'var(--font-bebas)', fontSize: '3rem', lineHeight: 1.2 }}
-        />
+        {/* Body */}
+        <div className="flex flex-1 flex-col items-center justify-center text-center">
+          <span className="kg-eyebrow">Join</span>
+          <h1
+            className="mt-6 text-[2.6rem] font-medium leading-[1.15] text-[#ece7df]"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}
+          >
+            {t('title')}
+          </h1>
+          <span aria-hidden className="mt-7 block h-px w-12 bg-[#cf3a2e]" />
 
-        {error && (
-          <p className="text-red-500 text-sm font-bold text-center">{error}</p>
-        )}
+          <input
+            type="text"
+            inputMode="text"
+            autoCapitalize="characters"
+            maxLength={6}
+            placeholder={t('placeholder')}
+            value={code}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
+            onKeyDown={(e) => e.key === 'Enter' && handleJoin()}
+            autoFocus
+            className="mt-10 w-full bg-[#111114] border border-[rgba(236,231,223,.16)] text-center text-[#cf3a2e] placeholder-[#7d7871] transition-colors duration-300 focus:outline-none focus:border-[#cf3a2e]"
+            style={{ fontFamily: 'var(--font-bebas)', fontSize: '2.8rem', lineHeight: 1.2, letterSpacing: '0.3em', textIndent: '0.3em', padding: '1.1rem 1rem' }}
+          />
 
-        <button
-          type="button"
-          onClick={handleJoin}
-          disabled={loading}
-          className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
-          style={{ fontFamily: 'var(--font-dm)' }}
-        >
-          {loading ? t('joining') : t('joinButton')}
-        </button>
+          {error && (
+            <p className="mt-4 text-sm text-[#cf3a2e]" style={{ letterSpacing: '0.04em' }}>{error}</p>
+          )}
 
-        <p className="text-gray-400 text-sm text-center">
-          {t('scanHint')}
-        </p>
+          <button
+            type="button"
+            onClick={handleJoin}
+            disabled={loading}
+            className="kg-btn kg-btn--primary mt-8"
+          >
+            <span>{loading ? t('joining') : t('joinButton')}</span>
+            {!loading && <span aria-hidden>→</span>}
+          </button>
+
+          <p className="mt-8 text-[0.74rem] text-[#7d7871]" style={{ letterSpacing: '0.1em' }}>
+            {t('scanHint')}
+          </p>
+        </div>
       </div>
     </main>
   );

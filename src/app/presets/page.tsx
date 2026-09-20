@@ -7,29 +7,30 @@ import { useTranslations } from 'next-intl';
 import type { Game } from '@/types/domain';
 import PresetPreviewDrawer from '@/components/PresetPreviewDrawer';
 
-const SCENE_META: Record<string, { icon: string; color: string }> = {
-  'みんなで':             { icon: '🎉', color: '#cf3a2e' },
-  '多数派クイズ':         { icon: '⚔️', color: '#b8935a' },
-  '究極の二択':           { icon: '⚡', color: '#cf3a2e' },
-  'この中で●●なのは誰だ': { icon: '👆', color: '#a12417' },
-  'キャスト指名':           { icon: '🎤', color: '#b8935a' },
-  '結婚式':               { icon: '💍', color: '#cf3a2e' },
-  '合コン':               { icon: '💕', color: '#a12417' },
-  'カップル':             { icon: '🫶', color: '#cf3a2e' },
-  'ファミリー':           { icon: '👨‍👩‍👧‍👦', color: '#6f8f6a' },
-  '会社飲み会':           { icon: '🏢', color: '#7d7871' },
-  'キャバクラ':           { icon: '🥂', color: '#b8935a' },
-  'ホームパーティー':     { icon: '🏠', color: '#b8935a' },
-  'サークル':             { icon: '🎓', color: '#b8935a' },
-  '居酒屋':               { icon: '🍺', color: '#cf3a2e' },
-  '勉強':                 { icon: '📚', color: '#6f8f6a' },
-  '雑学クイズ':           { icon: '🎓', color: '#7d7871' },
+// シーン別のアクセント色（墨基調の中での差し色）。絵文字は撤去。
+const SCENE_META: Record<string, { color: string }> = {
+  'みんなで':             { color: '#cf3a2e' },
+  '多数派クイズ':         { color: '#b8935a' },
+  '究極の二択':           { color: '#cf3a2e' },
+  'この中で●●なのは誰だ': { color: '#a12417' },
+  'キャスト指名':           { color: '#b8935a' },
+  '結婚式':               { color: '#cf3a2e' },
+  '合コン':               { color: '#a12417' },
+  'カップル':             { color: '#cf3a2e' },
+  'ファミリー':           { color: '#b8935a' },
+  '会社飲み会':           { color: '#7d7871' },
+  'キャバクラ':           { color: '#b8935a' },
+  'ホームパーティー':     { color: '#b8935a' },
+  'サークル':             { color: '#b8935a' },
+  '居酒屋':               { color: '#cf3a2e' },
+  '勉強':                 { color: '#7d7871' },
+  '雑学クイズ':           { color: '#7d7871' },
 };
 
-const TYPE_META: Record<string, { label: string; icon: string; color: string }> = {
-  trivia:  { label: 'クイズ',        icon: '🧠', color: '#7d7871' },
-  polling: { label: '実態調査',     icon: '📊', color: '#cf3a2e' },
-  opinion: { label: '多数派/少数派', icon: '⚔️', color: '#b8935a' },
+const TYPE_META: Record<string, { label: string; color: string }> = {
+  trivia:  { label: 'クイズ',        color: '#7d7871' },
+  polling: { label: '実態調査',     color: '#cf3a2e' },
+  opinion: { label: '多数派/少数派', color: '#b8935a' },
 };
 
 const COUNT_OPTIONS = [5, 10, 15] as const;
@@ -37,6 +38,16 @@ const COUNT_OPTIONS = [5, 10, 15] as const;
 type SettingsMode =
   | { type: 'opinion'; loseRule: 'minority' | 'majority'; count: number }
   | { type: 'trivia'; count: number; scene: string | null };
+
+// セグメント選択ボタン（墨基調・選択時は朱）
+function segClass(active: boolean): string {
+  return [
+    'min-h-[44px] px-3 text-[0.82rem] border transition-colors duration-300 touch-manipulation',
+    active
+      ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]'
+      : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]',
+  ].join(' ');
+}
 
 export default function PresetsPage() {
   const t = useTranslations('presets');
@@ -152,102 +163,69 @@ export default function PresetsPage() {
   }
 
   return (
-    <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-      {/* Header */}
-      <div className="bg-pr-dark px-4 py-4 flex items-center gap-4">
-        <Link href="/"
-          className="text-white text-xl font-bold w-10 h-10 flex items-center justify-center rounded-full border-[2px] border-white/30 hover:border-white transition-colors touch-manipulation">
-          ←
-        </Link>
-        <div>
-          <span className="text-pr-pink text-3xl tracking-wide kg-serif" style={{ fontFamily: 'var(--font-bebas)' }}>
-            {t('title')}
-          </span>
-          <p className="text-gray-400 text-xs font-bold">{t('subtitle')}</p>
-        </div>
-      </div>
+    <main className="kg-page kg-grain">
+      <div aria-hidden className="kg-glow" />
 
-      <div className="flex-1 px-4 py-5 flex flex-col gap-4">
-        {/* ── AIが問題を作る（常時表示・最上位CTA） ── */}
-        <div className="bg-gradient-to-br from-[#22120f] to-[#0a0a0b] rounded-[10px] border-[3px] border-[#cf3a2e] shadow-[0_10px_40px_rgba(207,58,46,.25)] overflow-hidden">
-          {/* ヘッダー */}
-          <div className="px-4 py-4 flex items-center gap-3">
-            <span className="text-3xl">✨</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-lg leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                {t('aiTitle')}
-              </p>
-              <p className="text-[#b8935a] text-xs font-bold mt-0.5">{t('aiSubtitle')}</p>
-            </div>
-            <span className="flex-shrink-0 text-[10px] font-bold bg-[#cf3a2e] text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
-              NEW
-            </span>
+      <div className="kg-wrap relative z-[2] flex min-h-screen flex-col pb-10">
+        {/* ヘッダー */}
+        <header className="flex items-center gap-4 pt-8">
+          <Link
+            href="/"
+            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)]"
+            aria-label="←"
+          >
+            <span aria-hidden className="text-lg">←</span>
+          </Link>
+          <div className="min-w-0">
+            <span className="kg-eyebrow">Presets</span>
+            <p className="kg-h mt-1 text-[1.5rem] leading-tight">{t('title')}</p>
           </div>
+        </header>
+        <p className="mt-2 text-[0.74rem] text-[#7d7871]" style={{ letterSpacing: '0.08em' }}>{t('subtitle')}</p>
 
-          {/* フォーム */}
-          <div className="bg-white/10 px-4 py-4 flex flex-col gap-4">
-            {/* テーマ入力 */}
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="ai-theme" className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiThemeLabel')}</label>
-              <input
-                id="ai-theme"
-                type="text"
-                value={aiTheme}
-                onChange={e => { setAiTheme(e.target.value); setAiError(false); }}
-                onKeyDown={e => { if (e.key === 'Enter') handleAiGenerate(); }}
-                placeholder={t('aiThemePlaceholder')}
-                maxLength={50}
-                className="w-full h-12 px-4 rounded-[6px] border-[2px] border-white/30 bg-white/20 text-white placeholder:text-white/40 text-sm font-bold focus:outline-none focus:border-white transition-colors"
-                style={{ fontFamily: 'var(--font-dm)' }}
-              />
-            </div>
-
-            {/* タイプ選択 */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiTypeLabel')}</p>
-              <div className="grid grid-cols-3 gap-2">
-                {([
-                  ['trivia',  t('aiTypeTrivia')],
-                  ['polling', t('aiTypePolling')],
-                  ['opinion', t('aiTypeOpinion')],
-                ] as const).map(([mode, label]) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    onClick={() => setAiMode(mode)}
-                    className={[
-                      'h-10 rounded-[6px] text-xs font-bold border-[2px] touch-manipulation transition-colors',
-                      aiMode === mode
-                        ? 'bg-[#cf3a2e] text-white border-[#cf3a2e]'
-                        : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                    ].join(' ')}
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  >
-                    {label}
-                  </button>
-                ))}
+        <div className="mt-8 flex flex-col gap-6">
+          {/* ── AIが問題を作る（主役・最上位） ── */}
+          <section className="kg-card kg-card--glow relative">
+            <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-[#cf3a2e]" />
+            <div className="flex items-start justify-between gap-3 px-6 pt-6">
+              <div className="min-w-0">
+                <span className="kg-eyebrow">AI</span>
+                <p className="kg-h mt-1.5 text-[1.28rem] leading-tight">{t('aiTitle')}</p>
+                <p className="mt-1 text-[0.74rem] text-[#b8935a]" style={{ letterSpacing: '0.04em' }}>{t('aiSubtitle')}</p>
               </div>
             </div>
 
-            {/* 意見バトル：負けルール */}
-            {aiMode === 'opinion' && (
-              <div className="flex flex-col gap-1.5">
-                <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiLoseRuleLabel')}</p>
-                <div className="grid grid-cols-2 gap-2">
+            <div className="flex flex-col gap-5 px-6 pb-6 pt-5">
+              {/* テーマ入力 */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="ai-theme" className="kg-label">{t('aiThemeLabel')}</label>
+                <input
+                  id="ai-theme"
+                  type="text"
+                  value={aiTheme}
+                  onChange={e => { setAiTheme(e.target.value); setAiError(false); }}
+                  onKeyDown={e => { if (e.key === 'Enter') handleAiGenerate(); }}
+                  placeholder={t('aiThemePlaceholder')}
+                  maxLength={50}
+                  className="kg-input"
+                  style={{ fontFamily: 'var(--font-dm)' }}
+                />
+              </div>
+
+              {/* タイプ選択 */}
+              <div className="flex flex-col gap-2">
+                <p className="kg-label">{t('aiTypeLabel')}</p>
+                <div className="grid grid-cols-3 gap-2">
                   {([
-                    ['minority', t('randomMinority')],
-                    ['majority', t('randomMajority')],
-                  ] as const).map(([rule, label]) => (
+                    ['trivia',  t('aiTypeTrivia')],
+                    ['polling', t('aiTypePolling')],
+                    ['opinion', t('aiTypeOpinion')],
+                  ] as const).map(([mode, label]) => (
                     <button
-                      key={rule}
+                      key={mode}
                       type="button"
-                      onClick={() => setAiLoseRule(rule)}
-                      className={[
-                        'h-10 rounded-[6px] text-xs font-bold border-[2px] touch-manipulation transition-colors',
-                        aiLoseRule === rule
-                          ? 'bg-[#cf3a2e] text-white border-[#cf3a2e]'
-                          : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                      ].join(' ')}
+                      onClick={() => setAiMode(mode)}
+                      className={segClass(aiMode === mode)}
                       style={{ fontFamily: 'var(--font-dm)' }}
                     >
                       {label}
@@ -255,385 +233,381 @@ export default function PresetsPage() {
                   ))}
                 </div>
               </div>
-            )}
 
-            {/* 問題数 */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{t('aiCountLabel')}</p>
-              <div className="flex gap-2">
-                {COUNT_OPTIONS.map(n => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => setAiCount(n)}
-                    className={[
-                      'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
-                      aiCount === n
-                        ? 'bg-[#cf3a2e] text-white border-[#cf3a2e]'
-                        : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                    ].join(' ')}
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  >
-                    {n}問
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* エラー表示 */}
-            {aiError && (
-              <p className="text-white/90 text-xs font-bold bg-red-500/40 rounded-[6px] px-3 py-2">
-                {t('aiErrorMessage')}
-              </p>
-            )}
-
-            {/* 生成ボタン */}
-            <button
-              type="button"
-              onClick={handleAiGenerate}
-              disabled={!aiTheme.trim() || aiGenerating || starting !== null || randomStarting !== null}
-              className="w-full bg-[#cf3a2e] text-white font-bold text-base rounded-[6px] border-[2px] border-[#cf3a2e] shadow-[3px_3px_0_rgba(0,0,0,0.4)] active:shadow-[1px_1px_0_rgba(0,0,0,0.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation hover:bg-[#b8302a]"
-              style={{ fontFamily: 'var(--font-dm)', height: '56px' }}
-            >
-              {aiGenerating ? t('aiGenerating') : t('aiGenerateButton')}
-            </button>
-          </div>
-        </div>
-
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
-          </div>
-        ) : presets.length === 0 ? (
-          <div className="flex flex-col items-center gap-4 py-20 text-center">
-            <span className="text-5xl">🎮</span>
-            <p className="font-bold text-gray-500">{t('empty')}</p>
-          </div>
-        ) : (
-          <>
-            {/* ── 意見バトルカード ── */}
-            <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
-              <div className="px-4 py-3 flex items-center gap-3">
-                <span className="text-2xl">⚔️</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white font-bold text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                    {t('randomOpinionTitle')}
-                  </p>
-                  <p className="text-gray-400 text-xs mt-0.5">{t('randomOpinionSubtitle')}</p>
-                </div>
-              </div>
-
-              {/* モード選択ボタン */}
-              <div className="grid grid-cols-2 gap-0 border-t-[2px] border-white/10">
-                {(['minority', 'majority'] as const).map(rule => (
-                  <button
-                    key={rule}
-                    type="button"
-                    onClick={() => {
-                      if (settings?.type === 'opinion' && settings.loseRule === rule) {
-                        setSettings(null);
-                      } else {
-                        setSettings({ type: 'opinion', loseRule: rule, count: 10 });
-                      }
-                    }}
-                    disabled={randomStarting !== null || starting !== null}
-                    className={[
-                      'h-12 font-bold text-sm touch-manipulation transition-colors disabled:opacity-50',
-                      rule === 'minority'
-                        ? 'bg-pr-pink text-white border-r-[1px] border-white/10 hover:bg-pr-pink/90'
-                        : 'bg-white/10 text-white hover:bg-white/20',
-                      settings?.type === 'opinion' && settings.loseRule === rule
-                        ? 'ring-2 ring-inset ring-white/40'
-                        : '',
-                    ].join(' ')}
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  >
-                    {rule === 'minority' ? t('randomMinority') : t('randomMajority')}
-                  </button>
-                ))}
-              </div>
-
-              {/* 設定パネル（展開） */}
-              {settings?.type === 'opinion' && (
-                <div className="border-t-[2px] border-white/10 px-4 py-3 flex flex-col gap-3">
-                  <div className="flex flex-col gap-1.5">
-                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('settingsCountLabel')}</p>
-                    <div className="flex gap-2">
-                      {COUNT_OPTIONS.map(n => (
-                        <button
-                          key={n}
-                          type="button"
-                          onClick={() => setSettings({ ...settings, count: n })}
-                          className={[
-                            'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
-                            settings.count === n
-                              ? 'bg-pr-pink text-white border-pr-pink'
-                              : 'bg-white/10 text-white border-white/20 hover:bg-white/20',
-                          ].join(' ')}
-                          style={{ fontFamily: 'var(--font-dm)' }}
-                        >
-                          {n}問
-                        </button>
-                      ))}
-                    </div>
+              {/* 意見バトル：負けルール */}
+              {aiMode === 'opinion' && (
+                <div className="flex flex-col gap-2">
+                  <p className="kg-label">{t('aiLoseRuleLabel')}</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {([
+                      ['minority', t('randomMinority')],
+                      ['majority', t('randomMajority')],
+                    ] as const).map(([rule, label]) => (
+                      <button
+                        key={rule}
+                        type="button"
+                        onClick={() => setAiLoseRule(rule)}
+                        className={segClass(aiLoseRule === rule)}
+                        style={{ fontFamily: 'var(--font-dm)' }}
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRandom(settings.loseRule)}
-                    disabled={randomStarting !== null || starting !== null}
-                    className="w-full h-11 bg-pr-pink text-white font-bold text-sm rounded-[6px] border-[2px] border-white/20 disabled:opacity-50 touch-manipulation hover:bg-pr-pink/90 transition-colors"
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  >
-                    {randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}
-                  </button>
                 </div>
               )}
-            </div>
 
-            {/* ── 雑学クイズカード ── */}
-            <div className="bg-white rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
-              <div className="px-4 py-3 flex items-center gap-3 border-b-[2px] border-pr-dark">
-                <span className="text-2xl">🧠</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-pr-dark font-bold text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                    {t('randomTriviaTitle')}
-                  </p>
-                  <p className="text-gray-400 text-xs mt-0.5">{t('randomTriviaSubtitle')}</p>
+              {/* 問題数 */}
+              <div className="flex flex-col gap-2">
+                <p className="kg-label">{t('aiCountLabel')}</p>
+                <div className="flex gap-2">
+                  {COUNT_OPTIONS.map(n => (
+                    <button
+                      key={n}
+                      type="button"
+                      onClick={() => setAiCount(n)}
+                      className={`flex-1 ${segClass(aiCount === n)}`}
+                      style={{ fontFamily: 'var(--font-dm)' }}
+                    >
+                      {n}問
+                    </button>
+                  ))}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setSettings(s => s?.type === 'trivia' ? null : { type: 'trivia', count: 10, scene: null })}
-                  disabled={randomStarting !== null || starting !== null}
-                  className="flex-shrink-0 h-10 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark disabled:opacity-50 touch-manipulation hover:bg-pr-dark/90 transition-colors"
-                  style={{ fontFamily: 'var(--font-dm)' }}
-                >
-                  {t('randomTriviaStart')}
-                </button>
               </div>
 
-              {settings?.type === 'trivia' && (
-                <div className="px-4 py-3 flex flex-col gap-3">
-                  <div className="flex flex-col gap-1.5">
-                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('settingsCountLabel')}</p>
-                    <div className="flex gap-2">
-                      {COUNT_OPTIONS.map(n => (
-                        <button
-                          key={n}
-                          type="button"
-                          onClick={() => setSettings({ ...settings, count: n })}
-                          className={[
-                            'flex-1 h-10 rounded-[6px] text-sm font-bold border-[2px] touch-manipulation transition-colors',
-                            settings.count === n
-                              ? 'bg-pr-dark text-white border-pr-dark'
-                              : 'bg-white text-pr-dark border-pr-dark hover:bg-gray-50',
-                          ].join(' ')}
-                          style={{ fontFamily: 'var(--font-dm)' }}
-                        >
-                          {n}問
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+              {/* エラー表示 */}
+              {aiError && (
+                <p className="text-[0.78rem] text-[#ece7df] bg-[#a12417]/30 border border-[#cf3a2e]/40 px-3 py-2" style={{ letterSpacing: '0.02em' }}>
+                  {t('aiErrorMessage')}
+                </p>
+              )}
 
-                  {triviaScenes.length > 0 && (
-                    <div className="flex flex-col gap-1.5">
-                      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('settingsSceneLabel')}</p>
-                      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none">
-                        <button
-                          type="button"
-                          onClick={() => setSettings({ ...settings, scene: null })}
-                          className={`flex-shrink-0 h-8 px-3 rounded-full text-xs font-bold border-[2px] touch-manipulation transition-colors ${settings.scene === null ? 'bg-pr-dark text-white border-pr-dark' : 'bg-white text-pr-dark border-pr-dark hover:bg-gray-50'}`}
-                          style={{ fontFamily: 'var(--font-dm)' }}
-                        >
-                          {t('settingsSceneAll')}
-                        </button>
-                        {triviaScenes.map(scene => {
-                          const active = settings.scene === scene;
-                          const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#cf3a2e' };
-                          return (
-                            <button
-                              key={scene}
-                              type="button"
-                              onClick={() => setSettings({ ...settings, scene: active ? null : scene })}
-                              className={`flex-shrink-0 h-8 px-3 rounded-full text-xs font-bold border-[2px] touch-manipulation transition-colors ${active ? 'text-white' : 'bg-white text-pr-dark border-pr-dark hover:bg-gray-50'}`}
-                              style={active ? { backgroundColor: meta.color, borderColor: meta.color } : {}}
-                            >
-                              {meta.icon} {scene}
-                            </button>
-                          );
-                        })}
+              {/* 生成ボタン */}
+              <button
+                type="button"
+                onClick={handleAiGenerate}
+                disabled={!aiTheme.trim() || aiGenerating || starting !== null || randomStarting !== null}
+                className="kg-btn kg-btn--primary mt-1"
+              >
+                <span>{aiGenerating ? t('aiGenerating') : t('aiGenerateButton')}</span>
+                {!aiGenerating && <span aria-hidden>→</span>}
+              </button>
+            </div>
+          </section>
+
+          {loading ? (
+            <div className="flex justify-center py-16">
+              <div className="h-9 w-9 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
+            </div>
+          ) : presets.length === 0 ? (
+            <div className="flex flex-col items-center gap-3 py-16 text-center">
+              <span aria-hidden className="text-[#b8935a] text-lg">✦</span>
+              <p className="text-[#7d7871]">{t('empty')}</p>
+            </div>
+          ) : (
+            <>
+              {/* ── 意見バトルカード ── */}
+              <div className="kg-card">
+                <div className="flex items-center gap-3 px-5 pt-5">
+                  <span aria-hidden className="text-[#b8935a] text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+                  <div className="min-w-0">
+                    <p className="kg-h text-[1.05rem] leading-tight">{t('randomOpinionTitle')}</p>
+                    <p className="mt-0.5 text-[0.72rem] text-[#7d7871]">{t('randomOpinionSubtitle')}</p>
+                  </div>
+                </div>
+
+                {/* モード選択ボタン */}
+                <div className="mt-4 grid grid-cols-2 gap-px bg-[rgba(236,231,223,.1)]">
+                  {(['minority', 'majority'] as const).map(rule => {
+                    const active = settings?.type === 'opinion' && settings.loseRule === rule;
+                    return (
+                      <button
+                        key={rule}
+                        type="button"
+                        onClick={() => {
+                          if (settings?.type === 'opinion' && settings.loseRule === rule) {
+                            setSettings(null);
+                          } else {
+                            setSettings({ type: 'opinion', loseRule: rule, count: 10 });
+                          }
+                        }}
+                        disabled={randomStarting !== null || starting !== null}
+                        className={[
+                          'min-h-[48px] text-[0.86rem] transition-colors duration-300 touch-manipulation disabled:opacity-50',
+                          active
+                            ? 'bg-[#cf3a2e] text-[#ece7df]'
+                            : 'bg-[#111114] text-[#ece7df]/85 hover:text-[#ece7df]',
+                        ].join(' ')}
+                        style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
+                      >
+                        {rule === 'minority' ? t('randomMinority') : t('randomMajority')}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* 設定パネル（展開） */}
+                {settings?.type === 'opinion' && (
+                  <div className="flex flex-col gap-3 px-5 py-4">
+                    <div className="flex flex-col gap-2">
+                      <p className="kg-label">{t('settingsCountLabel')}</p>
+                      <div className="flex gap-2">
+                        {COUNT_OPTIONS.map(n => (
+                          <button
+                            key={n}
+                            type="button"
+                            onClick={() => setSettings({ ...settings, count: n })}
+                            className={`flex-1 ${segClass(settings.count === n)}`}
+                            style={{ fontFamily: 'var(--font-dm)' }}
+                          >
+                            {n}問
+                          </button>
+                        ))}
                       </div>
                     </div>
-                  )}
+                    <button
+                      type="button"
+                      onClick={() => handleRandom(settings.loseRule)}
+                      disabled={randomStarting !== null || starting !== null}
+                      className="kg-btn kg-btn--primary"
+                    >
+                      <span>{randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}</span>
+                    </button>
+                  </div>
+                )}
+              </div>
 
+              {/* ── 雑学クイズカード ── */}
+              <div className="kg-card">
+                <div className="flex items-center gap-3 px-5 py-5">
+                  <span aria-hidden className="text-[#b8935a] text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="kg-h text-[1.05rem] leading-tight">{t('randomTriviaTitle')}</p>
+                    <p className="mt-0.5 text-[0.72rem] text-[#7d7871]">{t('randomTriviaSubtitle')}</p>
+                  </div>
                   <button
                     type="button"
-                    onClick={handleRandomTrivia}
+                    onClick={() => setSettings(s => s?.type === 'trivia' ? null : { type: 'trivia', count: 10, scene: null })}
                     disabled={randomStarting !== null || starting !== null}
-                    className="w-full h-11 bg-pr-pink text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)] disabled:opacity-50 touch-manipulation hover:bg-pr-pink/90 transition-colors"
+                    className="shrink-0 min-h-[44px] px-4 text-[0.82rem] border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 disabled:opacity-50 touch-manipulation"
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >
-                    {randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}
+                    {t('randomTriviaStart')}
                   </button>
                 </div>
-              )}
-            </div>
 
-            {/* ── シーンフィルター ── */}
-            {scenes.length > 0 && (
-              <div className="flex flex-col gap-1.5">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest px-0.5">{t('filterSceneLabel')}</p>
-                <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none">
+                {settings?.type === 'trivia' && (
+                  <div className="flex flex-col gap-3 border-t border-[rgba(236,231,223,.1)] px-5 py-4">
+                    <div className="flex flex-col gap-2">
+                      <p className="kg-label">{t('settingsCountLabel')}</p>
+                      <div className="flex gap-2">
+                        {COUNT_OPTIONS.map(n => (
+                          <button
+                            key={n}
+                            type="button"
+                            onClick={() => setSettings({ ...settings, count: n })}
+                            className={`flex-1 ${segClass(settings.count === n)}`}
+                            style={{ fontFamily: 'var(--font-dm)' }}
+                          >
+                            {n}問
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {triviaScenes.length > 0 && (
+                      <div className="flex flex-col gap-2">
+                        <p className="kg-label">{t('settingsSceneLabel')}</p>
+                        <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 scrollbar-none">
+                          <button
+                            type="button"
+                            onClick={() => setSettings({ ...settings, scene: null })}
+                            className={`shrink-0 min-h-[36px] px-4 text-[0.74rem] border transition-colors duration-300 touch-manipulation ${settings.scene === null ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)]'}`}
+                            style={{ fontFamily: 'var(--font-dm)' }}
+                          >
+                            {t('settingsSceneAll')}
+                          </button>
+                          {triviaScenes.map(scene => {
+                            const active = settings.scene === scene;
+                            const meta = SCENE_META[scene] ?? { color: '#cf3a2e' };
+                            return (
+                              <button
+                                key={scene}
+                                type="button"
+                                onClick={() => setSettings({ ...settings, scene: active ? null : scene })}
+                                className={`shrink-0 min-h-[36px] px-4 text-[0.74rem] border transition-colors duration-300 touch-manipulation ${active ? 'text-[#ece7df]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)]'}`}
+                                style={active ? { backgroundColor: meta.color, borderColor: meta.color, fontFamily: 'var(--font-dm)' } : { fontFamily: 'var(--font-dm)' }}
+                              >
+                                {scene}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={handleRandomTrivia}
+                      disabled={randomStarting !== null || starting !== null}
+                      className="kg-btn kg-btn--primary"
+                    >
+                      <span>{randomStarting !== null ? t('randomStarting') : t('settingsConfirm')}</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* ── シーンフィルター ── */}
+              {scenes.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <p className="kg-label px-0.5">{t('filterSceneLabel')}</p>
+                  <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-1 scrollbar-none">
+                    <button
+                      onClick={() => setSelectedScene(null)}
+                      className={`shrink-0 min-h-[40px] px-4 text-[0.74rem] border transition-colors duration-300 touch-manipulation ${!selectedScene ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)]'}`}
+                      style={{ fontFamily: 'var(--font-dm)' }}>
+                      {t('filterAll')}
+                    </button>
+                    {scenes.map(scene => {
+                      const meta = SCENE_META[scene] ?? { color: '#cf3a2e' };
+                      const active = selectedScene === scene;
+                      return (
+                        <button key={scene}
+                          onClick={() => setSelectedScene(active ? null : scene)}
+                          className={`shrink-0 min-h-[40px] px-4 text-[0.74rem] border transition-colors duration-300 touch-manipulation ${active ? 'text-[#ece7df]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)]'}`}
+                          style={active ? { backgroundColor: meta.color, borderColor: meta.color, fontFamily: 'var(--font-dm)' } : { fontFamily: 'var(--font-dm)' }}
+                        >
+                          {scene}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* ── タイプフィルター ── */}
+              <div className="flex flex-col gap-2">
+                <p className="kg-label px-0.5">{t('filterTypeLabel')}</p>
+                <div className="grid grid-cols-3 gap-2">
                   <button
-                    onClick={() => setSelectedScene(null)}
-                    className={`flex-shrink-0 h-9 px-4 rounded-full text-xs font-bold border-[2px] border-pr-dark touch-manipulation transition-colors ${!selectedScene ? 'bg-pr-dark text-white' : 'bg-white text-pr-dark'}`}
+                    onClick={() => setSelectedType(null)}
+                    className={segClass(!selectedType)}
                     style={{ fontFamily: 'var(--font-dm)' }}>
                     {t('filterAll')}
                   </button>
-                  {scenes.map(scene => {
-                    const meta = SCENE_META[scene] ?? { icon: '🎉', color: '#cf3a2e' };
-                    const active = selectedScene === scene;
+                  {Object.entries(TYPE_META).map(([key, meta]) => {
+                    const active = selectedType === key;
                     return (
-                      <button key={scene}
-                        onClick={() => setSelectedScene(active ? null : scene)}
-                        className={`flex-shrink-0 h-9 px-4 rounded-full text-xs font-bold border-[2px] touch-manipulation transition-colors ${active ? 'text-white' : 'bg-white text-pr-dark border-pr-dark'}`}
-                        style={active ? { backgroundColor: meta.color, borderColor: meta.color } : {}}
+                      <button key={key}
+                        onClick={() => setSelectedType(active ? null : key)}
+                        className={active ? 'min-h-[44px] px-3 text-[0.82rem] border text-[#ece7df] transition-colors duration-300 touch-manipulation' : segClass(false)}
+                        style={active ? { backgroundColor: meta.color, borderColor: meta.color, fontFamily: 'var(--font-dm)' } : { fontFamily: 'var(--font-dm)' }}
                       >
-                        {meta.icon} {scene}
+                        {meta.label}
                       </button>
                     );
                   })}
                 </div>
               </div>
-            )}
 
-            {/* ── タイプフィルター ── */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest px-0.5">{t('filterTypeLabel')}</p>
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  onClick={() => setSelectedType(null)}
-                  className={`h-11 rounded-[8px] text-sm font-bold border-[2px] border-pr-dark touch-manipulation transition-colors ${!selectedType ? 'bg-pr-dark text-white shadow-[0_2px_8px_rgba(0,0,0,.3)]' : 'bg-white text-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]'}`}
-                  style={{ fontFamily: 'var(--font-dm)' }}>
-                  {t('filterAll')}
-                </button>
-                {Object.entries(TYPE_META).map(([key, meta]) => {
-                  const active = selectedType === key;
-                  return (
-                    <button key={key}
-                      onClick={() => setSelectedType(active ? null : key)}
-                      className={`h-11 rounded-[8px] text-sm font-bold border-[2px] touch-manipulation transition-colors ${active ? 'text-white shadow-[0_2px_8px_rgba(0,0,0,.3)]' : 'bg-white text-pr-dark border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]'}`}
-                      style={active ? { backgroundColor: meta.color, borderColor: meta.color } : {}}
-                    >
-                      {meta.icon} {meta.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+              {/* ── 件数表示 ── */}
+              <p className="text-[0.72rem] text-[#7d7871]" style={{ letterSpacing: '0.06em' }}>
+                {filtered.length}{t('resultCount')}
+              </p>
 
-            {/* ── 件数表示 ── */}
-            <p className="text-xs text-gray-400 font-bold">
-              {filtered.length}{t('resultCount')}
-            </p>
-
-            {/* ── プリセットカード ── */}
-            {filtered.length === 0 ? (
-              <div className="py-12 text-center text-gray-400 font-bold">{t('noResults')}</div>
-            ) : (
-              <div className="flex flex-col gap-3">
-                {filtered.map(preset => {
-                  const sceneMeta = SCENE_META[preset.scene ?? ''] ?? { icon: '🎉', color: '#cf3a2e' };
-                  const typeMeta = TYPE_META[preset.mode] ?? TYPE_META['polling'];
-                  const isStarting = starting === preset.id;
-                  return (
-                    <div key={preset.id}
-                      className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
-
-                      {/* カードヘッダー */}
-                      <div className="px-4 py-3 flex items-center gap-3"
-                        style={{ backgroundColor: sceneMeta.color + '15' }}>
-                        <span className="text-2xl">{sceneMeta.icon}</span>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-bold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                            {preset.title}
-                          </p>
-                          <div className="flex items-center gap-2 mt-1 flex-wrap">
-                            {/* シーンバッジ */}
-                            <span className="text-xs font-bold px-2 py-0.5 rounded-full"
-                              style={{ backgroundColor: sceneMeta.color + '25', color: sceneMeta.color }}>
-                              {sceneMeta.icon} {preset.scene}
-                            </span>
-                            {/* タイプバッジ */}
-                            <span className="text-xs font-bold px-2 py-0.5 rounded-full"
-                              style={{ backgroundColor: typeMeta.color + '20', color: typeMeta.color }}>
-                              {typeMeta.icon} {typeMeta.label}
-                            </span>
+              {/* ── プリセットカード ── */}
+              {filtered.length === 0 ? (
+                <div className="py-10 text-center text-[#7d7871]">{t('noResults')}</div>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {filtered.map(preset => {
+                    const sceneMeta = SCENE_META[preset.scene ?? ''] ?? { color: '#cf3a2e' };
+                    const typeMeta = TYPE_META[preset.mode] ?? TYPE_META['polling'];
+                    const isStarting = starting === preset.id;
+                    return (
+                      <div
+                        key={preset.id}
+                        className="group kg-card relative transition-colors duration-300 hover:border-[rgba(207,58,46,.5)]"
+                      >
+                        {/* カードヘッダー */}
+                        <div className="flex items-start gap-3 px-5 pt-5">
+                          <span aria-hidden className="mt-1.5 h-8 w-px shrink-0" style={{ backgroundColor: sceneMeta.color }} />
+                          <div className="min-w-0 flex-1">
+                            <p className="kg-h text-[1.05rem] leading-tight">{preset.title}</p>
+                            <div className="mt-2 flex flex-wrap items-center gap-2">
+                              <span className="text-[0.68rem] px-2 py-0.5 border" style={{ borderColor: sceneMeta.color + '66', color: sceneMeta.color }}>
+                                {preset.scene}
+                              </span>
+                              <span className="text-[0.68rem] px-2 py-0.5 border" style={{ borderColor: typeMeta.color + '55', color: typeMeta.color }}>
+                                {typeMeta.label}
+                              </span>
+                            </div>
                           </div>
+                          <span className="shrink-0 text-[0.7rem] text-[#7d7871]">
+                            {preset.questions.length}{t('questionCount')}
+                          </span>
                         </div>
-                        <span className="text-xs font-bold text-gray-400 flex-shrink-0">
-                          {preset.questions.length}{t('questionCount')}
-                        </span>
+
+                        {/* 説明文 */}
+                        {preset.description && (
+                          <p className="px-5 pt-3 text-[0.76rem] leading-relaxed text-[#b9b4ac]">
+                            {preset.description}
+                          </p>
+                        )}
+
+                        {/* アクションボタン */}
+                        <div className="flex gap-2 px-5 py-5">
+                          <button
+                            type="button"
+                            onClick={() => setPreviewPreset(preset)}
+                            disabled={isStarting}
+                            className="shrink-0 min-h-[48px] px-5 text-[0.84rem] border border-[rgba(236,231,223,.16)] text-[#ece7df]/85 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] disabled:opacity-50 touch-manipulation"
+                            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>
+                            {t('previewButton')}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleStart(preset.id)}
+                            disabled={isStarting || starting !== null}
+                            className="flex-1 min-w-[80px] min-h-[48px] flex items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] disabled:opacity-50 touch-manipulation"
+                            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.1em', boxShadow: '0 14px 40px rgba(207,58,46,.2)' }}>
+                            <span>{isStarting ? t('starting') : t('startButton')}</span>
+                            {!isStarting && <span aria-hidden>→</span>}
+                          </button>
+                        </div>
                       </div>
+                    );
+                  })}
+                </div>
+              )}
+            </>
+          )}
 
-                      {/* 説明文 */}
-                      {preset.description && (
-                        <p className="px-4 pt-2 pb-1 text-xs text-gray-500 leading-relaxed">
-                          {preset.description}
-                        </p>
-                      )}
-
-                      {/* アクションボタン */}
-                      <div className="px-4 py-3 flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setPreviewPreset(preset)}
-                          disabled={isStarting}
-                          className="flex-shrink-0 h-12 px-4 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
-                          style={{ fontFamily: 'var(--font-dm)' }}>
-                          {t('previewButton')}
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleStart(preset.id)}
-                          disabled={isStarting || starting !== null}
-                          className="flex-1 min-w-[80px] h-12 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
-                          style={{ fontFamily: 'var(--font-dm)' }}>
-                          {isStarting ? t('starting') : t('startButton')}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </>
-        )}
-
-        {/* センキャバ バナー */}
-        <a
-          href="https://www.sencaba.com/download"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 mt-2"
-        >
-          <span className="text-2xl">🥂</span>
-          <div className="flex-1 min-w-0">
-            <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-              キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-            </p>
-            <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
-          </div>
-          <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">
-            DL
-          </span>
-        </a>
+          {/* センキャバ バナー */}
+          <a
+            href="https://www.sencaba.com/download"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 flex items-center gap-4 kg-card px-5 py-4 transition-colors duration-300 hover:border-[rgba(184,147,90,.45)]"
+          >
+            <span aria-hidden className="text-[#b8935a] text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+            <div className="min-w-0 flex-1">
+              <p className="text-[0.84rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>
+                キャバクラ探しなら <span className="text-[#cf3a2e]">センキャバ</span>
+              </p>
+              <p className="mt-0.5 text-[0.7rem] text-[#7d7871]">お店を探す・予約する</p>
+            </div>
+            <span className="shrink-0 text-[0.66rem] text-[#b8935a] border border-[rgba(184,147,90,.45)] px-3 py-1" style={{ letterSpacing: '0.1em' }}>
+              DL
+            </span>
+          </a>
+        </div>
       </div>
       <PresetPreviewDrawer
         preset={previewPreset}
         onClose={() => setPreviewPreset(null)}
       />
-
     </main>
   );
 }
