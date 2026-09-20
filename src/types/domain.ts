@@ -5,6 +5,15 @@ export type PlayMode = 'live' | 'self_paced';  // how it's played
 /** @deprecated use GameType */
 export type GameMode = GameType;
 
+/**
+ * 設問が「何を選ばせるか」を表す型。
+ * - fixed:   固定の選択肢（内容そのもの）。差し替えしない。trivia かつ correctIndex!=null のときのみ採点。
+ * - players: 参加者本人。実行時に参加者名で解決。常に非採点（名指し集計）。
+ * - casts:   ゲームのキャスト。キャスト名で解決。常に非採点（名指し集計）。
+ * undefined は 'fixed' として扱う（後方互換）。
+ */
+export type AnswerTarget = 'fixed' | 'players' | 'casts';
+
 export type GameStatus =
   | 'draft'
   | 'lobby'
@@ -20,6 +29,8 @@ export interface Question {
   options: string[];
   correctIndex?: number;
   timeLimitSec: number;
+  /** 選択対象の種別。undefined = 'fixed'（後方互換）。 */
+  answerTarget?: AnswerTarget;
 }
 
 export interface Event {
