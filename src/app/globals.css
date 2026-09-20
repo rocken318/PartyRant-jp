@@ -145,3 +145,44 @@
 }
 /* キンギョ: 明朝見出し */
 .kg-serif{ font-family: var(--font-dm), "Shippori Mincho", serif; letter-spacing:.04em; }
+
+/* =========================================================
+   キンギョ UI キット（宴会ゲームズ 共通クラス）
+   墨 #0a0a0b / 朱 #cf3a2e / 金 #b8935a / 紙 #ece7df
+   ========================================================= */
+.kg-page{ position:relative; min-height:100dvh; background:#0a0a0b; color:#ece7df; overflow-x:hidden; }
+.kg-wrap{ position:relative; margin-inline:auto; max-width:460px; padding-inline:2rem; }
+/* 上部のほのかな朱の灯り（装飾divに付与） */
+.kg-glow{ pointer-events:none; position:absolute; inset-inline:0; top:0; height:56vh; z-index:0;
+  background:radial-gradient(120% 70% at 50% -10%, rgba(207,58,46,.26) 0%, rgba(207,58,46,.06) 38%, transparent 70%); }
+/* eyebrow（金・Cormorant・レター詰め） */
+.kg-eyebrow{ font-family:var(--font-bebas),"Cormorant Garamond",serif; text-transform:uppercase;
+  letter-spacing:.42em; text-indent:.42em; color:#b8935a; font-size:.62rem; }
+/* 見出し（明朝） */
+.kg-h{ font-family:var(--font-dm),"Shippori Mincho",serif; letter-spacing:.06em; color:#ece7df; font-weight:500; }
+/* 朱のヘアライン */
+.kg-rule{ display:block; height:1px; width:3rem; background:#cf3a2e; }
+.kg-rule--full{ width:100%; background:rgba(236,231,223,.12); }
+/* ボタン群 */
+.kg-btn{ display:flex; align-items:center; justify-content:center; gap:.6em; width:100%;
+  min-height:56px; padding-inline:1.2rem; font-family:var(--font-dm),"Shippori Mincho",serif;
+  letter-spacing:.14em; font-size:.98rem; border:0; cursor:pointer; transition:all .3s var(--ease); text-align:center; }
+.kg-btn--primary{ background:#cf3a2e; color:#ece7df; box-shadow:0 14px 40px rgba(207,58,46,.26); }
+.kg-btn--primary:hover{ background:#d8483c; }
+.kg-btn--primary:active{ background:#a12417; }
+.kg-btn--gold{ background:transparent; color:#b8935a; border:1px solid rgba(184,147,90,.45); }
+.kg-btn--gold:hover{ border-color:#b8935a; background:rgba(184,147,90,.06); }
+.kg-btn--ghost{ background:transparent; color:rgba(236,231,223,.85); border:1px solid rgba(236,231,223,.16); }
+.kg-btn--ghost:hover{ border-color:rgba(236,231,223,.4); }
+.kg-btn:disabled{ opacity:.4; cursor:not-allowed; }
+/* パネル/カード（墨） */
+.kg-card{ background:#111114; border:1px solid rgba(236,231,223,.1); }
+.kg-card--glow{ box-shadow:0 20px 60px rgba(0,0,0,.5); }
+/* 入力欄 */
+.kg-input{ width:100%; background:#111114; border:1px solid rgba(236,231,223,.16); color:#ece7df;
+  padding:.9rem 1rem; font-family:var(--font-sans); font-size:1rem; letter-spacing:.02em; transition:border-color .3s var(--ease); }
+.kg-input::placeholder{ color:#7d7871; }
+.kg-input:focus{ outline:none; border-color:#cf3a2e; }
+/* ラベル/補助テキスト */
+.kg-label{ font-size:.7rem; letter-spacing:.16em; color:#b9b4ac; }
+.kg-muted{ color:#7d7871; }
