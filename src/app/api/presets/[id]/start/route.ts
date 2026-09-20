@@ -12,6 +12,7 @@ function toCreateQuestion(question: Question): Omit<Question, 'id' | 'order'> {
     options: question.options,
     correctIndex: question.correctIndex,
     timeLimitSec: question.timeLimitSec,
+    answerTarget: question.answerTarget,
   };
 }
 
@@ -37,6 +38,7 @@ export async function POST(
       description: preset.description,
       scene: preset.scene,
       questions: preset.questions.map(toCreateQuestion),
+      casts: preset.casts,
       hostId: user?.id,
     });
 
