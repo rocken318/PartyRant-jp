@@ -5,281 +5,234 @@ export default async function GuidePage() {
   const t = await getTranslations('guide');
 
   return (
-    <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+    <main className="kg-page kg-grain">
+      <div aria-hidden className="kg-glow" />
 
-      {/* ── Section 1: Hero ── */}
-      <div className="bg-pr-pink px-6 pt-14 pb-16 flex flex-col items-center gap-2 rounded-b-[40px] relative">
-        <Link
-          href="/"
-          className="absolute top-5 left-5 text-white text-xl font-bold w-10 h-10 flex items-center justify-center rounded-full border-[2px] border-white/40 hover:border-white transition-colors touch-manipulation"
-          style={{ fontFamily: 'var(--font-dm)' }}
-        >
-          ←
-        </Link>
-        <h1
-          className="text-white tracking-wider text-center leading-none kg-serif"
-          style={{ fontFamily: 'var(--font-bebas)', fontSize: '4rem' }}
-        >
-          {t('heroTitle')}
-        </h1>
-        <p className="text-white/80 text-sm font-bold uppercase tracking-[0.15em] text-center">
-          {t('heroTagline')}
-        </p>
-      </div>
+      <div className="kg-wrap relative z-[2] flex min-h-screen flex-col pb-14">
 
-      <div className="flex flex-col gap-8 px-5 py-8">
-
-        {/* ── Section 2: サービス紹介 ── */}
-        <section className="flex flex-col gap-4">
-          <h2
-            className="text-pr-dark text-3xl tracking-wide kg-serif"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('aboutTitle')}
-          </h2>
-          <p className="text-gray-600 text-sm leading-relaxed" style={{ fontFamily: 'var(--font-dm)' }}>
-            {t('aboutBody')}
-          </p>
-
-          {/* Game mode cards */}
-          <div className="flex flex-col gap-3">
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 flex items-center gap-4">
-              <span className="text-3xl flex-shrink-0">🧠</span>
-              <div>
-                <p className="font-extrabold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                  {t('modeTriviaName')}
-                </p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('modeTriviaDesc')}</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 flex items-center gap-4">
-              <span className="text-3xl flex-shrink-0">📊</span>
-              <div>
-                <p className="font-extrabold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                  {t('modePollingName')}
-                </p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('modePollingDesc')}</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 flex items-center gap-4">
-              <span className="text-3xl flex-shrink-0">⚔️</span>
-              <div>
-                <p className="font-extrabold text-pr-dark text-base leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                  {t('modeOpinionName')}
-                </p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('modeOpinionDesc')}</p>
-              </div>
-            </div>
+        {/* ── Section 1: Hero ── */}
+        <header className="pt-8">
+          <div className="flex items-center">
+            <Link
+              href="/"
+              aria-label="←"
+              className="flex h-10 w-10 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+            >
+              <span aria-hidden className="text-lg">←</span>
+            </Link>
           </div>
-        </section>
-
-        {/* ── Section 3: 使い方（4ステップ）── */}
-        <section className="flex flex-col gap-4">
-          <h2
-            className="text-pr-dark text-3xl tracking-wide kg-serif"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('howTitle')}
-          </h2>
-
-          <div className="flex flex-col gap-3">
-            {/* Step 1 */}
-            <div className="flex gap-3 items-start">
-              <div className="flex flex-col items-center">
-                <div className="w-9 h-9 rounded-full bg-pr-pink border-[3px] border-pr-dark flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-extrabold text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>1</span>
-                </div>
-                <div className="w-0.5 h-4 bg-gray-200 mt-1" />
-              </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
-                <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
-                  🖥️ {t('step1Title')}
-                </p>
-                <p className="text-gray-500 text-xs mt-1 leading-relaxed">{t('step1Desc')}</p>
-              </div>
-            </div>
-            {/* Step 2 */}
-            <div className="flex gap-3 items-start">
-              <div className="flex flex-col items-center">
-                <div className="w-9 h-9 rounded-full bg-pr-pink border-[3px] border-pr-dark flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-extrabold text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>2</span>
-                </div>
-                <div className="w-0.5 h-4 bg-gray-200 mt-1" />
-              </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
-                <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
-                  🔑 {t('step2Title')}
-                </p>
-                <p className="text-gray-500 text-xs mt-1 leading-relaxed">{t('step2Desc')}</p>
-              </div>
-            </div>
-            {/* Step 3 */}
-            <div className="flex gap-3 items-start">
-              <div className="flex flex-col items-center">
-                <div className="w-9 h-9 rounded-full bg-pr-pink border-[3px] border-pr-dark flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-extrabold text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>3</span>
-                </div>
-                <div className="w-0.5 h-4 bg-gray-200 mt-1" />
-              </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
-                <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
-                  📱 {t('step3Title')}
-                </p>
-                <p className="text-gray-500 text-xs mt-1 leading-relaxed">{t('step3Desc')}</p>
-              </div>
-            </div>
-            {/* Step 4 */}
-            <div className="flex gap-3 items-start">
-              <div className="flex flex-col items-center">
-                <div className="w-9 h-9 rounded-full bg-pr-pink border-[3px] border-pr-dark flex items-center justify-center flex-shrink-0">
-                  <span className="text-white font-extrabold text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>4</span>
-                </div>
-              </div>
-              <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex-1">
-                <p className="font-bold text-pr-dark text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
-                  🎮 {t('step4Title')}
-                </p>
-                <p className="text-gray-500 text-xs mt-1 leading-relaxed">{t('step4Desc')}</p>
-              </div>
-            </div>
+          <div className="mt-10 flex flex-col items-center text-center">
+            <span className="kg-eyebrow">Guide</span>
+            <h1
+              className="mt-6 text-[2.6rem] font-medium leading-[1.15] text-[#ece7df]"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em', textShadow: '0 0 48px rgba(207,58,46,.45)' }}
+            >
+              {t('heroTitle')}
+            </h1>
+            <span aria-hidden className="mt-7 block h-px w-12 bg-[#cf3a2e]" />
+            <p className="mt-6 text-[0.74rem] text-[#b9b4ac]" style={{ letterSpacing: '0.24em', textIndent: '0.24em' }}>
+              {t('heroTagline')}
+            </p>
           </div>
-        </section>
+        </header>
 
-        {/* ── Section 4: シーン別おすすめ ── */}
-        <section className="flex flex-col gap-4">
-          <h2
-            className="text-pr-dark text-3xl tracking-wide kg-serif"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('scenesTitle')}
-          </h2>
+        <div className="mt-16 flex flex-col gap-14">
 
-          <div className="flex flex-col gap-2">
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
-              <span className="text-2xl flex-shrink-0">💍</span>
-              <div>
-                <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneWeddingName')}</p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('sceneWeddingTip')}</p>
-              </div>
+          {/* ── Section 2: サービス紹介 ── */}
+          <section className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <span className="kg-eyebrow">About</span>
+              <h2 className="kg-h text-[1.7rem] leading-tight">{t('aboutTitle')}</h2>
+              <span aria-hidden className="kg-rule" />
             </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
-              <span className="text-2xl flex-shrink-0">💕</span>
-              <div>
-                <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneGoukonName')}</p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('sceneGoukonTip')}</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
-              <span className="text-2xl flex-shrink-0">🏢</span>
-              <div>
-                <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneCompanyName')}</p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('sceneCompanyTip')}</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
-              <span className="text-2xl flex-shrink-0">🏠</span>
-              <div>
-                <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneHomepartyName')}</p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('sceneHomepartyTip')}</p>
-              </div>
-            </div>
-            <div className="bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3 flex items-center gap-3">
-              <span className="text-2xl flex-shrink-0">🎓</span>
-              <div>
-                <p className="font-bold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-dm)' }}>{t('sceneSchoolName')}</p>
-                <p className="text-gray-500 text-xs mt-0.5">{t('sceneSchoolTip')}</p>
-              </div>
-            </div>
-          </div>
-        </section>
+            <p className="text-[0.84rem] leading-[1.9] text-[#b9b4ac]">
+              {t('aboutBody')}
+            </p>
 
-        {/* ── Section 5: 盛り上がる方法 TOP5 ── */}
-        <section className="flex flex-col gap-4">
-          <h2
-            className="text-pr-dark text-3xl tracking-wide kg-serif"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('tipsTitle')}
-          </h2>
-
-          <div className="bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] overflow-hidden">
-            {[
-              { num: 1, icon: '🎤', text: t('tip1Text') },
-              { num: 2, icon: '🏆', text: t('tip2Text') },
-              { num: 3, icon: '🎭', text: t('tip3Text') },
-              { num: 4, icon: '🍺', text: t('tip4Text') },
-              { num: 5, icon: '📸', text: t('tip5Text') },
-            ].map(({ num, icon, text }, index, arr) => (
-              <div
-                key={num}
-                className={`px-4 py-4 flex items-start gap-3 ${index < arr.length - 1 ? 'border-b border-white/10' : ''}`}
-              >
-                <div className="w-7 h-7 rounded-full bg-pr-pink flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-white font-extrabold text-xs" style={{ fontFamily: 'var(--font-bebas)' }}>{num}</span>
+            {/* Game mode cards */}
+            <div className="mt-2 flex flex-col gap-3">
+              {[
+                { name: t('modeTriviaName'), desc: t('modeTriviaDesc') },
+                { name: t('modePollingName'), desc: t('modePollingDesc') },
+                { name: t('modeOpinionName'), desc: t('modeOpinionDesc') },
+              ].map((m, i) => (
+                <div key={i} className="kg-card flex items-start gap-4 px-5 py-4">
+                  <span aria-hidden className="mt-1 text-[0.8rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+                  <div className="min-w-0">
+                    <p className="kg-h text-[1.02rem] leading-tight">{m.name}</p>
+                    <p className="mt-1 text-[0.76rem] leading-relaxed text-[#7d7871]">{m.desc}</p>
+                  </div>
                 </div>
-                <p className="text-white font-bold text-sm leading-snug" style={{ fontFamily: 'var(--font-dm)' }}>
-                  <span className="mr-1.5">{icon}</span>
-                  {text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
 
-        {/* ── Section 6: 自作質問集の作り方 ── */}
-        <section className="flex flex-col gap-4">
-          <h2
-            className="text-pr-dark text-3xl tracking-wide kg-serif"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('customTitle')}
-          </h2>
-          <p className="text-gray-600 text-sm leading-relaxed" style={{ fontFamily: 'var(--font-dm)' }}>
-            {t('customBody')}
-          </p>
+          <span aria-hidden className="kg-rule--full" />
 
-          <div className="flex flex-col gap-2">
-            {[
-              { num: '1', text: t('custom1Text') },
-              { num: '2', text: t('custom2Text') },
-              { num: '3', text: t('custom3Text') },
-              { num: '4', text: t('custom4Text') },
-            ].map(({ num, text }) => (
-              <div key={num} className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white border-[3px] border-pr-dark flex items-center justify-center flex-shrink-0">
-                  <span className="font-extrabold text-pr-dark text-sm" style={{ fontFamily: 'var(--font-bebas)' }}>{num}</span>
+          {/* ── Section 3: 使い方（4ステップ）── */}
+          <section className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <span className="kg-eyebrow">How to</span>
+              <h2 className="kg-h text-[1.7rem] leading-tight">{t('howTitle')}</h2>
+              <span aria-hidden className="kg-rule" />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {[
+                { num: '01', title: t('step1Title'), desc: t('step1Desc') },
+                { num: '02', title: t('step2Title'), desc: t('step2Desc') },
+                { num: '03', title: t('step3Title'), desc: t('step3Desc') },
+                { num: '04', title: t('step4Title'), desc: t('step4Desc') },
+              ].map(({ num, title, desc }, index, arr) => (
+                <div key={num} className="flex items-stretch gap-4">
+                  <div className="flex flex-col items-center">
+                    <span
+                      className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(184,147,90,.5)] text-[0.9rem] text-[#b8935a]"
+                      style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.04em' }}
+                    >
+                      {num}
+                    </span>
+                    {index < arr.length - 1 && <span aria-hidden className="mt-1 w-px flex-1 bg-[rgba(236,231,223,.14)]" />}
+                  </div>
+                  <div className="kg-card flex-1 px-4 py-3.5">
+                    <p className="kg-h text-[0.98rem] leading-snug">{title}</p>
+                    <p className="mt-1.5 text-[0.74rem] leading-relaxed text-[#7d7871]">{desc}</p>
+                  </div>
                 </div>
-                <p className="text-pr-dark text-sm font-bold" style={{ fontFamily: 'var(--font-dm)' }}>{text}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
 
-          <Link
-            href="/auth/login"
-            className="w-full h-14 bg-white text-pr-dark flex items-center justify-center text-base font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}
-          >
-            {t('customCta')}
-          </Link>
-        </section>
+          <span aria-hidden className="kg-rule--full" />
 
-        {/* ── Section 7: Bottom CTA ── */}
-        <section className="flex flex-col items-center gap-4 pb-4">
-          <h2
-            className="text-pr-dark text-4xl tracking-wide text-center kg-serif"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('bottomCtaTitle')}
-          </h2>
-          <Link
-            href="/presets"
-            className="w-full h-16 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}
-          >
-            {t('bottomCtaButton')}
-          </Link>
-        </section>
+          {/* ── Section 4: シーン別おすすめ ── */}
+          <section className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <span className="kg-eyebrow">Scenes</span>
+              <h2 className="kg-h text-[1.7rem] leading-tight">{t('scenesTitle')}</h2>
+              <span aria-hidden className="kg-rule" />
+            </div>
 
+            <div className="flex flex-col gap-2">
+              {[
+                { name: t('sceneWeddingName'), tip: t('sceneWeddingTip') },
+                { name: t('sceneGoukonName'), tip: t('sceneGoukonTip') },
+                { name: t('sceneCompanyName'), tip: t('sceneCompanyTip') },
+                { name: t('sceneHomepartyName'), tip: t('sceneHomepartyTip') },
+                { name: t('sceneSchoolName'), tip: t('sceneSchoolTip') },
+              ].map((s, i) => (
+                <div key={i} className="kg-card flex items-start gap-3 px-5 py-3.5">
+                  <span aria-hidden className="mt-1 h-4 w-px shrink-0 bg-[#cf3a2e]" />
+                  <div className="min-w-0">
+                    <p className="kg-h text-[0.94rem] leading-tight">{s.name}</p>
+                    <p className="mt-1 text-[0.74rem] leading-relaxed text-[#7d7871]">{s.tip}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <span aria-hidden className="kg-rule--full" />
+
+          {/* ── Section 5: 盛り上がる方法 TOP5 ── */}
+          <section className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <span className="kg-eyebrow">Tips</span>
+              <h2 className="kg-h text-[1.7rem] leading-tight">{t('tipsTitle')}</h2>
+              <span aria-hidden className="kg-rule" />
+            </div>
+
+            <div className="kg-card overflow-hidden">
+              {[
+                { num: '01', text: t('tip1Text') },
+                { num: '02', text: t('tip2Text') },
+                { num: '03', text: t('tip3Text') },
+                { num: '04', text: t('tip4Text') },
+                { num: '05', text: t('tip5Text') },
+              ].map(({ num, text }, index, arr) => (
+                <div
+                  key={num}
+                  className={`flex items-start gap-4 px-5 py-4 ${index < arr.length - 1 ? 'border-b border-[rgba(236,231,223,.1)]' : ''}`}
+                >
+                  <span
+                    aria-hidden
+                    className="mt-0.5 shrink-0 text-[0.88rem] text-[#b8935a]"
+                    style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.04em' }}
+                  >
+                    {num}
+                  </span>
+                  <p className="text-[0.86rem] leading-snug text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <span aria-hidden className="kg-rule--full" />
+
+          {/* ── Section 6: 自作質問集の作り方 ── */}
+          <section className="flex flex-col gap-5">
+            <div className="flex flex-col gap-3">
+              <span className="kg-eyebrow">Custom</span>
+              <h2 className="kg-h text-[1.7rem] leading-tight">{t('customTitle')}</h2>
+              <span aria-hidden className="kg-rule" />
+            </div>
+            <p className="text-[0.84rem] leading-[1.9] text-[#b9b4ac]">
+              {t('customBody')}
+            </p>
+
+            <div className="flex flex-col gap-2">
+              {[
+                { num: '01', text: t('custom1Text') },
+                { num: '02', text: t('custom2Text') },
+                { num: '03', text: t('custom3Text') },
+                { num: '04', text: t('custom4Text') },
+              ].map(({ num, text }) => (
+                <div key={num} className="flex items-center gap-3">
+                  <span
+                    aria-hidden
+                    className="flex h-8 w-8 shrink-0 items-center justify-center border border-[rgba(184,147,90,.5)] text-[0.78rem] text-[#b8935a]"
+                    style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.04em' }}
+                  >
+                    {num}
+                  </span>
+                  <p className="text-[0.86rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>{text}</p>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/auth/login"
+              className="mt-2 flex h-[52px] items-center justify-center gap-2 border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.1em' }}
+            >
+              <span>{t('customCta')}</span>
+              <span aria-hidden>→</span>
+            </Link>
+          </section>
+
+          <span aria-hidden className="kg-rule--full" />
+
+          {/* ── Section 7: Bottom CTA ── */}
+          <section className="flex flex-col items-center gap-6 text-center">
+            <h2
+              className="text-[1.9rem] font-medium leading-tight text-[#ece7df]"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}
+            >
+              {t('bottomCtaTitle')}
+            </h2>
+            <Link
+              href="/presets"
+              className="flex h-[58px] w-full items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.14em', boxShadow: '0 14px 40px rgba(207,58,46,.28)' }}
+            >
+              <span>{t('bottomCtaButton')}</span>
+              <span aria-hidden>→</span>
+            </Link>
+          </section>
+
+        </div>
       </div>
     </main>
   );
