@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
       if (preset.mode !== 'trivia') continue;
       if (scene && preset.scene !== scene) continue;
       for (const q of preset.questions) {
+        // 知識問題のみ: 人当て/キャスト(fixed 以外) や 正解なし(correctIndex==null) は除外
+        if ((q.answerTarget ?? 'fixed') !== 'fixed' || q.correctIndex == null) continue;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id: _id, order: _order, ...rest } = q;
         pool.push(rest);

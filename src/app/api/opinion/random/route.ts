@@ -35,6 +35,8 @@ export async function POST(req: NextRequest) {
     for (const preset of presets) {
       if (preset.mode !== 'opinion' && preset.mode !== 'polling') continue;
       for (const q of preset.questions) {
+        // players は含めてよいが casts は除外（キャスト未設定ゲームへの混入防止）
+        if (q.answerTarget === 'casts') continue;
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id: _id, order: _order, correctIndex: _ci, ...rest } = q;
         pool.push({ ...rest, correctIndex: undefined });
