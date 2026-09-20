@@ -10,6 +10,30 @@ import { useLocalPlayer } from '@/lib/hooks/useLocalPlayer';
 import { AnswerButton } from '@/components/AnswerButton';
 import { CountdownTimer } from '@/components/CountdownTimer';
 
+// センキャバ 誘導バナー（墨カード＋金の細字リンク）
+function SencabaBanner({ compact = false }: { compact?: boolean }) {
+  return (
+    <a
+      href="https://www.sencaba.com/download"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={[
+        'flex w-full items-center gap-3 bg-[#111114] border border-[rgba(236,231,223,.1)] transition-colors duration-300 hover:border-[rgba(184,147,90,.4)]',
+        compact ? 'px-4 py-2.5 mt-1' : 'px-5 py-4',
+      ].join(' ')}
+    >
+      <span aria-hidden className="text-[#b8935a] text-xs" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+      <div className="min-w-0 flex-1">
+        <p className={compact ? 'text-[0.74rem] text-[#ece7df]' : 'text-[0.84rem] text-[#ece7df]'} style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>
+          キャバクラ探しなら <span className="text-[#cf3a2e]">センキャバ</span>
+        </p>
+        {!compact && <p className="mt-0.5 text-[0.7rem] text-[#7d7871]">お店を探す・予約する</p>}
+      </div>
+      <span className="shrink-0 text-[0.62rem] text-[#b8935a] border border-[rgba(184,147,90,.45)] px-2.5 py-1" style={{ letterSpacing: '0.1em' }}>DL</span>
+    </a>
+  );
+}
+
 function computePollingResults(
   questions: import('@/types/domain').Question[],
   answers: import('@/types/domain').Answer[],
@@ -452,14 +476,14 @@ export default function GuestGameClient({ code }: Props) {
 
   if (loadError) {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="flex flex-col flex-1 items-center justify-center gap-6 px-6">
-          <p className="text-red-500 text-lg font-bold text-center">{loadError}</p>
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div aria-hidden className="kg-glow" />
+        <div className="relative z-[2] flex flex-col flex-1 items-center justify-center gap-6 px-8 text-center">
+          <p className="text-[#cf3a2e] text-lg" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>{loadError}</p>
           <button
             type="button"
             onClick={() => router.push('/join')}
-            className="px-8 py-3 bg-pr-pink text-white font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}
+            className="kg-btn kg-btn--gold"
           >
             {t('back')}
           </button>
@@ -470,10 +494,10 @@ export default function GuestGameClient({ code }: Props) {
 
   if (guestState === 'loading') {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
         <div className="flex flex-col flex-1 items-center justify-center gap-4">
-          <div className="w-12 h-12 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
-          <p className="text-gray-400 font-bold">{t('loading')}</p>
+          <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
+          <p className="text-[#7d7871] text-sm" style={{ letterSpacing: '0.1em' }}>{t('loading')}</p>
         </div>
       </main>
     );
@@ -481,14 +505,17 @@ export default function GuestGameClient({ code }: Props) {
 
   if (guestState === 'name_input') {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6">
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div aria-hidden className="kg-glow" />
+        <div className="relative z-[2] flex flex-col flex-1 items-center justify-center px-8 gap-7 text-center">
+          <span className="kg-eyebrow">Player</span>
           <h1
-            className="text-pr-dark text-5xl text-center"
-            style={{ fontFamily: 'var(--font-bebas)' }}
+            className="text-[2.2rem] font-medium leading-tight text-[#ece7df]"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}
           >
             {t('whatsYourName')}
           </h1>
+          <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
           <input
             type="text"
             maxLength={20}
@@ -497,19 +524,19 @@ export default function GuestGameClient({ code }: Props) {
             onChange={(e) => setNameInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleJoinGame()}
             autoFocus
-            className="w-full text-xl text-center bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 focus:outline-none focus:shadow-[0_0_0_2px_rgba(207,58,46,.5)] transition-shadow duration-75 text-pr-dark placeholder-gray-300"
-            style={{ fontFamily: 'var(--font-dm)' }}
+            className="kg-input text-center"
+            style={{ fontFamily: 'var(--font-dm)', fontSize: '1.15rem' }}
           />
           {nameError && (
-            <p className="text-red-500 text-sm font-bold text-center">{nameError}</p>
+            <p className="text-[#cf3a2e] text-sm text-center" style={{ letterSpacing: '0.04em' }}>{nameError}</p>
           )}
           <button
             type="button"
             onClick={() => handleJoinGame()}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}
+            className="kg-btn kg-btn--primary"
           >
-            {t('joinButton')}
+            <span>{t('joinButton')}</span>
+            <span aria-hidden>→</span>
           </button>
         </div>
       </main>
@@ -518,36 +545,36 @@ export default function GuestGameClient({ code }: Props) {
 
   if (guestState === 'lobby') {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="px-4 pt-3 flex justify-end">
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div aria-hidden className="kg-glow" />
+        <div className="relative z-[2] px-6 pt-6 flex justify-end">
           <button type="button" onClick={() => router.push('/join')}
-            className="text-xs font-bold text-gray-400 px-3 py-1.5 rounded-full border-[2px] border-gray-200 touch-manipulation hover:border-gray-400 transition-colors"
-            style={{ fontFamily: 'var(--font-dm)' }}>
+            className="text-[0.72rem] text-[#7d7871] px-3 py-1.5 border border-[rgba(236,231,223,.14)] touch-manipulation hover:border-[rgba(236,231,223,.4)] transition-colors"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em' }}>
             退出
           </button>
         </div>
-        <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
-          <div className="w-24 h-24 bg-pr-pink rounded-full border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] flex items-center justify-center text-4xl animate-bounce">
-            🎮
-          </div>
+        <div className="relative z-[2] flex flex-col flex-1 items-center justify-center px-8 gap-6 text-center">
+          <span className="kg-eyebrow">Joined</span>
           <div>
-            <p className="text-pr-dark text-xl font-bold" style={{ fontFamily: 'var(--font-dm)' }}>
+            <p className="text-[#b9b4ac] text-[0.8rem]" style={{ letterSpacing: '0.16em' }}>
               {t('youJoinedAs')}
             </p>
             <p
-              className="text-pr-pink text-4xl"
-              style={{ fontFamily: 'var(--font-bebas)', lineHeight: 1.1 }}
+              className="mt-3 text-[2.6rem] text-[#ece7df]"
+              style={{ fontFamily: 'var(--font-dm)', lineHeight: 1.1, letterSpacing: '0.04em', textShadow: '0 0 40px rgba(207,58,46,.35)' }}
             >
               {displayName}
             </p>
           </div>
-          <p className="text-gray-400 font-bold animate-pulse">
+          <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+          <p className="text-[#7d7871] text-sm animate-pulse" style={{ letterSpacing: '0.1em' }}>
             {t('waitingForHost')}
           </p>
           <button
             type="button"
             onClick={() => { clearPlayer(); setPlayerId(null); setDisplayName(''); setNameInput(''); setGuestState('name_input'); }}
-            className="text-gray-400 text-sm underline touch-manipulation"
+            className="text-[#7d7871] text-[0.78rem] underline underline-offset-4 decoration-[#7d7871]/40 touch-manipulation hover:text-[#b9b4ac] transition-colors"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {t('changeName')}
@@ -563,11 +590,11 @@ export default function GuestGameClient({ code }: Props) {
     const startedAt = game.currentQuestionStartedAt ?? Date.now();
 
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="bg-pr-dark px-4 pt-4 pb-2 flex flex-col gap-2">
+      <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div className="border-b border-[rgba(236,231,223,.1)] px-6 pt-6 pb-3 flex flex-col gap-2">
           <div className="flex items-center justify-between">
-            <span className="text-white text-sm font-bold uppercase tracking-widest">
-              Q {game.currentQuestionIndex + 1}/{game.questions.length}
+            <span className="text-[#b8935a] text-[0.7rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.28em' }}>
+              Q {game.currentQuestionIndex + 1} / {game.questions.length}
             </span>
           </div>
           <CountdownTimer
@@ -580,18 +607,18 @@ export default function GuestGameClient({ code }: Props) {
           />
         </div>
 
-        <div className="flex flex-col flex-1 px-4 py-5 gap-5">
+        <div className="flex flex-col flex-1 px-6 py-7 gap-6">
           {q.imageUrl && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={q.imageUrl}
               alt="Question"
-              className="w-full rounded-[8px] object-cover max-h-48 border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]"
+              className="w-full object-cover max-h-48 border border-[rgba(236,231,223,.14)]"
             />
           )}
           <p
-            className="text-pr-dark text-center font-bold"
-            style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1.2 }}
+            className="text-center text-[#ece7df]"
+            style={{ fontFamily: 'var(--font-dm)', fontSize: '1.5rem', lineHeight: 1.5, letterSpacing: '0.04em' }}
           >
             {q.text}
           </p>
@@ -607,14 +634,7 @@ export default function GuestGameClient({ code }: Props) {
                 onClick={() => handleAnswer(i)}
               />
             ))}
-            <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-pr-dark rounded-[8px] px-3 py-2 mt-1">
-              <span className="text-lg">🥂</span>
-              <p className="flex-1 text-white font-bold text-xs leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-              </p>
-              <span className="text-[10px] font-bold bg-pr-pink text-white px-2 py-0.5 rounded-full">DL</span>
-            </a>
+            <SencabaBanner compact />
           </div>
         </div>
       </main>
@@ -623,39 +643,29 @@ export default function GuestGameClient({ code }: Props) {
 
   if (guestState === 'answered') {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
-          <div className="w-24 h-24 bg-pr-yellow rounded-full border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] flex items-center justify-center text-4xl font-bold text-pr-dark">
-            ✓
-          </div>
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div aria-hidden className="kg-glow" />
+        <div className="relative z-[2] flex flex-col flex-1 items-center justify-center px-8 gap-6 text-center">
+          <span className="kg-eyebrow">Submitted</span>
           <p
-            className="text-pr-dark text-4xl"
-            style={{ fontFamily: 'var(--font-bebas)' }}
+            className="text-[2.2rem] text-[#ece7df]"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 40px rgba(207,58,46,.35)' }}
           >
             {t('answerSubmitted')}
           </p>
-          <p className="text-gray-400 font-bold animate-pulse">
+          <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+          <p className="text-[#7d7871] text-sm animate-pulse" style={{ letterSpacing: '0.1em' }}>
             {t('waitingForResults')}
           </p>
           <button
             type="button"
             onClick={() => { selectedChoiceRef.current = null; setSelectedChoice(null); setRevealInfo(null); setGuestState('question'); }}
-            className="text-gray-400 text-sm underline touch-manipulation"
+            className="text-[#7d7871] text-[0.78rem] underline underline-offset-4 decoration-[#7d7871]/40 touch-manipulation hover:text-[#b9b4ac] transition-colors"
             style={{ fontFamily: 'var(--font-dm)' }}
           >
             {t('changeAnswer')}
           </button>
-          <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 w-full">
-            <span className="text-2xl">🥂</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-              </p>
-              <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
-            </div>
-            <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
-          </a>
+          <SencabaBanner />
         </div>
       </main>
     );
@@ -668,9 +678,9 @@ export default function GuestGameClient({ code }: Props) {
     if (game.mode === 'trivia') {
       if (revealInfo === null) {
         return (
-          <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+          <main className="flex flex-col min-h-screen bg-[#0a0a0b] max-w-[460px] mx-auto">
             <div className="flex flex-col flex-1 items-center justify-center gap-4">
-              <div className="w-12 h-12 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+              <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
             </div>
           </main>
         );
@@ -683,68 +693,53 @@ export default function GuestGameClient({ code }: Props) {
       const correctOption = q.correctIndex !== undefined ? q.options[q.correctIndex] : '—';
 
       return (
-        <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-          <div className="flex flex-col flex-1 items-center justify-center px-6 gap-5 text-center">
-            <div
-              className="w-24 h-24 rounded-full border-[4px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] flex items-center justify-center text-4xl"
-              style={{ backgroundColor: didAnswer ? (isCorrect ? '#6f8f6a' : '#cf3a2e') : '#888' }}
-            >
-              {didAnswer ? (isCorrect ? '🎉' : '😅') : '？'}
-            </div>
-
+        <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+          <div aria-hidden className="kg-glow" />
+          <div className="relative z-[2] flex flex-col flex-1 items-center justify-center px-8 gap-5 text-center">
             {didAnswer && (
               <p
-                className="font-extrabold"
-                style={{ fontFamily: 'var(--font-bebas)', fontSize: '2.8rem', lineHeight: 1, color: isCorrect ? '#6f8f6a' : '#cf3a2e' }}
+                style={{ fontFamily: 'var(--font-dm)', fontSize: '2.4rem', lineHeight: 1.1, letterSpacing: '0.06em', color: isCorrect ? '#b8935a' : '#cf3a2e', textShadow: isCorrect ? '0 0 40px rgba(184,147,90,.3)' : '0 0 40px rgba(207,58,46,.35)' }}
               >
                 {isCorrect ? t('correct') : t('wrong')}
               </p>
             )}
 
+            <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+
             <div>
-              <p className="text-gray-400 font-bold uppercase tracking-widest text-xs mb-1">{t('correctAnswer')}</p>
+              <p className="text-[#7d7871] text-[0.68rem] mb-2" style={{ letterSpacing: '0.2em' }}>{t('correctAnswer')}</p>
               <p
-                className="text-pr-dark text-3xl"
-                style={{ fontFamily: 'var(--font-bebas)' }}
+                className="text-[#ece7df] text-[1.6rem]"
+                style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
               >
                 {correctOption}
               </p>
             </div>
 
-            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] rounded-[8px] px-6 py-5 flex flex-col gap-2">
-              <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{t('pointsThisRound')}</p>
+            <div className="w-full kg-card px-6 py-5 flex flex-col gap-2">
+              <p className="text-[#b9b4ac] text-[0.68rem]" style={{ letterSpacing: '0.16em' }}>{t('pointsThisRound')}</p>
               {didAnswer ? (
                 <>
                   <p
-                    className="text-pr-pink"
-                    style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.5rem', lineHeight: 1 }}
+                    className="text-[#cf3a2e]"
+                    style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.2rem', lineHeight: 1, letterSpacing: '0.04em' }}
                   >
                     +{revealInfo.pointsEarned}
                   </p>
-                  <p className="text-gray-400 text-sm font-bold">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
+                  <p className="text-[#7d7871] text-[0.78rem]">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
                 </>
               ) : (
                 <p
-                  className="text-gray-400"
-                  style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1 }}
+                  className="text-[#7d7871]"
+                  style={{ fontFamily: 'var(--font-bebas)', fontSize: '1.8rem', lineHeight: 1 }}
                 >
                   {t('noAnswer')}
                 </p>
               )}
             </div>
 
-            <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 w-full">
-              <span className="text-2xl">🥂</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                  キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-                </p>
-                <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
-              </div>
-              <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
-            </a>
-            <p className="text-gray-400 font-bold animate-pulse text-sm">
+            <SencabaBanner />
+            <p className="text-[#7d7871] text-sm animate-pulse" style={{ letterSpacing: '0.1em' }}>
               {t('waitingForNext')}
             </p>
           </div>
@@ -755,26 +750,25 @@ export default function GuestGameClient({ code }: Props) {
     // Polling reveal
     if (revealInfo === null) {
       return (
-        <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
+        <main className="flex flex-col min-h-screen bg-[#0a0a0b] max-w-[460px] mx-auto">
           <div className="flex flex-col flex-1 items-center justify-center gap-4">
-            <div className="w-12 h-12 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
           </div>
         </main>
       );
     }
     const totalVotes = revealInfo.allAnswers.filter((a) => a.questionId === q.id).length;
-    const BG = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
-    const FG = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
 
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="flex flex-col flex-1 px-4 py-8 gap-5">
-          <h2
-            className="text-pr-dark text-4xl text-center"
-            style={{ fontFamily: 'var(--font-bebas)' }}
-          >
-            {t('results')}
-          </h2>
+      <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div className="flex flex-col flex-1 px-6 py-9 gap-6">
+          <div className="flex flex-col items-center gap-3">
+            <span className="kg-eyebrow">Results</span>
+            <h2 className="text-[1.8rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>
+              {t('results')}
+            </h2>
+            <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+          </div>
           <div className="flex flex-col gap-3">
             {q.options.map((option, i) => {
               const votes = revealInfo.allAnswers.filter((a) => a.questionId === q.id && a.choiceIndex === i).length;
@@ -783,39 +777,29 @@ export default function GuestGameClient({ code }: Props) {
               return (
                 <div
                   key={i}
-                  className="rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] px-4 py-3"
-                  style={{ backgroundColor: BG[i % 4] }}
+                  className="px-4 py-3 bg-[#111114]"
+                  style={{ border: isMyVote ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}
                 >
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-bold text-sm" style={{ color: FG[i % 4] }}>
-                      {isMyVote && '✓ '}{option}
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>
+                      {isMyVote && <span className="text-[#b8935a] mr-1">◆</span>}{option}
                     </span>
-                    <span className="text-sm font-bold" style={{ color: FG[i % 4], opacity: 0.8 }}>
-                      {votes} ({pct}%)
+                    <span className="text-sm text-[#b9b4ac]" style={{ fontFamily: 'var(--font-dm)' }}>
+                      {votes} <span className="text-[#7d7871]">({pct}%)</span>
                     </span>
                   </div>
-                  <div className="w-full h-2 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                  <div className="w-full h-1.5" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
                     <div
-                      className="h-full rounded-full transition-all duration-500"
-                      style={{ width: `${pct}%`, backgroundColor: 'rgba(255,255,255,0.5)' }}
+                      className="h-full transition-all duration-500"
+                      style={{ width: `${pct}%`, backgroundColor: isMyVote ? '#b8935a' : '#cf3a2e' }}
                     />
                   </div>
                 </div>
               );
             })}
           </div>
-          <a href="https://www.sencaba.com/download" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3">
-            <span className="text-2xl">🥂</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-              </p>
-              <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
-            </div>
-            <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
-          </a>
-          <p className="text-gray-400 font-bold animate-pulse text-sm text-center mt-4">
+          <SencabaBanner />
+          <p className="text-[#7d7871] text-sm animate-pulse text-center mt-3" style={{ letterSpacing: '0.1em' }}>
             {t('waitingForNext')}
           </p>
         </div>
@@ -825,36 +809,38 @@ export default function GuestGameClient({ code }: Props) {
 
   if (guestState === 'ended' && game) {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="bg-pr-dark px-4 py-3">
-          <h1 className="text-pr-pink text-4xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+      <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div className="border-b border-[rgba(236,231,223,.1)] px-6 py-5">
+          <span className="kg-eyebrow">Finished</span>
+          <h1 className="mt-1 text-[1.9rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 40px rgba(207,58,46,.3)' }}>
             {t('gameOver')}
           </h1>
         </div>
-        <div className="flex-1 px-4 py-6 flex flex-col gap-5">
+        <div className="flex-1 px-6 py-7 flex flex-col gap-6">
           {game.mode === 'trivia' && (
-            <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4 text-center">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('yourScore')}</p>
-              <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.5rem', lineHeight: 1 }}>{totalPoints}</p>
+            <div className="w-full kg-card px-6 py-5 text-center">
+              <p className="text-[0.68rem] text-[#b9b4ac]" style={{ letterSpacing: '0.16em' }}>{t('yourScore')}</p>
+              <p className="text-[#cf3a2e]" style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.4rem', lineHeight: 1, letterSpacing: '0.04em' }}>{totalPoints}</p>
             </div>
           )}
 
           {game.mode === 'trivia' && leaderboard.length > 0 && (
             <div className="flex flex-col gap-2">
-              <h2 className="text-pr-dark text-2xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('leaderboard')}</h2>
+              <h2 className="kg-h text-[1.4rem]">{t('leaderboard')}</h2>
               {leaderboard.map((score, i) => {
                 const isMe = score.playerId === playerId;
-                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+                const isFirst = i === 0;
                 return (
                   <div key={score.playerId}
-                    className={`flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark ${isMe ? 'bg-pr-pink text-white shadow-[0_4px_16px_rgba(0,0,0,.4)]' : 'bg-white shadow-[0_4px_12px_rgba(0,0,0,.35)]'}`}>
+                    className="flex items-center justify-between px-4 py-3 bg-[#111114]"
+                    style={{ border: isMe ? '1px solid rgba(207,58,46,.6)' : isFirst ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}>
                     <div className="flex items-center gap-3">
-                      <span className="text-lg">{medal}</span>
-                      <span className="font-bold text-sm" style={{ fontFamily: 'var(--font-dm)' }}>
+                      <span className="w-6 text-center text-[1.05rem]" style={{ fontFamily: 'var(--font-bebas)', color: isFirst ? '#b8935a' : '#7d7871' }}>{i + 1}</span>
+                      <span className="text-sm text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>
                         {score.displayName}{isMe ? t('you') : ''}
                       </span>
                     </div>
-                    <span className="font-bold text-sm">{score.totalPoints} {t('pts')}</span>
+                    <span className="text-sm" style={{ fontFamily: 'var(--font-bebas)', color: isFirst ? '#b8935a' : '#ece7df', letterSpacing: '0.04em' }}>{score.totalPoints} {t('pts')}</span>
                   </div>
                 );
               })}
@@ -863,15 +849,15 @@ export default function GuestGameClient({ code }: Props) {
 
           {game.mode === 'polling' && endResultsStatus === 'loading' && (
             <div className="flex justify-center py-8">
-              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+              <div className="h-9 w-9 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
             </div>
           )}
 
           {game.mode === 'polling' && endResultsStatus === 'error' && (
             <div className="flex flex-col items-center gap-3 py-6 text-center">
-              <p className="text-red-500 font-bold text-sm">{t('loadError')}</p>
+              <p className="text-[#cf3a2e] text-sm" style={{ letterSpacing: '0.04em' }}>{t('loadError')}</p>
               <button type="button" onClick={() => gameId && fetchEndResults(gameId)}
-                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] touch-manipulation"
+                className="px-5 py-2.5 text-sm border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}>
                 {t('retry')}
               </button>
@@ -880,27 +866,25 @@ export default function GuestGameClient({ code }: Props) {
 
           {game.mode === 'polling' && endResultsStatus === 'loaded' && (
             <div className="flex flex-col gap-4">
-              <h2 className="text-pr-dark text-2xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('results')}</h2>
+              <h2 className="kg-h text-[1.4rem]">{t('results')}</h2>
               {game.questions.map((q, qi) => {
                 const qAnswers = endAnswers.filter(a => a.questionId === q.id);
                 const totalVotes = qAnswers.length;
-                const BG = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
-                const FG = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
                 return (
-                  <div key={q.id} className="flex flex-col gap-2 p-3 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]">
-                    <p className="font-bold text-sm text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>{qi + 1}. {q.text}</p>
+                  <div key={q.id} className="flex flex-col gap-2.5 p-4 kg-card">
+                    <p className="text-sm text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>{qi + 1}. {q.text}</p>
                     <div className="flex flex-col gap-1.5">
                       {q.options.map((option, j) => {
                         const votes = qAnswers.filter(a => a.choiceIndex === j).length;
                         const pct = totalVotes > 0 ? Math.round((votes / totalVotes) * 100) : 0;
                         return (
-                          <div key={j} className="rounded-[4px] border-[2px] border-pr-dark px-3 py-2" style={{ backgroundColor: BG[j % 4] }}>
-                            <div className="flex justify-between items-center mb-1">
-                              <span className="font-bold text-xs" style={{ color: FG[j % 4] }}>{option}</span>
-                              <span className="text-xs font-bold" style={{ color: FG[j % 4], opacity: 0.8 }}>{votes} ({pct}%)</span>
+                          <div key={j} className="px-3 py-2 bg-[#0a0a0b] border border-[rgba(236,231,223,.1)]">
+                            <div className="flex justify-between items-center mb-1.5">
+                              <span className="text-[0.78rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>{option}</span>
+                              <span className="text-[0.72rem] text-[#b9b4ac]">{votes} <span className="text-[#7d7871]">({pct}%)</span></span>
                             </div>
-                            <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: 'rgba(0,0,0,0.2)' }}>
-                              <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: 'rgba(255,255,255,0.5)' }} />
+                            <div className="w-full h-1" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
+                              <div className="h-full" style={{ width: `${pct}%`, backgroundColor: '#cf3a2e' }} />
                             </div>
                           </div>
                         );
@@ -920,16 +904,15 @@ export default function GuestGameClient({ code }: Props) {
               const maxVotes = Math.max(...optResults.map(r => r.voteCount), 1);
               return (
                 <div className="flex flex-col gap-2 mt-2">
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
+                  <p className="kg-label">選ばれた回数</p>
                   {optResults.map((r, i) => (
-                    <div key={r.optionName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
-                      <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
-                      <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.optionName}</span>
-                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-pr-pink rounded-full" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                    <div key={r.optionName} className="flex items-center gap-3 bg-[#111114] px-3 py-2.5" style={{ border: i === 0 && r.voteCount > 0 ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}>
+                      <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: i === 0 && r.voteCount > 0 ? '#b8935a' : '#7d7871' }}>{i + 1}</span>
+                      <span className="flex-1 text-[0.82rem] text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.optionName}</span>
+                      <div className="w-16 h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
+                        <div className="h-full bg-[#cf3a2e]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
                       </div>
-                      <span className="text-sm font-bold text-pr-dark w-10 text-right">{r.voteCount}票</span>
-                      {i === 0 && r.voteCount > 0 && <span className="text-lg">👑</span>}
+                      <span className="text-[0.8rem] text-[#b9b4ac] w-9 text-right">{r.voteCount}票</span>
                     </div>
                   ))}
                 </div>
@@ -942,16 +925,15 @@ export default function GuestGameClient({ code }: Props) {
             const maxVotes = Math.max(...personResults.map(r => r.voteCount), 1);
             return (
               <div className="flex flex-col gap-2 mt-2">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
+                <p className="kg-label">選ばれた回数</p>
                 {personResults.map((r, i) => (
-                  <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
-                    <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
-                    <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
-                    <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <div className="h-full bg-pr-pink rounded-full" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                  <div key={r.displayName} className="flex items-center gap-3 bg-[#111114] px-3 py-2.5" style={{ border: i === 0 && r.voteCount > 0 ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}>
+                    <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: i === 0 && r.voteCount > 0 ? '#b8935a' : '#7d7871' }}>{i + 1}</span>
+                    <span className="flex-1 text-[0.82rem] text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.displayName}</span>
+                    <div className="w-16 h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
+                      <div className="h-full bg-[#cf3a2e]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
                     </div>
-                    <span className="text-sm font-bold text-pr-dark w-10 text-right">{r.voteCount}票</span>
-                    {i === 0 && r.voteCount > 0 && <span className="text-lg">👑</span>}
+                    <span className="text-[0.8rem] text-[#b9b4ac] w-9 text-right">{r.voteCount}票</span>
                   </div>
                 ))}
               </div>
@@ -965,14 +947,14 @@ export default function GuestGameClient({ code }: Props) {
             const topMinority = [...results].sort((a, b) => b.minorityCount - a.minorityCount)[0];
             return (
               <div className="flex flex-col gap-2 mt-4">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">みんなの実態まとめ</p>
+                <p className="kg-label">みんなの実態まとめ</p>
                 {results.map((r, i) => (
-                  <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
-                    <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
-                    <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
-                    {r.playerId === topMajority.playerId && <span className="text-xs font-bold bg-yellow-300 text-pr-dark px-2 py-0.5 rounded-full">多数派王</span>}
-                    {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">少数派</span>}
-                    <span className="text-xs text-gray-500 font-bold">{r.majorityCount}勝 / {r.minorityCount}負</span>
+                  <div key={r.playerId} className="flex items-center gap-3 bg-[#111114] px-3 py-2.5" style={{ border: '1px solid rgba(236,231,223,.1)' }}>
+                    <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: '#7d7871' }}>{i + 1}</span>
+                    <span className="flex-1 text-[0.82rem] text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.displayName}</span>
+                    {r.playerId === topMajority.playerId && <span className="text-[0.62rem] text-[#b8935a] border border-[rgba(184,147,90,.45)] px-2 py-0.5" style={{ letterSpacing: '0.06em' }}>多数派王</span>}
+                    {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-[0.62rem] text-[#cf3a2e] border border-[rgba(207,58,46,.45)] px-2 py-0.5" style={{ letterSpacing: '0.06em' }}>少数派</span>}
+                    <span className="text-[0.7rem] text-[#7d7871]">{r.majorityCount}勝 / {r.minorityCount}負</span>
                   </div>
                 ))}
               </div>
@@ -981,15 +963,15 @@ export default function GuestGameClient({ code }: Props) {
 
           {game.mode === 'opinion' && endResultsStatus === 'loading' && (
             <div className="flex justify-center py-8">
-              <div className="w-10 h-10 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+              <div className="h-9 w-9 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
             </div>
           )}
 
           {game.mode === 'opinion' && endResultsStatus === 'error' && (
             <div className="flex flex-col items-center gap-3 py-6 text-center">
-              <p className="text-red-500 font-bold text-sm">{t('loadError')}</p>
+              <p className="text-[#cf3a2e] text-sm" style={{ letterSpacing: '0.04em' }}>{t('loadError')}</p>
               <button type="button" onClick={() => gameId && fetchEndResults(gameId)}
-                className="px-4 py-2 bg-pr-pink text-white text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] touch-manipulation"
+                className="px-5 py-2.5 text-sm border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)' }}>
                 {t('retry')}
               </button>
@@ -1020,9 +1002,9 @@ export default function GuestGameClient({ code }: Props) {
             const minLoss = results[results.length - 1].lossCount;
             return (
               <div className="flex flex-col gap-3">
-                <div className="flex flex-col items-center gap-1 py-3">
-                  <h2 className="text-pr-dark text-3xl text-center" style={{ fontFamily: 'var(--font-bebas)' }}>{t('opinionReveal')}</h2>
-                  <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">
+                <div className="flex flex-col items-center gap-2 py-3">
+                  <h2 className="text-[1.7rem] text-[#ece7df] text-center" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>{t('opinionReveal')}</h2>
+                  <p className="text-[0.68rem] text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>
                     {loseRule === 'majority' ? t('opinionMajorityRule') : t('opinionMinorityRule')}
                   </p>
                 </div>
@@ -1032,18 +1014,18 @@ export default function GuestGameClient({ code }: Props) {
                   const isWinner = !isLoser && maxLoss !== minLoss && r.lossCount === minLoss && results.length > 1;
                   return (
                     <div key={r.playerId}
-                      className="flex items-center justify-between px-4 py-3 rounded-[6px] border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)]"
-                      style={{ backgroundColor: isLoser ? '#FEE2E2' : isWinner ? '#FEF9C3' : '#fff' }}>
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">{isLoser ? '💀' : isWinner ? '👑' : '😐'}</span>
-                        <span className="font-bold text-sm text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>
+                      className="flex items-center justify-between px-4 py-3 bg-[#111114]"
+                      style={{ border: isLoser ? '1px solid rgba(207,58,46,.6)' : isWinner ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}>
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span aria-hidden className="h-5 w-px shrink-0" style={{ backgroundColor: isLoser ? '#cf3a2e' : isWinner ? '#b8935a' : 'rgba(236,231,223,.2)' }} />
+                        <span className="text-sm text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>
                           {r.displayName}{isMe ? t('you') : ''}
                         </span>
                       </div>
                       <div className="flex flex-col items-end gap-0.5">
-                        <span className="text-xs font-bold text-gray-500">{t('opinionLossCount', { count: r.lossCount })}</span>
-                        {isLoser && <span className="text-xs font-bold text-red-500">{t('opinionLoser')}</span>}
-                        {isWinner && <span className="text-xs font-bold text-yellow-600">{t('opinionWinner')}</span>}
+                        <span className="text-[0.7rem] text-[#7d7871]">{t('opinionLossCount', { count: r.lossCount })}</span>
+                        {isLoser && <span className="text-[0.66rem] text-[#cf3a2e]" style={{ letterSpacing: '0.08em' }}>{t('opinionLoser')}</span>}
+                        {isWinner && <span className="text-[0.66rem] text-[#b8935a]" style={{ letterSpacing: '0.08em' }}>{t('opinionWinner')}</span>}
                       </div>
                     </div>
                   );
@@ -1052,28 +1034,13 @@ export default function GuestGameClient({ code }: Props) {
             );
           })()}
 
-          {/* センキャバ バナー */}
-          <a
-            href="https://www.sencaba.com/download"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 mt-2"
-          >
-            <span className="text-2xl">🥂</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-              </p>
-              <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
-            </div>
-            <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
-          </a>
+          <SencabaBanner />
 
           <div className="flex flex-col gap-3 mt-auto">
             <button type="button" onClick={() => router.push('/join')}
-              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-              style={{ fontFamily: 'var(--font-dm)' }}>
-              🚪 抜ける
+              className="kg-btn kg-btn--ghost"
+              style={{ minHeight: '48px', fontSize: '0.86rem' }}>
+              抜ける
             </button>
           </div>
         </div>
@@ -1085,19 +1052,19 @@ export default function GuestGameClient({ code }: Props) {
     const q = game.questions[localQuestionIndex];
     if (!q) return null;
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="bg-pr-dark px-4 pt-4 pb-2 flex items-center justify-between">
-          <span className="text-white text-sm font-bold uppercase tracking-widest">
-            Q {localQuestionIndex + 1}/{game.questions.length}
+      <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div className="border-b border-[rgba(236,231,223,.1)] px-6 pt-6 pb-3 flex items-center justify-between">
+          <span className="text-[#b8935a] text-[0.7rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.28em' }}>
+            Q {localQuestionIndex + 1} / {game.questions.length}
           </span>
-          <span className="text-gray-400 text-xs font-bold">{t('selfPaced')}</span>
+          <span className="text-[#7d7871] text-[0.66rem]" style={{ letterSpacing: '0.12em' }}>{t('selfPaced')}</span>
         </div>
-        <div className="flex flex-col flex-1 px-4 py-5 gap-5">
+        <div className="flex flex-col flex-1 px-6 py-7 gap-6">
           {q.imageUrl && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={q.imageUrl} alt="Question" className="w-full rounded-[8px] object-cover max-h-48 border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)]" />
+            <img src={q.imageUrl} alt="Question" className="w-full object-cover max-h-48 border border-[rgba(236,231,223,.14)]" />
           )}
-          <p className="text-pr-dark text-center font-bold" style={{ fontFamily: 'var(--font-bebas)', fontSize: '2rem', lineHeight: 1.2 }}>
+          <p className="text-center text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', fontSize: '1.5rem', lineHeight: 1.5, letterSpacing: '0.04em' }}>
             {q.text}
           </p>
           <div className="flex flex-col gap-3 mt-auto">
@@ -1116,44 +1083,45 @@ export default function GuestGameClient({ code }: Props) {
     const isCorrect = game.mode === 'trivia' && revealInfo?.correctIndex !== undefined && revealInfo.myChoiceIndex === revealInfo.correctIndex;
     const correctOption = q.correctIndex !== undefined ? q.options[q.correctIndex] : null;
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="flex flex-col flex-1 items-center justify-center px-6 gap-5 text-center">
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div aria-hidden className="kg-glow" />
+        <div className="relative z-[2] flex flex-col flex-1 items-center justify-center px-8 gap-5 text-center">
           {game.mode === 'trivia' && (
             <>
-              <div className="w-20 h-20 rounded-full border-[4px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] flex items-center justify-center text-3xl"
-                style={{ backgroundColor: isCorrect ? '#6f8f6a' : '#cf3a2e' }}>
-                {isCorrect ? '🎉' : '😅'}
-              </div>
+              <p style={{ fontFamily: 'var(--font-dm)', fontSize: '2rem', lineHeight: 1.1, letterSpacing: '0.06em', color: isCorrect ? '#b8935a' : '#cf3a2e', textShadow: isCorrect ? '0 0 40px rgba(184,147,90,.3)' : '0 0 40px rgba(207,58,46,.35)' }}>
+                {isCorrect ? t('correct') : t('wrong')}
+              </p>
+              <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
               {correctOption && (
-                <div className="flex flex-col gap-2 items-center">
+                <div className="flex flex-col gap-3 items-center">
                   {!isCorrect && revealInfo && revealInfo.myChoiceIndex >= 0 && q.options[revealInfo.myChoiceIndex] && (
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('yourAnswer')}</p>
-                      <p className="text-2xl text-red-500" style={{ fontFamily: 'var(--font-bebas)' }}>{q.options[revealInfo.myChoiceIndex]}</p>
+                      <p className="text-[0.68rem] text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>{t('yourAnswer')}</p>
+                      <p className="mt-1 text-[1.3rem] text-[#cf3a2e]" style={{ fontFamily: 'var(--font-dm)' }}>{q.options[revealInfo.myChoiceIndex]}</p>
                     </div>
                   )}
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('correctAnswer')}</p>
-                    <p className="text-3xl text-pr-dark" style={{ fontFamily: 'var(--font-bebas)' }}>{correctOption}</p>
+                    <p className="text-[0.68rem] text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>{t('correctAnswer')}</p>
+                    <p className="mt-1 text-[1.5rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>{correctOption}</p>
                   </div>
                 </div>
               )}
               {revealInfo && (
-                <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] rounded-[8px] px-5 py-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{t('pointsThisRound')}</p>
-                  <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '3rem', lineHeight: 1 }}>+{revealInfo.pointsEarned}</p>
-                  <p className="text-xs text-gray-400">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
+                <div className="w-full kg-card px-5 py-4">
+                  <p className="text-[0.68rem] text-[#b9b4ac]" style={{ letterSpacing: '0.16em' }}>{t('pointsThisRound')}</p>
+                  <p className="text-[#cf3a2e]" style={{ fontFamily: 'var(--font-bebas)', fontSize: '2.8rem', lineHeight: 1, letterSpacing: '0.04em' }}>+{revealInfo.pointsEarned}</p>
+                  <p className="text-[0.72rem] text-[#7d7871]">{t('totalPoints', { total: revealInfo.totalPoints })}</p>
                 </div>
               )}
             </>
           )}
           {game.mode === 'polling' && (
-            <p className="font-bold text-pr-dark text-xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('voteRecorded')}</p>
+            <p className="text-[#ece7df] text-[1.4rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>{t('voteRecorded')}</p>
           )}
           <button type="button" onClick={handleSelfPacedNext}
-            className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)' }}>
-            {localQuestionIndex < game.questions.length - 1 ? t('nextQuestion') : t('seeResults')}
+            className="kg-btn kg-btn--primary mt-2">
+            <span>{localQuestionIndex < game.questions.length - 1 ? t('nextQuestion') : t('seeResults')}</span>
+            <span aria-hidden>→</span>
           </button>
         </div>
       </main>
@@ -1162,37 +1130,24 @@ export default function GuestGameClient({ code }: Props) {
 
   if (guestState === 'sp_ended') {
     return (
-      <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-        <div className="flex flex-col flex-1 items-center justify-center px-6 gap-6 text-center">
-          <span className="text-7xl">🏆</span>
-          <h1 className="text-pr-dark text-6xl" style={{ fontFamily: 'var(--font-bebas)' }}>{t('done')}</h1>
-          <div className="w-full bg-white border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] rounded-[8px] px-6 py-5">
-            <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{t('yourScore')}</p>
-            <p className="text-pr-pink" style={{ fontFamily: 'var(--font-bebas)', fontSize: '4rem', lineHeight: 1 }}>{totalPoints}</p>
-            <p className="text-gray-400 text-sm">{t('points')}</p>
+      <main className="relative flex flex-col min-h-screen overflow-hidden bg-[#0a0a0b] text-[#ece7df] max-w-[460px] mx-auto">
+        <div aria-hidden className="kg-glow" />
+        <div className="relative z-[2] flex flex-col flex-1 items-center justify-center px-8 gap-6 text-center">
+          <span className="kg-eyebrow">Finished</span>
+          <h1 className="text-[2.8rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}>{t('done')}</h1>
+          <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+          <div className="w-full kg-card px-6 py-5">
+            <p className="text-[0.68rem] text-[#b9b4ac]" style={{ letterSpacing: '0.16em' }}>{t('yourScore')}</p>
+            <p className="text-[#cf3a2e]" style={{ fontFamily: 'var(--font-bebas)', fontSize: '3.6rem', lineHeight: 1, letterSpacing: '0.04em' }}>{totalPoints}</p>
+            <p className="text-[0.72rem] text-[#7d7871]">{t('points')}</p>
           </div>
-          {/* センキャバ バナー */}
-          <a
-            href="https://www.sencaba.com/download"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-pr-dark rounded-[10px] border-[3px] border-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] px-4 py-3 w-full"
-          >
-            <span className="text-2xl">🥂</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-white font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
-                キャバクラ探しなら <span className="text-pr-pink">センキャバ</span>
-              </p>
-              <p className="text-gray-400 text-xs mt-0.5">お店を探す・予約する</p>
-            </div>
-            <span className="flex-shrink-0 text-xs font-bold bg-pr-pink text-white px-3 py-1.5 rounded-full">DL</span>
-          </a>
+          <SencabaBanner />
 
           <div className="flex flex-col gap-3 w-full">
             <button type="button" onClick={() => router.push('/join')}
-              className="w-full h-12 bg-white text-pr-dark text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-              style={{ fontFamily: 'var(--font-dm)' }}>
-              🚪 抜ける
+              className="kg-btn kg-btn--ghost"
+              style={{ minHeight: '48px', fontSize: '0.86rem' }}>
+              抜ける
             </button>
           </div>
         </div>
