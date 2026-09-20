@@ -214,14 +214,13 @@ function PinkBtn({
       onClick={onClick}
       disabled={disabled}
       className={[
-        'w-full h-14 text-lg font-bold rounded-[6px] border-[3px] border-pr-dark touch-manipulation',
+        'flex w-full min-h-[56px] items-center justify-center gap-2 touch-manipulation transition-colors duration-300',
         outline
-          ? 'bg-white text-pr-dark shadow-[0_4px_16px_rgba(0,0,0,.4)] hover:shadow-[0_10px_40px_rgba(0,0,0,.5)]'
-          : 'bg-pr-pink text-white shadow-[0_10px_40px_rgba(0,0,0,.5)]',
-        'active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75',
-        disabled ? 'opacity-50 cursor-not-allowed' : '',
+          ? 'border border-[rgba(236,231,223,.16)] text-[#ece7df]/85 hover:border-[rgba(236,231,223,.4)]'
+          : 'bg-[#cf3a2e] text-[#ece7df] hover:bg-[#d8483c] active:bg-[#a12417]',
+        disabled ? 'opacity-40 cursor-not-allowed' : '',
       ].filter(Boolean).join(' ')}
-      style={{ fontFamily: 'var(--font-dm)' }}
+      style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', ...(outline ? {} : { boxShadow: '0 14px 40px rgba(207,58,46,.24)' }) }}
     >
       {children}
     </button>
@@ -364,16 +363,16 @@ export function HostGameClient({ gameId }: { gameId: string }) {
 
   if (loading) {
     return (
-      <div className="flex flex-1 items-center justify-center min-h-screen bg-white">
-        <div className="w-12 h-12 border-4 border-pr-pink border-t-transparent rounded-full animate-spin" />
+      <div className="kg-page kg-grain flex flex-1 items-center justify-center min-h-screen">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
       </div>
     );
   }
 
   if (error || !game) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center min-h-screen gap-4 px-4 bg-white">
-        <p className="text-red-500 font-bold">{error ?? t('notFound')}</p>
+      <div className="kg-page kg-grain flex flex-1 flex-col items-center justify-center min-h-screen gap-4 px-4">
+        <p className="text-[0.9rem] text-[#cf3a2e]">{error ?? t('notFound')}</p>
         <Link href="/host/new" className={buttonVariants({ variant: 'outline' })}>
           {t('createNew')}
         </Link>
@@ -398,30 +397,30 @@ export function HostGameClient({ gameId }: { gameId: string }) {
   const showVoteBar = !hostParticipating || game.status !== 'question' || hostAnswered;
 
   return (
-    <main className="flex flex-col min-h-screen bg-white">
-      {/* Sticky dark header */}
-      <header className="sticky top-0 z-10 bg-pr-dark px-4 py-3 flex items-center justify-between gap-3 border-b-[3px] border-pr-dark">
+    <main className="kg-page kg-grain flex flex-col min-h-screen">
+      {/* Sticky ink header */}
+      <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-[rgba(236,231,223,.12)] bg-[#0a0a0b]/95 px-4 py-3 backdrop-blur">
         <div className="flex items-center gap-3 min-w-0">
           <Link
             href="/presets"
-            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full border-[2px] border-white/30 text-white text-lg hover:border-white transition-colors touch-manipulation"
+            aria-label="←"
+            className="flex h-9 w-9 flex-shrink-0 items-center justify-center text-[#ece7df]/70 transition-colors hover:text-[#ece7df] touch-manipulation"
           >
-            ←
+            <span aria-hidden className="text-lg">←</span>
           </Link>
           <div className="flex flex-col min-w-0">
             <h1
-              className="text-pr-pink truncate max-w-[160px] sm:max-w-none"
-              style={{ fontFamily: 'var(--font-bebas)', fontSize: '1.6rem', lineHeight: 1 }}
+              className="kg-h max-w-[160px] truncate text-[1.15rem] leading-tight sm:max-w-none"
             >
               {game.title}
             </h1>
-            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest capitalize">{game.mode}</p>
+            <p className="text-[0.62rem] uppercase capitalize text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>{game.mode}</p>
           </div>
         </div>
         <GameStatusBadge status={game.status} />
       </header>
 
-      <div className="flex-1 max-w-[720px] w-full mx-auto px-4 py-6 flex flex-col gap-6">
+      <div className="relative z-[2] flex-1 max-w-[720px] w-full mx-auto px-4 py-6 flex flex-col gap-6">
 
         {/* Phase A: Lobby */}
         {game.status === 'lobby' && (
@@ -438,8 +437,8 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                   <button
                     type="button"
                     onClick={() => setHostShowInput(true)}
-                    className="w-full h-11 bg-white text-pr-dark font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                    style={{ fontFamily: 'var(--font-dm)' }}
+                    className="min-h-[48px] w-full border border-[rgba(184,147,90,.45)] text-[0.86rem] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+                    style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}
                   >
                     ＋ ホストも参加する
                   </button>
@@ -453,15 +452,15 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                       placeholder="あなたの名前"
                       maxLength={20}
                       autoFocus
-                      className="flex-1 h-11 px-3 rounded-[6px] border-[2px] border-pr-dark text-pr-dark font-bold text-sm focus:outline-none"
+                      className="kg-input flex-1"
                       style={{ fontFamily: 'var(--font-dm)' }}
                     />
                     <button
                       type="button"
                       onClick={handleHostJoin}
                       disabled={!hostNameInput.trim() || hostJoining}
-                      className="h-11 px-4 bg-pr-dark text-white font-bold text-sm rounded-[6px] border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)] disabled:opacity-50 touch-manipulation"
-                      style={{ fontFamily: 'var(--font-dm)' }}
+                      className="shrink-0 min-h-[48px] px-5 bg-[#cf3a2e] text-[#ece7df] text-[0.86rem] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] disabled:opacity-50 touch-manipulation"
+                      style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}
                     >
                       {hostJoining ? '…' : '参加'}
                     </button>
@@ -469,8 +468,8 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                 )}
               </div>
             ) : (
-              <p className="text-xs font-bold text-center text-gray-500">
-                ✓ ホストとして参加中
+              <p className="text-center text-[0.74rem] text-[#b8935a]" style={{ letterSpacing: '0.06em' }}>
+                <span aria-hidden className="mr-1">✓</span> ホストとして参加中
               </p>
             )}
             <PinkBtn onClick={handleAdvance} disabled={players.length === 0}>
@@ -484,8 +483,8 @@ export function HostGameClient({ gameId }: { gameId: string }) {
           <>
             <div className="flex items-center justify-between">
               <p
-                className="text-pr-dark text-2xl"
-                style={{ fontFamily: 'var(--font-bebas)' }}
+                className="text-[#b8935a] text-[1.5rem]"
+                style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}
               >
                 {t('questionCounter', { current: game.currentQuestionIndex + 1, total: game.questions.length })}
               </p>
@@ -500,8 +499,8 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               )}
             </div>
 
-            <div className="flex flex-col gap-3 p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
-              <p className="text-xl font-bold text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>
+            <div className="kg-card flex flex-col gap-3 p-4">
+              <p className="kg-h text-[1.2rem] leading-relaxed">
                 {currentQuestion.text}
               </p>
               {currentQuestion.imageUrl && (
@@ -509,7 +508,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                 <img
                   src={currentQuestion.imageUrl}
                   alt="Question image"
-                  className="max-h-64 rounded-[6px] object-contain border-[2px] border-pr-dark"
+                  className="max-h-64 object-contain border border-[rgba(236,231,223,.14)]"
                 />
               )}
             </div>
@@ -518,25 +517,28 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               <VoteBar options={currentQuestion.options} votes={currentVotes} />
             )}
             {hostParticipating && !hostAnswered && (
-              <div className="flex flex-col gap-2 mt-2">
-                <p className="text-xs font-bold text-gray-400 text-center">あなたの回答</p>
-                {currentQuestion.options.map((opt: string, i: number) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => handleHostAnswer(i)}
-                    disabled={hostSubmitting}
-                    className={[
-                      'w-full h-12 rounded-[6px] font-bold text-sm border-[3px] touch-manipulation transition-[transform,box-shadow] duration-75',
-                      hostSelectedChoice?.questionId === currentQuestion.id && hostSelectedChoice.choiceIndex === i
-                        ? 'bg-pr-pink text-white border-pr-dark shadow-[0_1px_4px_rgba(0,0,0,.3)]'
-                        : 'bg-white text-pr-dark border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px]',
-                    ].join(' ')}
-                    style={{ fontFamily: 'var(--font-dm)' }}
-                  >
-                    {opt}
-                  </button>
-                ))}
+              <div className="mt-2 flex flex-col gap-2">
+                <p className="text-center text-[0.7rem] text-[#7d7871]" style={{ letterSpacing: '0.1em' }}>あなたの回答</p>
+                {currentQuestion.options.map((opt: string, i: number) => {
+                  const selected = hostSelectedChoice?.questionId === currentQuestion.id && hostSelectedChoice.choiceIndex === i;
+                  return (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => handleHostAnswer(i)}
+                      disabled={hostSubmitting}
+                      className={[
+                        'min-h-[48px] w-full border text-[0.9rem] transition-colors duration-300 touch-manipulation',
+                        selected
+                          ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]'
+                          : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]',
+                      ].join(' ')}
+                      style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
+                    >
+                      {opt}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
@@ -549,11 +551,11 @@ export function HostGameClient({ gameId }: { gameId: string }) {
         {/* Phase C: Reveal */}
         {game.status === 'reveal' && currentQuestion && (
           <>
-            <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">
+            <div className="kg-card p-4">
+              <p className="mb-1 text-[0.62rem] uppercase text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.2em' }}>
                 {t('questionCounter', { current: game.currentQuestionIndex + 1, total: game.questions.length })}
               </p>
-              <p className="text-xl font-bold text-pr-dark" style={{ fontFamily: 'var(--font-dm)' }}>
+              <p className="kg-h text-[1.2rem] leading-relaxed">
                 {currentQuestion.text}
               </p>
             </div>
@@ -567,7 +569,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
 
             {game.mode === 'trivia' && scores.length > 0 && (
               <div className="flex flex-col gap-3">
-                <h2 className="text-pr-dark text-3xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+                <h2 className="text-[#ece7df] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
                   {t('top5')}
                 </h2>
                 <Leaderboard scores={scores} limit={5} />
@@ -585,17 +587,17 @@ export function HostGameClient({ gameId }: { gameId: string }) {
         {/* Phase D: Ended */}
         {game.status === 'ended' && (
           <>
-            <div className="flex flex-col items-center gap-3 py-6 text-center">
-              <span className="text-6xl">🎉</span>
-              <h2 className="text-pr-dark text-6xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+            <div className="flex flex-col items-center gap-4 py-6 text-center">
+              <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
+              <h2 className="text-[#ece7df] text-[3rem] leading-none" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}>
                 {t('gameOver')}
               </h2>
-              <p className="text-gray-500 font-bold">{game.title}</p>
+              <p className="text-[0.82rem] text-[#7d7871]">{game.title}</p>
             </div>
 
             {game.mode === 'trivia' && (
               <div className="flex flex-col gap-3">
-                <h3 className="text-pr-dark text-3xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+                <h3 className="text-[#ece7df] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
                   {t('finalLeaderboard')}
                 </h3>
                 <Leaderboard scores={scores} />
@@ -604,7 +606,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
 
             {game.mode === 'polling' && (
               <div className="flex flex-col gap-6">
-                <h3 className="text-pr-dark text-3xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+                <h3 className="text-[#ece7df] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
                   {t('results')}
                 </h3>
                 {game.questions.map((q: Question, i: number) => {
@@ -614,7 +616,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                   );
                   return (
                     <div key={q.id} className="flex flex-col gap-2">
-                      <p className="font-bold text-sm text-pr-dark">{i + 1}. {q.text}</p>
+                      <p className="kg-h text-[0.92rem] leading-snug">{i + 1}. {q.text}</p>
                       <VoteBar options={q.options} votes={votes} />
                     </div>
                   );
@@ -627,17 +629,17 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               if (!personResults) return null;
               const maxVotes = Math.max(...personResults.map(r => r.voteCount), 1);
               return (
-                <div className="flex flex-col gap-2 mt-2">
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">選ばれた回数</p>
+                <div className="mt-2 flex flex-col gap-2">
+                  <p className="text-[0.66rem] uppercase text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>選ばれた回数</p>
                   {personResults.map((r, i) => (
-                    <div key={r.displayName} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
-                      <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
-                      <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
-                      <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-pr-pink rounded-full" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                    <div key={r.displayName} className="kg-card flex items-center gap-3 px-3 py-2.5">
+                      <span className="w-6 text-center text-[1rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>{i + 1}</span>
+                      <span className="kg-h flex-1 truncate text-[0.9rem]">{r.displayName}</span>
+                      <div className="h-1.5 w-20 overflow-hidden bg-[rgba(236,231,223,.1)]">
+                        <div className="h-full bg-[#cf3a2e]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
                       </div>
-                      <span className="text-sm font-bold text-pr-dark w-10 text-right">{r.voteCount}票</span>
-                      {i === 0 && r.voteCount > 0 && <span className="text-lg">👑</span>}
+                      <span className="w-10 text-right text-[0.82rem] text-[#ece7df]">{r.voteCount}票</span>
+                      {i === 0 && r.voteCount > 0 && <span aria-hidden className="text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>}
                     </div>
                   ))}
                 </div>
@@ -650,15 +652,15 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               const topMajority = results[0];
               const topMinority = [...results].sort((a, b) => b.minorityCount - a.minorityCount)[0];
               return (
-                <div className="flex flex-col gap-2 mt-4">
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">みんなの実態まとめ</p>
+                <div className="mt-4 flex flex-col gap-2">
+                  <p className="text-[0.66rem] uppercase text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>みんなの実態まとめ</p>
                   {results.map((r, i) => (
-                    <div key={r.playerId} className="flex items-center gap-3 bg-white rounded-[8px] border-[2px] border-pr-dark px-3 py-2 shadow-[0_2px_8px_rgba(0,0,0,.3)]">
-                      <span className="text-lg font-bold text-pr-dark w-6 text-center">{i + 1}</span>
-                      <span className="flex-1 font-bold text-pr-dark text-sm truncate">{r.displayName}</span>
-                      {r.playerId === topMajority.playerId && <span className="text-xs font-bold bg-yellow-300 text-pr-dark px-2 py-0.5 rounded-full">多数派王</span>}
-                      {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-xs font-bold bg-red-100 text-red-600 px-2 py-0.5 rounded-full">少数派</span>}
-                      <span className="text-xs text-gray-500 font-bold">{r.majorityCount}勝 / {r.minorityCount}負</span>
+                    <div key={r.playerId} className="kg-card flex items-center gap-3 px-3 py-2.5">
+                      <span className="w-6 text-center text-[1rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>{i + 1}</span>
+                      <span className="kg-h flex-1 truncate text-[0.9rem]">{r.displayName}</span>
+                      {r.playerId === topMajority.playerId && <span className="border border-[rgba(184,147,90,.5)] px-2 py-0.5 text-[0.62rem] text-[#b8935a]" style={{ letterSpacing: '0.06em' }}>多数派王</span>}
+                      {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="border border-[#cf3a2e]/50 px-2 py-0.5 text-[0.62rem] text-[#cf3a2e]" style={{ letterSpacing: '0.06em' }}>少数派</span>}
+                      <span className="text-[0.68rem] text-[#7d7871]">{r.majorityCount}勝 / {r.minorityCount}負</span>
                     </div>
                   ))}
                 </div>
@@ -671,10 +673,10 @@ export function HostGameClient({ gameId }: { gameId: string }) {
               return (
                 <div className="flex flex-col gap-4">
                   <div className="text-center">
-                    <h3 className="text-pr-dark text-5xl" style={{ fontFamily: 'var(--font-bebas)' }}>
+                    <h3 className="text-[#ece7df] text-[2.6rem] leading-none" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}>
                       {t('opinionReveal')}
                     </h3>
-                    <p className="text-gray-500 text-sm font-bold mt-1">
+                    <p className="mt-2 text-[0.78rem] text-[#7d7871]" style={{ letterSpacing: '0.04em' }}>
                       {game.loseRule === 'majority' ? t('opinionMajorityRule') : t('opinionMinorityRule')}
                     </p>
                   </div>
@@ -685,23 +687,25 @@ export function HostGameClient({ gameId }: { gameId: string }) {
                       return (
                         <div key={r.playerId}
                           className={[
-                            'flex flex-col items-center gap-1 p-4 rounded-[8px] border-[3px] text-center transition-all',
+                            'flex flex-col items-center gap-1.5 border p-4 text-center transition-colors',
                             isLoser
-                              ? 'bg-red-500 border-red-700 shadow-[4px_4px_0_#7f1d1d] text-white'
+                              ? 'bg-[#cf3a2e] border-[#cf3a2e] text-[#ece7df]'
                               : isWinner
-                              ? 'bg-yellow-50 border-yellow-400 shadow-[3px_3px_0_#a16207] text-pr-dark'
-                              : 'bg-white border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] text-pr-dark',
+                              ? 'bg-[#111114] border-[rgba(184,147,90,.5)] text-[#ece7df]'
+                              : 'bg-[#111114] border-[rgba(236,231,223,.1)] text-[#ece7df]',
                           ].join(' ')}
                         >
-                          <span className="text-2xl">{isLoser ? '💀' : isWinner ? '👑' : '😐'}</span>
-                          <span className="font-bold text-sm leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                          <span aria-hidden className={['text-[0.9rem]', isWinner ? 'text-[#b8935a]' : isLoser ? 'text-[#ece7df]' : 'text-[#7d7871]'].join(' ')} style={{ fontFamily: 'var(--font-bebas)' }}>
+                            {isLoser ? '✕' : isWinner ? '◆' : '·'}
+                          </span>
+                          <span className="kg-h text-[0.9rem] leading-tight">
                             {r.displayName}
                           </span>
-                          <span className={['text-xs font-bold', isLoser ? 'text-red-100' : 'text-gray-500'].join(' ')}>
+                          <span className={['text-[0.7rem]', isLoser ? 'text-[#ece7df]/80' : 'text-[#7d7871]'].join(' ')}>
                             {t('opinionLoseCount', { count: r.lossCount })}
                           </span>
                           {isLoser && (
-                            <span className="text-xs font-bold bg-red-700 text-white px-2 py-0.5 rounded-full mt-1">
+                            <span className="mt-1 border border-[#ece7df]/40 px-2 py-0.5 text-[0.62rem] text-[#ece7df]" style={{ letterSpacing: '0.08em' }}>
                               {t('opinionLoser')}
                             </span>
                           )}
@@ -716,15 +720,16 @@ export function HostGameClient({ gameId }: { gameId: string }) {
             <div className="flex flex-col gap-3">
               <Link
                 href="/presets"
-                className="w-full h-14 bg-pr-pink text-white flex items-center justify-center text-lg font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}
+                className="flex w-full min-h-[56px] items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(207,58,46,.24)' }}
               >
-                🎮 プリセット一覧へ
+                <span>プリセット一覧へ</span>
+                <span aria-hidden>→</span>
               </Link>
               <Link
                 href="/host/new"
-                className="w-full h-11 bg-white text-pr-dark flex items-center justify-center text-sm font-bold rounded-[6px] border-[2px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] active:shadow-[0_1px_2px_rgba(0,0,0,.3)] active:translate-x-[1px] active:translate-y-[1px] transition-[transform,box-shadow] duration-75 touch-manipulation"
-                style={{ fontFamily: 'var(--font-dm)' }}
+                className="flex min-h-[48px] w-full items-center justify-center border border-[rgba(184,147,90,.45)] text-[0.86rem] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+                style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}
               >
                 ＋ 新しく作る
               </Link>
@@ -735,7 +740,7 @@ export function HostGameClient({ gameId }: { gameId: string }) {
         {/* Draft fallback */}
         {game.status === 'draft' && (
           <div className="flex flex-col items-center gap-4 py-12 text-center">
-            <p className="text-gray-500 font-bold">{t('openingLobby')}</p>
+            <p className="text-[0.82rem] text-[#7d7871]">{t('openingLobby')}</p>
             <PinkBtn onClick={handleAdvance}>{t('openLobby')}</PinkBtn>
           </div>
         )}
