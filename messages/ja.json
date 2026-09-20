@@ -2,13 +2,13 @@
   "landing": {
     "tagline": "ライブクイズ & 投票",
     "headline": "みんなで遊ぼう。\nみんなで笑おう。",
-    "subtitle": "パーティー・イベント・授業に最適なリアルタイムクイズ＆投票",
-    "playNow": "🎉 すぐ遊ぶ（プリセット）",
-    "aiCreate": "✨ AIでその場作成",
-    "hostGame": "✏️ 自分で作る",
-    "joinGame": "🎮 ゲームに参加",
-    "guide": "📖 使い方ガイド",
-    "learnMore": "📣 宴会ゲームズとは？"
+    "subtitle": "宴会・合コン・イベントに。みんなのスマホで、リアルタイムのクイズ＆投票。",
+    "playNow": "すぐ遊ぶ",
+    "aiCreate": "AIでその場作成",
+    "hostGame": "自分で作る",
+    "joinGame": "参加する",
+    "guide": "使い方",
+    "learnMore": "宴会ゲームズとは"
   },
   "join": {
     "title": "ゲームコードを入力",
