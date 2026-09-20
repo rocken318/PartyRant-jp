@@ -34,42 +34,70 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex flex-col min-h-screen bg-white max-w-[480px] mx-auto">
-      <div className="bg-pr-pink px-6 pt-16 pb-20 flex flex-col items-center gap-2 rounded-b-[40px]">
-        <h1 className="text-white tracking-wider" style={{ fontFamily: 'var(--font-bebas)', fontSize: '4rem', lineHeight: 1 }}>
-          {t('loginTitle')}
-        </h1>
+    <main className="kg-page kg-grain">
+      <div aria-hidden className="kg-glow" />
+
+      <div className="kg-wrap relative z-[2] flex min-h-screen flex-col">
+        {/* Top bar */}
+        <div className="flex items-center pt-8">
+          <Link
+            href="/"
+            aria-label="←"
+            className="flex h-10 w-10 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)]"
+          >
+            <span aria-hidden className="text-lg">←</span>
+          </Link>
+        </div>
+
+        {/* Body */}
+        <div className="flex flex-1 flex-col justify-center pb-16">
+          <div className="flex flex-col items-center text-center">
+            <span className="kg-eyebrow">Host Login</span>
+            <h1
+              className="mt-6 text-[2.4rem] font-medium leading-[1.15] text-[#ece7df]"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}
+            >
+              {t('loginTitle')}
+            </h1>
+            <span aria-hidden className="mt-7 block h-px w-12 bg-[#cf3a2e]" />
+          </div>
+
+          <form onSubmit={handleSubmit} className="mt-12 flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <label className="kg-label">{t('email')}</label>
+              <input
+                type="email" required value={email} onChange={e => setEmail(e.target.value)}
+                className="kg-input"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="kg-label">{t('password')}</label>
+              <input
+                type="password" required value={password} onChange={e => setPassword(e.target.value)}
+                className="kg-input"
+                style={{ fontFamily: 'var(--font-dm)' }}
+              />
+            </div>
+            {error && (
+              <p className="text-[0.8rem] text-[#ece7df] bg-[#a12417]/30 border border-[#cf3a2e]/40 px-3 py-2" style={{ letterSpacing: '0.02em' }}>
+                {error}
+              </p>
+            )}
+            <button
+              type="submit" disabled={loading}
+              className="kg-btn kg-btn--primary mt-2"
+            >
+              <span>{loading ? t('loggingIn') : t('loginButton')}</span>
+              {!loading && <span aria-hidden>→</span>}
+            </button>
+            <p className="mt-4 text-center text-[0.78rem] text-[#7d7871]" style={{ letterSpacing: '0.04em' }}>
+              {t('noAccount')}{' '}
+              <Link href="/auth/signup" className="text-[#b8935a] underline decoration-[#b8935a]/40 underline-offset-4 transition-colors hover:text-[#cf3a2e]">{t('signUp')}</Link>
+            </p>
+          </form>
+        </div>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-10">
-        <div className="flex flex-col gap-2">
-          <label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('email')}</label>
-          <input
-            type="email" required value={email} onChange={e => setEmail(e.target.value)}
-            className="w-full h-14 text-base px-4 border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px] focus:outline-none focus:shadow-[0_10px_40px_rgba(0,0,0,.5)] transition-shadow"
-            style={{ fontFamily: 'var(--font-dm)' }}
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="font-bold uppercase tracking-widest text-xs text-gray-500">{t('password')}</label>
-          <input
-            type="password" required value={password} onChange={e => setPassword(e.target.value)}
-            className="w-full h-14 text-base px-4 border-[3px] border-pr-dark shadow-[0_4px_12px_rgba(0,0,0,.35)] rounded-[6px] focus:outline-none focus:shadow-[0_10px_40px_rgba(0,0,0,.5)] transition-shadow"
-            style={{ fontFamily: 'var(--font-dm)' }}
-          />
-        </div>
-        {error && <p className="text-red-500 font-bold text-sm">{error}</p>}
-        <button
-          type="submit" disabled={loading}
-          className="w-full h-16 bg-pr-pink text-white text-xl font-bold rounded-[6px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 disabled:opacity-50 touch-manipulation"
-          style={{ fontFamily: 'var(--font-dm)' }}
-        >
-          {loading ? t('loggingIn') : t('loginButton')}
-        </button>
-        <p className="text-center text-sm text-gray-500">
-          {t('noAccount')}{' '}
-          <Link href="/auth/signup" className="text-pr-pink font-bold underline">{t('signUp')}</Link>
-        </p>
-      </form>
     </main>
   );
 }
