@@ -8,9 +8,6 @@ interface AnswerButtonProps {
   onClick: () => void;
 }
 
-// A=Pink, B=Yellow(dark text), C=Green, D=Blue
-const BG_COLORS = ['#cf3a2e', '#b8935a', '#6f8f6a', '#7d7871'];
-const TEXT_COLORS = ['#ece7df', '#0a0a0b', '#ece7df', '#ece7df'];
 const LABELS = ['A', 'B', 'C', 'D'];
 
 export function AnswerButton({
@@ -20,8 +17,6 @@ export function AnswerButton({
   selected = false,
   onClick,
 }: AnswerButtonProps) {
-  const bg = BG_COLORS[index % BG_COLORS.length];
-  const fg = TEXT_COLORS[index % TEXT_COLORS.length];
   const letter = LABELS[index % LABELS.length];
 
   return (
@@ -29,32 +24,38 @@ export function AnswerButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      style={{ backgroundColor: bg, color: fg }}
       className={[
-        'w-full min-h-[80px] px-4 py-3 rounded-[8px]',
-        'border-[3px] border-pr-dark',
-        selected
-          ? 'shadow-[0_2px_8px_rgba(0,0,0,.4)] translate-x-[2px] translate-y-[2px]'
-          : 'shadow-[0_4px_16px_rgba(0,0,0,.4)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px]',
-        'transition-[transform,box-shadow] duration-75',
+        'group w-full min-h-[64px] px-5 py-4',
+        'flex items-center gap-4 text-left',
+        'transition-colors duration-300',
         'touch-manipulation cursor-pointer',
+        selected
+          ? 'bg-[#cf3a2e] text-[#ece7df] border border-[#cf3a2e]'
+          : 'bg-[#111114] text-[#ece7df] border border-[rgba(236,231,223,.14)] hover:border-[rgba(207,58,46,.6)]',
         disabled && !selected ? 'opacity-40' : '',
         disabled ? 'cursor-not-allowed' : '',
-        'flex items-center gap-3 text-left',
       ]
         .filter(Boolean)
         .join(' ')}
     >
       <span
-        className="shrink-0 w-8 h-8 rounded-full border-[2px] border-current flex items-center justify-center text-sm font-bold"
-        style={{ fontFamily: 'var(--font-bebas)', fontSize: '1.1rem' }}
+        className={[
+          'shrink-0 text-[0.9rem] transition-colors duration-300',
+          selected ? 'text-[#ece7df]' : 'text-[#b8935a]',
+        ].join(' ')}
+        style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}
       >
         {letter}
       </span>
-      <span className="font-bold text-lg leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+      <span aria-hidden className={selected ? 'h-5 w-px bg-[#ece7df]/40' : 'h-5 w-px bg-[rgba(236,231,223,.14)]'} />
+      <span className="text-[1.02rem] leading-snug" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.03em' }}>
         {label}
       </span>
-      {selected && <span className="ml-auto text-xl">✓</span>}
+      {selected && (
+        <span aria-hidden className="ml-auto text-[0.85rem] text-[#ece7df]/80" style={{ fontFamily: 'var(--font-bebas)' }}>
+          ✓
+        </span>
+      )}
     </button>
   );
 }

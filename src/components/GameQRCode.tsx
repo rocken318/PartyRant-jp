@@ -32,19 +32,23 @@ export function GameQRCode({ joinCode }: { joinCode: string }) {
 
   if (!url) {
     return (
-      <div className="w-64 h-64 bg-gray-100 rounded-[8px] border-[3px] border-pr-dark animate-pulse" />
+      <div className="w-64 h-64 bg-[#111114] border border-[rgba(236,231,223,.14)] animate-pulse" />
     );
   }
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="p-4 bg-white rounded-[8px] border-[3px] border-pr-dark shadow-[0_10px_40px_rgba(0,0,0,.5)]">
-        <QRCodeSVG value={url} size={224} />
+    <div className="flex flex-col items-center gap-3">
+      {/* QRは読み取りのため白の余白が必要。金のヘアラインで上品に額装 */}
+      <div className="p-4 bg-[#ece7df]" style={{ border: '1px solid rgba(184,147,90,.6)' }}>
+        <QRCodeSVG value={url} size={224} bgColor="#ece7df" fgColor="#0a0a0b" />
       </div>
-      <p className="text-xs text-gray-400 text-center break-all max-w-xs">{url}</p>
+      <p className="text-xs text-[#7d7871] text-center break-all max-w-xs">{url}</p>
       {isLocalhost && (
-        <p className="text-xs text-amber-600 font-bold text-center max-w-xs bg-amber-50 rounded-[6px] px-3 py-1.5 border border-amber-200">
-          ⚠️ ローカル開発中: PCとスマホを同じWi-Fiに接続してください
+        <p
+          className="text-xs text-[#b8935a] text-center max-w-xs bg-[#111114] px-3 py-1.5 border border-[rgba(184,147,90,.35)]"
+          style={{ letterSpacing: '0.04em' }}
+        >
+          ローカル開発中: PCとスマホを同じWi-Fiに接続してください
         </p>
       )}
     </div>

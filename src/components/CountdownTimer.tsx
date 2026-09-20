@@ -39,22 +39,25 @@ export function CountdownTimer({ startedAt, timeLimitSec, onExpired }: Countdown
     return () => clearInterval(id);
   }, [startedAt, timeLimitSec]);
 
-  // Color: pink → orange → red as time runs out
+  // 朱 → 朱深 as time runs out
   const barColor = pct > 40 ? '#cf3a2e' : pct > 15 ? '#a12417' : '#7d0e09';
 
   return (
-    <div className="w-full flex flex-col gap-1">
-      <div className="flex justify-end">
+    <div className="w-full flex flex-col gap-1.5">
+      <div className="flex justify-end items-baseline gap-1">
         <span
-          className="text-2xl text-pr-dark"
+          className="text-[1.7rem] text-[#ece7df]"
           style={{ fontFamily: 'var(--font-bebas)', lineHeight: 1 }}
         >
-          {secsLeft}s
+          {secsLeft}
+        </span>
+        <span className="text-[0.7rem] text-[#7d7871]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}>
+          s
         </span>
       </div>
-      <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden border-[2px] border-pr-dark">
+      <div className="w-full h-[3px] overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.12)' }}>
         <div
-          className="h-full rounded-full transition-[width] duration-100 ease-linear"
+          className="h-full transition-[width] duration-100 ease-linear"
           style={{ width: `${pct}%`, backgroundColor: barColor }}
         />
       </div>

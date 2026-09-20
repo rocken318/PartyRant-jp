@@ -17,23 +17,23 @@ export function JoinCodeDisplay({ code }: { code: string }) {
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <p className="text-xs font-bold uppercase tracking-widest text-gray-500">
+      <span className="text-[0.62rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.42em', textIndent: '0.42em', textTransform: 'uppercase' }}>
         Join Code
-      </p>
+      </span>
       <button
         type="button"
         onClick={handleCopy}
         aria-label={`Join code ${code}. Tap to copy.`}
-        className="flex flex-col items-center gap-1 px-8 py-4 rounded-[8px] border-[3px] border-pr-dark bg-white shadow-[0_10px_40px_rgba(0,0,0,.5)] active:shadow-[0_1px_4px_rgba(0,0,0,.3)] active:translate-x-[2px] active:translate-y-[2px] transition-[transform,box-shadow] duration-75 touch-manipulation cursor-pointer"
+        className="flex flex-col items-center gap-2 px-10 py-5 bg-[#111114] border border-[rgba(184,147,90,.4)] transition-colors duration-300 hover:border-[rgba(184,147,90,.7)] touch-manipulation cursor-pointer"
       >
         <span
-          className="text-pr-pink tracking-widest select-all"
-          style={{ fontFamily: 'var(--font-bebas)', fontSize: '5rem', lineHeight: 1 }}
+          className="text-[#cf3a2e] select-all"
+          style={{ fontFamily: 'var(--font-bebas)', fontSize: '4.6rem', lineHeight: 1, letterSpacing: '0.14em', textIndent: '0.14em', textShadow: '0 0 40px rgba(207,58,46,.4)' }}
         >
           {code}
         </span>
-        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-          {copied ? '✓ Copied!' : 'Tap to copy'}
+        <span className="text-[0.62rem] text-[#7d7871]" style={{ letterSpacing: '0.2em' }}>
+          {copied ? 'COPIED' : 'TAP TO COPY'}
         </span>
       </button>
     </div>

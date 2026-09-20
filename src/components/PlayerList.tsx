@@ -5,18 +5,18 @@ import type { Player } from '@/types/domain';
 export function PlayerList({ players }: { players: Player[] }) {
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">
+      <p className="text-[0.7rem] text-[#b9b4ac]" style={{ letterSpacing: '0.16em' }}>
         {players.length} player{players.length !== 1 ? 's' : ''} joined
       </p>
       {players.length === 0 ? (
-        <p className="text-sm text-gray-400 italic">Waiting for players to join...</p>
+        <p className="text-sm text-[#7d7871] italic">Waiting for players to join...</p>
       ) : (
         <ul className="flex flex-wrap gap-2">
           {players.map((player) => (
             <li
               key={player.id}
-              className="px-3 py-1.5 rounded-full bg-pr-pink text-white text-sm font-bold border-[2px] border-pr-dark shadow-[0_2px_8px_rgba(0,0,0,.3)]"
-              style={{ fontFamily: 'var(--font-dm)' }}
+              className="px-4 py-1.5 text-sm text-[#ece7df] bg-[#111114] border border-[rgba(184,147,90,.35)]"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}
             >
               {player.displayName}
             </li>
