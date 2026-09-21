@@ -40,22 +40,22 @@ export function CountdownTimer({ startedAt, timeLimitSec, onExpired }: Countdown
   }, [startedAt, timeLimitSec]);
 
   // 朱 → 朱深 as time runs out
-  const barColor = pct > 40 ? '#cf3a2e' : pct > 15 ? '#a12417' : '#7d0e09';
+  const barColor = pct > 40 ? 'var(--kg-accent)' : pct > 15 ? 'var(--kg-accent-deep)' : '#7d0e09';
 
   return (
     <div className="w-full flex flex-col gap-1.5">
       <div className="flex justify-end items-baseline gap-1">
         <span
-          className="text-[1.7rem] text-[#ece7df]"
+          className="text-[1.7rem] text-[var(--kg-paper)]"
           style={{ fontFamily: 'var(--font-bebas)', lineHeight: 1 }}
         >
           {secsLeft}
         </span>
-        <span className="text-[0.7rem] text-[#7d7871]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}>
+        <span className="text-[0.7rem] text-[var(--kg-mist)]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}>
           s
         </span>
       </div>
-      <div className="w-full h-[3px] overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.12)' }}>
+      <div className="w-full h-[3px] overflow-hidden" style={{ backgroundColor: 'rgba(var(--kg-paper-rgb),.12)' }}>
         <div
           className="h-full transition-[width] duration-100 ease-linear"
           style={{ width: `${pct}%`, backgroundColor: barColor }}

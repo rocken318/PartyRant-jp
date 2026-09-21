@@ -408,19 +408,19 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
 
   if (loading) {
     return (
-      <div className="flex flex-1 items-center justify-center min-h-screen bg-[#0a0a0b]">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
+      <div className="flex flex-1 items-center justify-center min-h-screen bg-[var(--kg-ink)]">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[var(--kg-accent)] border-t-transparent" />
       </div>
     );
   }
 
   if (error || !game) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center min-h-screen gap-5 px-6 bg-[#0a0a0b] text-[#ece7df]">
-        <p className="text-[#cf3a2e]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>{error ?? t('notFound')}</p>
+      <div className="flex flex-1 flex-col items-center justify-center min-h-screen gap-5 px-6 bg-[var(--kg-ink)] text-[var(--kg-paper)]">
+        <p className="text-[var(--kg-accent)]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>{error ?? t('notFound')}</p>
         <Link
           href="/presets"
-          className="flex items-center justify-center min-h-[48px] px-6 border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5"
+          className="flex items-center justify-center min-h-[48px] px-6 border border-[rgba(var(--kg-gold-rgb),.45)] text-[var(--kg-gold)] transition-colors duration-300 hover:border-[var(--kg-gold)] hover:bg-[var(--kg-gold)]/5"
           style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em' }}
         >
           {t('backToPresets')}
@@ -446,17 +446,17 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
 
 
   return (
-    <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df]">
+    <main className="flex flex-col min-h-screen bg-[var(--kg-ink)] text-[var(--kg-paper)]">
       {/* Sticky dark header */}
-      <header className="sticky top-0 z-10 bg-[#0a0a0b]/95 backdrop-blur px-5 py-4 flex items-center justify-between gap-3 border-b border-[rgba(236,231,223,.1)]">
+      <header className="sticky top-0 z-10 bg-[var(--kg-ink)]/95 backdrop-blur px-5 py-4 flex items-center justify-between gap-3 border-b border-[rgba(var(--kg-paper-rgb),.1)]">
         <div className="flex flex-col min-w-0">
           <h1
-            className="text-[#ece7df] truncate max-w-[220px] sm:max-w-none"
+            className="text-[var(--kg-paper)] truncate max-w-[220px] sm:max-w-none"
             style={{ fontFamily: 'var(--font-dm)', fontSize: '1.3rem', lineHeight: 1.1, letterSpacing: '0.04em' }}
           >
             {game.title}
           </h1>
-          <p className="text-[#b8935a] text-[0.6rem] uppercase" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.3em' }}>{game.mode}</p>
+          <p className="text-[var(--kg-gold)] text-[0.6rem] uppercase" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.3em' }}>{game.mode}</p>
         </div>
         <GameStatusBadge status={game.status} />
       </header>
@@ -478,7 +478,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                   <button
                     type="button"
                     onClick={() => setHostShowInput(true)}
-                    className="w-full min-h-[48px] text-[0.86rem] border border-[rgba(236,231,223,.16)] text-[#ece7df]/85 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+                    className="w-full min-h-[48px] text-[0.86rem] border border-[rgba(var(--kg-paper-rgb),.16)] text-[var(--kg-paper)]/85 transition-colors duration-300 hover:border-[rgba(var(--kg-paper-rgb),.4)] touch-manipulation"
                     style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}
                   >
                     ホストも参加する
@@ -500,7 +500,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                       type="button"
                       onClick={handleHostJoin}
                       disabled={!hostNameInput.trim() || hostJoining}
-                      className="shrink-0 min-h-[48px] px-5 text-[0.86rem] bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] disabled:opacity-50 touch-manipulation"
+                      className="shrink-0 min-h-[48px] px-5 text-[0.86rem] bg-[var(--kg-accent)] text-[var(--kg-paper)] transition-colors duration-300 hover:bg-[var(--kg-accent-hover)] disabled:opacity-50 touch-manipulation"
                       style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}
                     >
                       {hostJoining ? '…' : '参加'}
@@ -509,7 +509,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                 )}
               </div>
             ) : (
-              <p className="text-[0.72rem] text-center text-[#b8935a]" style={{ letterSpacing: '0.08em' }}>ホストとして参加中</p>
+              <p className="text-[0.72rem] text-center text-[var(--kg-gold)]" style={{ letterSpacing: '0.08em' }}>ホストとして参加中</p>
             )}
 
             {/* キャスト指名: キャスト名入力（answerTarget==='casts' の設問を持つゲーム） */}
@@ -536,7 +536,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                       <button
                         type="button"
                         onClick={() => { setCastNames(castNames.filter((_, j) => j !== i)); setCastSaved(false); }}
-                        className="text-[#7d7871] text-lg px-2 hover:text-[#cf3a2e] transition-colors"
+                        className="text-[var(--kg-mist)] text-lg px-2 hover:text-[var(--kg-accent)] transition-colors"
                       >×</button>
                     )}
                   </div>
@@ -545,14 +545,14 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                   <button
                     type="button"
                     onClick={() => { setCastNames([...castNames, '']); setCastSaved(false); }}
-                    className="flex-1 min-h-[44px] text-[0.82rem] border border-[rgba(236,231,223,.16)] text-[#ece7df]/85 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+                    className="flex-1 min-h-[44px] text-[0.82rem] border border-[rgba(var(--kg-paper-rgb),.16)] text-[var(--kg-paper)]/85 transition-colors duration-300 hover:border-[rgba(var(--kg-paper-rgb),.4)] touch-manipulation"
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >追加</button>
                   <button
                     type="button"
                     onClick={handleSaveCast}
                     disabled={castSaving || castNames.filter(n => n.trim()).length < 2}
-                    className="flex-1 min-h-[44px] text-[0.82rem] border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 disabled:opacity-50 touch-manipulation"
+                    className="flex-1 min-h-[44px] text-[0.82rem] border border-[rgba(var(--kg-gold-rgb),.45)] text-[var(--kg-gold)] transition-colors duration-300 hover:border-[var(--kg-gold)] hover:bg-[var(--kg-gold)]/5 disabled:opacity-50 touch-manipulation"
                     style={{ fontFamily: 'var(--font-dm)' }}
                   >{castSaving ? '保存中…' : castSaved ? '保存済み' : '確定'}</button>
                 </div>
@@ -560,7 +560,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             )}
 
             {players.length === 0 && (
-              <p className="text-[0.72rem] text-center text-[#7d7871]" style={{ letterSpacing: '0.04em' }}>ホストも参加するか、ゲストの参加を待ってください</p>
+              <p className="text-[0.72rem] text-center text-[var(--kg-mist)]" style={{ letterSpacing: '0.04em' }}>ホストも参加するか、ゲストの参加を待ってください</p>
             )}
             <PinkBtn
               onClick={handleAdvance}
@@ -579,7 +579,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
           <>
             <div className="flex items-center justify-between">
               <p
-                className="text-[#ece7df] text-[1.3rem]"
+                className="text-[var(--kg-paper)] text-[1.3rem]"
                 style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
               >
                 {t('questionCounter', { current: game.currentQuestionIndex + 1, total: game.questions.length })}
@@ -596,7 +596,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             </div>
 
             <div className="flex flex-col gap-3 p-5 kg-card kg-card--glow">
-              <p className="text-[1.2rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.03em', lineHeight: 1.5 }}>
+              <p className="text-[1.2rem] text-[var(--kg-paper)]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.03em', lineHeight: 1.5 }}>
                 {currentQuestion.text}
               </p>
               {currentQuestion.imageUrl && (
@@ -604,7 +604,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                 <img
                   src={currentQuestion.imageUrl}
                   alt="Question image"
-                  className="max-h-64 object-contain border border-[rgba(236,231,223,.14)]"
+                  className="max-h-64 object-contain border border-[rgba(var(--kg-paper-rgb),.14)]"
                 />
               )}
             </div>
@@ -614,7 +614,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
             )}
             {hostParticipating && !hostAnswered && (
               <div className="flex flex-col gap-2 mt-2">
-                <p className="text-[0.7rem] text-[#7d7871] text-center" style={{ letterSpacing: '0.12em' }}>あなたの回答</p>
+                <p className="text-[0.7rem] text-[var(--kg-mist)] text-center" style={{ letterSpacing: '0.12em' }}>あなたの回答</p>
                 {currentQuestion.options.map((opt: string, i: number) => (
                   <AnswerButton
                     key={i}
@@ -638,10 +638,10 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
         {game.status === 'reveal' && currentQuestion && (
           <>
             <div className="p-5 kg-card kg-card--glow">
-              <p className="text-[0.66rem] uppercase text-[#7d7871] mb-2" style={{ letterSpacing: '0.16em' }}>
+              <p className="text-[0.66rem] uppercase text-[var(--kg-mist)] mb-2" style={{ letterSpacing: '0.16em' }}>
                 {t('questionCounter', { current: game.currentQuestionIndex + 1, total: game.questions.length })}
               </p>
-              <p className="text-[1.2rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.03em', lineHeight: 1.5 }}>
+              <p className="text-[1.2rem] text-[var(--kg-paper)]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.03em', lineHeight: 1.5 }}>
                 {currentQuestion.text}
               </p>
             </div>
@@ -675,11 +675,11 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
           <>
             <div className="flex flex-col items-center gap-3 py-6 text-center">
               <span className="kg-eyebrow">Finished</span>
-              <h2 className="text-[#ece7df] text-[3rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}>
+              <h2 className="text-[var(--kg-paper)] text-[3rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(var(--kg-accent-rgb),.4)' }}>
                 {t('gameOver')}
               </h2>
-              <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
-              <p className="text-[#7d7871] text-sm" style={{ letterSpacing: '0.04em' }}>{game.title}</p>
+              <span aria-hidden className="block h-px w-12 bg-[var(--kg-accent)]" />
+              <p className="text-[var(--kg-mist)] text-sm" style={{ letterSpacing: '0.04em' }}>{game.title}</p>
             </div>
 
             {game.mode === 'trivia' && (
@@ -703,7 +703,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                   );
                   return (
                     <div key={q.id} className="flex flex-col gap-2">
-                      <p className="text-sm text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>{i + 1}. {q.text}</p>
+                      <p className="text-sm text-[var(--kg-paper)]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>{i + 1}. {q.text}</p>
                       <VoteBar options={q.options} votes={votes} />
                     </div>
                   );
@@ -718,13 +718,13 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                       <div className="flex flex-col gap-2 mt-2">
                         <p className="kg-label">選ばれた回数</p>
                         {optResults.map((r, i) => (
-                          <div key={r.optionName} className="flex items-center gap-3 bg-[#111114] px-3 py-2.5" style={{ border: i === 0 && r.voteCount > 0 ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}>
-                            <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: i === 0 && r.voteCount > 0 ? '#b8935a' : '#7d7871' }}>{i + 1}</span>
-                            <span className="flex-1 text-[0.82rem] text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.optionName}</span>
-                            <div className="w-16 h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
-                              <div className="h-full bg-[#cf3a2e]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                          <div key={r.optionName} className="flex items-center gap-3 bg-[var(--kg-sumi)] px-3 py-2.5" style={{ border: i === 0 && r.voteCount > 0 ? '1px solid rgba(var(--kg-gold-rgb),.6)' : '1px solid rgba(var(--kg-paper-rgb),.1)' }}>
+                            <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: i === 0 && r.voteCount > 0 ? 'var(--kg-gold)' : 'var(--kg-mist)' }}>{i + 1}</span>
+                            <span className="flex-1 text-[0.82rem] text-[var(--kg-paper)] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.optionName}</span>
+                            <div className="w-16 h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(var(--kg-paper-rgb),.08)' }}>
+                              <div className="h-full bg-[var(--kg-accent)]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
                             </div>
-                            <span className="text-[0.8rem] text-[#b9b4ac] w-9 text-right">{r.voteCount}票</span>
+                            <span className="text-[0.8rem] text-[var(--kg-paper-dim)] w-9 text-right">{r.voteCount}票</span>
                           </div>
                         ))}
                       </div>
@@ -739,13 +739,13 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     <div className="flex flex-col gap-2 mt-2">
                       <p className="kg-label">選ばれた回数</p>
                       {personResults.map((r, i) => (
-                        <div key={r.displayName} className="flex items-center gap-3 bg-[#111114] px-3 py-2.5" style={{ border: i === 0 && r.voteCount > 0 ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}>
-                          <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: i === 0 && r.voteCount > 0 ? '#b8935a' : '#7d7871' }}>{i + 1}</span>
-                          <span className="flex-1 text-[0.82rem] text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.displayName}</span>
-                          <div className="w-16 h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
-                            <div className="h-full bg-[#cf3a2e]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
+                        <div key={r.displayName} className="flex items-center gap-3 bg-[var(--kg-sumi)] px-3 py-2.5" style={{ border: i === 0 && r.voteCount > 0 ? '1px solid rgba(var(--kg-gold-rgb),.6)' : '1px solid rgba(var(--kg-paper-rgb),.1)' }}>
+                          <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: i === 0 && r.voteCount > 0 ? 'var(--kg-gold)' : 'var(--kg-mist)' }}>{i + 1}</span>
+                          <span className="flex-1 text-[0.82rem] text-[var(--kg-paper)] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.displayName}</span>
+                          <div className="w-16 h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(var(--kg-paper-rgb),.08)' }}>
+                            <div className="h-full bg-[var(--kg-accent)]" style={{ width: `${(r.voteCount / maxVotes) * 100}%` }} />
                           </div>
-                          <span className="text-[0.8rem] text-[#b9b4ac] w-9 text-right">{r.voteCount}票</span>
+                          <span className="text-[0.8rem] text-[var(--kg-paper-dim)] w-9 text-right">{r.voteCount}票</span>
                         </div>
                       ))}
                     </div>
@@ -760,12 +760,12 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                     <div className="flex flex-col gap-2 mt-4">
                       <p className="kg-label">みんなの実態まとめ</p>
                       {results.map((r, i) => (
-                        <div key={r.playerId} className="flex items-center gap-3 bg-[#111114] px-3 py-2.5" style={{ border: '1px solid rgba(236,231,223,.1)' }}>
-                          <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: '#7d7871' }}>{i + 1}</span>
-                          <span className="flex-1 text-[0.82rem] text-[#ece7df] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.displayName}</span>
-                          {r.playerId === topMajority.playerId && <span className="text-[0.62rem] text-[#b8935a] border border-[rgba(184,147,90,.45)] px-2 py-0.5" style={{ letterSpacing: '0.06em' }}>多数派王</span>}
-                          {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-[0.62rem] text-[#cf3a2e] border border-[rgba(207,58,46,.45)] px-2 py-0.5" style={{ letterSpacing: '0.06em' }}>少数派</span>}
-                          <span className="text-[0.7rem] text-[#7d7871]">{r.majorityCount}勝 / {r.minorityCount}負</span>
+                        <div key={r.playerId} className="flex items-center gap-3 bg-[var(--kg-sumi)] px-3 py-2.5" style={{ border: '1px solid rgba(var(--kg-paper-rgb),.1)' }}>
+                          <span className="w-6 text-center text-[1rem]" style={{ fontFamily: 'var(--font-bebas)', color: 'var(--kg-mist)' }}>{i + 1}</span>
+                          <span className="flex-1 text-[0.82rem] text-[var(--kg-paper)] truncate" style={{ fontFamily: 'var(--font-dm)' }}>{r.displayName}</span>
+                          {r.playerId === topMajority.playerId && <span className="text-[0.62rem] text-[var(--kg-gold)] border border-[rgba(var(--kg-gold-rgb),.45)] px-2 py-0.5" style={{ letterSpacing: '0.06em' }}>多数派王</span>}
+                          {r.playerId === topMinority.playerId && r.playerId !== topMajority.playerId && <span className="text-[0.62rem] text-[var(--kg-accent)] border border-[rgba(var(--kg-accent-rgb),.45)] px-2 py-0.5" style={{ letterSpacing: '0.06em' }}>少数派</span>}
+                          <span className="text-[0.7rem] text-[var(--kg-mist)]">{r.majorityCount}勝 / {r.minorityCount}負</span>
                         </div>
                       ))}
                     </div>
@@ -780,10 +780,10 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               return (
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col items-center gap-2 text-center">
-                    <h3 className="text-[#ece7df] text-[2.4rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>
+                    <h3 className="text-[var(--kg-paper)] text-[2.4rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>
                       {t('opinionReveal')}
                     </h3>
-                    <p className="text-[#7d7871] text-[0.72rem]" style={{ letterSpacing: '0.14em' }}>
+                    <p className="text-[var(--kg-mist)] text-[0.72rem]" style={{ letterSpacing: '0.14em' }}>
                       {game.loseRule === 'majority' ? t('opinionMajorityRule') : t('opinionMinorityRule')}
                     </p>
                   </div>
@@ -793,18 +793,18 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
                       const isWinner = r.lossCount === minLoss && opinionResults.length > 1;
                       return (
                         <div key={r.playerId}
-                          className="flex flex-col items-center gap-2 p-4 bg-[#111114] text-center"
-                          style={{ border: isLoser ? '1px solid rgba(207,58,46,.6)' : isWinner ? '1px solid rgba(184,147,90,.6)' : '1px solid rgba(236,231,223,.1)' }}
+                          className="flex flex-col items-center gap-2 p-4 bg-[var(--kg-sumi)] text-center"
+                          style={{ border: isLoser ? '1px solid rgba(var(--kg-accent-rgb),.6)' : isWinner ? '1px solid rgba(var(--kg-gold-rgb),.6)' : '1px solid rgba(var(--kg-paper-rgb),.1)' }}
                         >
-                          <span aria-hidden className="h-4 w-px" style={{ backgroundColor: isLoser ? '#cf3a2e' : isWinner ? '#b8935a' : 'rgba(236,231,223,.2)' }} />
-                          <span className="text-sm text-[#ece7df] leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
+                          <span aria-hidden className="h-4 w-px" style={{ backgroundColor: isLoser ? 'var(--kg-accent)' : isWinner ? 'var(--kg-gold)' : 'rgba(var(--kg-paper-rgb),.2)' }} />
+                          <span className="text-sm text-[var(--kg-paper)] leading-tight" style={{ fontFamily: 'var(--font-dm)' }}>
                             {r.displayName}
                           </span>
-                          <span className="text-[0.7rem] text-[#7d7871]">
+                          <span className="text-[0.7rem] text-[var(--kg-mist)]">
                             {t('opinionLoseCount', { count: r.lossCount })}
                           </span>
                           {isLoser && (
-                            <span className="text-[0.62rem] text-[#cf3a2e] border border-[rgba(207,58,46,.45)] px-2 py-0.5 mt-1" style={{ letterSpacing: '0.06em' }}>
+                            <span className="text-[0.62rem] text-[var(--kg-accent)] border border-[rgba(var(--kg-accent-rgb),.45)] px-2 py-0.5 mt-1" style={{ letterSpacing: '0.06em' }}>
                               {t('opinionLoser')}
                             </span>
                           )}
@@ -821,16 +821,16 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               href="https://www.sencaba.com/download"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 bg-[#111114] border border-[rgba(236,231,223,.1)] px-5 py-4 transition-colors duration-300 hover:border-[rgba(184,147,90,.4)]"
+              className="flex items-center gap-3 bg-[var(--kg-sumi)] border border-[rgba(var(--kg-paper-rgb),.1)] px-5 py-4 transition-colors duration-300 hover:border-[rgba(var(--kg-gold-rgb),.4)]"
             >
-              <span aria-hidden className="text-[#b8935a] text-xs" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+              <span aria-hidden className="text-[var(--kg-gold)] text-xs" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
               <div className="flex-1 min-w-0">
-                <p className="text-[0.84rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>
-                  キャバクラ探しなら <span className="text-[#cf3a2e]">センキャバ</span>
+                <p className="text-[0.84rem] text-[var(--kg-paper)]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}>
+                  キャバクラ探しなら <span className="text-[var(--kg-accent)]">センキャバ</span>
                 </p>
-                <p className="mt-0.5 text-[0.7rem] text-[#7d7871]">お店を探す・予約する</p>
+                <p className="mt-0.5 text-[0.7rem] text-[var(--kg-mist)]">お店を探す・予約する</p>
               </div>
-              <span className="shrink-0 text-[0.62rem] text-[#b8935a] border border-[rgba(184,147,90,.45)] px-2.5 py-1" style={{ letterSpacing: '0.1em' }}>DL</span>
+              <span className="shrink-0 text-[0.62rem] text-[var(--kg-gold)] border border-[rgba(var(--kg-gold-rgb),.45)] px-2.5 py-1" style={{ letterSpacing: '0.1em' }}>DL</span>
             </a>
 
             <button
@@ -854,7 +854,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
         {/* Draft fallback */}
         {game.status === 'draft' && (
           <div className="flex flex-col items-center gap-4 py-12 text-center">
-            <p className="text-[#7d7871]" style={{ letterSpacing: '0.04em' }}>{t('openingLobby')}</p>
+            <p className="text-[var(--kg-mist)]" style={{ letterSpacing: '0.04em' }}>{t('openingLobby')}</p>
             <PinkBtn onClick={handleAdvance}>{t('openLobby')}</PinkBtn>
           </div>
         )}

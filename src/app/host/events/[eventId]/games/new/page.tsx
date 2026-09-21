@@ -99,7 +99,7 @@ export default function NewGamePage() {
         <header className="flex items-center gap-4 pt-8">
           <Link href={`/host/events/${eventId}`}
             aria-label="←"
-            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation">
+            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(var(--kg-paper-rgb),.16)] text-[var(--kg-paper)]/80 transition-colors duration-300 hover:border-[rgba(var(--kg-paper-rgb),.4)] touch-manipulation">
             <span aria-hidden className="text-lg">←</span>
           </Link>
           <div className="min-w-0">
@@ -120,11 +120,11 @@ export default function NewGamePage() {
                   return (
                     <button key={m} type="button" onClick={() => field.onChange(m)}
                       className={['flex min-h-[96px] flex-col items-center justify-center gap-2 border p-4 text-center transition-colors duration-300 touch-manipulation',
-                        active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'].join(' ')}>
+                        active ? 'bg-[var(--kg-accent)] text-[var(--kg-paper)] border-[var(--kg-accent)]' : 'bg-[var(--kg-sumi)] text-[var(--kg-paper)]/85 border-[rgba(var(--kg-paper-rgb),.14)] hover:border-[rgba(var(--kg-paper-rgb),.4)]'].join(' ')}>
                       <span className="text-[0.9rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>
                         {m === 'trivia' ? t('triviaLabel') : m === 'polling' ? t('pollingLabel') : t('opinionLabel')}
                       </span>
-                      <span className={`text-[0.66rem] leading-snug ${active ? 'text-[#ece7df]/80' : 'text-[#7d7871]'}`}>
+                      <span className={`text-[0.66rem] leading-snug ${active ? 'text-[var(--kg-paper)]/80' : 'text-[var(--kg-mist)]'}`}>
                         {m === 'trivia' ? t('triviaDescription') : m === 'polling' ? t('pollingDescription') : t('opinionDescription')}
                       </span>
                     </button>
@@ -145,11 +145,11 @@ export default function NewGamePage() {
                     return (
                       <button key={r} type="button" onClick={() => field.onChange(r)}
                         className={['flex min-h-[96px] flex-col items-center justify-center gap-2 border p-5 text-center transition-colors duration-300 touch-manipulation',
-                          active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'].join(' ')}>
+                          active ? 'bg-[var(--kg-accent)] text-[var(--kg-paper)] border-[var(--kg-accent)]' : 'bg-[var(--kg-sumi)] text-[var(--kg-paper)]/85 border-[rgba(var(--kg-paper-rgb),.14)] hover:border-[rgba(var(--kg-paper-rgb),.4)]'].join(' ')}>
                         <span className="text-[0.92rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>
                           {r === 'minority' ? t('loseRuleMinority') : t('loseRuleMajority')}
                         </span>
-                        <span className={`text-[0.66rem] leading-snug ${active ? 'text-[#ece7df]/80' : 'text-[#7d7871]'}`}>
+                        <span className={`text-[0.66rem] leading-snug ${active ? 'text-[var(--kg-paper)]/80' : 'text-[var(--kg-mist)]'}`}>
                           {r === 'minority' ? t('loseRuleMinorityDesc') : t('loseRuleMajorityDesc')}
                         </span>
                       </button>
@@ -170,9 +170,9 @@ export default function NewGamePage() {
                   return (
                     <button key={m} type="button" onClick={() => field.onChange(m)}
                       className={['flex min-h-[96px] flex-col items-center justify-center gap-2 border p-5 text-center transition-colors duration-300 touch-manipulation',
-                        active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'].join(' ')}>
+                        active ? 'bg-[var(--kg-accent)] text-[var(--kg-paper)] border-[var(--kg-accent)]' : 'bg-[var(--kg-sumi)] text-[var(--kg-paper)]/85 border-[rgba(var(--kg-paper-rgb),.14)] hover:border-[rgba(var(--kg-paper-rgb),.4)]'].join(' ')}>
                       <span className="text-[0.92rem]" style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>{m === 'live' ? t('liveLabel') : t('selfPacedLabel')}</span>
-                      <span className={`text-[0.66rem] leading-snug ${active ? 'text-[#ece7df]/80' : 'text-[#7d7871]'}`}>{m === 'live' ? t('liveDescription') : t('selfPacedDescription')}</span>
+                      <span className={`text-[0.66rem] leading-snug ${active ? 'text-[var(--kg-paper)]/80' : 'text-[var(--kg-mist)]'}`}>{m === 'live' ? t('liveDescription') : t('selfPacedDescription')}</span>
                     </button>
                   );
                 })}
@@ -185,7 +185,7 @@ export default function NewGamePage() {
             <Label htmlFor="title" className="kg-label">{t('gameTitleLabel')}</Label>
             <Input id="title" {...register('title')} placeholder={t('gameTitlePlaceholder')}
               className="kg-input" maxLength={80} />
-            {errors.title && <p className="text-[0.8rem] text-[#cf3a2e]">{errors.title.message}</p>}
+            {errors.title && <p className="text-[0.8rem] text-[var(--kg-accent)]">{errors.title.message}</p>}
           </div>
 
           {/* Questions */}
@@ -197,7 +197,7 @@ export default function NewGamePage() {
             ))}
             {fields.length < 10 && (
               <button type="button" onClick={() => append(defaultQuestion())}
-                className="min-h-[48px] w-full border border-dashed border-[rgba(184,147,90,.5)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+                className="min-h-[48px] w-full border border-dashed border-[rgba(var(--kg-gold-rgb),.5)] text-[var(--kg-gold)] transition-colors duration-300 hover:border-[var(--kg-gold)] hover:bg-[var(--kg-gold)]/5 touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}>
                 {t('addQuestion')}
               </button>
@@ -205,7 +205,7 @@ export default function NewGamePage() {
           </div>
 
           {gameMode === 'self_paced' && (
-            <p className="-mt-4 text-center text-[0.78rem] text-[#7d7871]">
+            <p className="-mt-4 text-center text-[0.78rem] text-[var(--kg-mist)]">
               {t('selfPacedNote')}
             </p>
           )}

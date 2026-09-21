@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { getBrandServer } from '@/lib/brand-server';
 import { HeroSection } from '@/components/lp/HeroSection';
 import { UseCaseSection } from '@/components/lp/UseCaseSection';
 import { FeatureSection } from '@/components/lp/FeatureSection';
@@ -8,6 +9,7 @@ import { FinalCtaSection } from '@/components/lp/FinalCtaSection';
 
 export default async function LandingPageFull() {
   const t = await getTranslations('lp');
+  const brand = await getBrandServer();
 
   const useCases = [
     { icon: t('usecase1Icon'), title: t('usecase1Title'), desc: t('usecase1Desc') },
@@ -16,8 +18,8 @@ export default async function LandingPageFull() {
   ];
 
   const features = [
-    { title: t('feature1Title'), desc: t('feature1Desc'), color: '#cf3a2e' },
-    { title: t('feature2Title'), desc: t('feature2Desc'), color: '#b8935a' },
+    { title: t('feature1Title'), desc: t('feature1Desc'), color: 'var(--kg-accent)' },
+    { title: t('feature2Title'), desc: t('feature2Desc'), color: 'var(--kg-gold)' },
     { title: t('feature3Title'), desc: t('feature3Desc'), color: '#6f8f6a' },
   ];
 
@@ -37,13 +39,14 @@ export default async function LandingPageFull() {
   const extras = [t('extra1'), t('extra2'), t('extra3')];
 
   return (
-    <main className="flex flex-col min-h-screen bg-[#0a0a0b] text-[#ece7df] max-w-[480px] mx-auto">
+    <main className="flex flex-col min-h-screen bg-[var(--kg-ink)] text-[var(--kg-paper)] max-w-[480px] mx-auto">
       <HeroSection
         tagline={t('heroTagline')}
         headline={t('heroHeadline')}
         sub={t('heroSub')}
         cta1={t('heroCta1')}
         cta2={t('heroCta2')}
+        brandName={brand.name}
       />
       <UseCaseSection
         title={t('usecaseTitle')}
@@ -70,6 +73,7 @@ export default async function LandingPageFull() {
         title={t('ctaTitle')}
         cta1={t('ctaCta1')}
         cta2={t('ctaCta2')}
+        brandClub={brand.club}
       />
     </main>
   );

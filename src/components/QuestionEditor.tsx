@@ -46,10 +46,10 @@ interface QuestionEditorProps {
 const OPTION_COLORS = ['teal', 'coral', 'amber', 'purple'] as const;
 // 墨基調：選択肢バッジは金のヘアライン枠で統一（原色を排し上品に）
 const OPTION_LABEL_COLORS: Record<string, string> = {
-  teal: 'border-[#b8935a]/55 text-[#b8935a]',
-  coral: 'border-[#b8935a]/55 text-[#b8935a]',
-  amber: 'border-[#b8935a]/55 text-[#b8935a]',
-  purple: 'border-[#b8935a]/55 text-[#b8935a]',
+  teal: 'border-[var(--kg-gold)]/55 text-[var(--kg-gold)]',
+  coral: 'border-[var(--kg-gold)]/55 text-[var(--kg-gold)]',
+  amber: 'border-[var(--kg-gold)]/55 text-[var(--kg-gold)]',
+  purple: 'border-[var(--kg-gold)]/55 text-[var(--kg-gold)]',
 };
 
 export function QuestionEditor({
@@ -137,7 +137,7 @@ export function QuestionEditor({
                       type="button"
                       onClick={() => field.onChange(opt.value)}
                       className={`min-h-[44px] border text-sm transition-colors duration-300 touch-manipulation ${
-                        selected ? 'bg-[#cf3a2e] border-[#cf3a2e] text-[#ece7df]' : 'bg-[#111114] border-[rgba(236,231,223,.14)] text-[#ece7df]/80 hover:border-[rgba(236,231,223,.4)]'
+                        selected ? 'bg-[var(--kg-accent)] border-[var(--kg-accent)] text-[var(--kg-paper)]' : 'bg-[var(--kg-sumi)] border-[rgba(var(--kg-paper-rgb),.14)] text-[var(--kg-paper)]/80 hover:border-[rgba(var(--kg-paper-rgb),.4)]'
                       }`}
                       style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}
                     >
@@ -170,7 +170,7 @@ export function QuestionEditor({
                     aria-label={`Set option ${optIdx + 1} as correct`}
                     className={`flex-shrink-0 w-8 h-8 rounded-full border font-medium text-sm transition-colors duration-300 touch-manipulation flex items-center justify-center ${
                       isCorrect
-                        ? 'bg-[#cf3a2e] border-[#cf3a2e] text-[#ece7df]'
+                        ? 'bg-[var(--kg-accent)] border-[var(--kg-accent)] text-[var(--kg-paper)]'
                         : `${OPTION_LABEL_COLORS[colorKey]} bg-transparent`
                     }`}
                     style={{ fontFamily: 'var(--font-bebas)' }}

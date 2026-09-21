@@ -8,11 +8,11 @@ import type { Game, Event } from '@/types/domain';
 
 // 墨基調のステータスバッジ（線のみ・朱/金/ミストで状態を表現）
 const STATUS_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-  draft:    { bg: 'transparent', text: '#7d7871', label: 'DRAFT' },
-  lobby:    { bg: 'transparent', text: '#b8935a', label: 'LOBBY' },
-  question: { bg: 'transparent', text: '#cf3a2e', label: 'LIVE' },
-  reveal:   { bg: 'transparent', text: '#cf3a2e', label: 'LIVE' },
-  ended:    { bg: 'transparent', text: '#7d7871', label: 'ENDED' },
+  draft:    { bg: 'transparent', text: 'var(--kg-mist)', label: 'DRAFT' },
+  lobby:    { bg: 'transparent', text: 'var(--kg-gold)', label: 'LOBBY' },
+  question: { bg: 'transparent', text: 'var(--kg-accent)', label: 'LIVE' },
+  reveal:   { bg: 'transparent', text: 'var(--kg-accent)', label: 'LIVE' },
+  ended:    { bg: 'transparent', text: 'var(--kg-mist)', label: 'ENDED' },
 };
 
 type Tab = 'all' | 'live' | 'self_paced';
@@ -46,7 +46,7 @@ export default function EventDetailPage() {
 
   if (loading) return (
     <main className="kg-page kg-grain flex min-h-screen items-center justify-center">
-      <div className="h-9 w-9 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
+      <div className="h-9 w-9 animate-spin rounded-full border-2 border-[var(--kg-accent)] border-t-transparent" />
     </main>
   );
 
@@ -60,21 +60,21 @@ export default function EventDetailPage() {
           <Link
             href="/host"
             aria-label="←"
-            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+            className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(var(--kg-paper-rgb),.16)] text-[var(--kg-paper)]/80 transition-colors duration-300 hover:border-[rgba(var(--kg-paper-rgb),.4)] touch-manipulation"
           >
             <span aria-hidden className="text-lg">←</span>
           </Link>
           <div className="min-w-0">
             <span className="kg-eyebrow">Event</span>
             <p className="kg-h mt-1 truncate text-[1.4rem] leading-tight">{event?.name ?? t('event')}</p>
-            <p className="mt-0.5 text-[0.7rem] text-[#7d7871]">{t('gameCount', { n: games.length })}</p>
+            <p className="mt-0.5 text-[0.7rem] text-[var(--kg-mist)]">{t('gameCount', { n: games.length })}</p>
           </div>
         </header>
 
         <div className="mt-8 flex flex-1 flex-col gap-5">
           <Link href={`/host/events/${eventId}/games/new`}
-            className="flex h-[56px] items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
-            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(207,58,46,.24)' }}>
+            className="flex h-[56px] items-center justify-center gap-2 bg-[var(--kg-accent)] text-[var(--kg-paper)] transition-colors duration-300 hover:bg-[var(--kg-accent-hover)] active:bg-[var(--kg-accent-deep)] touch-manipulation"
+            style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(var(--kg-accent-rgb),.24)' }}>
             <span>{t('addGame')}</span>
             <span aria-hidden>→</span>
           </Link>
@@ -84,7 +84,7 @@ export default function EventDetailPage() {
               const active = tab === tabKey;
               return (
                 <button key={tabKey} onClick={() => setTab(tabKey)}
-                  className={`min-h-[44px] text-[0.8rem] border transition-colors duration-300 touch-manipulation ${active ? 'bg-[#cf3a2e] text-[#ece7df] border-[#cf3a2e]' : 'bg-[#111114] text-[#ece7df]/85 border-[rgba(236,231,223,.14)] hover:border-[rgba(236,231,223,.4)]'}`}
+                  className={`min-h-[44px] text-[0.8rem] border transition-colors duration-300 touch-manipulation ${active ? 'bg-[var(--kg-accent)] text-[var(--kg-paper)] border-[var(--kg-accent)]' : 'bg-[var(--kg-sumi)] text-[var(--kg-paper)]/85 border-[rgba(var(--kg-paper-rgb),.14)] hover:border-[rgba(var(--kg-paper-rgb),.4)]'}`}
                   style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.04em' }}>
                   {tabKey === 'all' ? t('tabAll') : tabKey === 'live' ? t('tabLive') : t('tabSelfPaced')}
                 </button>
@@ -93,7 +93,7 @@ export default function EventDetailPage() {
           </div>
 
           {filtered.length === 0 ? (
-            <div className="py-12 text-center text-[#7d7871]">{t('noGames')}</div>
+            <div className="py-12 text-center text-[var(--kg-mist)]">{t('noGames')}</div>
           ) : (
             <div className="flex flex-col gap-3">
               {filtered.map(game => {
@@ -101,22 +101,22 @@ export default function EventDetailPage() {
                 return (
                   <button key={game.id}
                     onClick={() => router.push(`/host/events/${eventId}/games/${game.id}`)}
-                    className="group kg-card flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition-colors duration-300 hover:border-[rgba(207,58,46,.5)] touch-manipulation">
+                    className="group kg-card flex w-full items-center justify-between gap-3 px-4 py-4 text-left transition-colors duration-300 hover:border-[rgba(var(--kg-accent-rgb),.5)] touch-manipulation">
                     <div className="flex min-w-0 flex-col gap-1">
                       <div className="flex items-center gap-2">
-                        <span aria-hidden className="text-[0.72rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
-                        <span className="text-[0.66rem] uppercase text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>
+                        <span aria-hidden className="text-[0.72rem] text-[var(--kg-gold)]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+                        <span className="text-[0.66rem] uppercase text-[var(--kg-mist)]" style={{ letterSpacing: '0.16em' }}>
                           {game.mode} · {game.gameMode === 'self_paced' ? t('selfPacedLabel') : t('liveLabel')}
                         </span>
                       </div>
                       <span className="kg-h truncate text-[1rem]">{game.title}</span>
-                      <span className="text-[0.68rem] text-[#7d7871]">{t('questionCount', { n: game.questions.length })}</span>
+                      <span className="text-[0.68rem] text-[var(--kg-mist)]">{t('questionCount', { n: game.questions.length })}</span>
                     </div>
                     <div className="flex shrink-0 items-center gap-3">
                       <span className="border px-2 py-1 text-[0.62rem]" style={{ background: badge.bg, color: badge.text, borderColor: badge.text + '66', letterSpacing: '0.1em', fontFamily: 'var(--font-bebas)' }}>
                         {badge.label}
                       </span>
-                      <span aria-hidden className="text-[#7d7871] transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      <span aria-hidden className="text-[var(--kg-mist)] transition-transform duration-300 group-hover:translate-x-1">→</span>
                     </div>
                   </button>
                 );

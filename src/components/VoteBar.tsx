@@ -20,16 +20,16 @@ export function VoteBar({ options, votes, correctIndex, showCorrect = false }: V
         const isCorrect = showCorrect && correctIndex === i;
         const letter = LABELS[i % LABELS.length];
         // 正解は金の縁、バーも金。それ以外は朱。
-        const fillColor = isCorrect ? '#b8935a' : '#cf3a2e';
+        const fillColor = isCorrect ? 'var(--kg-gold)' : 'var(--kg-accent)';
 
         return (
           <div
             key={i}
-            className="flex flex-col gap-2 p-3.5 bg-[#111114]"
+            className="flex flex-col gap-2 p-3.5 bg-[var(--kg-sumi)]"
             style={{
               border: isCorrect
-                ? '1px solid rgba(184,147,90,.7)'
-                : '1px solid rgba(236,231,223,.1)',
+                ? '1px solid rgba(var(--kg-gold-rgb),.7)'
+                : '1px solid rgba(var(--kg-paper-rgb),.1)',
             }}
           >
             <div className="flex items-center gap-2 justify-between">
@@ -39,23 +39,23 @@ export function VoteBar({ options, votes, correctIndex, showCorrect = false }: V
                   style={{
                     fontFamily: 'var(--font-bebas)',
                     letterSpacing: '0.1em',
-                    color: isCorrect ? '#b8935a' : '#b8935a',
+                    color: isCorrect ? 'var(--kg-gold)' : 'var(--kg-gold)',
                   }}
                 >
                   {letter}
                 </span>
                 <span
-                  className="text-sm break-words min-w-0 text-[#ece7df]"
+                  className="text-sm break-words min-w-0 text-[var(--kg-paper)]"
                   style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.02em' }}
                 >
                   {option}
                 </span>
               </div>
-              <span className="text-sm shrink-0 text-[#b9b4ac]" style={{ fontFamily: 'var(--font-dm)' }}>
-                {count} <span className="text-[#7d7871]">({pct}%)</span>
+              <span className="text-sm shrink-0 text-[var(--kg-paper-dim)]" style={{ fontFamily: 'var(--font-dm)' }}>
+                {count} <span className="text-[var(--kg-mist)]">({pct}%)</span>
               </span>
             </div>
-            <div className="w-full h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(236,231,223,.08)' }}>
+            <div className="w-full h-1.5 overflow-hidden" style={{ backgroundColor: 'rgba(var(--kg-paper-rgb),.08)' }}>
               <div
                 className="h-full transition-all duration-500"
                 style={{ width: `${pct}%`, backgroundColor: fillColor }}
@@ -63,7 +63,7 @@ export function VoteBar({ options, votes, correctIndex, showCorrect = false }: V
             </div>
             {isCorrect && (
               <span
-                className="text-[0.68rem] text-[#b8935a] mt-0.5"
+                className="text-[0.68rem] text-[var(--kg-gold)] mt-0.5"
                 style={{ letterSpacing: '0.16em' }}
               >
                 正解

@@ -92,7 +92,7 @@ export function ImageUploader({ value, onChange }: ImageUploaderProps) {
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
         disabled={uploading}
-        className={`flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-[8px] border-[3px] border-dashed transition-colors touch-manipulation ${dragging ? 'border-pr-pink bg-[#17171b]' : 'border-pr-dark hover:bg-gray-50'} ${uploading ? 'opacity-50' : ''}`}
+        className={`flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-[8px] border-[3px] border-dashed transition-colors touch-manipulation ${dragging ? 'border-pr-pink bg-[var(--kg-sumi2)]' : 'border-pr-dark hover:bg-gray-50'} ${uploading ? 'opacity-50' : ''}`}
       >
         <span className="text-2xl">{uploading ? '⏳' : '🖼️'}</span>
         <span className="text-sm font-bold text-gray-500">{uploading ? 'Uploading...' : 'Tap or drop to add image'}</span>

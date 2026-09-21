@@ -3,6 +3,10 @@ import type { Metadata } from 'next';
 import { Zen_Kaku_Gothic_New, Cormorant_Garamond, Shippori_Mincho } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { brandCssVars } from '@/lib/brands';
+import { getBrandServer } from '@/lib/brand-server';
+import { BrandProvider } from '@/lib/brand-context';
+import { BrandPreviewSync } from '@/lib/brand-preview';
 import './globals.css';
 
 const zenKaku = Zen_Kaku_Gothic_New({
@@ -27,23 +31,24 @@ const shippori = Shippori_Mincho({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'NEWCLUB Kingyo 宴会ゲームズ',
-  description: '宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。',
-  openGraph: {
-    title: 'NEWCLUB Kingyo 宴会ゲームズ',
-    description: '宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。',
-    images: ['/icons/icon-512.png'],
-  },
-  icons: {
-    icon: [
-      { url: '/icons/icon.svg', type: 'image/svg+xml' },
-      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-    ],
-    apple: '/icons/icon-192.png',
-  },
-  manifest: '/manifest.json',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const brand = await getBrandServer();
+  const title = brand.club.includes(brand.name) ? brand.club : `${brand.club} ${brand.name}`;
+  const description = '宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。';
+  return {
+    title,
+    description,
+    openGraph: { title, description, images: ['/icons/icon-512.png'] },
+    icons: {
+      icon: [
+        { url: '/icons/icon.svg', type: 'image/svg+xml' },
+        { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      ],
+      apple: '/icons/icon-192.png',
+    },
+    manifest: '/manifest.json',
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -51,6 +56,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const messages = await getMessages();
+  const brand = await getBrandServer();
 
   return (
     <html
@@ -62,15 +68,19 @@ export default async function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <meta
-          name="description"
-          content="宴会・合コンを、みんなのスマホでもっと盛り上げる。リアルタイムのクイズ＆投票＆多数派ゲーム。"
+        {/* 店ごとのテーマ（CSS変数）を注入。既定はキンギョ（globals.css）。 */}
+        <style
+          id="brand-theme"
+          dangerouslySetInnerHTML={{ __html: `:root{${brandCssVars(brand)}}` }}
         />
       </head>
       <body className="kg-grain min-h-full flex flex-col pb-[env(safe-area-inset-bottom)]">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <BrandProvider brand={brand}>
+          <BrandPreviewSync />
+          <NextIntlClientProvider messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </BrandProvider>
       </body>
     </html>
   );

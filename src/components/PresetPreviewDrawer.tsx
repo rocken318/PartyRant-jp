@@ -51,7 +51,7 @@ export default function PresetPreviewDrawer({ preset, onClose }: PresetPreviewDr
         aria-modal="true"
         aria-label={preset?.title ?? 'プレビュー'}
         className={[
-          'fixed inset-y-0 right-0 z-50 flex flex-col bg-[#0a0a0b] border-l border-[rgba(236,231,223,.12)]',
+          'fixed inset-y-0 right-0 z-50 flex flex-col bg-[var(--kg-ink)] border-l border-[rgba(var(--kg-paper-rgb),.12)]',
           'w-full sm:w-[420px]',
           'transition-transform duration-200 ease-in-out',
           isOpen ? 'translate-x-0' : 'translate-x-full',
@@ -60,12 +60,12 @@ export default function PresetPreviewDrawer({ preset, onClose }: PresetPreviewDr
         {preset && (
           <>
             {/* ヘッダー */}
-            <div className="flex-shrink-0 border-b border-[rgba(236,231,223,.12)] px-5 py-4">
+            <div className="flex-shrink-0 border-b border-[rgba(var(--kg-paper-rgb),.12)] px-5 py-4">
               <p className="kg-h text-[1.05rem] leading-tight">
                 {preset.title}
               </p>
-              <p className="mt-1.5 flex items-center gap-2 text-[0.7rem] text-[#7d7871]" style={{ letterSpacing: '0.04em' }}>
-                <span className="text-[#b8935a]">{MODE_LABEL[preset.mode] ?? preset.mode}</span>
+              <p className="mt-1.5 flex items-center gap-2 text-[0.7rem] text-[var(--kg-mist)]" style={{ letterSpacing: '0.04em' }}>
+                <span className="text-[var(--kg-gold)]">{MODE_LABEL[preset.mode] ?? preset.mode}</span>
                 <span aria-hidden>·</span>
                 <span>{t('previewQuestionCount', { count: preset.questions.length })}</span>
               </p>
@@ -85,7 +85,7 @@ export default function PresetPreviewDrawer({ preset, onClose }: PresetPreviewDr
                     {q.options.map((opt, j) => (
                       <li
                         key={`${i}-${j}`}
-                        className="border border-[rgba(236,231,223,.12)] bg-[#0a0a0b] px-3 py-2 text-[0.74rem] text-[#b9b4ac]"
+                        className="border border-[rgba(var(--kg-paper-rgb),.12)] bg-[var(--kg-ink)] px-3 py-2 text-[0.74rem] text-[var(--kg-paper-dim)]"
                       >
                         {opt}
                       </li>
@@ -96,11 +96,11 @@ export default function PresetPreviewDrawer({ preset, onClose }: PresetPreviewDr
             </div>
 
             {/* フッター */}
-            <div className="flex-shrink-0 border-t border-[rgba(236,231,223,.12)] px-5 py-4">
+            <div className="flex-shrink-0 border-t border-[rgba(var(--kg-paper-rgb),.12)] px-5 py-4">
               <button
                 type="button"
                 onClick={onClose}
-                className="min-h-[48px] w-full border border-[rgba(236,231,223,.16)] text-[0.86rem] text-[#ece7df]/85 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+                className="min-h-[48px] w-full border border-[rgba(var(--kg-paper-rgb),.16)] text-[0.86rem] text-[var(--kg-paper)]/85 transition-colors duration-300 hover:border-[rgba(var(--kg-paper-rgb),.4)] touch-manipulation"
                 style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em' }}
               >
                 {t('previewClose')}

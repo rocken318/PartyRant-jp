@@ -136,11 +136,11 @@ function PinkBtn({
       className={[
         'flex w-full min-h-[56px] items-center justify-center gap-2 touch-manipulation transition-colors duration-300',
         outline
-          ? 'border border-[rgba(236,231,223,.16)] text-[#ece7df]/85 hover:border-[rgba(236,231,223,.4)]'
-          : 'bg-[#cf3a2e] text-[#ece7df] hover:bg-[#d8483c] active:bg-[#a12417]',
+          ? 'border border-[rgba(var(--kg-paper-rgb),.16)] text-[var(--kg-paper)]/85 hover:border-[rgba(var(--kg-paper-rgb),.4)]'
+          : 'bg-[var(--kg-accent)] text-[var(--kg-paper)] hover:bg-[var(--kg-accent-hover)] active:bg-[var(--kg-accent-deep)]',
         disabled ? 'opacity-40 cursor-not-allowed' : '',
       ].filter(Boolean).join(' ')}
-      style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', ...(outline ? {} : { boxShadow: '0 14px 40px rgba(207,58,46,.24)' }) }}
+      style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', ...(outline ? {} : { boxShadow: '0 14px 40px rgba(var(--kg-accent-rgb),.24)' }) }}
     >
       {children}
     </button>
@@ -229,7 +229,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
   if (loading) {
     return (
       <div className="kg-page kg-grain flex flex-1 items-center justify-center min-h-screen">
-        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#cf3a2e] border-t-transparent" />
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[var(--kg-accent)] border-t-transparent" />
       </div>
     );
   }
@@ -237,7 +237,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
   if (error || !game) {
     return (
       <div className="kg-page kg-grain flex flex-1 flex-col items-center justify-center min-h-screen gap-4 px-4">
-        <p className="text-[0.9rem] text-[#cf3a2e]">{error ?? 'Game not found'}</p>
+        <p className="text-[0.9rem] text-[var(--kg-accent)]">{error ?? 'Game not found'}</p>
         <Link href={`/host/events/${eventId}`} className={buttonVariants({ variant: 'outline' })}>
           Back to event
         </Link>
@@ -257,9 +257,9 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
   return (
     <main className="kg-page kg-grain flex flex-col min-h-screen">
       {/* Sticky ink header */}
-      <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-[rgba(236,231,223,.12)] bg-[#0a0a0b]/95 px-4 py-3 backdrop-blur">
+      <header className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-[rgba(var(--kg-paper-rgb),.12)] bg-[var(--kg-ink)]/95 px-4 py-3 backdrop-blur">
         <div className="flex items-center gap-3">
-          <Link href={`/host/events/${eventId}`} aria-label="←" className="flex h-9 w-9 items-center justify-center text-[#ece7df]/70 transition-colors hover:text-[#ece7df] touch-manipulation">
+          <Link href={`/host/events/${eventId}`} aria-label="←" className="flex h-9 w-9 items-center justify-center text-[var(--kg-paper)]/70 transition-colors hover:text-[var(--kg-paper)] touch-manipulation">
             <span aria-hidden className="text-lg">←</span>
           </Link>
           <div className="flex flex-col">
@@ -268,7 +268,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
             >
               {game.title}
             </h1>
-            <p className="text-[0.62rem] uppercase capitalize text-[#7d7871]" style={{ letterSpacing: '0.16em' }}>{game.mode}</p>
+            <p className="text-[0.62rem] uppercase capitalize text-[var(--kg-mist)]" style={{ letterSpacing: '0.16em' }}>{game.mode}</p>
           </div>
         </div>
         <GameStatusBadge status={game.status} />
@@ -296,7 +296,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
           <>
             <div className="flex items-center justify-between">
               <p
-                className="text-[#b8935a] text-[1.5rem]"
+                className="text-[var(--kg-gold)] text-[1.5rem]"
                 style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em' }}
               >
                 Q {game.currentQuestionIndex + 1}/{game.questions.length}
@@ -321,7 +321,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
                 <img
                   src={currentQuestion.imageUrl}
                   alt="Question image"
-                  className="max-h-64 object-contain border border-[rgba(236,231,223,.14)]"
+                  className="max-h-64 object-contain border border-[rgba(var(--kg-paper-rgb),.14)]"
                 />
               )}
             </div>
@@ -339,7 +339,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
         {game.status === 'reveal' && currentQuestion && (
           <>
             <div className="kg-card p-4">
-              <p className="mb-1 text-[0.62rem] uppercase text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.2em' }}>
+              <p className="mb-1 text-[0.62rem] uppercase text-[var(--kg-gold)]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.2em' }}>
                 Q {game.currentQuestionIndex + 1}/{game.questions.length}
               </p>
               <p className="kg-h text-[1.2rem] leading-relaxed">
@@ -356,7 +356,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
 
             {game.mode === 'trivia' && scores.length > 0 && (
               <div className="flex flex-col gap-3">
-                <h2 className="text-[#ece7df] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
+                <h2 className="text-[var(--kg-paper)] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
                   Top 5
                 </h2>
                 <Leaderboard scores={scores} limit={5} />
@@ -378,16 +378,16 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
         {game.status === 'ended' && (
           <>
             <div className="flex flex-col items-center gap-4 py-6 text-center">
-              <span aria-hidden className="block h-px w-12 bg-[#cf3a2e]" />
-              <h2 className="text-[#ece7df] text-[3rem] leading-none" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}>
+              <span aria-hidden className="block h-px w-12 bg-[var(--kg-accent)]" />
+              <h2 className="text-[var(--kg-paper)] text-[3rem] leading-none" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(var(--kg-accent-rgb),.4)' }}>
                 Game Over
               </h2>
-              <p className="text-[0.82rem] text-[#7d7871]">{game.title}</p>
+              <p className="text-[0.82rem] text-[var(--kg-mist)]">{game.title}</p>
             </div>
 
             {game.mode === 'trivia' && (
               <div className="flex flex-col gap-3">
-                <h3 className="text-[#ece7df] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
+                <h3 className="text-[var(--kg-paper)] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
                   Final leaderboard
                 </h3>
                 <Leaderboard scores={scores} />
@@ -396,7 +396,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
 
             {game.mode === 'polling' && (
               <div className="flex flex-col gap-6">
-                <h3 className="text-[#ece7df] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
+                <h3 className="text-[var(--kg-paper)] text-[1.6rem]" style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.08em' }}>
                   Results
                 </h3>
                 {game.questions.map((q: Question, i: number) => {
@@ -419,8 +419,8 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
             </PinkBtn>
             <Link
               href={`/host/events/${eventId}/games/new`}
-              className="flex w-full min-h-[56px] items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
-              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(207,58,46,.24)' }}
+              className="flex w-full min-h-[56px] items-center justify-center gap-2 bg-[var(--kg-accent)] text-[var(--kg-paper)] transition-colors duration-300 hover:bg-[var(--kg-accent-hover)] active:bg-[var(--kg-accent-deep)] touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.12em', boxShadow: '0 14px 40px rgba(var(--kg-accent-rgb),.24)' }}
             >
               <span>Create another game</span>
               <span aria-hidden>→</span>
@@ -431,7 +431,7 @@ export function HostGameClient({ eventId, gameId }: { eventId: string; gameId: s
         {/* Draft fallback */}
         {game.status === 'draft' && (
           <div className="flex flex-col items-center gap-4 py-12 text-center">
-            <p className="text-[0.82rem] text-[#7d7871]">Opening lobby...</p>
+            <p className="text-[0.82rem] text-[var(--kg-mist)]">Opening lobby...</p>
             <PinkBtn onClick={handleAdvance}>Open lobby</PinkBtn>
           </div>
         )}

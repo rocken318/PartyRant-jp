@@ -16,7 +16,7 @@ export default async function GuidePage() {
             <Link
               href="/"
               aria-label="←"
-              className="flex h-10 w-10 items-center justify-center border border-[rgba(236,231,223,.16)] text-[#ece7df]/80 transition-colors duration-300 hover:border-[rgba(236,231,223,.4)] touch-manipulation"
+              className="flex h-10 w-10 items-center justify-center border border-[rgba(var(--kg-paper-rgb),.16)] text-[var(--kg-paper)]/80 transition-colors duration-300 hover:border-[rgba(var(--kg-paper-rgb),.4)] touch-manipulation"
             >
               <span aria-hidden className="text-lg">←</span>
             </Link>
@@ -24,13 +24,13 @@ export default async function GuidePage() {
           <div className="mt-10 flex flex-col items-center text-center">
             <span className="kg-eyebrow">Guide</span>
             <h1
-              className="mt-6 text-[2.6rem] font-medium leading-[1.15] text-[#ece7df]"
-              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em', textShadow: '0 0 48px rgba(207,58,46,.45)' }}
+              className="mt-6 text-[2.6rem] font-medium leading-[1.15] text-[var(--kg-paper)]"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.08em', textShadow: '0 0 48px rgba(var(--kg-accent-rgb),.45)' }}
             >
               {t('heroTitle')}
             </h1>
-            <span aria-hidden className="mt-7 block h-px w-12 bg-[#cf3a2e]" />
-            <p className="mt-6 text-[0.74rem] text-[#b9b4ac]" style={{ letterSpacing: '0.24em', textIndent: '0.24em' }}>
+            <span aria-hidden className="mt-7 block h-px w-12 bg-[var(--kg-accent)]" />
+            <p className="mt-6 text-[0.74rem] text-[var(--kg-paper-dim)]" style={{ letterSpacing: '0.24em', textIndent: '0.24em' }}>
               {t('heroTagline')}
             </p>
           </div>
@@ -45,7 +45,7 @@ export default async function GuidePage() {
               <h2 className="kg-h text-[1.7rem] leading-tight">{t('aboutTitle')}</h2>
               <span aria-hidden className="kg-rule" />
             </div>
-            <p className="text-[0.84rem] leading-[1.9] text-[#b9b4ac]">
+            <p className="text-[0.84rem] leading-[1.9] text-[var(--kg-paper-dim)]">
               {t('aboutBody')}
             </p>
 
@@ -57,10 +57,10 @@ export default async function GuidePage() {
                 { name: t('modeOpinionName'), desc: t('modeOpinionDesc') },
               ].map((m, i) => (
                 <div key={i} className="kg-card flex items-start gap-4 px-5 py-4">
-                  <span aria-hidden className="mt-1 text-[0.8rem] text-[#b8935a]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
+                  <span aria-hidden className="mt-1 text-[0.8rem] text-[var(--kg-gold)]" style={{ fontFamily: 'var(--font-bebas)' }}>◆</span>
                   <div className="min-w-0">
                     <p className="kg-h text-[1.02rem] leading-tight">{m.name}</p>
-                    <p className="mt-1 text-[0.76rem] leading-relaxed text-[#7d7871]">{m.desc}</p>
+                    <p className="mt-1 text-[0.76rem] leading-relaxed text-[var(--kg-mist)]">{m.desc}</p>
                   </div>
                 </div>
               ))}
@@ -87,16 +87,16 @@ export default async function GuidePage() {
                 <div key={num} className="flex items-stretch gap-4">
                   <div className="flex flex-col items-center">
                     <span
-                      className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(184,147,90,.5)] text-[0.9rem] text-[#b8935a]"
+                      className="flex h-10 w-10 shrink-0 items-center justify-center border border-[rgba(var(--kg-gold-rgb),.5)] text-[0.9rem] text-[var(--kg-gold)]"
                       style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.04em' }}
                     >
                       {num}
                     </span>
-                    {index < arr.length - 1 && <span aria-hidden className="mt-1 w-px flex-1 bg-[rgba(236,231,223,.14)]" />}
+                    {index < arr.length - 1 && <span aria-hidden className="mt-1 w-px flex-1 bg-[rgba(var(--kg-paper-rgb),.14)]" />}
                   </div>
                   <div className="kg-card flex-1 px-4 py-3.5">
                     <p className="kg-h text-[0.98rem] leading-snug">{title}</p>
-                    <p className="mt-1.5 text-[0.74rem] leading-relaxed text-[#7d7871]">{desc}</p>
+                    <p className="mt-1.5 text-[0.74rem] leading-relaxed text-[var(--kg-mist)]">{desc}</p>
                   </div>
                 </div>
               ))}
@@ -122,10 +122,10 @@ export default async function GuidePage() {
                 { name: t('sceneSchoolName'), tip: t('sceneSchoolTip') },
               ].map((s, i) => (
                 <div key={i} className="kg-card flex items-start gap-3 px-5 py-3.5">
-                  <span aria-hidden className="mt-1 h-4 w-px shrink-0 bg-[#cf3a2e]" />
+                  <span aria-hidden className="mt-1 h-4 w-px shrink-0 bg-[var(--kg-accent)]" />
                   <div className="min-w-0">
                     <p className="kg-h text-[0.94rem] leading-tight">{s.name}</p>
-                    <p className="mt-1 text-[0.74rem] leading-relaxed text-[#7d7871]">{s.tip}</p>
+                    <p className="mt-1 text-[0.74rem] leading-relaxed text-[var(--kg-mist)]">{s.tip}</p>
                   </div>
                 </div>
               ))}
@@ -152,16 +152,16 @@ export default async function GuidePage() {
               ].map(({ num, text }, index, arr) => (
                 <div
                   key={num}
-                  className={`flex items-start gap-4 px-5 py-4 ${index < arr.length - 1 ? 'border-b border-[rgba(236,231,223,.1)]' : ''}`}
+                  className={`flex items-start gap-4 px-5 py-4 ${index < arr.length - 1 ? 'border-b border-[rgba(var(--kg-paper-rgb),.1)]' : ''}`}
                 >
                   <span
                     aria-hidden
-                    className="mt-0.5 shrink-0 text-[0.88rem] text-[#b8935a]"
+                    className="mt-0.5 shrink-0 text-[0.88rem] text-[var(--kg-gold)]"
                     style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.04em' }}
                   >
                     {num}
                   </span>
-                  <p className="text-[0.86rem] leading-snug text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>
+                  <p className="text-[0.86rem] leading-snug text-[var(--kg-paper)]" style={{ fontFamily: 'var(--font-dm)' }}>
                     {text}
                   </p>
                 </div>
@@ -178,7 +178,7 @@ export default async function GuidePage() {
               <h2 className="kg-h text-[1.7rem] leading-tight">{t('customTitle')}</h2>
               <span aria-hidden className="kg-rule" />
             </div>
-            <p className="text-[0.84rem] leading-[1.9] text-[#b9b4ac]">
+            <p className="text-[0.84rem] leading-[1.9] text-[var(--kg-paper-dim)]">
               {t('customBody')}
             </p>
 
@@ -192,19 +192,19 @@ export default async function GuidePage() {
                 <div key={num} className="flex items-center gap-3">
                   <span
                     aria-hidden
-                    className="flex h-8 w-8 shrink-0 items-center justify-center border border-[rgba(184,147,90,.5)] text-[0.78rem] text-[#b8935a]"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center border border-[rgba(var(--kg-gold-rgb),.5)] text-[0.78rem] text-[var(--kg-gold)]"
                     style={{ fontFamily: 'var(--font-bebas)', letterSpacing: '0.04em' }}
                   >
                     {num}
                   </span>
-                  <p className="text-[0.86rem] text-[#ece7df]" style={{ fontFamily: 'var(--font-dm)' }}>{text}</p>
+                  <p className="text-[0.86rem] text-[var(--kg-paper)]" style={{ fontFamily: 'var(--font-dm)' }}>{text}</p>
                 </div>
               ))}
             </div>
 
             <Link
               href="/auth/login"
-              className="mt-2 flex h-[52px] items-center justify-center gap-2 border border-[rgba(184,147,90,.45)] text-[#b8935a] transition-colors duration-300 hover:border-[#b8935a] hover:bg-[#b8935a]/5 touch-manipulation"
+              className="mt-2 flex h-[52px] items-center justify-center gap-2 border border-[rgba(var(--kg-gold-rgb),.45)] text-[var(--kg-gold)] transition-colors duration-300 hover:border-[var(--kg-gold)] hover:bg-[var(--kg-gold)]/5 touch-manipulation"
               style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.1em' }}
             >
               <span>{t('customCta')}</span>
@@ -217,15 +217,15 @@ export default async function GuidePage() {
           {/* ── Section 7: Bottom CTA ── */}
           <section className="flex flex-col items-center gap-6 text-center">
             <h2
-              className="text-[1.9rem] font-medium leading-tight text-[#ece7df]"
-              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(207,58,46,.4)' }}
+              className="text-[1.9rem] font-medium leading-tight text-[var(--kg-paper)]"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.06em', textShadow: '0 0 48px rgba(var(--kg-accent-rgb),.4)' }}
             >
               {t('bottomCtaTitle')}
             </h2>
             <Link
               href="/presets"
-              className="flex h-[58px] w-full items-center justify-center gap-2 bg-[#cf3a2e] text-[#ece7df] transition-colors duration-300 hover:bg-[#d8483c] active:bg-[#a12417] touch-manipulation"
-              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.14em', boxShadow: '0 14px 40px rgba(207,58,46,.28)' }}
+              className="flex h-[58px] w-full items-center justify-center gap-2 bg-[var(--kg-accent)] text-[var(--kg-paper)] transition-colors duration-300 hover:bg-[var(--kg-accent-hover)] active:bg-[var(--kg-accent-deep)] touch-manipulation"
+              style={{ fontFamily: 'var(--font-dm)', letterSpacing: '0.14em', boxShadow: '0 14px 40px rgba(var(--kg-accent-rgb),.28)' }}
             >
               <span>{t('bottomCtaButton')}</span>
               <span aria-hidden>→</span>

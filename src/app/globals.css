@@ -4,6 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ブランドテーマの既定値（=キンギョ）。店ごとに layout が :root を上書きして着替える。 */
+:root {
+  --kg-ink:#0a0a0b; --kg-sumi:#111114; --kg-sumi2:#17171b;
+  --kg-accent:#cf3a2e; --kg-accent-deep:#a12417; --kg-accent-hover:#d8483c; --kg-accent-rgb:207,58,46;
+  --kg-gold:#b8935a; --kg-gold-rgb:184,147,90;
+  --kg-paper:#ece7df; --kg-paper-rgb:236,231,223; --kg-paper-dim:#b9b4ac; --kg-mist:#7d7871;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -47,83 +56,83 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   /* キンギョ宴会ゲームズ brand colors */
-  --color-pr-pink: #cf3a2e;   /* 朱 = キンギョ差し色（primary accent） */
-  --color-pr-yellow: #b8935a; /* 金 = 控えめなハイライト */
+  --color-pr-pink: var(--kg-accent);   /* 朱 = キンギョ差し色（primary accent） */
+  --color-pr-yellow: var(--kg-gold); /* 金 = 控えめなハイライト */
   --color-pr-green: #6f8f6a;  /* 正解表示用の落ち着いた若竹 */
-  --color-pr-blue: #7d7871;   /* 補助テキスト/ミスト */
-  --color-pr-dark: #0a0a0b;   /* 墨（ink） */
+  --color-pr-blue: var(--kg-mist);   /* 補助テキスト/ミスト */
+  --color-pr-dark: var(--kg-ink);   /* 墨（ink） */
   /* キンギョ宴会ゲームズ fonts */
   --font-bebas: var(--font-bebas);
   --font-dm: var(--font-dm);
 }
 
 :root {
-  --background: #0a0a0b;
-  --foreground: #ece7df;
-  --card: #111114;
-  --card-foreground: #ece7df;
-  --popover: #17171b;
-  --popover-foreground: #ece7df;
-  --primary: #cf3a2e;
-  --primary-foreground: #ece7df;
-  --secondary: #17171b;
-  --secondary-foreground: #ece7df;
-  --muted: #17171b;
-  --muted-foreground: #b9b4ac;
-  --accent: #b8935a;
-  --accent-foreground: #0a0a0b;
+  --background: var(--kg-ink);
+  --foreground: var(--kg-paper);
+  --card: var(--kg-sumi);
+  --card-foreground: var(--kg-paper);
+  --popover: var(--kg-sumi2);
+  --popover-foreground: var(--kg-paper);
+  --primary: var(--kg-accent);
+  --primary-foreground: var(--kg-paper);
+  --secondary: var(--kg-sumi2);
+  --secondary-foreground: var(--kg-paper);
+  --muted: var(--kg-sumi2);
+  --muted-foreground: var(--kg-paper-dim);
+  --accent: var(--kg-gold);
+  --accent-foreground: var(--kg-ink);
   --destructive: #c0392b;
-  --border: rgba(236,231,223,.14);
-  --input: rgba(236,231,223,.14);
-  --ring: #cf3a2e;
-  --chart-1: #cf3a2e;
-  --chart-2: #b8935a;
+  --border: rgba(var(--kg-paper-rgb),.14);
+  --input: rgba(var(--kg-paper-rgb),.14);
+  --ring: var(--kg-accent);
+  --chart-1: var(--kg-accent);
+  --chart-2: var(--kg-gold);
   --chart-3: #6f8f6a;
-  --chart-4: #7d7871;
-  --chart-5: #b9b4ac;
+  --chart-4: var(--kg-mist);
+  --chart-5: var(--kg-paper-dim);
   --radius: 0.625rem;
-  --sidebar: #111114;
-  --sidebar-foreground: #ece7df;
-  --sidebar-primary: #cf3a2e;
-  --sidebar-primary-foreground: #ece7df;
-  --sidebar-accent: #17171b;
-  --sidebar-accent-foreground: #ece7df;
-  --sidebar-border: rgba(236,231,223,.14);
-  --sidebar-ring: #cf3a2e;
+  --sidebar: var(--kg-sumi);
+  --sidebar-foreground: var(--kg-paper);
+  --sidebar-primary: var(--kg-accent);
+  --sidebar-primary-foreground: var(--kg-paper);
+  --sidebar-accent: var(--kg-sumi2);
+  --sidebar-accent-foreground: var(--kg-paper);
+  --sidebar-border: rgba(var(--kg-paper-rgb),.14);
+  --sidebar-ring: var(--kg-accent);
 }
 
 .dark {
-  --background: #0a0a0b;
-  --foreground: #ece7df;
-  --card: #111114;
-  --card-foreground: #ece7df;
-  --popover: #17171b;
-  --popover-foreground: #ece7df;
-  --primary: #cf3a2e;
-  --primary-foreground: #ece7df;
-  --secondary: #17171b;
-  --secondary-foreground: #ece7df;
-  --muted: #17171b;
-  --muted-foreground: #b9b4ac;
-  --accent: #b8935a;
-  --accent-foreground: #0a0a0b;
+  --background: var(--kg-ink);
+  --foreground: var(--kg-paper);
+  --card: var(--kg-sumi);
+  --card-foreground: var(--kg-paper);
+  --popover: var(--kg-sumi2);
+  --popover-foreground: var(--kg-paper);
+  --primary: var(--kg-accent);
+  --primary-foreground: var(--kg-paper);
+  --secondary: var(--kg-sumi2);
+  --secondary-foreground: var(--kg-paper);
+  --muted: var(--kg-sumi2);
+  --muted-foreground: var(--kg-paper-dim);
+  --accent: var(--kg-gold);
+  --accent-foreground: var(--kg-ink);
   --destructive: #c0392b;
-  --border: rgba(236,231,223,.14);
-  --input: rgba(236,231,223,.14);
-  --ring: #cf3a2e;
-  --chart-1: #cf3a2e;
-  --chart-2: #b8935a;
+  --border: rgba(var(--kg-paper-rgb),.14);
+  --input: rgba(var(--kg-paper-rgb),.14);
+  --ring: var(--kg-accent);
+  --chart-1: var(--kg-accent);
+  --chart-2: var(--kg-gold);
   --chart-3: #6f8f6a;
-  --chart-4: #7d7871;
-  --chart-5: #b9b4ac;
-  --sidebar: #111114;
-  --sidebar-foreground: #ece7df;
-  --sidebar-primary: #cf3a2e;
-  --sidebar-primary-foreground: #ece7df;
-  --sidebar-accent: #17171b;
-  --sidebar-accent-foreground: #ece7df;
-  --sidebar-border: rgba(236,231,223,.14);
-  --sidebar-ring: #cf3a2e;
+  --chart-4: var(--kg-mist);
+  --chart-5: var(--kg-paper-dim);
+  --sidebar: var(--kg-sumi);
+  --sidebar-foreground: var(--kg-paper);
+  --sidebar-primary: var(--kg-accent);
+  --sidebar-primary-foreground: var(--kg-paper);
+  --sidebar-accent: var(--kg-sumi2);
+  --sidebar-accent-foreground: var(--kg-paper);
+  --sidebar-border: rgba(var(--kg-paper-rgb),.14);
+  --sidebar-ring: var(--kg-accent);
 }
 
 @layer base {
@@ -148,41 +157,41 @@
 
 /* =========================================================
    キンギョ UI キット（宴会ゲームズ 共通クラス）
-   墨 #0a0a0b / 朱 #cf3a2e / 金 #b8935a / 紙 #ece7df
+   墨 var(--kg-ink) / 朱 var(--kg-accent) / 金 var(--kg-gold) / 紙 var(--kg-paper)
    ========================================================= */
-.kg-page{ position:relative; min-height:100dvh; background:#0a0a0b; color:#ece7df; overflow-x:hidden; }
+.kg-page{ position:relative; min-height:100dvh; background:var(--kg-ink); color:var(--kg-paper); overflow-x:hidden; }
 .kg-wrap{ position:relative; margin-inline:auto; max-width:460px; padding-inline:2rem; }
 /* 上部のほのかな朱の灯り（装飾divに付与） */
 .kg-glow{ pointer-events:none; position:absolute; inset-inline:0; top:0; height:56vh; z-index:0;
-  background:radial-gradient(120% 70% at 50% -10%, rgba(207,58,46,.26) 0%, rgba(207,58,46,.06) 38%, transparent 70%); }
+  background:radial-gradient(120% 70% at 50% -10%, rgba(var(--kg-accent-rgb),.26) 0%, rgba(var(--kg-accent-rgb),.06) 38%, transparent 70%); }
 /* eyebrow（金・Cormorant・レター詰め） */
 .kg-eyebrow{ font-family:var(--font-bebas),"Cormorant Garamond",serif; text-transform:uppercase;
-  letter-spacing:.42em; text-indent:.42em; color:#b8935a; font-size:.62rem; }
+  letter-spacing:.42em; text-indent:.42em; color:var(--kg-gold); font-size:.62rem; }
 /* 見出し（明朝） */
-.kg-h{ font-family:var(--font-dm),"Shippori Mincho",serif; letter-spacing:.06em; color:#ece7df; font-weight:500; }
+.kg-h{ font-family:var(--font-dm),"Shippori Mincho",serif; letter-spacing:.06em; color:var(--kg-paper); font-weight:500; }
 /* 朱のヘアライン */
-.kg-rule{ display:block; height:1px; width:3rem; background:#cf3a2e; }
-.kg-rule--full{ width:100%; background:rgba(236,231,223,.12); }
+.kg-rule{ display:block; height:1px; width:3rem; background:var(--kg-accent); }
+.kg-rule--full{ width:100%; background:rgba(var(--kg-paper-rgb),.12); }
 /* ボタン群 */
 .kg-btn{ display:flex; align-items:center; justify-content:center; gap:.6em; width:100%;
   min-height:56px; padding-inline:1.2rem; font-family:var(--font-dm),"Shippori Mincho",serif;
   letter-spacing:.14em; font-size:.98rem; border:0; cursor:pointer; transition:all .3s var(--ease); text-align:center; }
-.kg-btn--primary{ background:#cf3a2e; color:#ece7df; box-shadow:0 14px 40px rgba(207,58,46,.26); }
-.kg-btn--primary:hover{ background:#d8483c; }
-.kg-btn--primary:active{ background:#a12417; }
-.kg-btn--gold{ background:transparent; color:#b8935a; border:1px solid rgba(184,147,90,.45); }
-.kg-btn--gold:hover{ border-color:#b8935a; background:rgba(184,147,90,.06); }
-.kg-btn--ghost{ background:transparent; color:rgba(236,231,223,.85); border:1px solid rgba(236,231,223,.16); }
-.kg-btn--ghost:hover{ border-color:rgba(236,231,223,.4); }
+.kg-btn--primary{ background:var(--kg-accent); color:var(--kg-paper); box-shadow:0 14px 40px rgba(var(--kg-accent-rgb),.26); }
+.kg-btn--primary:hover{ background:var(--kg-accent-hover); }
+.kg-btn--primary:active{ background:var(--kg-accent-deep); }
+.kg-btn--gold{ background:transparent; color:var(--kg-gold); border:1px solid rgba(var(--kg-gold-rgb),.45); }
+.kg-btn--gold:hover{ border-color:var(--kg-gold); background:rgba(var(--kg-gold-rgb),.06); }
+.kg-btn--ghost{ background:transparent; color:rgba(var(--kg-paper-rgb),.85); border:1px solid rgba(var(--kg-paper-rgb),.16); }
+.kg-btn--ghost:hover{ border-color:rgba(var(--kg-paper-rgb),.4); }
 .kg-btn:disabled{ opacity:.4; cursor:not-allowed; }
 /* パネル/カード（墨） */
-.kg-card{ background:#111114; border:1px solid rgba(236,231,223,.1); }
+.kg-card{ background:var(--kg-sumi); border:1px solid rgba(var(--kg-paper-rgb),.1); }
 .kg-card--glow{ box-shadow:0 20px 60px rgba(0,0,0,.5); }
 /* 入力欄 */
-.kg-input{ width:100%; background:#111114; border:1px solid rgba(236,231,223,.16); color:#ece7df;
+.kg-input{ width:100%; background:var(--kg-sumi); border:1px solid rgba(var(--kg-paper-rgb),.16); color:var(--kg-paper);
   padding:.9rem 1rem; font-family:var(--font-sans); font-size:1rem; letter-spacing:.02em; transition:border-color .3s var(--ease); }
-.kg-input::placeholder{ color:#7d7871; }
-.kg-input:focus{ outline:none; border-color:#cf3a2e; }
+.kg-input::placeholder{ color:var(--kg-mist); }
+.kg-input:focus{ outline:none; border-color:var(--kg-accent); }
 /* ラベル/補助テキスト */
-.kg-label{ font-size:.7rem; letter-spacing:.16em; color:#b9b4ac; }
-.kg-muted{ color:#7d7871; }
+.kg-label{ font-size:.7rem; letter-spacing:.16em; color:var(--kg-paper-dim); }
+.kg-muted{ color:var(--kg-mist); }
