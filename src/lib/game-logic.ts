@@ -4,6 +4,8 @@ import type { AnswerTarget, Game, Player, Answer, Question, Score } from '@/type
 export const PLAYER_PLACEHOLDER = /^[A-Z]さん$|^プレイヤー[A-Z]$/;
 /** キャストプレースホルダ（キャストA）。 */
 export const CAST_PLACEHOLDER = /^キャスト[A-Z]$/;
+/** 自己参照の固定肢。参加者を実名で並べる players 設問では冗長なので落とす。 */
+export const SELF_LITERAL = /^(自分|自分自身|私)$/;
 
 /**
  * 設問の選択肢を解決する唯一の関数。
@@ -20,7 +22,8 @@ export function resolveOptions(
   const target: AnswerTarget = q.answerTarget ?? 'fixed';
   if (target === 'players') {
     if (ctx.playerNames.length === 0) return q.options; // 0名なら維持
-    const extras = q.options.filter((o) => !PLAYER_PLACEHOLDER.test(o));
+    // プレースホルダ枠と「自分」(冗長な自己参照)を除いた固定肢のみ残す
+    const extras = q.options.filter((o) => !PLAYER_PLACEHOLDER.test(o) && !SELF_LITERAL.test(o));
     return [...ctx.playerNames, ...extras];
   }
   if (target === 'casts') {
