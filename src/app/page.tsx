@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { getBrandServer } from '@/lib/brand-server';
+import CgirlHome from '@/components/cgirl/CgirlHome';
 
 export default async function LandingPage() {
   const t = await getTranslations('landing');
   const brand = await getBrandServer();
+
+  if (brand.id === 'cgirl') return <CgirlHome />;
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--kg-ink)] text-[var(--kg-paper)]">

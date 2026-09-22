@@ -195,3 +195,17 @@
 /* ラベル/補助テキスト */
 .kg-label{ font-size:.7rem; letter-spacing:.16em; color:var(--kg-paper-dim); }
 .kg-muted{ color:var(--kg-mist); }
+
+/* C-GIRL: carry the neon identity through the shared game screens. */
+html[data-brand="cgirl"] {
+  --font-dm: var(--font-sans), sans-serif;
+  --font-bebas: Arial, sans-serif;
+  --kg-gold: #7cddf5;
+  --kg-gold-rgb: 124,221,245;
+}
+html[data-brand="cgirl"] .kg-grain::after { display:none; }
+html[data-brand="cgirl"] .kg-btn { border-radius:10px; font-weight:700; letter-spacing:.04em; }
+html[data-brand="cgirl"] .kg-card { border-radius:12px; }
+html[data-brand="cgirl"] .kg-input { border-radius:8px; }
+html[data-brand="cgirl"] .kg-h { font-weight:700; letter-spacing:.02em; }
+html[data-brand="cgirl"] :is(a,button,input,textarea):focus-visible { outline:2px solid #7cddf5; outline-offset:4px; }

@@ -63,6 +63,7 @@ export default async function RootLayout({
   return (
     <html
       lang="ja"
+      data-brand={brand.id}
       className={`dark ${zenKaku.variable} ${cormorant.variable} ${shippori.variable} h-full antialiased`}
     >
       <head>
