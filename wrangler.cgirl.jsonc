@@ -1,0 +1,37 @@
+{
+  // C-GIRL 用の2つ目のWorker。コードは共有、D1(データ/プリセット)も共有。
+  // ドメインで店が判定されるので、このWorkerのworkers.devホストを brands.ts の cgirl.domains に登録している。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "c-girl-games",
+  "main": "worker.ts",
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "PARTYRANT_AI_UNLIMITED": "1"
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "partyrant-jp",
+      "database_id": "495a6315-6dd2-4bbe-aaaa-852ff6b98851"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "GAME_ROOM",
+        "class_name": "GameRoom"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["GameRoom"]
+    }
+  ]
+}

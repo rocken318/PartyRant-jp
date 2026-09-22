@@ -70,7 +70,8 @@ const CGIRL: Brand = {
     paperDim: '#cbb9c6',
     mist: '#9a8b96',
   },
-  domains: [],
+  // C-GIRL 専用Worker(無料workers.devサブドメイン)。独自ドメイン取得後はここに追記。
+  domains: ['c-girl-games.rocken318.workers.dev'],
 };
 
 export const BRANDS: Record<string, Brand> = {
