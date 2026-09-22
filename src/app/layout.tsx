@@ -14,6 +14,7 @@ const zenKaku = Zen_Kaku_Gothic_New({
   variable: '--font-sans',
   subsets: ['latin'],
   display: 'swap',
+  preload: false, // CJKフォントは数百subsetを全preloadすると重すぎるため遅延読込
 });
 
 const cormorant = Cormorant_Garamond({
@@ -29,6 +30,7 @@ const shippori = Shippori_Mincho({
   variable: '--font-dm',
   subsets: ['latin'],
   display: 'swap',
+  preload: false, // CJKフォントは数百subsetを全preloadすると重すぎるため遅延読込
 });
 
 export async function generateMetadata(): Promise<Metadata> {
