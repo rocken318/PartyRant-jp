@@ -584,7 +584,8 @@ export default function PresetsPage() {
             </>
           )}
 
-          {/* センキャバ バナー */}
+          {/* センキャバ バナー（いったん非表示。戻すときは false を true に） */}
+          {false && (
           <a
             href="https://www.sencaba.com/download"
             target="_blank"
@@ -602,6 +603,7 @@ export default function PresetsPage() {
               DL
             </span>
           </a>
+          )}
         </div>
       </div>
       <PresetPreviewDrawer

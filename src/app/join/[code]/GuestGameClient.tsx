@@ -11,7 +11,10 @@ import { AnswerButton } from '@/components/AnswerButton';
 import { CountdownTimer } from '@/components/CountdownTimer';
 
 // センキャバ 誘導バナー（墨カード＋金の細字リンク）
+const SENCABA_ENABLED = false; // いったん非表示。戻すときは true に。
+
 function SencabaBanner({ compact = false }: { compact?: boolean }) {
+  if (!SENCABA_ENABLED) return null;
   return (
     <a
       href="https://www.sencaba.com/download"

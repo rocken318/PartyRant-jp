@@ -816,7 +816,8 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               );
             })()}
 
-            {/* センキャバ バナー */}
+            {/* センキャバ バナー（いったん非表示。戻すときは false を true に） */}
+            {false && (
             <a
               href="https://www.sencaba.com/download"
               target="_blank"
@@ -832,6 +833,7 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
               </div>
               <span className="shrink-0 text-[0.62rem] text-[var(--kg-gold)] border border-[rgba(var(--kg-gold-rgb),.45)] px-2.5 py-1" style={{ letterSpacing: '0.1em' }}>DL</span>
             </a>
+            )}
 
             <button
               type="button"
