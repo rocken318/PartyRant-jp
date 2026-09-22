@@ -33,6 +33,7 @@ type Action =
   | { type: 'ERROR'; message: string }
   | { type: 'GAME_UPDATED'; game: Game }
   | { type: 'PLAYER_JOINED'; player: Player }
+  | { type: 'PLAYERS_SET'; players: Player[] }
   | { type: 'ANSWER_SUBMITTED'; answer: Answer }
   | { type: 'SCORES_LOADED'; scores: Score[] }
   | { type: 'OPINION_RESULTS_LOADED'; opinionResults: OpinionResult[] }
@@ -52,6 +53,8 @@ function reducer(state: State, action: Action): State {
     case 'PLAYER_JOINED':
       if (state.players.some((p) => p.id === action.player.id)) return state;
       return { ...state, players: [...state.players, action.player] };
+    case 'PLAYERS_SET':
+      return { ...state, players: action.players };
     case 'ANSWER_SUBMITTED':
       if (state.answers.some((a) => a.id === action.answer.id)) return state;
       return { ...state, answers: [...state.answers, action.answer] };
@@ -330,6 +333,18 @@ export function PlayGameClient({ gameId }: { gameId: string }) {
   }, [gameId]);
 
   useGameStream(gameId, handleEvent);
+
+  // 保険: ロビー中はSSEを取りこぼしても人数/名前が自動回復するよう定期再取得
+  useEffect(() => {
+    if (!gameId || game?.status !== 'lobby') return;
+    const id = setInterval(() => {
+      fetch(`/api/games/${gameId}/players`)
+        .then((r) => (r.ok ? (r.json() as Promise<Player[]>) : null))
+        .then((players) => { if (players) dispatch({ type: 'PLAYERS_SET', players }); })
+        .catch(() => {});
+    }, 3000);
+    return () => clearInterval(id);
+  }, [gameId, game?.status]);
 
   const handleAdvance = async () => {
     const updated = await advanceGame(gameId);
