@@ -27,7 +27,8 @@ const isCastPlaceholder = (o: string): boolean => /^キャスト[A-Z]$/.test(o);
 function classifyAnswerTarget(q: PresetQuestion, scene: string): AnswerTarget {
   const opts = q.options ?? [];
   if (scene === 'キャスト指名' || opts.some(isCastPlaceholder)) return 'casts';
-  if (opts.length > 0 && opts.every(isPlayerPlaceholder)) return 'players';
+  // プレースホルダを1つでも含めば players（「プレイヤーA/B/C＋自分」等の混在に対応）
+  if (opts.some(isPlayerPlaceholder)) return 'players';
   return 'fixed';
 }
 

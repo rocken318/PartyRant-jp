@@ -13,11 +13,12 @@ function isPlayerPlaceholder(opt: string): boolean {
 
 /**
  * Phase1 後方互換: answerTarget 未定義の旧設問を、現行 regex 判定で players 相当とみなす。
- * options 全てがプレースホルダなら players として扱う。
+ * 「プレイヤーA/B/C＋自分」等の混在設問にも対応するため、
+ * プレースホルダを1つでも含めば players 相当とする（some）。
  * （Phase3 で削除予定）
  */
 function legacyIsPlayersQuestion(q: Question): boolean {
-  return q.options.length > 0 && q.options.every((opt) => isPlayerPlaceholder(opt));
+  return q.options.some((opt) => isPlayerPlaceholder(opt));
 }
 
 export async function POST(

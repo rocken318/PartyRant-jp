@@ -1,25 +1,34 @@
 import type { AnswerTarget, Game, Player, Answer, Question, Score } from '@/types/domain';
 
+/** 参加者プレースホルダ（プレイヤーA / Aさん）。 */
+export const PLAYER_PLACEHOLDER = /^[A-Z]さん$|^プレイヤー[A-Z]$/;
+/** キャストプレースホルダ（キャストA）。 */
+export const CAST_PLACEHOLDER = /^キャスト[A-Z]$/;
+
 /**
  * 設問の選択肢を解決する唯一の関数。
- * - players: 参加者名で解決
- * - casts:   キャスト名で解決（Phase1 は casts 源が未整備なら現状の q.options を維持）
- * - fixed(既定): q.options をそのまま
+ * 「プレイヤーA/B/C＋自分」のような混在設問に対応:
+ *   プレースホルダ枠は実名(参加者/キャスト)で置換し、それ以外の固定肢(自分/お客様本人 等)は保持。
+ * - players: プレースホルダを参加者名に。参加者0名なら置換せず原文維持。
+ * - casts:   プレースホルダをキャスト名に。キャスト未設定なら原文維持。
+ * - fixed(既定): q.options をそのまま。
  */
 export function resolveOptions(
   q: Question,
   ctx: { playerNames: string[]; casts: string[] }
 ): string[] {
   const target: AnswerTarget = q.answerTarget ?? 'fixed';
-  switch (target) {
-    case 'players':
-      return ctx.playerNames;
-    case 'casts':
-      return ctx.casts.length ? ctx.casts : q.options;
-    case 'fixed':
-    default:
-      return q.options;
+  if (target === 'players') {
+    if (ctx.playerNames.length === 0) return q.options; // 0名なら維持
+    const extras = q.options.filter((o) => !PLAYER_PLACEHOLDER.test(o));
+    return [...ctx.playerNames, ...extras];
   }
+  if (target === 'casts') {
+    if (ctx.casts.length === 0) return q.options; // 未設定なら維持
+    const extras = q.options.filter((o) => !CAST_PLACEHOLDER.test(o));
+    return [...ctx.casts, ...extras];
+  }
+  return q.options;
 }
 
 /**
